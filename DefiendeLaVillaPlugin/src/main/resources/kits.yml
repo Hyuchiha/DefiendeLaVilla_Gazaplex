@@ -1,0 +1,12 @@
+#This points are for all the playes and are required for unlock 
+# a new class if a player doesn't has permission
+Class_Point:
+    CIVIL: 0
+    TANQUE: 25000
+    PYRO: 25000
+    COMANDO: 25000
+    CONGELADOR: 25000
+    INVOCADOR: 25000
+    CAZADOR: 25000
+    MERCADER: 50000
+    THOR: 25000

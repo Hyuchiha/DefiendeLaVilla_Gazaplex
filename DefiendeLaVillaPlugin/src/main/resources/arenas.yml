@@ -1,0 +1,20 @@
+#Este es el spawn principal, donde se transportaran a los jugadores
+#al finalizar la partida
+Spawn: 
+    lobbyLocation: "0,0,0"
+    worldName: "world"
+#Esta es la configuracion de las arenas debe ser el mismo nombre del mapa
+#Example:
+    #El letrero por el cual podran acceder a dicha arena
+#    sign: "0,0,0"
+    #Esta es la sala de espera de dicha arena, cada arena debe tener una propia
+#    lobby: "0,0,0"
+    #Este sera el punto de aparicion del jugador en la arena, solamente sera una
+#    spawn: "0,0,0"
+    #Estos seran los puntos de aparicion de los mobs y de los aldeanos durante
+    #la partida, se pueden agregar los q sean necesarios
+#    mobspawns: 
+#        - "0,0,0"
+#        - "0,0,0"
+    #El numero maximo de jugadores que pueden haber en dicha partida
+ #   maxPlayers: 10

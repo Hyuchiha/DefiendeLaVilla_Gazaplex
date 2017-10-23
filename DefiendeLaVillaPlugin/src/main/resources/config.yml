@@ -1,0 +1,102 @@
+#Vinculacion con BungeeCoord
+ServerToConnect: "lobby"
+#El uso de mysql es obligatorio
+MySQL:
+    port: 3306
+    user: "root"
+    pass: "root"
+    host: "localhost"
+    name: "village_defense"
+#La configuracion de las fases
+Game:
+    #Esta es la config del numero de fases que deben pasar
+    #para que el jugador obtenga dinero
+    moneyAt: 5
+    #Esta es la cantidad de dinero que ganara
+    money: 100
+    #Numero de fases que debe pasar para cambiar la tienda
+    shopWaveChange: 10
+    #Numero de fases a pasar para que aparezca un boss
+    bossWaveAt: 5
+    #Dificultad inicial puede ser apartir de 15 o mas no debe ser menor
+    #a la dificultad del mob mas debil
+    difficulty: 25
+    #Este dinero se otorgara al finalizar cada fase (son gemas) e ira aumentando
+    gems-wave-finish: 20
+    #Se otorgara dinero por matar a un boss
+    money-boss-kill: 500
+    #Cada cuando sucederan eventos especiales
+    wave-event-at: 5
+#El manejo de los tiempos durante la arena
+Timers:
+    #El tiempo que tardara en iniciarse la arena cuando este completa en segundos
+    lobby: 30
+    #Tiempo de espera entre fase y fase
+    between-fase: 10
+#Manejo de los Mobs, dificultad y gemas a dar
+Mobs:
+    #Cada mob declarado aqui es de los que existiran en el juego
+    #En un futuro se podran desactivar o no algunos
+    #La dificultad servira para determinar cuantas veces aparece
+    #mientras mas alto menos aparece
+    #los mobs a aparecer se calculan como difficultadDeWave / dificultadMob 
+    #max y min gems se refiere al rango de gemas que dropeara
+    CreeperChargedMob:
+        difficulty: 30
+        min-gems: 10
+        max-gems:  30
+        spawnAt: 30
+    CreeperMob:
+        difficulty: 15
+        min-gems: 5
+        max-gems: 20
+        spawnAt: 10
+    PigmanMob:
+        difficulty: 40
+        min-gems: 10
+        max-gems: 50
+        spawnAt: 15
+    SkeletonMob:
+        difficulty: 8
+        min-gems: 5
+        max-gems: 15
+        spawnAt: 5
+    SpiderMob:
+        difficulty: 20
+        min-gems: 2
+        max-gems: 13
+        spawnAt: 8
+    SpiderCaveMob:
+        difficulty: 10
+        min-gems: 5
+        max-gems: 10
+        spawnAt: 12
+    WhiterSkullMob:
+        difficulty: 20
+        min-gems: 5
+        max-gems: 15
+        spawnAt: 17
+    WitchMob:
+        difficulty: 12
+        min-gems: 7
+        max-gems: 20
+        spawnAt: 7
+    ZombieMob:
+        difficulty: 5
+        min-gems: 2
+        max-gems: 10
+        spawnAt: 1
+    Tank:
+        difficulty: 1000
+        min-gems: 100
+        max-gems: 200
+        spawnAt: 40
+Bosses:
+    MagmaBoss:
+        min-gems: 20
+        max-gems: 40
+        name: "Mr_Angry"
+    SlimeBoss:
+        min-gems: 20
+        max-gems: 40
+        name: "Mr_Happy"
