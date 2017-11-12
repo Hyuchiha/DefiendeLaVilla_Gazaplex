@@ -9,6 +9,7 @@ import com.google.common.base.Predicate;
 import com.hyuchiha.village_defense.Mobs.MobUtils;
 import net.minecraft.server.v1_11_R1.*;
 
+import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
@@ -38,15 +39,13 @@ public class CustomIronGolem extends EntityIronGolem {
         this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
         this.targetSelector.a(1, new PathfinderGoalDefendVillage(this));
         this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
-        this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 10, false, true, new Predicate() {
-            public boolean a(EntityHuman entityinsentient) {
-                return (entityinsentient != null);
-            }
-
-            @Override
-            public boolean apply(Object object) {
-                return true;
-            }
-        }));
+        this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget<>(this, EntityHuman.class, 10, false, true,
+                new Predicate<EntityHuman>() {
+                    @Override
+                    public boolean apply(@Nullable EntityHuman entityHuman) {
+                        return true;
+                    }
+                }
+        ));
     }
 }

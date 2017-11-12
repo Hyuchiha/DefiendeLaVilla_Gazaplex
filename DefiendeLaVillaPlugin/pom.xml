@@ -95,6 +95,7 @@
                                     <include>org.inventivetalent:reflectionhelper**</include>
                                     <include>com.hyuchiha.gazaplex:MobBase**</include>
                                     <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

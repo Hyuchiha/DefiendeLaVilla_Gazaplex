@@ -28,7 +28,7 @@ public enum CustomEntityType implements EntityType {
     CUSTOM_IRONGOLEM("VillagerGolem", 99, CustomIronGolem.class),
     CUSTOM_CREEPER("Creeper", 50, CustomCreeper.class),
     CUSTOM_CAVESPIDER("CaveSpider", 59, CustomCaveSpider.class),
-    CUSTOM_MAGMA_CUBE("MagmaCube", 62, CustomMagmaCube.class),
+    CUSTOM_MAGMA_CUBE("MagmaB", 62, CustomMagmaCube.class),
     CUSTOM_SLIME("Slime", 55, CustomSlime.class),
     CUSTOM_GIANT("Giant", 53, CustomGiant.class),
     CUSTOM_WITHER("Wither", 64, CustomWither.class);
