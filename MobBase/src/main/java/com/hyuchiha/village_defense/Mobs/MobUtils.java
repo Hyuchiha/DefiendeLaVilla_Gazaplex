@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hyuchiha.village_defense.Utils;
+package com.hyuchiha.village_defense.Mobs;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.Field;
 import java.util.Random;
@@ -248,6 +251,50 @@ public class MobUtils {
                 break;
         }
         return Leggings;
+    }
+
+    public static void addRandomPotionEffects(int waveNumber, LivingEntity entity) {
+        Random ran = new Random();
+
+        int potionsToApply = ran.nextInt(waveNumber)%3;
+
+        for (int i = 0; i < potionsToApply; i++) {
+            int potion = ran.nextInt(10);
+
+            switch (potion) {
+                case 1:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+                    break;
+                case 2:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 3));
+                    break;
+                case 3:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 3));
+                    break;
+                case 4:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 3));
+                    break;
+                case 5:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 3));
+                    break;
+                case 6:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, 3));
+                    break;
+                case 7:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 3));
+                    break;
+                case 8:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 3));
+                    break;
+                case 9:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
+                    break;
+                case 10:
+                    entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 5));
+                    break;
+            }
+
+        }
     }
 
     public static Object getPrivateField(String fieldName, Class clazz, Object object) {

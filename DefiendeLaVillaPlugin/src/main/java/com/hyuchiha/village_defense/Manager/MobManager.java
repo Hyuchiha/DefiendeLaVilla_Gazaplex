@@ -8,8 +8,11 @@ package com.hyuchiha.village_defense.Manager;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
+import com.hyuchiha.village_defense.Mobs.MobCreator;
+import com.hyuchiha.village_defense.Mobs.v1_11_R1.MobCreator_v1_11_R1;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.configuration.Configuration;
+import org.inventivetalent.reflection.minecraft.Minecraft;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -22,30 +25,26 @@ public class MobManager {
     
     private static final ArrayList<EnemyIA> enemyObjects = new ArrayList<>();
     private static final ArrayList<BossEnemy> bossEnemyObjects = new ArrayList<>();
-    
+
     public static void registerMobs(){
         Output.log("Registrando mounstruos");
         Configuration config = Main.getInstance().getConfig("config.yml");
 
-        /*
-        enemyObjects.add(new ZombieMob(config.getConfigurationSection("Mobs.ZombieMob")));
-        enemyObjects.add(new PigmanMob(config.getConfigurationSection("Mobs.PigmanMob")));
-        enemyObjects.add(new SkeletonMob(config.getConfigurationSection("Mobs.SkeletonMob")));
-        enemyObjects.add(new SpiderMob(config.getConfigurationSection("Mobs.SpiderMob")));
-        enemyObjects.add(new SpiderCaveMob(config.getConfigurationSection("Mobs.SpiderCaveMob")));
-        enemyObjects.add(new WitchMob(config.getConfigurationSection("Mobs.WitchMob")));
-        enemyObjects.add(new WhiterSkullMob(config.getConfigurationSection("Mobs.WhiterSkullMob")));
-        enemyObjects.add(new CreeperMob(config.getConfigurationSection("Mobs.CreeperMob")));
-        enemyObjects.add(new CreeperChargedMob(config.getConfigurationSection("Mobs.CreeperChargedMob")));
-        enemyObjects.add(new Tank(config.getConfigurationSection("Mobs.Tank")));
-        
-        Output.log("Registrando bosses");
-        bossEnemyObjects.add(new MagmaBoss(config.getConfigurationSection("Bosses.MagmaBoss")));
-        bossEnemyObjects.add(new SlimeBoss(config.getConfigurationSection("Bosses.SlimeBoss")));*/
+        MobCreator creator = null;
+
+        switch (Minecraft.Version.getVersion()){
+            case v1_11_R1:
+            default:
+                creator = new MobCreator_v1_11_R1();
+                break;
+        }
+
+        enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
+        bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
     }
 
     public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty){
-        ArrayList<EnemyIA> enemies = new ArrayList();
+        ArrayList<EnemyIA> enemies = new ArrayList<>();
         Random random = new Random();
         
         for(EnemyIA enemy : enemyObjects){

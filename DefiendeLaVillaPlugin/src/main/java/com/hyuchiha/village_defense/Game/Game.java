@@ -9,7 +9,6 @@ import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardManager;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
-import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;

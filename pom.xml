@@ -17,6 +17,7 @@
     <modules>
         <module>DefiendeLaVillaPlugin</module>
         <module>MobBase</module>
+        <module>v1_11_R1</module>
     </modules>
 
 </project>
