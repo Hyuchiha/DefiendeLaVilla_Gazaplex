@@ -9,11 +9,9 @@ import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.CustomEvents.ItemPurchaseEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
-import com.hyuchiha.village_defense.Game.ShopItem;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Utils.KitUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -80,7 +78,7 @@ public class KitListener implements Listener {
                                 int amount = player.getItemInHand().getAmount() - 1;
                                 
                                 if (amount <= 0) {
-                                    player.getInventory().removeItem(new ItemStack[]{player.getItemInHand()});
+                                    player.getInventory().removeItem(player.getItemInHand());
                                 } else {
                                     player.getItemInHand().setAmount(amount);
                                 }

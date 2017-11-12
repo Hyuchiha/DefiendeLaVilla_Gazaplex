@@ -9,12 +9,9 @@ import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;
 import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import net.milkbowl.vault.Vault;
-import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.logging.Level;
@@ -27,7 +24,6 @@ public class Main extends JavaPlugin {
     }
 
     private ConfigManager config;
-    private Economy economy;
 
     @Override
     public void onEnable() {
@@ -50,9 +46,8 @@ public class Main extends JavaPlugin {
         registerListeners();
         registerCommands();
 
-        hookChat();
+        hookVault();
         hookBungeeCord();
-        registerEconomy();
     }
 
     @Override
@@ -64,13 +59,14 @@ public class Main extends JavaPlugin {
         Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
-    public void hookChat() {
+    public void hookVault() {
         Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
 
             @Override
             public void run() {
                 if (getServer().getPluginManager().isPluginEnabled("Vault")) {
                     VaultHooks.vault = true;
+
                     if (!VaultHooks.instance().setupPermissions()) {
                         VaultHooks.vault = false;
                         getLogger().warning("Unable to load Vault: No permission plugin found.");
@@ -79,25 +75,17 @@ public class Main extends JavaPlugin {
                             VaultHooks.vault = false;
                             getLogger().warning("Unable to load Vault: No chat plugin found.");
                         } else {
-                            getLogger().info("Vault hook initalized!");
+                            if (!VaultHooks.instance().setupEconomy()) {
+                                VaultHooks.vault = false;
+                                getLogger().warning("Unable to load Vault: No economy plugin found.");
+                            } else {
+                                getLogger().info("Vault hook initalized!");
+                            }
                         }
                     }
-                } else {
-                    getLogger().warning("Vault not found! Permissions features disabled.");
                 }
             }
         }, 40L);
-    }
-
-    public void registerEconomy() {
-        if ((Bukkit.getPluginManager().getPlugin("Vault") instanceof Vault)) {
-            RegisteredServiceProvider<Economy> service = Bukkit.getServicesManager().getRegistration(Economy.class);
-            if (service != null) {
-                this.economy = service.getProvider();
-            }
-        } else {
-            getLogger().warning("Vault not found! Rewards features disabled.");
-        }
     }
 
     public void registerListeners() {
@@ -122,10 +110,6 @@ public class Main extends JavaPlugin {
 
     public Configuration getConfig(String configName) {
         return config.getConfig(configName);
-    }
-
-    public Economy getEconomy() {
-        return economy;
     }
 
     public String getPrefix() {

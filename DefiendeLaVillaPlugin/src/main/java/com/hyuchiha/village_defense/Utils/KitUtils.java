@@ -35,7 +35,7 @@ public class KitUtils {
         int i = 0;
         for (World w : p.getServer().getWorlds()) {
             for (LivingEntity e : w.getLivingEntities()) {
-                if (e instanceof Wolf && ((Wolf) e).isTamed() && p.equals((Player) ((Wolf) e).getOwner())) {
+                if (e instanceof Wolf && ((Wolf) e).isTamed() && p.equals(((Wolf) e).getOwner())) {
                     i++;
                 }
             }

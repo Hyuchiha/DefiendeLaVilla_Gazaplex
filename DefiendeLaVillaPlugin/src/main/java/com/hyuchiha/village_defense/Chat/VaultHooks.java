@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Chat;
 
 import net.milkbowl.vault.chat.Chat;
+import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -11,9 +12,9 @@ public class VaultHooks {
 
     private static VaultHooks inst;
 
-
     public static Permission permission;
     public static Chat chat;
+    public static Economy economy;
 
     public static VaultHooks instance() {
         if (vault) {
@@ -32,6 +33,10 @@ public class VaultHooks {
         return chat;
     }
 
+    public static Economy getEconomyManager() {
+        return economy;
+    }
+
     public static String getGroup(String name)
     {
         if (!vault) return "";
@@ -43,10 +48,6 @@ public class VaultHooks {
             prefix = VaultHooks.getChatManager().getGroupPrefix(Bukkit.getPlayer(name).getWorld(), group);
         
         return ChatColor.translateAlternateColorCodes('&', prefix);
-    }
-
-    private VaultHooks() {
-
     }
 
     public boolean setupPermissions() {
@@ -71,5 +72,17 @@ public class VaultHooks {
         }
 
         return (chat != null);
+    }
+
+    public boolean setupEconomy() {
+        if (!vault)
+            return false;
+
+        RegisteredServiceProvider<Economy> service = Bukkit.getServicesManager().getRegistration(Economy.class);
+        if (service != null) {
+            economy = service.getProvider();
+        }
+
+        return (economy != null);
     }
 }

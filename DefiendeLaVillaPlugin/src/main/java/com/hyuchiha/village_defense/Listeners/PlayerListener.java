@@ -30,7 +30,6 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.plugin.Plugin;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -195,7 +194,7 @@ public class PlayerListener implements Listener {
                                         final DataOutputStream out = new DataOutputStream(b);
                                         out.writeUTF("Connect");
                                         out.writeUTF(ServerExit);
-                                        player.sendPluginMessage((Plugin) this.plugin, "BungeeCord", b.toByteArray());
+                                        player.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());
                                         b.close();
                                         out.close();
                                     } catch (Exception error) {

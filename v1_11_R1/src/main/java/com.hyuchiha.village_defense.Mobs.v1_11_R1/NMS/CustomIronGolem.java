@@ -37,7 +37,7 @@ public class CustomIronGolem extends EntityIronGolem {
         this.goalSelector.a(7, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 6.0F));
         this.goalSelector.a(8, new PathfinderGoalRandomLookaround(this));
         this.targetSelector.a(1, new PathfinderGoalDefendVillage(this));
-        this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false, new Class[0]));
+        this.targetSelector.a(2, new PathfinderGoalHurtByTarget(this, false));
         this.targetSelector.a(3, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, 10, false, true, new Predicate() {
             public boolean a(EntityHuman entityinsentient) {
                 return (entityinsentient != null);

@@ -5,9 +5,9 @@
  */
 package com.hyuchiha.village_defense.Manager;
 
-import com.hyuchiha.village_defense.Main;
-import com.hyuchiha.village_defense.Messages.Translator;
+import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -43,40 +43,43 @@ public class PlayerManager {
     }
 
     public static void addMoney(Player p, double money) {
-        try {
-            if (!Main.getInstance().getEconomy().hasAccount(p.getName())) {
-                Main.getInstance().getEconomy().createPlayerAccount(p.getName());
-            }
-            
-            p.sendMessage(Translator.change("PLAYER_MONEY_GRANT").replace("%MONEY%", Double.toString(money)));
-            Main.getInstance().getEconomy().depositPlayer(p.getName(), money);
-            
-        } catch (NullPointerException e) {
-
+        if (!VaultHooks.vault) {
+            return;
         }
+
+        if (!VaultHooks.getEconomyManager().hasAccount(p)) {
+            VaultHooks.getEconomyManager().createPlayerAccount(p);
+        }
+
+        p.sendMessage(Translator.change("PLAYER_MONEY_GRANT")
+                .replace("%MONEY%", Double.toString(money)));
+        VaultHooks.getEconomyManager().depositPlayer(p, money);
+
     }
 
     public static double getMoney(Player p) {
-        try{
-            if(!Main.getInstance().getEconomy().hasAccount(p.getName())){
-                return 0;
-            }
-            
-            return Main.getInstance().getEconomy().getBalance(p.getName());
-        }catch(NullPointerException e){
-            
+        if (!VaultHooks.vault) {
+            return 0;
         }
-        
-        return 0;
+
+        if (!VaultHooks.getEconomyManager().hasAccount(p)) {
+            return 0;
+        }
+
+        return VaultHooks.getEconomyManager().getBalance(p);
     }
 
     public static boolean withdrawMoney(Player p, double money) {
-        try {
-            Main.getInstance().getEconomy().withdrawPlayer(p.getName(), money);
-            return true;
-        } catch (Exception e) {
-            p.sendMessage(Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
-            return false;
+
+        if (VaultHooks.vault) {
+            if (VaultHooks.getEconomyManager().has(p, money)) {
+                VaultHooks.getEconomyManager().withdrawPlayer(p, money);
+                return true;
+            }
         }
+
+        p.sendMessage(Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+        return false;
+
     }
 }

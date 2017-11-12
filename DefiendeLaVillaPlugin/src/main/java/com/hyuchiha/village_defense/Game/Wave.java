@@ -11,7 +11,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -194,11 +193,7 @@ public class Wave {
     public boolean villagersAreDead() {
         int livingVillagerCount = getNumberOfLiveVillagers();
 
-        if (livingVillagerCount == 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return livingVillagerCount == 0;
     }
 
     public int getNumberOfLiveVillagers() {

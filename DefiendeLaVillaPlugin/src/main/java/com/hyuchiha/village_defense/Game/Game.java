@@ -1,6 +1,5 @@
 package com.hyuchiha.village_defense.Game;
 
-import com.avaje.ebeaninternal.server.lib.util.NotFoundException;
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatUtil;
 import com.hyuchiha.village_defense.CustomEvents.ArenaStartEvent;
@@ -199,11 +198,7 @@ public class Game {
 
     public boolean canInitiateGame() {
         Arena arena = getArena();
-        if (arena != null && arena.getMaxNumberOfPlayers() == gamePlayers.size()) {
-            return true;
-        } else {
-            return false;
-        }
+        return arena != null && arena.getMaxNumberOfPlayers() == gamePlayers.size();
     }
 
     public void sendMessageToPlayers(String message) {
