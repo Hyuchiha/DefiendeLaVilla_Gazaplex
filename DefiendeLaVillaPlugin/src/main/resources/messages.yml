@@ -16,6 +16,7 @@ PLAYER_UNLOCK_CLASS: "&3Haz desbloqueado la clase &6%CLASS%"
 PLAYER_DONT_HAVE_REQUIRED_MONEY: "&4No dispones de fondos suficientes"
 PLAYER_ALREADY_HAVE_CLASS: "&1Esta clase ya te pertenece"
 #Game messages
+PLAYER: "Jugador"
 PLAYER_JOIN_MESSAGE: "&1Bienvenido a Village Defense"
 PLAYER_MONEY_GRANT: "&5Has ganado &6%MONEY% &5puntos"
 PLAYER_JOIN_ARENA: "&3Te has unido a la arena &6%ARENA%"
