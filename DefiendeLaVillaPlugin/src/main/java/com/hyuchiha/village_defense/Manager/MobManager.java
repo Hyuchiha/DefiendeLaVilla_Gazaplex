@@ -9,6 +9,7 @@ import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
 import com.hyuchiha.village_defense.Mobs.MobCreator;
+import com.hyuchiha.village_defense.Mobs.v1_10_R1.MobCreator_v1_10_R1;
 import com.hyuchiha.village_defense.Mobs.v1_11_R1.MobCreator_v1_11_R1;
 import com.hyuchiha.village_defense.Mobs.v1_12_R1.MobCreator_v1_12_R1;
 import com.hyuchiha.village_defense.Output.Output;
@@ -34,6 +35,9 @@ public class MobManager {
         MobCreator creator = null;
 
         switch (Minecraft.Version.getVersion()){
+            case v1_10_R1:
+                creator = new MobCreator_v1_10_R1();
+                break;
             case v1_11_R1:
                 creator = new MobCreator_v1_11_R1();
                 break;

@@ -59,6 +59,11 @@
             <artifactId>v1_12_R1</artifactId>
             <version>v1_12_R1</version>
         </dependency>
+        <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>v1_10_R1</artifactId>
+            <version>v1_10_R1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -96,6 +101,7 @@
                                     <include>com.hyuchiha.gazaplex:MobBase**</include>
                                     <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_10_R1**</include>
                                 </includes>
                             </artifactSet>
                         </configuration>
