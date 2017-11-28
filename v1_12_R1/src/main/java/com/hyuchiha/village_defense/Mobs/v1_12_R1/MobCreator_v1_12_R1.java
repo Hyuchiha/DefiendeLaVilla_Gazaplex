@@ -1,13 +1,13 @@
 package com.hyuchiha.village_defense.Mobs.v1_12_R1;
 
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
+import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.MagmaBoss;
+import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.SlimeBoss;
+import com.hyuchiha.village_defense.Mobs.CustomMob.*;
+import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.GiantMob;
+import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.WitherMob;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
 import com.hyuchiha.village_defense.Mobs.MobCreator;
-import com.hyuchiha.village_defense.Mobs.v1_12_R1.CustomMob.Boss.MagmaB;
-import com.hyuchiha.village_defense.Mobs.v1_12_R1.CustomMob.Boss.SlimeB;
-import com.hyuchiha.village_defense.Mobs.v1_12_R1.CustomMob.*;
-import com.hyuchiha.village_defense.Mobs.v1_12_R1.CustomMob.SpecialMobs.GiantSp;
-import com.hyuchiha.village_defense.Mobs.v1_12_R1.CustomMob.SpecialMobs.WitherSp;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
@@ -18,16 +18,16 @@ public class MobCreator_v1_12_R1 implements MobCreator {
     public List<EnemyIA> createWaveMobs(ConfigurationSection config) {
         List<EnemyIA> mobs = new ArrayList<>();
 
-        mobs.add(new ZombieM(config.getConfigurationSection("ZombieMob")));
-        mobs.add(new PigmanM(config.getConfigurationSection("PigmanMob")));
-        mobs.add(new SkeletonM(config.getConfigurationSection("SkeletonMob")));
-        mobs.add(new SpiderM(config.getConfigurationSection("SpiderMob")));
-        mobs.add(new SpiderCaveM(config.getConfigurationSection("SpiderCaveMob")));
-        mobs.add(new WitchM(config.getConfigurationSection("WitchMob")));
-        mobs.add(new WhiterSkullM(config.getConfigurationSection("WitherSkullMob")));
-        mobs.add(new CreeperM(config.getConfigurationSection("CreeperMob")));
-        mobs.add(new CreeperChargedM(config.getConfigurationSection("CreeperChargedMob")));
-        mobs.add(new TankM(config.getConfigurationSection("Tank")));
+        mobs.add(new ZombieMob(config.getConfigurationSection("Zombie"), CustomEntityType.CUSTOM_ZOMBIE));
+        mobs.add(new PigmanMob(config.getConfigurationSection("Pigman"), CustomEntityType.CUSTOM_PIGZOMBIE));
+        mobs.add(new SkeletonMob(config.getConfigurationSection("Skeleton"), CustomEntityType.CUSTOM_SKELETON));
+        mobs.add(new SpiderMob(config.getConfigurationSection("Spider"), CustomEntityType.CUSTOM_SPIDER));
+        mobs.add(new SpiderCaveMob(config.getConfigurationSection("SpiderCave"), CustomEntityType.CUSTOM_CAVESPIDER));
+        mobs.add(new WitchMob(config.getConfigurationSection("Witch"), CustomEntityType.CUSTOM_WITCH));
+        mobs.add(new WitherSkullMob(config.getConfigurationSection("WhiterSkull"), CustomEntityType.CUSTOM_WITHER_SKELETON));
+        mobs.add(new CreeperMob(config.getConfigurationSection("Creeper"), CustomEntityType.CUSTOM_CREEPER));
+        mobs.add(new CreeperChargedMob(config.getConfigurationSection("CreeperCharged"), CustomEntityType.CUSTOM_CREEPER));
+        mobs.add(new Tank(config.getConfigurationSection("Tank"), CustomEntityType.CUSTOM_IRONGOLEM));
 
         return mobs;
     }
@@ -36,8 +36,8 @@ public class MobCreator_v1_12_R1 implements MobCreator {
     public List<BossEnemy> createBossMobs(ConfigurationSection config) {
         List<BossEnemy> bosses = new ArrayList<>();
 
-        bosses.add(new MagmaB(config.getConfigurationSection("MagmaBoss")));
-        bosses.add(new SlimeB(config.getConfigurationSection("SlimeBoss")));
+        bosses.add(new MagmaBoss(config.getConfigurationSection("MagmaB"), CustomEntityType.CUSTOM_MAGMA_CUBE));
+        bosses.add(new SlimeBoss(config.getConfigurationSection("SlimeB"), CustomEntityType.CUSTOM_SLIME));
 
         return bosses;
     }
@@ -46,8 +46,8 @@ public class MobCreator_v1_12_R1 implements MobCreator {
     public List<BossEnemy> createSpecialMobs() {
         List<BossEnemy> specialsMob = new ArrayList<>();
 
-        specialsMob.add(new GiantSp());
-        specialsMob.add(new WitherSp());
+        specialsMob.add(new GiantMob(CustomEntityType.CUSTOM_GIANT));
+        specialsMob.add(new WitherMob(CustomEntityType.CUSTOM_WITHER));
 
         return specialsMob;
     }
