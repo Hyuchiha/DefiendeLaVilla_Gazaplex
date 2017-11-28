@@ -33,7 +33,7 @@ public enum CustomEntityType implements EntityType {
     CUSTOM_MAGMA_CUBE("MagmaCube", 62, CustomMagmaCube.class),
     CUSTOM_SLIME("Slime", 55, CustomSlime.class),
     CUSTOM_GIANT("Giant", 53, CustomGiant.class),
-    CUSTOM_WITHER("Wither", 64, CustomWither.class);
+    CUSTOM_WITHER("WitherBoss", 64, CustomWither.class);
 
     CustomEntityType(String name, int id, Class<? extends Entity> custom) {
         addToMaps(custom, name, id);
