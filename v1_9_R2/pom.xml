@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>DefiendeLaVilla-parent</artifactId>
+        <groupId>com.hyuchiha.gazaplex</groupId>
+        <version>parent</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>v1_9_R2</artifactId>
+    <version>v1_9_R2</version>
+    <name>Defiende la Villa Mob implementation v1_9_R2</name>
+
+    <repositories>
+        <repository>
+            <id>techcable-repo</id>
+            <url>http://repo.techcable.net/content/groups/public/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot</artifactId>
+            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>MobBase</artifactId>
+            <version>V1.0</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.7</source>
+                    <target>1.7</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

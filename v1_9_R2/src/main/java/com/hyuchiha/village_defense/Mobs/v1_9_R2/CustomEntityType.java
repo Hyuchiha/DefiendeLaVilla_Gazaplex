@@ -3,15 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.hyuchiha.village_defense.Mobs.v1_10_R1;
+package com.hyuchiha.village_defense.Mobs.v1_9_R2;
 
 import com.hyuchiha.village_defense.Mobs.EntityType;
 import com.hyuchiha.village_defense.Mobs.MobUtils;
-import com.hyuchiha.village_defense.Mobs.v1_10_R1.NMS.*;
-import net.minecraft.server.v1_10_R1.Entity;
+import com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS.*;
+import net.minecraft.server.v1_9_R2.Entity;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_10_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_9_R2.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 
 import java.util.Map;
@@ -51,10 +51,10 @@ public enum CustomEntityType implements EntityType {
     public void addToMaps(Class clazz, String name, int id) {
         //getPrivateField is the method from above.
         //Remove the lines with // in front of them if you want to override default entities (You'd have to remove the default entity from the map first though).
-        ((Map) MobUtils.getPrivateField("c", net.minecraft.server.v1_10_R1.EntityTypes.class, null)).put(name, clazz);
-        ((Map) MobUtils.getPrivateField("d", net.minecraft.server.v1_10_R1.EntityTypes.class, null)).put(clazz, name);
+        ((Map) MobUtils.getPrivateField("c", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(name, clazz);
+        ((Map) MobUtils.getPrivateField("d", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(clazz, name);
         //((Map)getPrivateField("e", net.minecraft.server.v1_7_R4.EntityTypes.class, null)).put(Integer.valueOf(id), clazz);
-        ((Map) MobUtils.getPrivateField("f", net.minecraft.server.v1_10_R1.EntityTypes.class, null)).put(clazz, Integer.valueOf(id));
+        ((Map) MobUtils.getPrivateField("f", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(clazz, Integer.valueOf(id));
         //((Map)getPrivateField("g", net.minecraft.server.v1_7_R4.EntityTypes.class, null)).put(name, Integer.valueOf(id));
     }
 

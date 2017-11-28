@@ -1,4 +1,4 @@
-package com.hyuchiha.village_defense.Mobs.v1_10_R1;
+package com.hyuchiha.village_defense.Mobs.v1_9_R2;
 
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.MagmaBoss;
@@ -6,6 +6,7 @@ import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.SlimeBoss;
 import com.hyuchiha.village_defense.Mobs.CustomMob.*;
 import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.GiantMob;
 import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.WitherMob;
+import com.hyuchiha.village_defense.Mobs.CustomMob.WitherSkullMob;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
 import com.hyuchiha.village_defense.Mobs.MobCreator;
 import org.bukkit.configuration.ConfigurationSection;
@@ -13,7 +14,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MobCreator_v1_10_R1 implements MobCreator {
+public class MobCreator_v1_9_R2 implements MobCreator {
     @Override
     public List<EnemyIA> createWaveMobs(ConfigurationSection config) {
         List<EnemyIA> mobs = new ArrayList<>();
