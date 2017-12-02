@@ -170,7 +170,7 @@ public class GamePlayer {
         getPlayer().teleport(ArenaManager.getLobby().getLobbyLocation());
         setState(PlayerState.LOBBY);
         setArena(null);
-        //setKit(Kit.CIVIL);
+        setKit(Kit.CIVIL);
         setGems(0);
         setKilled(false);
         //Se entregan los objetos del lobby principal

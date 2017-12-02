@@ -6,7 +6,10 @@ import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.configuration.Configuration;
 
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 public class ArenaManager {
 
@@ -50,4 +53,7 @@ public class ArenaManager {
         }
     }
 
+    public static Collection<Arena> getArenas() {
+        return arenas.values();
+    }
 }

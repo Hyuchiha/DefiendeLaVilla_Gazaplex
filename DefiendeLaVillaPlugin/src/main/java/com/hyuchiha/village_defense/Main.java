@@ -1,14 +1,14 @@
 package com.hyuchiha.village_defense;
 
+import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatListener;
 import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
 import com.hyuchiha.village_defense.Config.ConfigManager;
+import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Listeners.*;
-import com.hyuchiha.village_defense.Manager.ArenaManager;
-import com.hyuchiha.village_defense.Manager.MobManager;
-import com.hyuchiha.village_defense.Manager.PlayerManager;
-import com.hyuchiha.village_defense.Manager.ShopManager;
+import com.hyuchiha.village_defense.Manager.*;
 import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
@@ -54,7 +54,15 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        for(Arena arena: ArenaManager.getArenas()){
+            if(arena.getGame() != null && arena.getGame().getState() == GameState.INGAME){
+                arena.getGame().getWave().cancelWave();
 
+                for(GamePlayer player : arena.getGame().getPlayersInGame()){
+                    //StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player));
+                }
+            }
+        }
     }
 
     public void hookBungeeCord(){
