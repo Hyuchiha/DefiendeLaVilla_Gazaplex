@@ -6,6 +6,7 @@ import com.hyuchiha.village_defense.CustomEvents.ArenaFinishEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaJoinEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaStartEvent;
+import com.hyuchiha.village_defense.Database.PlayerStatsData;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -16,11 +17,14 @@ import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Timers.LobbyTimer;
+import com.hyuchiha.village_defense.Timers.SavePlayersData;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+
+import java.util.List;
 
 /**
  *
@@ -100,7 +104,10 @@ public class ArenaListener implements Listener {
     @EventHandler
     public void onArenaFinish(ArenaFinishEvent event) {
         Arena arena = ArenaManager.getArenaConfiguration(event.getArena());
-        
+
+        List<GamePlayer> dataCloned =  arena.getGame().getPlayersInGame();
+        new SavePlayersData(dataCloned, plugin);
+
         for (GamePlayer player : arena.getGame().getPlayersInGame()) {
             player.sendMessage(Translator.change("GAME_HAS_FINISHED"));
             
@@ -114,9 +121,8 @@ public class ArenaListener implements Listener {
 
             player.sendPlayerToLobby();
 
-            /*
             //Se actualiza la BD
-            PlayerStatsData data = PlayerStatsData.getPlayerStat(playervd.getName());
+            PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getPlayerUUID(), player.getPlayer().getName());
 
             try {
                 if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {
@@ -128,9 +134,7 @@ public class ArenaListener implements Listener {
                 }
             } catch (Exception e) {
                 Output.logError("Error al poner las oleadas maximas y minimas "+e.getLocalizedMessage());
-            }*/
-            //StatsManager.setMaxWave(player.getPlayer(), arena.getGame().getWave().getWaveNumber());
-            //StatsManager.setMinWave(player.getPlayer(), arena.getGame().getWave().getWaveNumber());
+            }
         }
 
         arena.getGame().removeAllSpectators();

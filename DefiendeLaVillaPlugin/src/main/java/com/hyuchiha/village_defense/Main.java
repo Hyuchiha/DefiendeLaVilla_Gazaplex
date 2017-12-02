@@ -5,6 +5,11 @@ import com.hyuchiha.village_defense.Chat.ChatListener;
 import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
 import com.hyuchiha.village_defense.Config.ConfigManager;
+import com.hyuchiha.village_defense.Database.BackendConnection.DatabaseConnection;
+import com.hyuchiha.village_defense.Database.KitsManager;
+import com.hyuchiha.village_defense.Database.KitsUnlockedManager;
+import com.hyuchiha.village_defense.Database.PlayerStatsData;
+import com.hyuchiha.village_defense.Database.StatsManager;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Listeners.*;
@@ -25,6 +30,7 @@ public class Main extends JavaPlugin {
     }
 
     private ConfigManager config;
+    private DatabaseConnection dbConnection;
 
     @Override
     public void onEnable() {
@@ -50,6 +56,9 @@ public class Main extends JavaPlugin {
 
         hookVault();
         hookBungeeCord();
+
+        initDatabaseConnection();
+        createDatabases();
     }
 
     @Override
@@ -59,7 +68,7 @@ public class Main extends JavaPlugin {
                 arena.getGame().getWave().cancelWave();
 
                 for(GamePlayer player : arena.getGame().getPlayersInGame()){
-                    //StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player));
+                    StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getPlayerUUID(), player.getPlayer().getName()));
                 }
             }
         }
@@ -124,5 +133,27 @@ public class Main extends JavaPlugin {
 
     public String getPrefix() {
         return Translator.change("PREFIX");
+    }
+
+    public void initDatabaseConnection(){
+        Configuration configValues = getConfig("config.yml");
+
+        String hostname = configValues.getString("MySQL.host");
+        int port = configValues.getInt("MySQL.port");
+        String database = configValues.getString("MySQL.name");
+        String userName = configValues.getString("MySQL.user");
+        String password = configValues.getString("MySQL.pass");
+
+        this.dbConnection = new DatabaseConnection(hostname, port, database, userName, password, this);
+    }
+
+    public void createDatabases(){
+        StatsManager.InitDatabase();
+        KitsManager.InitDatabase();
+        KitsUnlockedManager.InitDatabase();
+    }
+
+    public DatabaseConnection getDbConnection() {
+        return dbConnection;
     }
 }

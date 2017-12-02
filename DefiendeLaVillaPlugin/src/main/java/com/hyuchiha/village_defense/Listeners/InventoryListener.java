@@ -5,6 +5,7 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
+import com.hyuchiha.village_defense.Database.KitsUnlockedManager;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -86,8 +87,7 @@ public class InventoryListener implements Listener{
 
                         if (userMoney >= money) {
                             PlayerManager.withdrawMoney(player, money);
-                            //TODO add unlocker
-                            //KitsUnlockedManager.addUnlockedKit(player.getName(), name);
+                            KitsUnlockedManager.addUnlockedKit(player.getUniqueId().toString(), name);
 
                             String classUnlocked = Translator.change("PLAYER_UNLOCK_CLASS");
                             player.sendMessage(classUnlocked.replace("%CLASS%", name));

@@ -1,5 +1,6 @@
 package com.hyuchiha.village_defense.Game;
 
+import com.hyuchiha.village_defense.Database.KitsUnlockedManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -177,7 +178,8 @@ public enum Kit {
     }
 
     public boolean isOwnedBy(Player p) {
-        return p.isOp() || this == CIVIL || p.hasPermission("VD.Class." + getName().toLowerCase()); //TODO || KitsUnlockedManager.hasKit(p.getName(), this.name());
+        return p.isOp() || this == CIVIL || p.hasPermission("VD.Class." + getName().toLowerCase())
+                || KitsUnlockedManager.hasKit(p.getUniqueId().toString() , this.name());
     }
 
     public ItemStack getIcon() {

@@ -5,6 +5,8 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
+import com.hyuchiha.village_defense.Database.PlayerStatsData;
+import com.hyuchiha.village_defense.Database.StatsManager;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -55,8 +57,7 @@ public class QuitListener implements Listener {
             }
 
             //Se actualiza la BD
-            //TODO increment stats
-            //StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getName()));
+            StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName()));
 
             vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
 
@@ -65,9 +66,8 @@ public class QuitListener implements Listener {
 
         PlayerManager.removePlayer(player);
 
-        //Se eliminan los stats 
-        //TODO delete stats
-        //PlayerStatsData.removePlayerStat(player.getName());
+        //Se eliminan los stats
+        PlayerStatsData.removePlayerStat(player.getUniqueId());
     }
 
     @EventHandler
@@ -97,8 +97,7 @@ public class QuitListener implements Listener {
             vdplayer.clearData();
 
             //Se actualiza la BD
-            //TODO
-            //StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getName()));
+            StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName()));
 
             vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
 
@@ -107,8 +106,7 @@ public class QuitListener implements Listener {
 
         PlayerManager.removePlayer(player);
 
-        //Se eliminan los stats 
-        //TODO
-        //PlayerStatsData.removePlayerStat(player.getName());
+        //Se eliminan los stats
+        PlayerStatsData.removePlayerStat(player.getUniqueId());
     }
 }

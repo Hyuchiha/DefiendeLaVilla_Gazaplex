@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
+import com.hyuchiha.village_defense.Database.PlayerStatsData;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -67,10 +68,8 @@ public class PlayerListener implements Listener {
 
         event.getDrops().clear();
 
-        //TODO update stats
-        //PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getName());
-        //data.setDeaths(data.getDeaths() + 1);
-        //StatsManager.incrementStat(StatType.DEATHS, player);
+        PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName());
+        data.setDeaths(data.getDeaths() + 1);
 
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override

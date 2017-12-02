@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Arena.Arena;
+import com.hyuchiha.village_defense.Database.PlayerStatsData;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -78,10 +79,8 @@ public class MobListener implements Listener {
                     //Se obtiene el jugador que lo mato si es q existe y se actualiza en BD
                     Player player = event.getEntity().getKiller();
                     if (player != null) {
-                        //StatsManager.incrementStat(StatType.KILLS, player);
-                        //TODO update stats
-                        //PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getName());
-                        //data.setKills(data.getKills() + 1);
+                        PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName());
+                        data.setKills(data.getKills() + 1);
                     }
 
                     //Se verifica que tipo de mob es y se resta de la scoreboard
