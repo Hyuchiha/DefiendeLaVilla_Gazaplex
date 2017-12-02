@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>MobBase</artifactId>
-    <version>V1.0</version>
-    <name>DefiendeLaVilla MobsBase</name>
+    <artifactId>v1_9_R1</artifactId>
+    <version>v1_9_R1</version>
+    <name>Defiende la Villa Mob implementation v1_9_R1</name>
 
     <repositories>
         <repository>
@@ -24,8 +24,13 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.11-R0.1-SNAPSHOT</version>
+            <version>1.9-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>MobBase</artifactId>
+            <version>V1.0</version>
         </dependency>
     </dependencies>
 
@@ -41,4 +46,5 @@
             </plugin>
         </plugins>
     </build>
+
 </project>

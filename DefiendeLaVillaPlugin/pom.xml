@@ -21,8 +21,8 @@
             <url>http://repo.inventivetalent.org/content/groups/public/</url>
         </repository>
         <repository>
-            <id>dmulloy2-repo</id>
-            <url>http://repo.dmulloy2.net/nexus/repository/public/</url>
+            <id>techcable-repo</id>
+            <url>http://repo.techcable.net/content/groups/public/</url>
         </repository>
     </repositories>
 
@@ -69,6 +69,11 @@
             <artifactId>v1_9_R2</artifactId>
             <version>v1_9_R2</version>
         </dependency>
+        <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>v1_9_R1</artifactId>
+            <version>v1_9_R1</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -104,10 +109,11 @@
                                 <includes>
                                     <include>org.inventivetalent:reflectionhelper**</include>
                                     <include>com.hyuchiha.gazaplex:MobBase**</include>
-                                    <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_10_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_9_R2**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_9_R1**</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

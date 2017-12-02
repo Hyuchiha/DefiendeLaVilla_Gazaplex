@@ -12,6 +12,7 @@ import com.hyuchiha.village_defense.Mobs.MobCreator;
 import com.hyuchiha.village_defense.Mobs.v1_10_R1.MobCreator_v1_10_R1;
 import com.hyuchiha.village_defense.Mobs.v1_11_R1.MobCreator_v1_11_R1;
 import com.hyuchiha.village_defense.Mobs.v1_12_R1.MobCreator_v1_12_R1;
+import com.hyuchiha.village_defense.Mobs.v1_9_R1.MobCreator_v1_9_R1;
 import com.hyuchiha.village_defense.Mobs.v1_9_R2.MobCreator_v1_9_R2;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.configuration.Configuration;
@@ -36,6 +37,9 @@ public class MobManager {
         MobCreator creator = null;
 
         switch (Minecraft.Version.getVersion()){
+            case v1_9_R1:
+                creator = new MobCreator_v1_9_R1();
+                break;
             case v1_9_R2:
                 creator = new MobCreator_v1_9_R2();
                 break;
@@ -46,13 +50,19 @@ public class MobManager {
                 creator = new MobCreator_v1_11_R1();
                 break;
             case v1_12_R1:
-            default:
                 creator = new MobCreator_v1_12_R1();
+                break;
+            default:
+                Output.log("Version not supported");
                 break;
         }
 
-        enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
-        bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
+        if(creator != null){
+            enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
+            bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
+        }else {
+            Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
+        }
     }
 
     public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty){
