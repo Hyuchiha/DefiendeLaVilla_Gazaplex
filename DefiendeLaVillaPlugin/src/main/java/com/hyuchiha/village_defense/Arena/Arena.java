@@ -97,8 +97,6 @@ public class Arena {
             if (m == Material.SIGN_POST || m == Material.WALL_SIGN) {
                 updateSign();
             }
-        } catch (NotFoundException ignored) {
-            Output.logError(Color.RED + "Error en la creacion de los signs \n" + ignored.getMessage());
         } catch (Exception e) {
             Output.logError(Color.RED + "Error en la creacion de los signs \n" + e.getMessage());
         }

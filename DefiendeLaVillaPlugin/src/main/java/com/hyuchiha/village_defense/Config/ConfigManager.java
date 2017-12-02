@@ -9,7 +9,7 @@ import java.io.*;
 import java.util.TreeMap;
 
 public class ConfigManager {
-    private static final TreeMap<String, Configuration> configs = new TreeMap<String, Configuration>(
+    private static final TreeMap<String, Configuration> configs = new TreeMap<>(
             String.CASE_INSENSITIVE_ORDER);
 
     private final Main plugin;
@@ -57,10 +57,7 @@ public class ConfigManager {
                 config = new Configuration(configFile);
                 config.load();
                 configs.put(filename, config);
-            } catch (    IOException e) {
-                Output.logError("Error leyendo la configuracion");
-            }
-            catch(InvalidConfigurationException e) {
+            } catch (    IOException | InvalidConfigurationException e) {
                 Output.logError("Error leyendo la configuracion");
             }
         }
@@ -80,9 +77,7 @@ public class ConfigManager {
         if (configs.containsKey(filename)) {
             try {
                 configs.get(filename).load();
-            } catch (IOException e) {
-                printException(e, filename);
-            } catch (InvalidConfigurationException e) {
+            } catch (IOException | InvalidConfigurationException e) {
                 printException(e, filename);
             }
 

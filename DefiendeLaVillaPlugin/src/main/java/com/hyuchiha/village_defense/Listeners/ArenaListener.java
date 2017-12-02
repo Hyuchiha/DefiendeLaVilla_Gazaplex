@@ -22,8 +22,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author hyuchiha
@@ -67,7 +65,6 @@ public class ArenaListener implements Listener {
 
                     if (!playerEvent.getPlayer().hasPermission("VD.Player.spect")) {
                         playerEvent.sendMessage(Translator.change("DONT_HAVE_PERMISSION_TO_SPECT"));
-                        return;
                     } else {
                         //Se añade como espectador
                         arena.getGame().addSpectator(playerEvent);

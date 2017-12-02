@@ -4,14 +4,13 @@ import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.Configuration;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.util.HashMap;
 
 public class Translator {
 
     private static final Main plugin = Main.getInstance();
-    private static final HashMap<String, String> messages = new HashMap<String, String>();
+    private static final HashMap<String, String> messages = new HashMap<>();
     
     public static void initMessages(){
         Output.log("Iniciando los mensajes");

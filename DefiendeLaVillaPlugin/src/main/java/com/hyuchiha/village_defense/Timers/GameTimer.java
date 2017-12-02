@@ -15,16 +15,12 @@ import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.MessagesAPI.ActionBar;
-import com.hyuchiha.village_defense.Mobs.EnemyIA;
-import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import com.hyuchiha.village_defense.Utils.SpecialUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import java.util.ArrayList;
 
 /**
  *
@@ -132,11 +128,7 @@ public class GameTimer extends BukkitRunnable {
     }
 
     public boolean canFinish() {
-        if (game.getWave() == null || game.getWave().getState() == Wave.WaveState.RESTARTING) {
-            return false;
-        } else {
-            return game.getWave().villagersAreDead() || game.allPlayersDeath() || game.getPlayersInGame().size() <= 0;
-        }
+        return game.getWave() != null && game.getWave().getState() != Wave.WaveState.RESTARTING && (game.getWave().villagersAreDead() || game.allPlayersDeath() || game.getPlayersInGame().size() <= 0);
     }
 
     public void giveWaveSpecials() {

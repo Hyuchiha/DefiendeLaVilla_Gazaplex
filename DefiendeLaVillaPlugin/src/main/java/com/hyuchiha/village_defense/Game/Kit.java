@@ -122,8 +122,8 @@ public enum Kit {
     }
 
     private ItemStack icon;
-    List<String> lore = new ArrayList<String>();
-    List<ItemStack> spawnItems = new ArrayList<ItemStack>();
+    List<String> lore = new ArrayList<>();
+    List<ItemStack> spawnItems = new ArrayList<>();
 
     Kit(Material m) {
         icon = new ItemStack(m);
@@ -192,9 +192,6 @@ public enum Kit {
         if (meta == null) {
             return false;
         }
-        if (!meta.hasDisplayName()) {
-            return false;
-        }
-        return meta.getDisplayName().equalsIgnoreCase(name);
+        return meta.hasDisplayName() && meta.getDisplayName().equalsIgnoreCase(name);
     }
 }

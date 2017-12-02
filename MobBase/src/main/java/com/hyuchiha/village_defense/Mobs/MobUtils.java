@@ -307,8 +307,7 @@ public class MobUtils {
             field.setAccessible(true);
 
             o = field.get(object);
-        } catch (NoSuchFieldException e) {
-        } catch (IllegalAccessException e) {
+        } catch (NoSuchFieldException | IllegalAccessException e) {
         }
 
         return o;

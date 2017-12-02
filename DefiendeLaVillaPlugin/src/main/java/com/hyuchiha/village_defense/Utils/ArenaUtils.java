@@ -42,12 +42,11 @@ public class ArenaUtils {
     }
     
     public static String parseLocationToString(Location loc){
-        String value = loc.getBlockX()+","+loc.getBlockY()+","+loc.getBlockZ(); 
-        return value;
+        return loc.getBlockX()+","+loc.getBlockY()+","+loc.getBlockZ();
     }
     
     public static List<String> parseListLocationToListString(List<Location> list){
-        List<String> values = new ArrayList<String>();
+        List<String> values = new ArrayList<>();
         
         for(Location loc:list){
             values.add(parseLocationToString(loc));

@@ -54,7 +54,7 @@ public enum CustomEntityType implements EntityType {
         ((Map) MobUtils.getPrivateField("c", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(name, clazz);
         ((Map) MobUtils.getPrivateField("d", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(clazz, name);
         //((Map)getPrivateField("e", net.minecraft.server.v1_7_R4.EntityTypes.class, null)).put(Integer.valueOf(id), clazz);
-        ((Map) MobUtils.getPrivateField("f", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(clazz, Integer.valueOf(id));
+        ((Map) MobUtils.getPrivateField("f", net.minecraft.server.v1_9_R2.EntityTypes.class, null)).put(clazz, id);
         //((Map)getPrivateField("g", net.minecraft.server.v1_7_R4.EntityTypes.class, null)).put(name, Integer.valueOf(id));
     }
 

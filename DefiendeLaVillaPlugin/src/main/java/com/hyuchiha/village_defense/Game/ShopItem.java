@@ -13,6 +13,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.Arrays;
+import java.util.Collections;
 
 /**
  *
@@ -52,7 +53,7 @@ public class ShopItem {
         if (meta.hasLore()) {
             meta.getLore().add(priceStr);
         } else {
-            meta.setLore(Arrays.asList(priceStr));
+            meta.setLore(Collections.singletonList(priceStr));
         }
         stack.setItemMeta(meta);
         return stack;

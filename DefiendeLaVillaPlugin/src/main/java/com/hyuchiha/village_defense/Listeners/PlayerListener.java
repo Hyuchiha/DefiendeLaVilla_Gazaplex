@@ -78,7 +78,7 @@ public class PlayerListener implements Listener {
                 player.spigot().respawn();
                 SpectatorManager.addSpectator(player);
             }
-        }, 1l);
+        }, 1L);
 
     }
 

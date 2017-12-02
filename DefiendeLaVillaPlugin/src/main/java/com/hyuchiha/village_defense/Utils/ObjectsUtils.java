@@ -91,7 +91,7 @@ public class ObjectsUtils {
             ItemStack i = kit.getIcon().clone();
 
             ItemMeta im = i.getItemMeta();
-            List<String> lore = new ArrayList<String>();
+            List<String> lore = new ArrayList<>();
 
             int price = Main.getInstance()
                     .getConfig("kits.yml")

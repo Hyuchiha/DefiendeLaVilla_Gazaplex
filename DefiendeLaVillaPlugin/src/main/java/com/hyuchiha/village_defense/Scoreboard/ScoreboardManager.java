@@ -24,7 +24,7 @@ import java.util.HashMap;
  */
 public class ScoreboardManager {
 
-    private final HashMap<String, ScoreboardType> players = new HashMap<String, ScoreboardType>();
+    private final HashMap<String, ScoreboardType> players = new HashMap<>();
 
     public ScoreboardManager() {
 
