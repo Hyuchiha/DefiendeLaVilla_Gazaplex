@@ -78,7 +78,7 @@ public class PlayerListener implements Listener {
                 PlayerManager.respawnPlayer(player);
                 SpectatorManager.addSpectator(player);
             }
-        }, 5L);
+        }, 1L);
 
     }
 
