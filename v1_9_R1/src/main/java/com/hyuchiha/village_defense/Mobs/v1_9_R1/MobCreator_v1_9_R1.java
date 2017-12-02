@@ -25,7 +25,7 @@ public class MobCreator_v1_9_R1 implements MobCreator {
         mobs.add(new SpiderMob(config.getConfigurationSection("Spider"), CustomEntityType.CUSTOM_SPIDER));
         mobs.add(new SpiderCaveMob(config.getConfigurationSection("SpiderCave"), CustomEntityType.CUSTOM_CAVESPIDER));
         mobs.add(new WitchMob(config.getConfigurationSection("Witch"), CustomEntityType.CUSTOM_WITCH));
-        mobs.add(new WitherSkullMob(config.getConfigurationSection("WhiterSkull"), CustomEntityType.CUSTOM_SKELETON));
+        mobs.add(new WitherSkullMob(config.getConfigurationSection("WitherSkull"), CustomEntityType.CUSTOM_SKELETON));
         mobs.add(new CreeperMob(config.getConfigurationSection("Creeper"), CustomEntityType.CUSTOM_CREEPER));
         mobs.add(new CreeperChargedMob(config.getConfigurationSection("CreeperCharged"), CustomEntityType.CUSTOM_CREEPER));
         mobs.add(new Tank(config.getConfigurationSection("Tank"), CustomEntityType.CUSTOM_IRONGOLEM));
@@ -37,8 +37,8 @@ public class MobCreator_v1_9_R1 implements MobCreator {
     public List<BossEnemy> createBossMobs(ConfigurationSection config) {
         List<BossEnemy> bosses = new ArrayList<>();
 
-        bosses.add(new MagmaBoss(config.getConfigurationSection("MagmaB"), CustomEntityType.CUSTOM_MAGMA_CUBE));
-        bosses.add(new SlimeBoss(config.getConfigurationSection("SlimeB"), CustomEntityType.CUSTOM_SLIME));
+        bosses.add(new MagmaBoss(config.getConfigurationSection("MagmaBoss"), CustomEntityType.CUSTOM_MAGMA_CUBE));
+        bosses.add(new SlimeBoss(config.getConfigurationSection("SlimeBoss"), CustomEntityType.CUSTOM_SLIME));
 
         return bosses;
     }
