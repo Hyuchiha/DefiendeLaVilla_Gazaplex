@@ -75,10 +75,10 @@ public class PlayerListener implements Listener {
         Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
             @Override
             public void run() {
-                player.spigot().respawn();
+                PlayerManager.respawnPlayer(player);
                 SpectatorManager.addSpectator(player);
             }
-        }, 1L);
+        }, 5L);
 
     }
 

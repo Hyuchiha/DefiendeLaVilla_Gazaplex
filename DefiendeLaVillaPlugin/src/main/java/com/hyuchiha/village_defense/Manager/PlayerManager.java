@@ -5,10 +5,14 @@
  */
 package com.hyuchiha.village_defense.Manager;
 
+import com.hyuchiha.village_defense.Base.*;
 import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
+import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.entity.Player;
+import org.inventivetalent.reflection.minecraft.Minecraft;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +24,33 @@ import java.util.List;
 public class PlayerManager {
 
     public static List<GamePlayer> players = new ArrayList<>();
+    private static Respawner respawner = null;
+
+    public static void fetchRespawner(){
+        Output.log("Getting respawner for the server version");
+
+        switch (Minecraft.Version.getVersion()){
+            case v1_9_R1:
+                respawner = new Respawner_v1_9_R1();
+                break;
+            case v1_9_R2:
+                respawner = new Respawner_v1_9_R2();
+                break;
+            case v1_10_R1:
+                respawner = new Respawner_v1_10_R1();
+                break;
+            case v1_11_R1:
+                respawner = new Respawner_v1_11_R1();
+                break;
+            case v1_12_R1:
+                respawner = new Respawner_v1_12_R1();
+                break;
+            default:
+                Output.logError("Version not supported");
+                Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
+                break;
+        }
+    }
 
     public static GamePlayer getPlayer(Player player) {
         for (GamePlayer vdplayer : players) {
@@ -40,6 +71,14 @@ public class PlayerManager {
     public static void removePlayer(Player player) {
         GamePlayer vdplayer = getPlayer(player);
         players.remove(vdplayer);
+    }
+
+    public static void respawnPlayer(Player player){
+        if(respawner != null){
+            respawner.respawm(player);
+        }else {
+            player.spigot().respawn();
+        }
     }
 
     public static void addMoney(Player p, double money) {

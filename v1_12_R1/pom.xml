@@ -29,7 +29,7 @@
         </dependency>
         <dependency>
             <groupId>com.hyuchiha.gazaplex</groupId>
-            <artifactId>MobBase</artifactId>
+            <artifactId>Base</artifactId>
             <version>V1.0</version>
         </dependency>
     </dependencies>
