@@ -1,4 +1,5 @@
 #Vinculacion con BungeeCoord
+EnableBungeeComunication: true
 ServerToConnect: "lobby"
 #El uso de mysql es obligatorio
 MySQL:
@@ -25,7 +26,9 @@ Game:
     gems-wave-finish: 20
     #Se otorgara dinero por matar a un boss
     money-boss-kill: 500
-    #Cada cuando sucederan eventos especiales
+    #Activa los eventos
+    enable-wave-event: true
+    #Cada cuando sucederan eventos especiales, solo funciona si esta activado
     wave-event-at: 5
 #El manejo de los tiempos durante la arena
 Timers:

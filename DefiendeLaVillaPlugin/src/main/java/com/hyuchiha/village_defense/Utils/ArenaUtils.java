@@ -5,6 +5,7 @@
  */
 package com.hyuchiha.village_defense.Utils;
 
+import com.hyuchiha.village_defense.Main;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -102,7 +103,11 @@ public class ArenaUtils {
     }
     
     public static void givePrincipalLobbyObjects(Player player){
-        
+
+        if(!Main.getInstance().getConfig().getBoolean("EnableBungeeComunication")){
+            return;
+        }
+
         ItemStack exit = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
         itemMetaExitArena.setDisplayName(ChatColor.GOLD + "Volver al lobby");

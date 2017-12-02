@@ -36,6 +36,7 @@ public class GameTimer extends BukkitRunnable {
     private final int bossWave;
     private final int waveChangeNumber;
     private final int waveEventAt;
+    private boolean spetialWaveEnabled = false;
     private int gemsPhase;
 
     public GameTimer(Main plugin, Game game) {
@@ -46,6 +47,7 @@ public class GameTimer extends BukkitRunnable {
         this.waveChangeNumber = plugin.getConfig().getInt("Game.shopWaveChange");
         this.gemsPhase = plugin.getConfig().getInt("Game.gems-wave-finish");
         this.waveEventAt = plugin.getConfig().getInt("Game.wave-event-at");
+        this.spetialWaveEnabled = plugin.getConfig().getBoolean("Game.enable-wave-event");
 
         game.setGameState(GameState.INGAME);
         game.getArena().updateState();
@@ -92,7 +94,7 @@ public class GameTimer extends BukkitRunnable {
                         eventOcurred = false;
                     }
 
-                    gemsPhase += (3 * wave - 1);
+                    gemsPhase += (3 * wave) * .8;
                     for (GamePlayer player : game.getPlayersInGame()) {
                         if (player.isKilled()) {
                             player.regamePlayer();
@@ -152,7 +154,7 @@ public class GameTimer extends BukkitRunnable {
             game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
         }
 
-        if (wave % waveEventAt == 0 && !eventOcurred) {
+        if (wave % waveEventAt == 0 && !eventOcurred && spetialWaveEnabled) {
             SpecialUtils.addRandomEffectToArena(game.getArena());
             eventOcurred = true;
         }
