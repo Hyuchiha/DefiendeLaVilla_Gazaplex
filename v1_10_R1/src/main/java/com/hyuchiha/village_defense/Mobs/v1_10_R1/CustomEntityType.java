@@ -75,6 +75,15 @@ public enum CustomEntityType implements EntityType {
             case CUSTOM_WITCH:
                 return new CustomWitch(((CraftWorld)world).getHandle());
             case CUSTOM_ZOMBIE:
+                return new CustomZombie(((CraftWorld)world).getHandle());
+            case CUSTOM_GIANT:
+                return new CustomGiant(((CraftWorld)world).getHandle());
+            case CUSTOM_MAGMA_CUBE:
+                return new CustomMagmaCube(((CraftWorld)world).getHandle());
+            case CUSTOM_SLIME:
+                return new CustomSlime(((CraftWorld)world).getHandle());
+            case CUSTOM_WITHER:
+                return new CustomWither(((CraftWorld)world).getHandle());
             default:
                 return new CustomZombie(((CraftWorld)world).getHandle());
         }

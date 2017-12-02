@@ -42,8 +42,6 @@ public class GameTimer extends BukkitRunnable {
     private final int waveEventAt;
     private int gemsPhase;
 
-    private final ArrayList<EnemyIA> nextEnemiesToSpawn = new ArrayList<>();
-
     public GameTimer(Main plugin, Game game) {
         this.plugin = plugin;
         this.game = game;
@@ -85,6 +83,7 @@ public class GameTimer extends BukkitRunnable {
                     secondsTillNextWave = plugin.getConfig().contains("Timers.between-fase") ? plugin.getConfig().getInt("Timers.between-fase") : 15;
 
                     game.getWave().endWave();
+                    wave++;
 
                     if (wave % moneyWave == 0 && hasReceivedPay) {
                         hasReceivedPay = false;
@@ -187,7 +186,7 @@ public class GameTimer extends BukkitRunnable {
                                 Translator.change("WAVE_START")
                                         .replace("%WAVE_NUMBER%",
                                                 Integer.toString(
-                                                        game.getWave().getWaveNumber())));
+                                                        GameTimer.this.wave)));
                         game.getScoreboardManager().giveScoreboard(player.getPlayer().getName(), ScoreboardType.INGAME);
                     }
 
@@ -197,8 +196,7 @@ public class GameTimer extends BukkitRunnable {
                             hasSpawnedFirstWave = true;
                         }
                     }, 100L);
-                    
-                    GameTimer.this.wave++;
+
                     game.getWave().startWave();
                 }
             }, 100L);
@@ -214,7 +212,6 @@ public class GameTimer extends BukkitRunnable {
             game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
 
             game.getWave().startWave();
-            wave++;
         }
         
     }

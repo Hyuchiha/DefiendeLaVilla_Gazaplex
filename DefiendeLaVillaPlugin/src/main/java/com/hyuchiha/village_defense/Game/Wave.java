@@ -102,8 +102,8 @@ public class Wave {
 
     public void addNewVillagerCreatedByPlayer() {
         villagers.add((LivingEntity) createNewVillager());
-        //game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-        //game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
     }
 
     public void startWave() {
