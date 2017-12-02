@@ -47,7 +47,11 @@ public class SkeletonMob extends EnemyIA {
         int difficultyOfMob = (wave / 10);
 
         if (wave > 10) {
-            skeleton.getEquipment().setArmorContents(MobUtils.getRandomArmor(difficultyOfMob));
+            ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
+            skeleton.getEquipment().setHelmet(armor[0]);
+            skeleton.getEquipment().setChestplate(armor[1]);
+            skeleton.getEquipment().setLeggings(armor[2]);
+            skeleton.getEquipment().setBoots(armor[3]);
         }
 
         skeleton.getEquipment().setItemInHand(MobUtils.addRandonBowEnchantments(new ItemStack(Material.BOW), difficultyOfMob));

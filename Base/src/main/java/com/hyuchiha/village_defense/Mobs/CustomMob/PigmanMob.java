@@ -13,6 +13,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.PigZombie;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -48,8 +49,11 @@ public class PigmanMob extends EnemyIA {
         int difficultyOfMob = (wave / 10);
 
         if (wave > 5) {
-            pig.getEquipment().setArmorContents(MobUtils.getRandomArmor(difficultyOfMob));
-
+            ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
+            pig.getEquipment().setHelmet(armor[0]);
+            pig.getEquipment().setChestplate(armor[1]);
+            pig.getEquipment().setLeggings(armor[2]);
+            pig.getEquipment().setBoots(armor[3]);
         }
 
         if (random.nextBoolean()) {

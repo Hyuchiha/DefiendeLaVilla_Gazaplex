@@ -7,6 +7,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -40,7 +41,11 @@ public class ZombieMob extends EnemyIA {
 
         if (wave > 10) {
             MobUtils.addRandomPotionEffects(wave, zombie);
-            zombie.getEquipment().setArmorContents(MobUtils.getRandomArmor(difficultyOfMob));
+            ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
+            zombie.getEquipment().setHelmet(armor[0]);
+            zombie.getEquipment().setChestplate(armor[1]);
+            zombie.getEquipment().setLeggings(armor[2]);
+            zombie.getEquipment().setBoots(armor[3]);
             zombie.getEquipment().setItemInHand(MobUtils.getRandomWeapon(difficultyOfMob));
         }
 

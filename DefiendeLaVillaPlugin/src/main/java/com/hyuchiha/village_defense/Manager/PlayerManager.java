@@ -75,8 +75,10 @@ public class PlayerManager {
 
     public static void respawnPlayer(Player player){
         if(respawner != null){
+            Output.log("Respawning without spigot");
             respawner.respawm(player);
         }else {
+            Output.log("Respawning using spigot api");
             player.spigot().respawn();
         }
     }

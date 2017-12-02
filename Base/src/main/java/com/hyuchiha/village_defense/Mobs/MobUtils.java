@@ -34,7 +34,7 @@ public class MobUtils {
         };
 
         for (ItemStack stack : armor) {
-            stack = addRandomArmorEnchantments(stack, difficulty);
+            addRandomArmorEnchantments(stack, difficulty);
         }
 
         return armor;

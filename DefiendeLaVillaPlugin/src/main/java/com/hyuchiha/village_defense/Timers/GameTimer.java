@@ -31,7 +31,7 @@ public class GameTimer extends BukkitRunnable {
     private Main plugin;
     private int wave = 1, secondsTillNextWave = -1;
     private final Game game;
-    private boolean hasSpawnedFirstWave = false, hasReceivedPay = false, shopChanged = false, eventOcurred = false;
+    private boolean hasSpawnedFirstWave = false;
     private final int moneyWave;
     private final int bossWave;
     private final int waveChangeNumber;
@@ -73,8 +73,6 @@ public class GameTimer extends BukkitRunnable {
             return;
         }
 
-        giveWaveSpecials();
-
         if (hasSpawnedFirstWave) {
             if (game.getWave().getProgress() < 0.1) {
                 if (secondsTillNextWave == -1) {
@@ -82,17 +80,6 @@ public class GameTimer extends BukkitRunnable {
 
                     game.getWave().endWave();
                     wave++;
-
-                    if (wave % moneyWave == 0 && hasReceivedPay) {
-                        hasReceivedPay = false;
-                    }
-                    if (wave % waveChangeNumber == 0 && shopChanged) {
-                        shopChanged = false;
-                    }
-
-                    if (wave % waveEventAt == 0 && !eventOcurred) {
-                        eventOcurred = false;
-                    }
 
                     gemsPhase += (3 * wave) * .8;
                     for (GamePlayer player : game.getPlayersInGame()) {
@@ -117,7 +104,8 @@ public class GameTimer extends BukkitRunnable {
 
                             player.sendMessage(plugin.getPrefix() + " " + Translator.change("WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
                         }
-                        
+
+                        giveWaveSpecials();
                         playWave();
 
                         return;
@@ -135,28 +123,25 @@ public class GameTimer extends BukkitRunnable {
 
     public void giveWaveSpecials() {
 
-        if (wave % waveChangeNumber == 0 && !shopChanged) {
+        if (wave % waveChangeNumber == 0) {
             for (GamePlayer player : game.getPlayersInGame()) {
                 Player inGamePlayer = player.getPlayer();
                 inGamePlayer.closeInventory();
             }
             ShopManager.getNewRandomShops(game.getArena());
-            shopChanged = true;
         }
 
-        if (wave % moneyWave == 0 && !hasReceivedPay) {
+        if (wave % moneyWave == 0) {
             for (GamePlayer player : game.getPlayersInGame()) {
                 //Aqui se les pagara con Vault
                 int moneyToGive = plugin.getConfig().getInt("Game.money");
                 PlayerManager.addMoney(player.getPlayer(), moneyToGive);
-                hasReceivedPay = true;
             }
             game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
         }
 
-        if (wave % waveEventAt == 0 && !eventOcurred && spetialWaveEnabled) {
-            SpecialUtils.addRandomEffectToArena(game.getArena());
-            eventOcurred = true;
+        if (wave % waveEventAt == 0 && spetialWaveEnabled) {
+            SpecialUtils.addRandomEffectToArena(game);
         }
     }
 

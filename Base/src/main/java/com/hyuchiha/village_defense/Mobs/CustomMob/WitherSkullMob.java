@@ -12,6 +12,7 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 
@@ -45,7 +46,12 @@ public class WitherSkullMob extends EnemyIA {
         int difficultyOfMob = (wave / 10);
 
         if (wave > 5) {
-            skeleton.getEquipment().setArmorContents(MobUtils.getRandomArmor(difficultyOfMob));
+            ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
+            skeleton.getEquipment().setHelmet(armor[0]);
+            skeleton.getEquipment().setChestplate(armor[1]);
+            skeleton.getEquipment().setLeggings(armor[2]);
+            skeleton.getEquipment().setBoots(armor[3]);
+
             MobUtils.addRandomPotionEffects(wave, skeleton);
         }
 

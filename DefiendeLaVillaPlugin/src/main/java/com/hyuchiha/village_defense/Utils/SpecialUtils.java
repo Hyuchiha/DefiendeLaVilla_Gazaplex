@@ -12,6 +12,7 @@ import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.MessagesAPI.TitleAPI;
+import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -28,36 +29,44 @@ import java.util.Random;
  */
 public class SpecialUtils {
 
-    public static void addRandomEffectToArena(Arena arena) {
+    public static void addRandomEffectToArena(Game game) {
         Random ran = new Random();
         switch (ran.nextInt(7)) {
             case 1:
-                spawnRandomsObjectsInGame(arena);
+                Output.log("Random objects");
+                spawnRandomsObjectsInGame(game.getArena());
                 break;
             case 2:
-                addRandomPotionEffectToEveryone(arena);
+                Output.log("Random potion effect");
+                addRandomPotionEffectToEveryone(game);
                 break;
             case 3:
-                applyFireToEveryone(arena);
+                Output.log("All on fire");
+                applyFireToEveryone(game);
                 break;
             case 4:
-                giveRandomMoneyToEveryone(arena);
+                Output.log("Money for everyone");
+                giveRandomMoneyToEveryone(game);
                 break;
             case 5:
-                incrementMaxHealthToEveryone(arena);
+                Output.log("Health increased");
+                incrementMaxHealthToEveryone(game);
                 break;
             case 6:
-                reduceMaxHealthToEveryone(arena);
+                Output.log("Health reduced");
+                reduceMaxHealthToEveryone(game);
                 break;
             case 7:
-                spawnRandomNewMob(arena);
+                Output.log("Random mob");
+                spawnRandomNewMob(game.getArena());
                 break;
             default:
-                
+                Output.log("Error");
                 break;
         }
         
-        for(GamePlayer player: arena.getGame().getPlayersInGame()){
+        for(GamePlayer player: game.getPlayersInGame()){
+            Output.log("Sending message to: " + player.getPlayer().getName());
             TitleAPI.send(player.getPlayer(),
                     Translator.change("SPECIAL_EVENT_TITLE"),
                     Translator.change("SPECIAL_EVENT_SUBTITLE"),
@@ -67,22 +76,20 @@ public class SpecialUtils {
         }
     }
 
-    private static void giveRandomMoneyToEveryone(Arena arena) {
-        Game game = arena.getGame();
+    private static void giveRandomMoneyToEveryone(Game game) {
         for (GamePlayer player : game.getPlayersInGame()) {
             PlayerManager.addMoney(player.getPlayer(), 200);
         }
     }
 
-    private static void applyFireToEveryone(Arena arena) {
-        Game game = arena.getGame();
+    private static void applyFireToEveryone(Game game) {
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();
             inGamePlayer.setFireTicks(15);
         }
     }
 
-    private static void addRandomPotionEffectToEveryone(Arena arena) {
+    private static void addRandomPotionEffectToEveryone(Game game) {
         PotionEffect e;
         Random ran = new Random();
         switch (ran.nextInt()) {
@@ -127,8 +134,6 @@ public class SpecialUtils {
                 break;
         }
 
-        Game game = arena.getGame();
-
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();
             inGamePlayer.addPotionEffect(e);
@@ -140,9 +145,7 @@ public class SpecialUtils {
         
     }
 
-    private static void incrementMaxHealthToEveryone(Arena arena) {
-        final Game game = arena.getGame();
-
+    private static void incrementMaxHealthToEveryone(final Game game) {
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();
             inGamePlayer.setMaxHealth(inGamePlayer.getMaxHealth() + 20.0);
@@ -179,8 +182,7 @@ public class SpecialUtils {
         }
     }
 
-    private static void reduceMaxHealthToEveryone(Arena arena) {
-        final Game game = arena.getGame();
+    private static void reduceMaxHealthToEveryone(final Game game) {
 
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();

@@ -49,7 +49,7 @@ public class ScoreboardManager {
                 case LOBBY_GAME:
 
                     obj.getScore(ChatColor.AQUA + "").setScore(score--);
-                    obj.getScore(Translator.change("SCOREBOARD_INGAME_PLAYERS")).setScore(score--);
+                    obj.getScore(Translator.change("SCOREBOARD_LOBBY_PLAYERS")).setScore(score--);
                     obj.getScore(ChatColor.WHITE + "" + game.getPlayersInGame().size()).setScore(score--);
                     obj.getScore(ChatColor.BLUE + "").setScore(score--);
                     obj.getScore(Translator.change("SCOREBOARD_LOBBY_REMAINING")).setScore(score--);
@@ -88,6 +88,7 @@ public class ScoreboardManager {
 
             players.put(player, st);
         } catch (Exception e) {
+            e.printStackTrace();
             Output.logError("Problema al asignar la scoreboard a " + player + " " + e.getLocalizedMessage());
             players.remove(player);
         }
