@@ -6,6 +6,7 @@
 package com.hyuchiha.village_defense.Utils;
 
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -66,14 +67,14 @@ public class ArenaUtils {
         
         ItemStack kitPurchase = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMetaPurchase = kitPurchase.getItemMeta();
-        itemMetaPurchase.setDisplayName(ChatColor.GOLD + "Desbloquear Kit");
+        itemMetaPurchase.setDisplayName(Translator.change("UNLOCK_KIT"));
         kitPurchase.setItemMeta(itemMetaPurchase);
         player.getInventory().setItem(1, kitPurchase);
         player.updateInventory();
         
         ItemStack exitArena = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exitArena.getItemMeta();
-        itemMetaExitArena.setDisplayName(ChatColor.GOLD + "Abandonar Arena");
+        itemMetaExitArena.setDisplayName(Translator.change("LEAVE_ARENA"));
         exitArena.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exitArena);
         player.updateInventory();
@@ -82,21 +83,21 @@ public class ArenaUtils {
     public static void giveShopObjects(Player player){
         ItemStack ShopEquipo = new ItemStack(Material.EMERALD);
         ItemMeta EquipoMeta = ShopEquipo.getItemMeta();
-        EquipoMeta.setDisplayName(ChatColor.GREEN + "Tienda de Equipo");
+        EquipoMeta.setDisplayName(Translator.change("EQUIPMENT_STORE"));
         ShopEquipo.setItemMeta(EquipoMeta);
         player.getInventory().setItem(0, ShopEquipo);
         player.updateInventory();
         
         ItemStack ShopOther = new ItemStack(Material.REDSTONE);
         ItemMeta OtherMeta = ShopOther.getItemMeta();
-        OtherMeta.setDisplayName(ChatColor.BLUE + "Tienda de Otros");
+        OtherMeta.setDisplayName(Translator.change("OTHER_STORE"));
         ShopOther.setItemMeta(OtherMeta);
         player.getInventory().setItem(1, ShopOther);
         player.updateInventory();
         
         ItemStack ShopVip = new ItemStack(Material.QUARTZ);
         ItemMeta VipMeta = ShopVip.getItemMeta();
-        VipMeta.setDisplayName(ChatColor.GOLD + "Tienda Vip");
+        VipMeta.setDisplayName(Translator.change("VIP_STORE"));
         ShopVip.setItemMeta(VipMeta);
         player.getInventory().setItem(2, ShopVip);
         player.updateInventory();
@@ -110,7 +111,7 @@ public class ArenaUtils {
 
         ItemStack exit = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
-        itemMetaExitArena.setDisplayName(ChatColor.GOLD + "Volver al lobby");
+        itemMetaExitArena.setDisplayName(Translator.change("RETURN_TO_LOBBY"));
         exit.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exit);
         player.updateInventory();
@@ -119,7 +120,7 @@ public class ArenaUtils {
     public static void giveSpectatorObjects(Player player){
         ItemStack exit = new ItemStack(Material.APPLE);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
-        itemMetaExitArena.setDisplayName(ChatColor.GOLD + "Dejar de espectar");
+        itemMetaExitArena.setDisplayName(Translator.change("LEAVE_SPECTATOR"));
         exit.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exit);
         player.updateInventory();

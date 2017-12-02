@@ -81,7 +81,7 @@ public class InventoryListener implements Listener{
                         
                         double money = Main.getInstance().
                                 getConfig("kits.yml").
-                                getInt("Class_Point." + name.toUpperCase());
+                                getInt("Kits." + name.toUpperCase() + ".price");
                         double userMoney = PlayerManager.getMoney(player);
 
                         if (userMoney >= money) {

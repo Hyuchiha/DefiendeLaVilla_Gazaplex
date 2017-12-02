@@ -40,7 +40,7 @@ public class ObjectsUtils {
                 ItemMeta im = i.getItemMeta();
                 List<String> lore = im.getLore();
                 lore.add(ChatColor.GRAY + "---------------");
-                lore.add(ChatColor.GREEN + "✔ Desbloqueada");
+                lore.add(ChatColor.GREEN + Translator.string("UNLOCKED"));
                 lore.add(ChatColor.GRAY + "---------------");
                 im.setLore(lore);
                 i.setItemMeta(im);
@@ -69,7 +69,7 @@ public class ObjectsUtils {
             ItemMeta im = i.getItemMeta();
             List<String> lore = im.getLore();
             lore.add(ChatColor.GRAY + "---------------");
-            lore.add(ChatColor.RED + "✘ Bloqueada");
+            lore.add(ChatColor.RED + Translator.string("LOCKED"));
             lore.add(ChatColor.GRAY + "---------------");
             im.setLore(lore);
             i.setItemMeta(im);
@@ -95,14 +95,15 @@ public class ObjectsUtils {
 
             int price = Main.getInstance()
                     .getConfig("kits.yml")
-                    .getInt("Class_Point." + kit.name().toUpperCase());
+                    .getInt("Kits." + kit.name().toUpperCase() + ".price");
 
             lore.add(ChatColor.GRAY + "---------------");
             if (kit.isOwnedBy(p)) {
-                lore.add(ChatColor.GREEN + "✔ Desbloqueada");
+                lore.add(ChatColor.GREEN + Translator.string("UNLOCKED"));
             } else {
-                lore.add(ChatColor.RED + "✘ Bloqueada");
-                lore.add(ChatColor.RED + "Desbloquea esta clase con: " + price + "points");
+                lore.add(ChatColor.RED + Translator.string("LOCKED"));
+                lore.add("");
+                lore.add(ChatColor.RED + Translator.string("UNLOCK_WITH").replace("%POINTS%", Integer.toString(price)));
             }
             lore.add(ChatColor.GRAY + "---------------");
             im.setLore(lore);

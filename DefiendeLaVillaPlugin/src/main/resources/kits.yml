@@ -1,12 +1,48 @@
 #This points are for all the playes and are required for unlock 
 # a new class if a player doesn't has permission
-Class_Point:
-    CIVIL: 0
-    TANQUE: 25000
-    PYRO: 25000
-    COMANDO: 25000
-    CONGELADOR: 25000
-    INVOCADOR: 25000
-    CAZADOR: 25000
-    MERCADER: 50000
-    THOR: 25000
+Kits:
+  CIVIL:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  TANQUE:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  PYRO:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  COMANDO:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  CONGELADOR:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  INVOCADOR:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  CAZADOR:
+    lore:
+      - ""
+      - ""
+    price: 25000
+  MERCADER:
+    lore:
+      - ""
+      - ""
+    price: 50000
+  THOR:
+    lore:
+      - ""
+      - ""
+    price: 25000
