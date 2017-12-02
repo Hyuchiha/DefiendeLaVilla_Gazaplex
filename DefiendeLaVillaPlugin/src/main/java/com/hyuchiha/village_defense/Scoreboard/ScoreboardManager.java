@@ -8,6 +8,7 @@ package com.hyuchiha.village_defense.Scoreboard;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -19,16 +20,11 @@ import org.bukkit.scoreboard.Scoreboard;
 import java.util.HashMap;
 
 /**
- *
  * @author hyuchiha
  */
 public class ScoreboardManager {
 
     private final HashMap<String, ScoreboardType> players = new HashMap<>();
-
-    public ScoreboardManager() {
-
-    }
 
     public void giveScoreboard(String player, ScoreboardType st) {
         try {
@@ -45,43 +41,44 @@ public class ScoreboardManager {
 
             int score = 15;
             GamePlayer gp = PlayerManager.getPlayer(p);
+            Game game = gp.getArena().getGame();
 
-            obj.setDisplayName(ChatColor.DARK_GREEN +""+ ChatColor.BOLD + "Defiende la Villa ");
+            obj.setDisplayName(ChatColor.BOLD + "" + Translator.change("SCOREBOARD_TITLE"));
 
             switch (st) {
                 case LOBBY_GAME:
-                    Game game = gp.getArena().getGame();
 
                     obj.getScore(ChatColor.AQUA + "").setScore(score--);
-                    obj.getScore(ChatColor.AQUA + "Jugadores:").setScore(score--);
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_PLAYERS")).setScore(score--);
                     obj.getScore(ChatColor.WHITE + "" + game.getPlayersInGame().size()).setScore(score--);
                     obj.getScore(ChatColor.BLUE + "").setScore(score--);
-                    obj.getScore(ChatColor.GREEN + "Restantes:").setScore(score--);
+                    obj.getScore(Translator.change("SCOREBOARD_LOBBY_REMAINING")).setScore(score--);
                     obj.getScore(ChatColor.WHITE + "" + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size())).setScore(score--);
                     obj.getScore(ChatColor.BOLD + "").setScore(score--);
-                    obj.getScore(ChatColor.RED + "Mapa:").setScore(score--);
+                    obj.getScore(Translator.change("SCOREBOARD_LOBBY_MAP")).setScore(score--);
                     obj.getScore(ChatColor.WHITE + game.getArena().getName()).setScore(score--);
 
                     break;
 
                 case INGAME:
-                    Game game2 = gp.getArena().getGame();
 
-                    obj.getScore(ChatColor.AQUA + "Fe:").setScore((int) PlayerManager.getMoney(p));
-                    obj.getScore(ChatColor.LIGHT_PURPLE + "Gemas:").setScore(gp.getGems());
-                    obj.getScore(ChatColor.GREEN + "Oleada:").setScore(game2.getWave().getWaveNumber());
-                    obj.getScore(ChatColor.YELLOW + "Enemigos:").setScore(
-                            game2.getWave().getNumberOfEnemiesLeft()== -1 ? 0 : game2.getWave().getNumberOfEnemiesLeft());
-                    obj.getScore(ChatColor.DARK_GREEN + "Jugadores vivos:").setScore(game2.getNumberOfAlivePlayers());
-                    obj.getScore(ChatColor.RED + "Aldeanos:").setScore(game2.getWave().getNumberOfLiveVillagers());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_PLAYER_MONEY")).setScore((int) PlayerManager.getMoney(p));
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_GEMS")).setScore(gp.getGems());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_ENEMIES")).setScore(
+                            game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+
                     break;
-                case SPECTATOR:
-                    Game game3 = gp.getArena().getGame();
 
-                    obj.getScore(ChatColor.GREEN + "Oleada:").setScore(game3.getWave().getWaveNumber());
-                    obj.getScore(ChatColor.YELLOW + "Enemigos:").setScore(game3.getWave().getNumberOfEnemiesLeft()== -1 ? 0 : game3.getWave().getNumberOfEnemiesLeft());
-                    obj.getScore(ChatColor.DARK_GREEN + "Jugadores vivos:").setScore(game3.getNumberOfAlivePlayers());
-                    obj.getScore(ChatColor.RED + "Aldeanos:").setScore(game3.getWave().getNumberOfLiveVillagers());
+                case SPECTATOR:
+
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_ENEMIES")).setScore(game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+                    obj.getScore(Translator.change("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+
                     break;
 
             }
@@ -97,13 +94,9 @@ public class ScoreboardManager {
     }
 
     public void removeScoreboard(String player) {
-        try {
+        if (players.containsKey(player)) {
             players.remove(player);
-        } catch (Exception e) {
-            Output.logError(e.getMessage());
-            Output.logError(e.getLocalizedMessage());
         }
-
     }
 
     public void updateScoreboard(ScoreboardType... sts) {
@@ -120,13 +113,8 @@ public class ScoreboardManager {
     }
 
     public void updateScoreboard(ScoreboardType sts, String player) {
-        try {
-            if (players.containsKey(player)) {
-                this.giveScoreboard(player, sts);
-            }
-        } catch (Exception e) {
-            Output.logError(e.getMessage());
-            Output.logError(e.getLocalizedMessage());
+        if (players.containsKey(player)) {
+            this.giveScoreboard(player, sts);
         }
     }
 }

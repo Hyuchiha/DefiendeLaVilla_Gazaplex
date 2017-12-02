@@ -60,10 +60,10 @@ public class SpecialUtils {
         for(GamePlayer player: arena.getGame().getPlayersInGame()){
             TitleAPI.send(player.getPlayer(),
                     Translator.change("SPECIAL_EVENT_TITLE"),
-                    Translator.change("SPECIAL_EVENT_TITLE"),
-                    5,
-                    20,
-                    5);
+                    Translator.change("SPECIAL_EVENT_SUBTITLE"),
+                    10,
+                    40,
+                    10);
         }
     }
 
@@ -184,7 +184,7 @@ public class SpecialUtils {
 
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();
-            inGamePlayer.setMaxHealth(inGamePlayer.getMaxHealth() - 10.0);
+            inGamePlayer.setMaxHealth(inGamePlayer.getMaxHealth() - 4.0);
         }
 
         Bukkit.getScheduler().runTaskLaterAsynchronously(Main.getInstance(), new Runnable() {
