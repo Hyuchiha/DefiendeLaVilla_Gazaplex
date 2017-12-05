@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Manager;
 
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.PlayerState;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -32,7 +33,9 @@ public class SpectatorManager {
         player.setFlying(true);
         spectators.add(player.getName());
 
-        vdplayer.getPlayer().teleport(vdplayer.getArena().getSpawnArenaLocation());
+        if(vdplayer.getState() == PlayerState.SPECTATING){
+            vdplayer.getPlayer().teleport(vdplayer.getArena().getSpawnArenaLocation());
+        }
     }
 
     public static boolean isSpectator(Player player) {

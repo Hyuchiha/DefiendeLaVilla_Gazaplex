@@ -10,10 +10,7 @@ import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.ObjectsUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -30,6 +27,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.io.ByteArrayOutputStream;
@@ -77,8 +75,22 @@ public class PlayerListener implements Listener {
                 PlayerManager.respawnPlayer(player);
                 SpectatorManager.addSpectator(player);
             }
-        }, 1L);
+        }, 5L);
+    }
 
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent e){
+        Player player = e.getPlayer();
+
+        GamePlayer gamePlayer = PlayerManager.getPlayer(player);
+
+        if(gamePlayer.getState() == PlayerState.INGAME){
+            Location location = gamePlayer.getArena().getSpawnArenaLocation();
+
+            e.setRespawnLocation(location);
+
+            SpectatorManager.addSpectator(player);
+        }
     }
 
     @EventHandler
