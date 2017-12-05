@@ -43,7 +43,7 @@ public class Shop implements Listener {
     public ArrayList<ShopItem> getRandomItemsForShop() {
         ArrayList<ShopItem> arenaItems = new ArrayList<>();
 
-        int size = 9;
+        int size = arenaItems.size() >= 9 ? 9: arenaItems.size() ;
         Random ran = new Random();
 
         while (size != 0) {
