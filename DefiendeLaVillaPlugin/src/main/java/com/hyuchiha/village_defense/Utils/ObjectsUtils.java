@@ -36,7 +36,7 @@ public class ObjectsUtils {
 
         for (Kit kit : Kit.values()) {
             if (kit.isOwnedBy(p)) {
-                ItemStack i = kit.getIcon().clone();
+                ItemStack i = kit.getKit().getIcon().clone();
                 ItemMeta im = i.getItemMeta();
                 List<String> lore = im.getLore();
                 lore.add(ChatColor.GRAY + "---------------");
@@ -65,7 +65,7 @@ public class ObjectsUtils {
         }
 
         for (Kit kit : notUnlocked) {
-            ItemStack i = kit.getIcon().clone();
+            ItemStack i = kit.getKit().getIcon().clone();
             ItemMeta im = i.getItemMeta();
             List<String> lore = im.getLore();
             lore.add(ChatColor.GRAY + "---------------");
@@ -88,7 +88,7 @@ public class ObjectsUtils {
         int size = ((Kit.values().length + 8) / 9) * 9;
         Inventory inv = Bukkit.createInventory(p, size, Translator.change("UNLOCK_INV_TITLE"));
         for (Kit kit : Kit.values()) {
-            ItemStack i = kit.getIcon().clone();
+            ItemStack i = kit.getKit().getIcon().clone();
 
             ItemMeta im = i.getItemMeta();
             List<String> lore = new ArrayList<>();

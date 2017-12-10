@@ -60,7 +60,7 @@ public class PlayerListener implements Listener {
         vdplayer.setKilled(true);
         vdplayer.getArena().getGame().playerDeathInfo(vdplayer);
 
-        if (vdplayer.getKit() == Kit.CAZADOR) {
+        if (vdplayer.getKit() == Kit.HUNTER) {
             KitUtils.removePlayerWolfs(player);
         }
 
@@ -157,7 +157,7 @@ public class PlayerListener implements Listener {
         GamePlayer pmeta = PlayerManager.getPlayer(player);
         Action action = e.getAction();
         if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack handItem = player.getItemInHand();
+            ItemStack handItem = player.getInventory().getItemInMainHand();
             if (handItem != null) {
                 switch (handItem.getType()) {
                     case DIAMOND:

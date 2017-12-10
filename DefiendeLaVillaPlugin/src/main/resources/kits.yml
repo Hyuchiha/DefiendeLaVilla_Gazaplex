@@ -1,48 +1,69 @@
-#This points are for all the playes and are required for unlock 
+#This points are for all the players and are required for unlock
 # a new class if a player doesn't has permission
 Kits:
-  CIVIL:
+  CIVILIAN:
     lore:
+      - "&3 Clase inicial"
       - ""
-      - ""
+      - "&b Este kit te da lo"
+      - "&b básico para sobrevivir."
     price: 25000
-  TANQUE:
+  TANK:
     lore:
+      - "&3 Tanque"
       - ""
-      - ""
+      - "&b Comienzas con un peto de diamante"
+      - "&b y te encargas de empezar las peleas."
     price: 25000
   PYRO:
     lore:
+      - "&3 Pyromano"
       - ""
-      - ""
+      - "&b Tienes la habilidad de"
+      - "&b prenderle fuego a todo lo que golpeas"
     price: 25000
-  COMANDO:
+  COMMANDER:
     lore:
+      - "&3 Tu diriges el combate"
       - ""
+      - "&b Eres el encargado de dirigir"
+      - "&b a tus colegas en la batalla."
       - ""
+      - "&b Posees mas resistencia a los golpes."
     price: 25000
-  CONGELADOR:
+  ICEMAN:
     lore:
+      - "&3 Tus ataques son como el hielo."
       - ""
-      - ""
+      - "&b Con tu habilidad ralentizas a todo"
+      - "&b enemigo que golpees por 3 seg."
     price: 25000
-  INVOCADOR:
+  INVOKER:
     lore:
+      - "&3 Puedes invocar desde la muerte"
       - ""
-      - ""
+      - "&b Puedes reaparecer a 3 aldeanos"
+      - "&b y evitar que ellos desaparezcan."
     price: 25000
-  CAZADOR:
+  HUNTER:
     lore:
+      - "&3 Eres un cazador experimentado."
       - ""
-      - ""
+      - "&b Tienes la capacidad de invocar"
+      - "&b 3 lobos que te ayuden a cazar."
     price: 25000
-  MERCADER:
+  MERCHANT:
     lore:
+      - "&3 El autentico comerciante."
       - ""
-      - ""
+      - "&b Tienes un 33% de descuentos en la tienda"
+      - "&b y cuando otros compran tu recibes el 3%."
     price: 50000
   THOR:
     lore:
+      - "&3 Thor"
       - ""
-      - ""
+      - "&b Con tu martillo puedes"
+      - "&b invocar rayos que causan daño"
+      - "&b a los enemigos cercanos."
     price: 25000

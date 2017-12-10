@@ -52,7 +52,7 @@ public class QuitListener implements Listener {
 
         if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
 
-            if (vdplayer.getKit() == Kit.CAZADOR) {
+            if (vdplayer.getKit() == Kit.HUNTER) {
                 KitUtils.removePlayerWolfs(player.getPlayer());
             }
 
@@ -90,7 +90,7 @@ public class QuitListener implements Listener {
 
         if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
 
-            if (vdplayer.getKit() == Kit.CAZADOR) {
+            if (vdplayer.getKit() == Kit.HUNTER) {
                 KitUtils.removePlayerWolfs(player.getPlayer());
             }
 

@@ -48,7 +48,7 @@ public class InventoryListener implements Listener{
                 String name = e.getCurrentItem().getItemMeta().getDisplayName();
                 GamePlayer meta = PlayerManager.getPlayer(player);
 
-                if(meta.getKit() != Kit.CIVIL && meta.getState() == PlayerState.LOBBY_GAME){
+                if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
                     player.sendMessage(Translator.change("PLAYER_HAS_CLASS_SELECTED"));
                     return;
                 }
@@ -60,7 +60,7 @@ public class InventoryListener implements Listener{
                     return;
                 }
                 
-                meta.setKit(Kit.getKit(ChatColor.stripColor(name)));
+                meta.setKit(toChoose);
                 
                 String classSelected = Translator.change("PLAYER_HAS_SELECTED_CLASS");
                 classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));

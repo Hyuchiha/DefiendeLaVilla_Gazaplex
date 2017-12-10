@@ -120,7 +120,6 @@ public class Main extends JavaPlugin {
         pm.registerEvents(new BossListener(this), this);
         pm.registerEvents(new ChatListener(this), this);
         pm.registerEvents(new InventoryListener(this), this);
-        pm.registerEvents(new KitListener(this), this);
     }
 
     public void registerCommands() {

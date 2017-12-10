@@ -88,7 +88,7 @@ public class Shop implements Listener {
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
         Action action = e.getAction();
         if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
-            ItemStack handItem = player.getItemInHand();
+            ItemStack handItem = player.getInventory().getItemInMainHand();
             if (handItem != null && handItem.hasItemMeta() && handItem.getItemMeta().hasDisplayName()) {
                 switch (handItem.getType()) {
                     case EMERALD:

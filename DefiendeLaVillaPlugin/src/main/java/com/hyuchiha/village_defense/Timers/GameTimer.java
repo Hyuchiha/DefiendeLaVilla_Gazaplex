@@ -159,7 +159,7 @@ public class GameTimer extends BukkitRunnable {
 
                     for (GamePlayer player : game.getPlayersInGame()) {
                         player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1.5F, 1.5F);
-                        player.getKit().give(player.getPlayer());
+                        player.getKit().getKit().giveSpawnItems(player.getPlayer());
 
                         ActionBar.send(player.getPlayer(),
                                 Translator.change("WAVE_START")

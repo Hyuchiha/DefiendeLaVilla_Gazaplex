@@ -30,7 +30,7 @@ public class GamePlayer {
         this.killed = false;
         this.gems = 0;
 
-        this.kit = Kit.getKit(Kit.CIVIL.name());
+        this.kit = Kit.CIVILIAN;
     }
 
     public PlayerState getState() {
@@ -160,7 +160,7 @@ public class GamePlayer {
         setKilled(false);
         getPlayer().sendMessage(Translator.change("PLAYER_RESPAWN"));
 
-        getKit().give(getPlayer());
+        getKit().getKit().giveSpawnItems(getPlayer());
         //Se actualizara aqui el scoreboard
         getArena().getGame().getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
     }
@@ -170,7 +170,7 @@ public class GamePlayer {
         getPlayer().teleport(ArenaManager.getLobby().getLobbyLocation());
         setState(PlayerState.LOBBY);
         setArena(null);
-        setKit(Kit.CIVIL);
+        setKit(Kit.CIVILIAN);
         setGems(0);
         setKilled(false);
         //Se entregan los objetos del lobby principal

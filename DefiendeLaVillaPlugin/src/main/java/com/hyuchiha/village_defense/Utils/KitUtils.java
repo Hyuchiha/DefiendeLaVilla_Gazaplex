@@ -10,6 +10,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.World;
 import org.bukkit.entity.*;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -87,5 +89,15 @@ public class KitUtils {
             }
         }
     }
-    private final Main plugin = Main.getInstance();
+
+    public static boolean isItem(ItemStack stack, String name) {
+        if (stack == null) {
+            return false;
+        }
+        ItemMeta meta = stack.getItemMeta();
+        if (meta == null) {
+            return false;
+        }
+        return meta.hasDisplayName() && meta.getDisplayName().equalsIgnoreCase(name);
+    }
 }

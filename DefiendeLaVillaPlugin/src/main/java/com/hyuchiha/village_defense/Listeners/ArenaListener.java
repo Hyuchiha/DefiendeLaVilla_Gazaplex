@@ -115,7 +115,7 @@ public class ArenaListener implements Listener {
                 SpectatorManager.removeSpectator(player.getPlayer());
             }
 
-            if (player.getKit() == Kit.CAZADOR) {
+            if (player.getKit() == Kit.HUNTER) {
                 KitUtils.removePlayerWolfs(player.getPlayer());
             }
 
@@ -165,7 +165,7 @@ public class ArenaListener implements Listener {
 
         if (player.getState() == PlayerState.INGAME || player.getState() == PlayerState.LOBBY_GAME) {
 
-            if (player.getKit() == Kit.CAZADOR) {
+            if (player.getKit() == Kit.HUNTER) {
                 KitUtils.removePlayerWolfs(player.getPlayer());
             }
 
