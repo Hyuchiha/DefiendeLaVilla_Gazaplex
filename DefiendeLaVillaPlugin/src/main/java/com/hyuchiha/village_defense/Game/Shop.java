@@ -194,7 +194,10 @@ public class Shop implements Listener {
 
                 Potion potion = new Potion(PotionType.valueOf(potionType), potionEffectNum);
                 potion.setSplash(splash);
-                potion.setHasExtendedDuration(extended);
+
+                if(extended){
+                    potion.setHasExtendedDuration(extended);
+                }
 
                 item = new ShopItem(potion.toItemStack(1), price);
 
@@ -216,6 +219,7 @@ public class Shop implements Listener {
 
             return item;
         } catch (Exception e) {
+            e.printStackTrace();
             Output.logError(e.getLocalizedMessage());
         }
         return null;

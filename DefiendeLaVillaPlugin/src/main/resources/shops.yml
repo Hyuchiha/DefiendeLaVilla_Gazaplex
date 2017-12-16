@@ -5,7 +5,7 @@
 #  item:
 #     type: DIAMOND_HELMET   -> this is the item name from minecraft material class
 #     price: 300             -> the number of gems to purchase this items
-#     amounts: 1             -> the number of item to give to the purchaser
+#     amount: 1             -> the number of item to give to the purchaser
 #     hasEnchant: true       -> true or false for set enchats to the object
 #     enchats:               -> list of enchats for the item
 #        - DURABILITY: 10    -> enchat name and number of enchant
@@ -20,6 +20,8 @@
 #     splash: true           -> if the potion is splash
 #     extended: true         -> if the potion has extended effects
 #
+# POTIONS ONLY CAN BE SPLASH OR EXTENDED NOT BOTH
+#
 Equipment:
   item1:
     type: DIAMOND_HELMET
@@ -27,7 +29,7 @@ Equipment:
     amount: 1
     hasEnchant: false
   item2:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 200
     amount: 1
     hasEnchant: false
@@ -49,7 +51,7 @@ Equipment:
     enchants:
       PROTECTION_PROJECTILE: 2
   item6:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 300
     amount: 1
     hasEnchant: true
@@ -77,7 +79,7 @@ Equipment:
     enchants:
       PROTECTION_ENVIRONMENTAL: 2
   item10:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 300
     amount: 1
     hasEnchant: true
@@ -105,7 +107,7 @@ Equipment:
     enchants:
       PROTECTION_FIRE: 2
   item14:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 250
     amount: 1
     hasEnchant: true
@@ -133,7 +135,7 @@ Equipment:
     enchants:
       PROTECTION_EXPLOSIONS: 2
   item18:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 250
     amount: 1
     hasEnchant: true
@@ -161,7 +163,7 @@ Equipment:
     enchants:
       THORNS: 2
   item22:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 300
     amount: 1
     hasEnchant: true
@@ -195,7 +197,7 @@ Equipment:
       PROTECTION_EXPLOSIONS: 2
       PROTECTION_PROJECTILE: 2
   item26:
-    type: DIAMOND_CHESPLATE
+    type: DIAMOND_CHESTPLATE
     price: 700
     amount: 1
     hasEnchant: true
@@ -247,7 +249,7 @@ Equipment:
       PROTECTION_EXPLOSIONS: 2
       PROTECTION_PROJECTILE: 2
   item30:
-    type: LEATHER_CHESPLATE
+    type: LEATHER_CHESTPLATE
     price: 300
     amount: 1
     hasEnchant: true
@@ -291,7 +293,7 @@ Equipment:
     amount: 1
     hasEnchant: false
   item34:
-    type: CHAINMAIL_CHESPLATE
+    type: CHAINMAIL_CHESTPLATE
     price: 100
     amount: 1
     hasEnchant: false
@@ -311,7 +313,7 @@ Equipment:
     amount: 1
     hasEnchant: false
   item38:
-    type: IRON_CHESPLATE
+    type: IRON_CHESTPLATE
     price: 250
     amount: 1
     hasEnchant: false
@@ -499,7 +501,7 @@ Others:
     amount: 4
     hasEnchant: false
   item5:
-    type: COOKED_RABIT
+    type: COOKED_RABBIT
     price: 60
     amount: 4
     hasEnchant: false
@@ -561,7 +563,7 @@ Others:
     price: 150
     potionType: INSTANT_HEAL
     potionEffectNum: 1
-    splash: true
+    splash: false
     extended: false
   item16:
     type: POTION
@@ -575,7 +577,7 @@ Others:
     price: 150
     potionType: INSTANT_DAMAGE
     potionEffectNum: 1
-    splash: true
+    splash: false
     extended: false
   item18:
     type: POTION
@@ -583,7 +585,7 @@ Others:
     potionType: REGEN
     potionEffectNum: 2
     splash: true
-    extended: true
+    extended: false
   item19:
     type: POTION
     price: 150
