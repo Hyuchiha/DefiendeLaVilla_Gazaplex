@@ -5,10 +5,10 @@
 #  item:
 #     type: DIAMOND_HELMET   -> this is the item name from minecraft material class
 #     price: 300             -> the number of gems to purchase this items
-#     amount: 1             -> the number of item to give to the purchaser
+#     amount: 1              -> the number of item to give to the purchaser
 #     hasEnchant: true       -> true or false for set enchats to the object
 #     enchats:               -> list of enchats for the item
-#        - DURABILITY: 10    -> enchat name and number of enchant
+#       - DURABILITY: 10     -> enchat name and number of enchant
 #
 #  Potions items
 #
