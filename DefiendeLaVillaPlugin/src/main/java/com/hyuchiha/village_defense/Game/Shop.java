@@ -93,27 +93,27 @@ public class Shop implements Listener {
                 switch (handItem.getType()) {
                     case EMERALD:
                         if (handItem.getItemMeta().hasDisplayName()) {
-                            if (handItem.getItemMeta().getDisplayName().contains(ChatColor.GREEN + "Tienda de Equipo")) {
+                            if (handItem.getItemMeta().getDisplayName().contains(Translator.change("EQUIPMENT_STORE"))) {
                                 if (vdplayer.getState() == PlayerState.INGAME) {
                                     ShopManager.getShopConstructor(ShopManager.Equip).openShop(player);
                                 }
                             }
                         }
                         break;
-                    case REDSTONE:
+                    case QUARTZ:
                         if (handItem.getItemMeta().hasDisplayName()) {
-                            if (handItem.getItemMeta().getDisplayName().contains(ChatColor.BLUE + "Tienda de Otros")) {
+                            if (handItem.getItemMeta().getDisplayName().contains(Translator.change("COMBAT_STORE"))) {
                                 if (vdplayer.getState() == PlayerState.INGAME) {
-                                    ShopManager.getShopConstructor(ShopManager.Others).openShop(player);
+                                    ShopManager.getShopConstructor(ShopManager.Combat).openShop(player);
                                 }
                             }
                         }
                         break;
-                    case QUARTZ:
+                    case REDSTONE:
                         if (handItem.getItemMeta().hasDisplayName()) {
-                            if (handItem.getItemMeta().getDisplayName().contains(ChatColor.GOLD + "Tienda Vip")) {
+                            if (handItem.getItemMeta().getDisplayName().contains(Translator.change("OTHER_STORE"))) {
                                 if (vdplayer.getState() == PlayerState.INGAME) {
-                                    ShopManager.getShopConstructor(ShopManager.Vip).openShop(player);
+                                    ShopManager.getShopConstructor(ShopManager.Others).openShop(player);
                                 }
                             }
                         }
@@ -187,12 +187,16 @@ public class Shop implements Listener {
             ShopItem item = null;
             if (type == Material.POTION) {
 
-                String potionType = config.getString(name + "." + itemName + ".potionType");
+                String potionType   = config.getString(name + "." + itemName + ".potionType");
                 int potionEffectNum = config.getInt(name + "." + itemName + ".potionEffectNum");
+                boolean splash      = config.getBoolean(name + "." + itemName + ".splash");
+                boolean extended    = config.getBoolean(name + "." + itemName + ".extended");
 
-                ItemStack potion = new Potion(PotionType.valueOf(potionType), potionEffectNum).toItemStack(1);
+                Potion potion = new Potion(PotionType.valueOf(potionType), potionEffectNum);
+                potion.setSplash(splash);
+                potion.setHasExtendedDuration(extended);
 
-                item = new ShopItem(potion, price);
+                item = new ShopItem(potion.toItemStack(1), price);
 
             } else {
                 int qty = config.getInt(name + "." + itemName + ".amount");

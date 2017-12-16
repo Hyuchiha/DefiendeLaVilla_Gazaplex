@@ -87,19 +87,19 @@ public class ArenaUtils {
         ShopEquipo.setItemMeta(EquipoMeta);
         player.getInventory().setItem(0, ShopEquipo);
         player.updateInventory();
+
+        ItemStack ShopCombat = new ItemStack(Material.QUARTZ);
+        ItemMeta CombatMeta = ShopCombat.getItemMeta();
+        CombatMeta.setDisplayName(Translator.change("COMBAT_STORE"));
+        ShopCombat.setItemMeta(CombatMeta);
+        player.getInventory().setItem(1, ShopCombat);
+        player.updateInventory();
         
         ItemStack ShopOther = new ItemStack(Material.REDSTONE);
         ItemMeta OtherMeta = ShopOther.getItemMeta();
         OtherMeta.setDisplayName(Translator.change("OTHER_STORE"));
         ShopOther.setItemMeta(OtherMeta);
-        player.getInventory().setItem(1, ShopOther);
-        player.updateInventory();
-        
-        ItemStack ShopVip = new ItemStack(Material.QUARTZ);
-        ItemMeta VipMeta = ShopVip.getItemMeta();
-        VipMeta.setDisplayName(Translator.change("VIP_STORE"));
-        ShopVip.setItemMeta(VipMeta);
-        player.getInventory().setItem(2, ShopVip);
+        player.getInventory().setItem(2, ShopOther);
         player.updateInventory();
     }
     

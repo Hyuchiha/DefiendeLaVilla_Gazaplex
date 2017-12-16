@@ -1,356 +1,593 @@
+# All the shops enabled in the plugin, dont remove any shop
+# Exist 2 types of items for the shops
+# Base items
+#
+#  item:
+#     type: DIAMOND_HELMET   -> this is the item name from minecraft material class
+#     price: 300             -> the number of gems to purchase this items
+#     amounts: 1             -> the number of item to give to the purchaser
+#     hasEnchant: true       -> true or false for set enchats to the object
+#     enchats:               -> list of enchats for the item
+#        - DURABILITY: 10    -> enchat name and number of enchant
+#
+#  Potions items
+#
+#  item:
+#     type: POTION           -> always required for potions
+#     price: 150             -> the number of gems to purchase this item
+#     potionType: STRENGTH   -> the potion type from PotionType class of minecraft
+#     potionEffectNum: 1     -> the effect number
+#     splash: true           -> if the potion is splash
+#     extended: true         -> if the potion has extended effects
+#
 Equipment:
-    item1:
-        type: DIAMOND_HELMET
-        price: 50
-        amount: 1
-        hasEnchant: false
-    item2:
-        type: DIAMOND_CHESTPLATE
-        price: 80
-        amount: 1
-        hasEnchant: false
-    item3:
-        type: DIAMOND_LEGGINGS
-        price: 70
-        amount: 1
-        hasEnchant: false
-    item4:
-        type: DIAMOND_BOOTS
-        price: 40
-        amount: 1
-        hasEnchant: false
-    item5:
-        type: DIAMOND_SWORD
-        price: 100
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 2
-    item6:
-        type: BOW
-        price: 90
-        amount: 1
-        hasEnchant: false
-    item7:
-        type: ARROW
-        price: 10
-        amount: 10
-        hasEnchant: false
-    item8:
-        type: DIAMOND_CHESTPLATE
-        price: 160
-        amount: 1
-        hasEnchant: true
-        enchants:
-            PROTECTION_ENVIRONMENTAL: 2
-            DURABILITY: 2
-    item9:
-        type: DIAMOND_LEGGINGS
-        price: 140
-        amount: 1
-        hasEnchant: true
-        enchants:
-            PROTECTION_ENVIRONMENTAL: 2
-    item10:
-        type: IRON_HELMET
-        price: 40
-        amount: 1
-        hasEnchant: false
-    item11:
-        type: IRON_CHESTPLATE
-        price: 70
-        amount: 1
-        hasEnchant: false
-    item12:
-        type: IRON_LEGGINGS
-        price: 60
-        amount: 1
-        hasEnchant: false
-    item13:
-        type: IRON_BOOTS
-        price: 30
-        amount: 1
-        hasEnchant: false
-    item14:
-        type: IRON_SWORD
-        price: 90
-        amount: 1
-        hasEnchant: false
-    item15:
-        type: BOW
-        price: 100
-        amount: 1
-        hasEnchant: true
-        enchants:
-            ARROW_KNOCKBACK: 1
-    item16:
-        type: IRON_AXE
-        price: 110
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 3
-    item17:
-        type: IRON_SWORD
-        price: 130
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_UNDEAD: 3
-    item18:
-        type: GOLD_HELMET
-        price: 30
-        amount: 1
-        hasEnchant: false
-    item19:
-        type: GOLD_CHESTPLATE
-        price: 60
-        amount: 1
-        hasEnchant: false
-    item20:
-        type: GOLD_LEGGINGS
-        price: 50
-        amount: 1
-        hasEnchant: false
-    item21:
-        type: GOLD_BOOTS
-        price: 20
-        amount: 1
-        hasEnchant: false
-    item22:
-        type: GOLD_SWORD
-        price: 80
-        amount: 1
-        hasEnchant: false
-    item23:
-        type: BOW
-        price: 120
-        amount: 1
-        hasEnchant: true
-        enchants:
-            ARROW_DAMAGE: 4
-    item24:
-        type: DIAMOND
-        price: 99999
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 10
-            DAMAGE_UNDEAD: 10
-            DIG_SPEED: 10
-            DURABILITY: 10
-            FIRE_ASPECT: 10
-            KNOCKBACK: 10
-            LOOT_BONUS_MOBS: 10
-            PROTECTION_ENVIRONMENTAL: 10
+  item1:
+    type: DIAMOND_HELMET
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item2:
+    type: DIAMOND_CHESPLATE
+    price: 200
+    amount: 1
+    hasEnchant: false
+  item3:
+    type: DIAMOND_LEGGINGS
+    price: 150
+    amount: 1
+    hasEnchant: false
+  item4:
+    type: DIAMOND_BOOTS
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item5:
+    type: DIAMOND_HELMET
+    price: 1200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_PROJECTILE: 2
+  item6:
+    type: DIAMOND_CHESPLATE
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_PROJECTILE: 2
+  item7:
+    type: DIAMOND_LEGGINGS
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_PROJECTILE: 2
+  item8:
+    type: DIAMOND_BOOTS
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_PROJECTILE: 2
+  item9:
+    type: DIAMOND_HELMET
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 2
+  item10:
+    type: DIAMOND_CHESPLATE
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 2
+  item11:
+    type: DIAMOND_LEGGINGS
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 2
+  item12:
+    type: DIAMOND_BOOTS
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_ENVIRONMENTAL: 2
+  item13:
+    type: DIAMOND_HELMET
+    price: 150
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_FIRE: 2
+  item14:
+    type: DIAMOND_CHESPLATE
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_FIRE: 2
+  item15:
+    type: DIAMOND_LEGGINGS
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_FIRE: 2
+  item16:
+    type: DIAMOND_BOOTS
+    price: 150
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_FIRE: 2
+  item17:
+    type: DIAMOND_HELMET
+    price: 150
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_EXPLOSIONS: 2
+  item18:
+    type: DIAMOND_CHESPLATE
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_EXPLOSIONS: 2
+  item19:
+    type: DIAMOND_LEGGINGS
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_EXPLOSIONS: 2
+  item20:
+    type: DIAMOND_BOOTS
+    price: 150
+    amount: 1
+    hasEnchant: true
+    enchants:
+      PROTECTION_EXPLOSIONS: 2
+  item21:
+    type: DIAMOND_HELMET
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+  item22:
+    type: DIAMOND_CHESPLATE
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+  item23:
+    type: DIAMOND_LEGGINGS
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+  item24:
+    type: DIAMOND_BOOTS
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+  item25:
+    type: DIAMOND_HELMET
+    price: 600
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item26:
+    type: DIAMOND_CHESPLATE
+    price: 700
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item27:
+    type: DIAMOND_LEGGINGS
+    price: 650
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item28:
+    type: DIAMOND_BOOTS
+    price: 600
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item29:
+    type: LEATHER_HELMET
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item30:
+    type: LEATHER_CHESPLATE
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item31:
+    type: LEATHER_LEGGINGS
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item32:
+    type: LEATHER_BOOTS
+    price: 300
+    amount: 1
+    hasEnchant: true
+    enchants:
+      THORNS: 2
+      PROTECTION_PROJECTILE: 2
+      PROTECTION_ENVIRONMENTAL: 2
+      PROTECTION_FIRE: 2
+      PROTECTION_FALL: 2
+      PROTECTION_EXPLOSIONS: 2
+      PROTECTION_PROJECTILE: 2
+  item33:
+    type: CHAINMAIL_HELMET
+    price: 50
+    amount: 1
+    hasEnchant: false
+  item34:
+    type: CHAINMAIL_CHESPLATE
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item35:
+    type: CHAINMAIL_LEGGINGS
+    price: 150
+    amount: 1
+    hasEnchant: false
+  item36:
+    type: CHAINMAIL_BOOTS
+    price: 50
+    amount: 1
+    hasEnchant: false
+  item37:
+    type: IRON_HELMET
+    price: 150
+    amount: 1
+    hasEnchant: false
+  item38:
+    type: IRON_CHESPLATE
+    price: 250
+    amount: 1
+    hasEnchant: false
+  item39:
+    type: IRON_LEGGINGS
+    price: 200
+    amount: 1
+    hasEnchant: false
+  item40:
+    type: IRON_BOOTS
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item41:
+    type: WOOD_SWORD
+    price: 50
+    amount: 1
+    hasEnchant: false
+Combat:
+  tem42:
+    type: IRON_SWORD
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item43:
+    type: GOLD_SWORD
+    price: 75
+    amount: 1
+    hasEnchant: false
+  item44:
+    type: DIAMOND_SWORD
+    price: 150
+    amount: 1
+    hasEnchant: false
+  item45:
+    type: WOOD_SWORD
+    price: 50
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_UNDEAD: 3
+  item46:
+    type: IRON_SWORD
+    price: 100
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_ALL: 2
+  item47:
+    type: GOLD_SWORD
+    price: 100
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_UNDEAD: 3
+  item48:
+    type: DIAMOND_SWORD
+    price: 100
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_ALL: 2
+  item49:
+    type: BOW
+    price: 90
+    amount: 1
+    hasEnchant: false
+  item50:
+    type: ARROW
+    price: 10
+    amount: 10
+    hasEnchant: false
+  item51:
+    type: BOW
+    price: 100
+    amount: 1
+    hasEnchant: true
+    enchants:
+      ARROW_KNOCKBACK: 1
+  item52:
+    type: BOW
+    price: 200
+    amount: 1
+    hasEnchant: true
+    enchants:
+      ARROW_KNOCKBACK: 1
+      ARROW_DAMAGE: 1
+  item53:
+    type: BOW
+    price: 250
+    amount: 1
+    hasEnchant: true
+    enchants:
+      ARROW_KNOCKBACK: 2
+      ARROW_DAMAGE: 2
+      ARROW_FIRE: 2
+  item54:
+    type: BOW
+    price: 400
+    amount: 1
+    hasEnchant: true
+    enchants:
+      ARROW_KNOCKBACK: 2
+      ARROW_DAMAGE: 2
+      ARROW_FIRE: 2
+      ARROW_INFINITE: 1
+  item55:
+    type: IRON_AXE
+    price: 100
+    amount: 1
+    hasEnchant: false
+  item56:
+    type: DIAMOND_AXE
+    price: 200
+    amount: 1
+    hasEnchant: false
+  item57:
+    type: WOOD_AXE
+    price: 50
+    amount: 1
+    hasEnchant: false
+  item58:
+    type: DIAMOND_AXE
+    price: 700
+    amount: 1
+    hasEnchant: true
+    enchants:
+      KNOCKBACK: 1
+      FIRE_ASPECT: 1
+      DURABILITY: 3
+      DAMAGE_ALL: 2
+  item59:
+    type: DIAMOND_AXE
+    price: 400
+    amount: 1
+    hasEnchant: true
+    enchants:
+      KNOCKBACK: 1
+      FIRE_ASPECT: 1
+      DURABILITY: 3
+      DAMAGE_ALL: 2
+  item60:
+    type: DIAMOND_SWORD
+    price: 500
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_ALL: 2
+      FIRE_ASPECT: 1
+      KNOCKBACK: 1
+      DURABILITY: 3
+  item98:
+    type: DIAMOND
+    price: 5000
+    amount: 1
+    hasEnchant: true
+    enchants:
+      DAMAGE_ALL: 10
+      DAMAGE_UNDEAD: 10
+      DIG_SPEED: 10
+      DURABILITY: 10
+      FIRE_ASPECT: 10
+      KNOCKBACK: 10
+      LOOT_BONUS_MOBS: 10
+      PROTECTION_ENVIRONMENTAL: 10
 Others:
-    item1:
-        type: COOKED_CHICKEN
-        price: 60
-        amount: 4
-        hasEnchant: false
-    item2:
-        type: APPLE
-        price: 50
-        amount: 3
-        hasEnchant: false
-    item3:
-        type: BAKED_POTATO
-        price: 60
-        amount: 4
-        hasEnchant: false
-    item4:
-        type: COOKIE
-        price: 20
-        amount: 4
-        hasEnchant: false
-    item5:
-        type: POTION
-        price: 150
-        potionType: STRENGTH
-        potionEffectNum: 1
-    item6:
-        type: POTION
-        price: 350
-        potionType: STRENGTH
-        potionEffectNum: 2
-    item7:
-        type: POTION
-        price: 150
-        potionType: STRENGTH
-        potionEffectNum: 1
-    item8:
-        type: POTION
-        price: 150
-        potionType: STRENGTH
-        potionEffectNum: 1
-    item9:
-        type: POTION
-        price: 150
-        potionType: STRENGTH
-        potionEffectNum: 1
-Vip:
-    item1:
-        type: DIAMOND_HELMET
-        price: 50
-        amount: 1
-        hasEnchant: false
-    item2:
-        type: DIAMOND_CHESTPLATE
-        price: 80
-        amount: 1
-        hasEnchant: false
-    item3:
-        type: DIAMOND_LEGGINGS
-        price: 70
-        amount: 1
-        hasEnchant: false
-    item4:
-        type: DIAMOND_BOOTS
-        price: 40
-        amount: 1
-        hasEnchant: false
-    item5:
-        type: DIAMOND_SWORD
-        price: 50
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 2
-    item6:
-        type: BOW
-        price: 45
-        amount: 1
-        hasEnchant: false
-    item7:
-        type: ARROW
-        price: 10
-        amount: 10
-        hasEnchant: false
-    item8:
-        type: DIAMOND_CHESTPLATE
-        price: 160
-        amount: 1
-        hasEnchant: true
-        enchants:
-            PROTECTION_ENVIRONMENTAL: 2
-            DURABILITY: 2
-    item9:
-        type: DIAMOND_LEGGINGS
-        price: 140
-        amount: 1
-        hasEnchant: true
-        enchants:
-            PROTECTION_ENVIRONMENTAL: 2
-    item10:
-        type: IRON_HELMET
-        price: 20
-        amount: 1
-        hasEnchant: false
-    item11:
-        type: IRON_CHESTPLATE
-        price: 35
-        amount: 1
-        hasEnchant: false
-    item12:
-        type: IRON_LEGGINGS
-        price: 30
-        amount: 1
-        hasEnchant: false
-    item13:
-        type: IRON_BOOTS
-        price: 15
-        amount: 1
-        hasEnchant: false
-    item14:
-        type: IRON_SWORD
-        price: 45
-        amount: 1
-        hasEnchant: false
-    item15:
-        type: BOW
-        price: 50
-        amount: 1
-        hasEnchant: true
-        enchants:
-            ARROW_KNOCKBACK: 1
-    item16:
-        type: IRON_AXE
-        price: 60
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 3
-    item17:
-        type: IRON_SWORD
-        price: 65
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_UNDEAD: 3
-    item18:
-        type: COOKED_CHICKEN
-        price: 30
-        amount: 4
-        hasEnchant: false
-    item19:
-        type: GOLD_HELMET
-        price: 15
-        amount: 1
-        hasEnchant: false
-    item20:
-        type: GOLD_CHESTPLATE
-        price: 30
-        amount: 1
-        hasEnchant: false
-    item21:
-        type: GOLD_LEGGINGS
-        price: 25
-        amount: 1
-        hasEnchant: false
-    item22:
-        type: GOLD_BOOTS
-        price: 10
-        amount: 1
-        hasEnchant: false
-    item23:
-        type: GOLD_SWORD
-        price: 40
-        amount: 1
-        hasEnchant: false
-    item24:
-        type: BOW
-        price: 60
-        amount: 1
-        hasEnchant: true
-        enchants:
-            ARROW_DAMAGE: 4
-    item25:
-        type: APPLE
-        price: 25
-        amount: 3
-        hasEnchant: false
-    item26:
-        type: BAKED_POTATO
-        price: 30
-        amount: 4
-        hasEnchant: false
-    item27:
-        type: COOKIE
-        price: 10
-        amount: 4
-        hasEnchant: false
-    item28:
-        type: DIAMOND
-        price: 99999
-        amount: 1
-        hasEnchant: true
-        enchants:
-            DAMAGE_ALL: 10
-            DAMAGE_UNDEAD: 10
-            DIG_SPEED: 10
-            DURABILITY: 10
-            FIRE_ASPECT: 10
-            KNOCKBACK: 10
-            LOOT_BONUS_MOBS: 10
-            PROTECTION_ENVIRONMENTAL: 10
+  item:
+    type: COOKED_CHICKEN
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item2:
+    type: COOKED_BEEF
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item3:
+    type: COOKED_FISH
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item4:
+    type: COOKED_MUTTON
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item5:
+    type: COOKED_RABIT
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item6:
+    type: CAKE
+    price: 100
+    amount: 4
+    hasEnchant: false
+  item7:
+    type: APPLE
+    price: 50
+    amount: 3
+    hasEnchant: false
+  item8:
+    type: BAKED_POTATO
+    price: 60
+    amount: 4
+    hasEnchant: false
+  item9:
+    type: COOKIE
+    price: 20
+    amount: 4
+    hasEnchant: false
+  item10:
+    type: GOLDEN_APPLE
+    price: 150
+    amount: 1
+    hasEnchant: false
+  item11:
+    type: POTION
+    price: 150
+    potionType: STRENGTH
+    potionEffectNum: 1
+    splash: false
+    extended: true
+  item12:
+    type: POTION
+    price: 150
+    potionType: STRENGTH
+    potionEffectNum: 1
+    splash: true
+    extended: true
+  item13:
+    type: POTION
+    price: 350
+    potionType: JUMP
+    potionEffectNum: 2
+    splash: true
+    extended: false
+  item14:
+    type: POTION
+    price: 150
+    potionType: FIRE_RESISTANCE
+    potionEffectNum: 1
+    splash: true
+    extended: false
+  item15:
+    type: POTION
+    price: 150
+    potionType: INSTANT_HEAL
+    potionEffectNum: 1
+    splash: true
+    extended: false
+  item16:
+    type: POTION
+    price: 150
+    potionType: SLOWNESS
+    potionEffectNum: 1
+    splash: true
+    extended: false
+  item17:
+    type: POTION
+    price: 150
+    potionType: INSTANT_DAMAGE
+    potionEffectNum: 1
+    splash: true
+    extended: false
+  item18:
+    type: POTION
+    price: 150
+    potionType: REGEN
+    potionEffectNum: 2
+    splash: true
+    extended: true
+  item19:
+    type: POTION
+    price: 150
+    potionType: WEAKNESS
+    potionEffectNum: 1
+    splash: true
+    extended: false
