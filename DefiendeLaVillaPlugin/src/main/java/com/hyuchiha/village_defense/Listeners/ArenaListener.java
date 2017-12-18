@@ -6,7 +6,7 @@ import com.hyuchiha.village_defense.CustomEvents.ArenaFinishEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaJoinEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.CustomEvents.ArenaStartEvent;
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
+import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -122,7 +122,7 @@ public class ArenaListener implements Listener {
             player.sendPlayerToLobby();
 
             //Se actualiza la BD
-            PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getPlayerUUID(), player.getPlayer().getName());
+            Account data = plugin.getDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
 
             try {
                 if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {

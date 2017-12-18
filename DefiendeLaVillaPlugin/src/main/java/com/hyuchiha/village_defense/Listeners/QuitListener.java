@@ -5,8 +5,8 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
-import com.hyuchiha.village_defense.Database.StatsManager;
+import com.hyuchiha.village_defense.Database.Base.Account;
+import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -56,18 +56,21 @@ public class QuitListener implements Listener {
                 KitUtils.removePlayerWolfs(player.getPlayer());
             }
 
-            //Se actualiza la BD
-            StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName()));
-
             vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
 
             vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
         }
 
-        PlayerManager.removePlayer(player);
+        //Se actualiza la BD
+        Database database = plugin.getDatabase();
+        Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
-        //Se eliminan los stats
-        PlayerStatsData.removePlayerStat(player.getUniqueId());
+        if(account != null){
+            database.saveAccount(account);
+            database.removeCachedAccount(account);
+        }
+
+        PlayerManager.removePlayer(player);
     }
 
     @EventHandler
@@ -96,17 +99,20 @@ public class QuitListener implements Listener {
 
             vdplayer.clearData();
 
-            //Se actualiza la BD
-            StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName()));
-
             vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
 
             vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
         }
 
-        PlayerManager.removePlayer(player);
+        //Se actualiza la BD
+        Database database = plugin.getDatabase();
+        Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
-        //Se eliminan los stats
-        PlayerStatsData.removePlayerStat(player.getUniqueId());
+        if(account != null){
+            database.saveAccount(account);
+            database.removeCachedAccount(account);
+        }
+
+        PlayerManager.removePlayer(player);
     }
 }

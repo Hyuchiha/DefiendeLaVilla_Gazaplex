@@ -5,7 +5,6 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
-import com.hyuchiha.village_defense.Database.StatsManager;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
@@ -36,11 +35,7 @@ public class JoinListener implements Listener{
         player.sendMessage(Translator.change("PLAYER_JOIN_MESSAGE"));
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
-        StatsManager.InsertPlayer(player);
-        
-        //Aqui se crea el PlayerStatsData
-        //Para su posterior uso con los datos del jugador
-        StatsManager.updateAllStatsOnLogin(player);
+        plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
         
         //Se envia el jugador al lobby principal
         vdplayer.sendPlayerToLobby();

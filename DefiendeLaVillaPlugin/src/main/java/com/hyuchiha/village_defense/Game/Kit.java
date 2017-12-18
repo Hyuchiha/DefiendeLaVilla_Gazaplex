@@ -1,23 +1,17 @@
 package com.hyuchiha.village_defense.Game;
 
-import com.hyuchiha.village_defense.Database.KitsUnlockedManager;
+import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Kits.Implementations.*;
 import com.hyuchiha.village_defense.Main;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public enum Kit {
 
@@ -86,9 +80,11 @@ public enum Kit {
     }
 
     public boolean isOwnedBy(Player p) {
+        Account account = Main.getInstance().getDatabase().getAccount(p.getUniqueId().toString(), p.getName());
+
         return p.isOp()
                 || this == CIVILIAN
                 || p.hasPermission("VD.Class." + getName().toLowerCase())
-                || KitsUnlockedManager.hasKit(p.getUniqueId().toString() , this.name());
+                || (account != null && account.hasKit(this));
     }
 }

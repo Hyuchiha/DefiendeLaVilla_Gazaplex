@@ -5,16 +5,15 @@ import com.hyuchiha.village_defense.Chat.ChatListener;
 import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
 import com.hyuchiha.village_defense.Config.ConfigManager;
-import com.hyuchiha.village_defense.Database.BackendConnection.DatabaseConnection;
-import com.hyuchiha.village_defense.Database.KitsManager;
-import com.hyuchiha.village_defense.Database.KitsUnlockedManager;
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
-import com.hyuchiha.village_defense.Database.StatsManager;
+import com.hyuchiha.village_defense.Database.Base.Database;
+import com.hyuchiha.village_defense.Database.Databases.MySQLDB;
+import com.hyuchiha.village_defense.Database.Databases.SQLiteDB;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Listeners.*;
 import com.hyuchiha.village_defense.Manager.*;
 import com.hyuchiha.village_defense.Messages.Translator;
+import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.PluginManager;
@@ -30,7 +29,7 @@ public class Main extends JavaPlugin {
     }
 
     private ConfigManager config;
-    private DatabaseConnection dbConnection;
+    private Database database;
 
     @Override
     public void onEnable() {
@@ -57,8 +56,7 @@ public class Main extends JavaPlugin {
         hookVault();
         hookBungeeCord();
 
-        initDatabaseConnection();
-        createDatabases();
+        initDatabase();
     }
 
     @Override
@@ -67,9 +65,7 @@ public class Main extends JavaPlugin {
             if(arena.getGame() != null && arena.getGame().getState() == GameState.INGAME){
                 arena.getGame().getWave().cancelWave();
 
-                for(GamePlayer player : arena.getGame().getPlayersInGame()){
-                    StatsManager.updateStatsFromPlayer(PlayerStatsData.getPlayerStat(player.getPlayerUUID(), player.getPlayer().getName()));
-                }
+                database.close();
             }
         }
     }
@@ -134,25 +130,31 @@ public class Main extends JavaPlugin {
         return Translator.change("PREFIX");
     }
 
-    public void initDatabaseConnection(){
+    public void initDatabase(){
         Configuration configValues = getConfig("config.yml");
 
-        String hostname = configValues.getString("MySQL.host");
-        int port = configValues.getInt("MySQL.port");
-        String database = configValues.getString("MySQL.name");
-        String userName = configValues.getString("MySQL.user");
-        String password = configValues.getString("MySQL.pass");
+        switch (configValues.getString("Database.type")){
+            case "MySQL":
+                database = new MySQLDB(this);
+                break;
+            case "SQLite":
+                database = new SQLiteDB(this);
+                break;
+            case "MongoDB":
+                //TODO
+                break;
+        }
 
-        this.dbConnection = new DatabaseConnection(hostname, port, database, userName, password, this);
+        if(database != null){
+            if(!database.init()){
+                Output.logError("Database init error");
+
+                setEnabled(false);
+            }
+        }
     }
 
-    public void createDatabases(){
-        StatsManager.InitDatabase();
-        KitsManager.InitDatabase();
-        KitsUnlockedManager.InitDatabase();
-    }
-
-    public DatabaseConnection getDbConnection() {
-        return dbConnection;
+    public Database getDatabase() {
+        return database;
     }
 }

@@ -1,7 +1,7 @@
 package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Arena.Arena;
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
+import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -79,7 +79,7 @@ public class MobListener implements Listener {
                     //Se obtiene el jugador que lo mato si es q existe y se actualiza en BD
                     Player player = event.getEntity().getKiller();
                     if (player != null) {
-                        PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName());
+                        Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
                         data.setKills(data.getKills() + 1);
                     }
 

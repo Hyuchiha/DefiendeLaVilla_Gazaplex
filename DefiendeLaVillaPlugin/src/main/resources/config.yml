@@ -1,13 +1,15 @@
 #Vinculacion con BungeeCoord
 EnableBungeeComunication: true
 ServerToConnect: "lobby"
-#El uso de mysql es obligatorio
-MySQL:
+# El uso de mysql es obligatorio
+# El tipo puede ser MySQL, SQLite, MongoDB
+Database:
+    type: "MySQL"
+    host: "localhost"
     port: 3306
+    name: "village_defense"
     user: "root"
     pass: "root"
-    host: "localhost"
-    name: "village_defense"
 #La configuracion de las fases
 Game:
     #Esta es la config del numero de fases que deben pasar

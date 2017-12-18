@@ -5,14 +5,13 @@
  */
 package com.hyuchiha.village_defense.Timers;
 
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
-import com.hyuchiha.village_defense.Database.StatsManager;
+import com.hyuchiha.village_defense.Database.Base.Account;
+import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,13 +34,14 @@ public class SavePlayersData extends BukkitRunnable {
     public void run() {
         try {
             for (GamePlayer player : playersToSave) {
-                PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getPlayerUUID(), player.getPlayer().getName());
+                Database database = plugin.getDatabase();
+                Account data = database.getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
 
-                StatsManager.updateStatsFromPlayer(data);
+                database.saveAccount(data);
             }
         } catch (Exception e) {
-            Output.logError(e.getLocalizedMessage());
-            Output.logError(e.getMessage());
+            Output.logError("Runnable: "+ e.getLocalizedMessage());
+            Output.logError("Runnable: "+ e.getMessage());
         }
         
         this.cancel();

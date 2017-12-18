@@ -6,7 +6,7 @@
 package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Arena.Arena;
-import com.hyuchiha.village_defense.Database.PlayerStatsData;
+import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;
@@ -55,7 +55,7 @@ public class BossListener implements Listener {
                     PlayerManager.addMoney(player, moneyToGive);
 
                     //Se actualiza la BD
-                    PlayerStatsData data = PlayerStatsData.getPlayerStat(player.getUniqueId(), player.getName());
+                    Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
                     data.setBosses_kills(data.getBosses_kills() + 1);
 
                     entity.remove();
