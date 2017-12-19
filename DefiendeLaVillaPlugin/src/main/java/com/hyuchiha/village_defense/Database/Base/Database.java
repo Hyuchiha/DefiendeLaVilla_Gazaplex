@@ -10,7 +10,7 @@ import java.util.*;
 
 public abstract class Database {
     private final Plugin plugin;
-    private final Set<Account> cachedAccounts;
+    protected final Set<Account> cachedAccounts;
 
     public Database(Plugin plugin) {
         this.plugin = plugin;
@@ -162,7 +162,7 @@ public abstract class Database {
         return account;
     }
 
-    private Account getCachedAccount(String name, String uuid) {
+    private Account getCachedAccount(String uuid, String name) {
         for (Account account : cachedAccounts) {
             if (account.getUUID().equals(uuid)) {
                 account.setName(name);

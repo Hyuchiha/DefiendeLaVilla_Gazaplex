@@ -5,6 +5,7 @@ import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Database.StatType;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Output.Output;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -145,6 +146,8 @@ public abstract class SQLDB extends Database {
                 statement.close();
             }
 
+            cachedAccounts.add(account);
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -153,6 +156,8 @@ public abstract class SQLDB extends Database {
     @Override
     protected Account loadAccount(String uuid) {
         checkConnection();
+
+        Output.log("Loading account with uuid: " + uuid);
 
         try {
             String query = "SELECT * FROM " + accountsTable +
@@ -184,6 +189,8 @@ public abstract class SQLDB extends Database {
                 List<Kit> kits = getKitsFromAccount(uuid);
                 account.setKits(kits);
             }
+
+            cachedAccounts.add(account);
 
             return account;
         } catch (SQLException e) {
