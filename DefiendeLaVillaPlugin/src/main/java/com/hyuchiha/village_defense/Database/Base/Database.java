@@ -1,8 +1,6 @@
 package com.hyuchiha.village_defense.Database.Base;
 
 import com.hyuchiha.village_defense.Database.StatType;
-import com.hyuchiha.village_defense.Game.Kit;
-import com.hyuchiha.village_defense.Main;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -10,12 +8,12 @@ import java.util.*;
 
 public abstract class Database {
     private final Plugin plugin;
-    protected final Set<Account> cachedAccounts;
+    protected final HashMap<String, Account> cachedAccounts;
 
     public Database(Plugin plugin) {
         this.plugin = plugin;
 
-        this.cachedAccounts = new HashSet<>();
+        this.cachedAccounts = new HashMap<>();
     }
 
     public boolean init() {
@@ -146,7 +144,8 @@ public abstract class Database {
     }
 
     public boolean removeCachedAccount(Account account) {
-        return cachedAccounts.remove(account);
+        Account removed = cachedAccounts.remove(account.getUUID());
+        return removed != null;
     }
 
     private Account createAndAddAccount(String uuid, String name) {
@@ -156,32 +155,27 @@ public abstract class Database {
 
         if (player != null) {
             createAccountAndAddToDatabase(account);
-            cachedAccounts.add(account);
+            cachedAccounts.put(account.getUUID(), account);
         }
 
         return account;
     }
 
     private Account getCachedAccount(String uuid, String name) {
-        for (Account account : cachedAccounts) {
-            if (account.getUUID().equals(uuid)) {
-                account.setName(name);
-                return account;
-            }
+        Account account = cachedAccounts.get(uuid);
+
+        if(account != null){
+            account.setName(name);
         }
 
-        return null;
+        return account;
     }
 
     public void close() {
-        Iterator<Account> iterator = cachedAccounts.iterator();
+        Collection<Account> collection = cachedAccounts.values();
 
-        while (iterator.hasNext()) {
-            Account account = iterator.next();
-
+        for (Account account: collection){
             saveAccount(account);
-
-            iterator.remove();
         }
     }
 

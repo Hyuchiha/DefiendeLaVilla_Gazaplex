@@ -1,9 +1,9 @@
 package com.hyuchiha.village_defense.Chat;
 
+import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.Game.PlayerState;
-import com.hyuchiha.village_defense.Game.GamePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.World;

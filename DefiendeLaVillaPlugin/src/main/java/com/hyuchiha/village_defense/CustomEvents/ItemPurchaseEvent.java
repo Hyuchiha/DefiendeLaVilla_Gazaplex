@@ -6,8 +6,8 @@
 package com.hyuchiha.village_defense.CustomEvents;
 
 import com.hyuchiha.village_defense.Arena.Arena;
-import com.hyuchiha.village_defense.Game.ShopItem;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.ShopItem;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
 

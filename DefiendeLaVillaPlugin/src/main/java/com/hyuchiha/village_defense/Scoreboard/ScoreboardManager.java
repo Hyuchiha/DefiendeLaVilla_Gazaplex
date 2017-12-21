@@ -5,9 +5,9 @@
  */
 package com.hyuchiha.village_defense.Scoreboard;
 
-import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;

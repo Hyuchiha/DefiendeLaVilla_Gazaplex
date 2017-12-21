@@ -7,11 +7,11 @@ package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Database.Base.Account;
+import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
-import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;

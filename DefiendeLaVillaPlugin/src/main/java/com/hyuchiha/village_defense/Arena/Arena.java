@@ -6,10 +6,10 @@
 package com.hyuchiha.village_defense.Arena;
 
 import com.avaje.ebeaninternal.server.lib.util.NotFoundException;
+import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Utils.ArenaUtils;
 import org.bukkit.*;

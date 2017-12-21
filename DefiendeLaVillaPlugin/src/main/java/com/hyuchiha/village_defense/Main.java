@@ -6,12 +6,15 @@ import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
 import com.hyuchiha.village_defense.Config.ConfigManager;
 import com.hyuchiha.village_defense.Database.Base.Database;
+import com.hyuchiha.village_defense.Database.Databases.MongoDB;
 import com.hyuchiha.village_defense.Database.Databases.MySQLDB;
 import com.hyuchiha.village_defense.Database.Databases.SQLiteDB;
-import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Listeners.*;
-import com.hyuchiha.village_defense.Manager.*;
+import com.hyuchiha.village_defense.Manager.ArenaManager;
+import com.hyuchiha.village_defense.Manager.MobManager;
+import com.hyuchiha.village_defense.Manager.PlayerManager;
+import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
@@ -141,7 +144,7 @@ public class Main extends JavaPlugin {
                 database = new SQLiteDB(this);
                 break;
             case "MongoDB":
-                //TODO
+                database = new MongoDB(this);
                 break;
         }
 

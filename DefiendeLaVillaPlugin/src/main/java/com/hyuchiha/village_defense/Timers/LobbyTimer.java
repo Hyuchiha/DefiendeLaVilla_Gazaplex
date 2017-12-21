@@ -5,10 +5,10 @@
  */
 package com.hyuchiha.village_defense.Timers;
 
+import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;

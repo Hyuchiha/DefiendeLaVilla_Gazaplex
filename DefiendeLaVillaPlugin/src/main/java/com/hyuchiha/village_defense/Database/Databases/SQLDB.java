@@ -146,7 +146,7 @@ public abstract class SQLDB extends Database {
                 statement.close();
             }
 
-            cachedAccounts.add(account);
+            cachedAccounts.put(account.getUUID(),account);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -190,7 +190,7 @@ public abstract class SQLDB extends Database {
                 account.setKits(kits);
             }
 
-            cachedAccounts.add(account);
+            cachedAccounts.put(uuid, account);
 
             return account;
         } catch (SQLException e) {
@@ -239,6 +239,20 @@ public abstract class SQLDB extends Database {
 
             if(statement.execute()){
                 statement.close();
+            }
+
+            Account account = null;
+
+            for (Account cache: cachedAccounts.values()){
+                if(cache.getUUID().equalsIgnoreCase(uuid)){
+                    account = cache;
+                }
+            }
+
+            if(account != null){
+                account.getKits().add(Kit.valueOf(kit.toUpperCase()));
+
+                cachedAccounts.put(uuid, account);
             }
 
         }catch (SQLException e){
