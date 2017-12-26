@@ -69,10 +69,10 @@ public class Main extends JavaPlugin {
         for(Arena arena: ArenaManager.getArenas()){
             if(arena.getGame() != null && arena.getGame().getState() == GameState.INGAME){
                 arena.getGame().getWave().cancelWave();
-
-                database.close();
             }
         }
+
+        database.close();
     }
 
     public void hookBungeeCord(){
