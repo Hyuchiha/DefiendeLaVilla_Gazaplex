@@ -64,7 +64,7 @@ public class GameTimer extends BukkitRunnable {
         if (hasSpawnedFirstWave && canFinish()) {
             game.getWave().cancelWave();
 
-            game.sendMessageToPlayers(Translator.change("GAME_RESTART"));
+            game.sendMessageToPlayers(Translator.change("PREFIX") + " " + Translator.change("GAME_RESTART"));
 
             new RestartTimer(plugin, game);
 

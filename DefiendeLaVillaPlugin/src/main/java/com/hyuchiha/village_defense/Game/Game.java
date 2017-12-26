@@ -89,7 +89,7 @@ public class Game {
 
         //Se envia mensaje de que alguien salio
         for (GamePlayer vdplayer : getPlayersInGame()) {
-            vdplayer.sendMessage(
+            vdplayer.sendMessage(Translator.change("PREFIX") + " " +
                     Translator.change("PLAYER_LEAVE_GAME")
                             .replace("%PLAYER%", playerleave.getPlayer().getName())
             );
@@ -103,7 +103,7 @@ public class Game {
 
         if (state == GameState.WAITING) {
             //Se le avisa al jugador que dejo esta partida
-            playerleave.sendMessage(
+            playerleave.sendMessage(Translator.change("PREFIX") + " " +
                     Translator.change("PLAYER_LEAVE_ARENA")
                             .replace("%ARENA%", getArena().getName())
             );
@@ -144,7 +144,7 @@ public class Game {
             if(playervd != null){
                 SpectatorManager.removeSpectator(playervd);
                 getScoreboardManager().removeScoreboard(playervd.getName());
-                spectator.sendMessage(Translator.change("GAME_HAS_FINISHED"));
+                spectator.sendMessage(Translator.change("PREFIX") + " " + Translator.change("GAME_HAS_FINISHED"));
                 spectator.sendPlayerToLobby();
                 spectator.setArena(null);
             }
@@ -211,11 +211,11 @@ public class Game {
         String deathMessage = ChatUtil.formatDeathMessage(player.getPlayer());
 
         for (GamePlayer playerInGame : getPlayersInGame()) {
-            playerInGame.sendMessage(deathMessage);
+            playerInGame.sendMessage(Translator.change("PREFIX") + " " + deathMessage);
         }
 
         for (GamePlayer gameSpectator : getSpectators()) {
-            gameSpectator.sendMessage(deathMessage);
+            gameSpectator.sendMessage(Translator.change("PREFIX") + " " + deathMessage);
         }
     }
 

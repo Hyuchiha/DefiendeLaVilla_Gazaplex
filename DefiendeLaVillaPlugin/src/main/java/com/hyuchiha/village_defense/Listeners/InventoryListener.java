@@ -12,7 +12,6 @@ import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -50,7 +49,7 @@ public class InventoryListener implements Listener{
             GamePlayer meta = PlayerManager.getPlayer(player);
 
             if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
-                player.sendMessage(Translator.change("PLAYER_HAS_CLASS_SELECTED"));
+                player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_HAS_CLASS_SELECTED"));
                 return;
             }
 
@@ -58,7 +57,7 @@ public class InventoryListener implements Listener{
 
             if(toChoose != null){
                 if (!toChoose.isOwnedBy(player)) {
-                    player.sendMessage(Translator.change("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
+                    player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
                     return;
                 }
 
@@ -97,7 +96,7 @@ public class InventoryListener implements Listener{
                     PlayerManager.withdrawMoney(player, money);
 
                     String classUnlocked = Translator.change("PLAYER_UNLOCK_CLASS");
-                    player.sendMessage(classUnlocked.replace("%CLASS%", name));
+                    player.sendMessage(Translator.change("PREFIX") + " " + classUnlocked.replace("%CLASS%", name));
                 } else {
                     player.sendMessage(plugin.getPrefix() + " " + Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
                 }

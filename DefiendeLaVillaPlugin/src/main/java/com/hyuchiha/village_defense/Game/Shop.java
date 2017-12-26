@@ -161,9 +161,9 @@ public class Shop implements Listener {
             buyerInv.addItem(stackToGive);
             buyer.updateInventory();
             player.setGems(player.getGems() - price);
-            buyer.sendMessage(Translator.change("PLAYER_PURCHASE_ITEM").replace("%ITEM%", stackName));
+            buyer.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_PURCHASE_ITEM").replace("%ITEM%", stackName));
         } else {
-            buyer.sendMessage(Translator.change("NOT_ENOUGHT_GEMS_TO_PURCHASE"));
+            buyer.sendMessage(Translator.change("PREFIX") + " " + Translator.change("NOT_ENOUGHT_GEMS_TO_PURCHASE"));
         }
 
         player.getArena().getGame().getScoreboardManager().giveScoreboard(buyer.getName(), ScoreboardType.INGAME);

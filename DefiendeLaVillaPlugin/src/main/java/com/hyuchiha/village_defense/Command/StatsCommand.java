@@ -3,9 +3,7 @@ package com.hyuchiha.village_defense.Command;
 import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Database.StatType;
 import com.hyuchiha.village_defense.Main;
-import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.Output.Output;
 import org.apache.commons.lang.WordUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -14,10 +12,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 
 public class StatsCommand implements CommandExecutor {
@@ -41,7 +35,7 @@ public class StatsCommand implements CommandExecutor {
                     if(offlinePlayer != null && offlinePlayer.hasPlayedBefore()){
                         listStats((Player) sender, offlinePlayer.getName(), StatType.values());
                     }else {
-                        sender.sendMessage(ChatColor.RED + Translator.string("ERROR_PLAYER_NOT_FOUND"));
+                        sender.sendMessage(Translator.change("PREFIX") + " " + ChatColor.RED + Translator.string("ERROR_PLAYER_NOT_FOUND"));
                     }
                 }
 
@@ -49,7 +43,7 @@ public class StatsCommand implements CommandExecutor {
                 listStats((Player) sender);
             }
         }else {
-            sender.sendMessage(ChatColor.RED + Translator.string("ERROR_CONSOLE_PLAYERCOMMAND"));
+            sender.sendMessage(Translator.change("PREFIX") + " " + ChatColor.RED + Translator.string("ERROR_CONSOLE_PLAYERCOMMAND"));
         }
 
         return true;

@@ -127,7 +127,7 @@ public class GamePlayer {
 
         getPlayer().teleport(loc);
         setKilled(false);
-        sendMessage(
+        sendMessage(Translator.change("PREFIX") + " " +
                 Translator.change("PLAYER_JOIN_ARENA")
                         .replace("%ARENA%", getArena().getName()));
 
@@ -145,7 +145,7 @@ public class GamePlayer {
         ArenaUtils.giveShopObjects(getPlayer());
         getPlayer().teleport(getArena().getSpawnArenaLocation());
         setKilled(false);
-        getPlayer().sendMessage(Translator.change("ARENA_INIT"));
+        getPlayer().sendMessage(Translator.change("PREFIX") + " " + Translator.change("ARENA_INIT"));
 
         setState(PlayerState.INGAME);
         //Se reinicia la antigua scoreboard
@@ -158,7 +158,7 @@ public class GamePlayer {
         initGameSettings();
         ArenaUtils.giveShopObjects(getPlayer());
         setKilled(false);
-        getPlayer().sendMessage(Translator.change("PLAYER_RESPAWN"));
+        getPlayer().sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_RESPAWN"));
 
         getKit().getKit().giveSpawnItems(getPlayer());
         //Se actualizara aqui el scoreboard

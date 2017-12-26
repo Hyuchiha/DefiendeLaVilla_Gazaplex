@@ -31,8 +31,8 @@ public class JoinListener implements Listener{
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage("");
         final Player player = e.getPlayer();
-        
-        player.sendMessage(Translator.change("PLAYER_JOIN_MESSAGE"));
+
+        player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_JOIN_MESSAGE"));
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
         plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());

@@ -8,6 +8,7 @@ import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.ObjectsUtils;
 import org.bukkit.*;
@@ -209,7 +210,7 @@ public class PlayerListener implements Listener {
                                         b.close();
                                         out.close();
                                     } catch (Exception error) {
-                                        player.sendMessage(ChatColor.RED + "Could not connect to " + ServerExit);
+                                        player.sendMessage(Translator.change("PREFIX") + " " + ChatColor.RED + "Could not connect to " + ServerExit);
                                     }
                                 }
                             }

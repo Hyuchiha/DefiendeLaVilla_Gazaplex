@@ -66,9 +66,10 @@ public class LobbyTimer extends BukkitRunnable {
         if (timeLeft == 20 || timeLeft == 10 || timeLeft <= 5) {
             for (GamePlayer player : game.getPlayersInGame()) {
                 player.sendMessage(
-                        Translator.change("GAME_STARTING")
-                                .replace("%TIME%",
-                                        Integer.toString(timeLeft)) + ((timeLeft == 1) ? "." : "s."));
+                        Translator.change("PREFIX") + " " +
+                                Translator.change("GAME_STARTING")
+                                        .replace("%TIME%",
+                                                Integer.toString(timeLeft)) + ((timeLeft == 1) ? "." : "s."));
             }
         }
 
