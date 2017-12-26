@@ -5,6 +5,7 @@ import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Database.StatType;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
@@ -17,12 +18,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import static com.mongodb.client.model.Filters.eq;
 
-public class MongoDB extends Database{
+public class MongoDB extends Database {
     private static final String ACCOUNTS_COLLECTION = "accounts";
 
     private final Plugin plugin;
@@ -40,24 +40,26 @@ public class MongoDB extends Database{
 
         ConfigurationSection section = getConfigSection();
 
-        MongoCredential credential = MongoCredential.createCredential(
+        MongoCredential credential = MongoCredential.createScramSha1Credential(
                 section.getString("user"),
                 section.getString("name"),
                 section.getString("pass").toCharArray()
         );
 
+        MongoClientOptions.Builder options = new MongoClientOptions.Builder();
+        //options.sslEnabled(true);
+        //options.sslInvalidHostNameAllowed(true);
+        options.connectTimeout(10000);
+
         mongoClient = new MongoClient(
                 new ServerAddress(
-                    getConfigSection().getString("host"),
-                    getConfigSection().getInt("port")
-                ), Arrays.asList(credential)
+                        getConfigSection().getString("host"),
+                        getConfigSection().getInt("port")
+                ), credential, options.build()
         );
 
-        if (getDatabase() == null) {
-            return false;
-        }
+        return getDatabase() != null;
 
-        return true;
     }
 
     public MongoDatabase getDatabase() {
