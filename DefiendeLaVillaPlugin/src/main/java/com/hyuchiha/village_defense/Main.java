@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatListener;
 import com.hyuchiha.village_defense.Chat.VaultHooks;
 import com.hyuchiha.village_defense.Command.StatsCommand;
+import com.hyuchiha.village_defense.Command.TopsCommand;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
 import com.hyuchiha.village_defense.Config.ConfigManager;
 import com.hyuchiha.village_defense.Database.Base.Database;
@@ -125,6 +126,7 @@ public class Main extends JavaPlugin {
     public void registerCommands() {
         getCommand("villagedefense").setExecutor(new VillageDefenseCommand(this));
         getCommand("stats").setExecutor(new StatsCommand(this));
+        getCommand("top").setExecutor(new TopsCommand(this));
     }
 
     public Configuration getConfig(String configName) {

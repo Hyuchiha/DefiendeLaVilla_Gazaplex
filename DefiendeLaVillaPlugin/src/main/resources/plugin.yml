@@ -9,3 +9,6 @@ commands:
     stats:
       description: Comando para listar estadisticas de un jugador
       aliases: s
+    top:
+      description: Comando para listar el top de kills, deaths, etc...
+      aliases: t

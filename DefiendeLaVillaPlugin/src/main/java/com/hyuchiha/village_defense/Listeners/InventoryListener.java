@@ -5,6 +5,7 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
+import com.google.common.base.Enums;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -36,81 +37,80 @@ public class InventoryListener implements Listener{
     public void onInventoryClick(InventoryClickEvent e) {
         Inventory inv = e.getInventory();
         Player player = (Player) e.getWhoClicked();
-        try {
-            if (inv.getTitle().startsWith(Translator.change("CLASS_SELECT_INV_TITLE"))) {
-                
-                if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
-                    return;
-                }
-                player.closeInventory();
-                e.setCancelled(true);
-                String name = e.getCurrentItem().getItemMeta().getDisplayName();
-                GamePlayer meta = PlayerManager.getPlayer(player);
 
-                if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
-                    player.sendMessage(Translator.change("PLAYER_HAS_CLASS_SELECTED"));
-                    return;
-                }
+        if (inv.getTitle().startsWith(Translator.change("CLASS_SELECT_INV_TITLE"))) {
 
-                Kit toChoose = Kit.valueOf(ChatColor.stripColor(name).toUpperCase());
-                
+            if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
+                return;
+            }
+
+            player.closeInventory();
+            e.setCancelled(true);
+            String name = e.getCurrentItem().getItemMeta().getDisplayName();
+            GamePlayer meta = PlayerManager.getPlayer(player);
+
+            if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
+                player.sendMessage(Translator.change("PLAYER_HAS_CLASS_SELECTED"));
+                return;
+            }
+
+            Kit toChoose = Enums.getIfPresent(Kit.class, ChatColor.stripColor(name).toUpperCase()).orNull();
+
+            if(toChoose != null){
                 if (!toChoose.isOwnedBy(player)) {
                     player.sendMessage(Translator.change("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
                     return;
                 }
-                
+
                 meta.setKit(toChoose);
-                
+
                 String classSelected = Translator.change("PLAYER_HAS_SELECTED_CLASS");
                 classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));
                 player.sendMessage(plugin.getPrefix() +" "+ classSelected);
+            }else {
+                player.sendMessage(plugin.getPrefix() + " " + Translator.change("ERROR_NO_CLASS_FOUND"));
+            }
 
+            return;
+        }
+
+        if (inv.getTitle().startsWith(Translator.change("UNLOCK_INV_TITLE"))) {
+
+            if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
                 return;
             }
-            
-            if (inv.getTitle().startsWith(Translator.change("UNLOCK_INV_TITLE"))) {
-                try {
-                    if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
-                        return;
-                    }
 
-                    String name = e.getCurrentItem().getItemMeta().getDisplayName();
+            String name = e.getCurrentItem().getItemMeta().getDisplayName();
 
-                    if (!Kit.valueOf(ChatColor.stripColor(name).toUpperCase())
-                            .isOwnedBy(player)) {
-                        
-                        double money = Main.getInstance().
-                                getConfig("kits.yml").
-                                getInt("Kits." + name.toUpperCase() + ".price");
-                        double userMoney = PlayerManager.getMoney(player);
+            Kit toChoose = Enums.getIfPresent(Kit.class, ChatColor.stripColor(name).toUpperCase()).orNull();
 
-                        if (userMoney >= money) {
-                            plugin.getDatabase().addUnlockedKit(player.getUniqueId().toString(), name);
+            if (toChoose != null && !toChoose.isOwnedBy(player)) {
 
-                            PlayerManager.withdrawMoney(player, money);
+                double money = Main.getInstance().
+                        getConfig("kits.yml").
+                        getInt("Kits." + name.toUpperCase() + ".price");
+                double userMoney = PlayerManager.getMoney(player);
 
-                            String classUnlocked = Translator.change("PLAYER_UNLOCK_CLASS");
-                            player.sendMessage(classUnlocked.replace("%CLASS%", name));
-                        } else {
-                            player.sendMessage(Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
-                        }
+                if (userMoney >= money) {
+                    plugin.getDatabase().addUnlockedKit(player.getUniqueId().toString(), name);
 
-                        player.closeInventory();
-                        e.setCancelled(true);
-                    } else {
-                        player.closeInventory();
-                        e.setCancelled(true);
-                        player.sendMessage(Translator.change("PLAYER_ALREADY_HAVE_CLASS"));
-                    }
-                } catch (Exception ex) {
-                    Output.logError("Error desbloqueando un kit");
-                    Output.logError(ex.getLocalizedMessage());
+                    PlayerManager.withdrawMoney(player, money);
+
+                    String classUnlocked = Translator.change("PLAYER_UNLOCK_CLASS");
+                    player.sendMessage(classUnlocked.replace("%CLASS%", name));
+                } else {
+                    player.sendMessage(plugin.getPrefix() + " " + Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
                 }
 
+                player.closeInventory();
+                e.setCancelled(true);
+            } else {
+                player.closeInventory();
+                e.setCancelled(true);
+                player.sendMessage(plugin.getPrefix() + " "+ Translator.change("PLAYER_ALREADY_HAVE_CLASS"));
             }
-        }catch(Exception ex){
-            Output.logError("Error en los inventarios");
-            Output.logError(ex.getLocalizedMessage());
+
         }
+
     }
 }

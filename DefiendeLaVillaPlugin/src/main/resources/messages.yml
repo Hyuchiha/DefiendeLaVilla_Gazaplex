@@ -63,4 +63,6 @@ SCOREBOARD_INGAME_VILLAGERS_REMAINING: "&cAldeanos:"
 #Utility
 ERROR_CONSOLE_PLAYERCOMMAND: "Solo los jugadores pueden usar este comando!"
 ERROR_PLAYER_NOT_FOUND: "No se encontro el jugador solicitado"
+ERROR_STAT_NOT_FOUND: "La stat solicitada no existe"
+ERROR_NO_CLASS_FOUND: "La clase solicitada no existe"
 INFO_COMMAND_STATS: "Stats"
