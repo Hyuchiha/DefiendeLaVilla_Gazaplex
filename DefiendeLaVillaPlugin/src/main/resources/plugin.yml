@@ -4,5 +4,8 @@ authors: [Hyuchiha]
 version: 1.0
 commands:
     villagedefense:
-        description: Comando para unirse o dejar una arena
-        aliases: vd
+      description: Comando para unirse o dejar una arena
+      aliases: vd
+    stats:
+      description: Comando para listar estadisticas de un jugador
+      aliases: s

@@ -50,13 +50,6 @@ public class ArenaListener implements Listener {
             return;
         }
 
-        /**
-        //Verificarse que tenga permiso para jugar
-        if (!playerEvent.getPlayer().hasPermission("VD.Player.join")) {
-            playerEvent.getPlayer().sendMessage(Translator.change("DONT_HAVE_PERMISSION_TO_JOIN"));
-            return;
-        }*/
-
         //Se tiene permiso y se empieza la validacion de si
         //estas en otra partida
         if (playerEvent.getState() != PlayerState.LOBBY_GAME && playerEvent.getState() != PlayerState.INGAME) {

@@ -52,13 +52,6 @@ public class VillageDefenseCommand implements CommandExecutor {
                         if (sender instanceof Player) {
                             Player player = (Player) sender;
 
-                            /**
-                            //Verificarse que tenga permiso para jugar
-                            if (!player.hasPermission("VD.Player.join")) {
-                                player.sendMessage(ChatColor.RED + "No tiene permiso para unirte a las partidas.");
-                                return true;
-                            }*/
-
                             if (arena == null) {
                                 player.sendMessage(Translator.change("CANT_JOIN_ARENA"));
                                 Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");

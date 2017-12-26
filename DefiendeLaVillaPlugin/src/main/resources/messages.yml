@@ -60,3 +60,7 @@ SCOREBOARD_INGAME_WAVE_NUMBER: "&aOleada:"
 SCOREBOARD_INGAME_ENEMIES: "&eEnemigos:"
 SCOREBOARD_INGAME_PLAYERS_ALIVE: "&2Jugadore vivos:"
 SCOREBOARD_INGAME_VILLAGERS_REMAINING: "&cAldeanos:"
+#Utility
+ERROR_CONSOLE_PLAYERCOMMAND: "Solo los jugadores pueden usar este comando!"
+ERROR_PLAYER_NOT_FOUND: "No se encontro el jugador solicitado"
+INFO_COMMAND_STATS: "Stats"
