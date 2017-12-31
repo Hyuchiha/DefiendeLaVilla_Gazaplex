@@ -24,8 +24,6 @@ import org.bukkit.configuration.Configuration;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.logging.Level;
-
 public class Main extends JavaPlugin {
     private static Main instance;
 
@@ -40,8 +38,8 @@ public class Main extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
-        getLogger().log(Level.INFO, "Welcome to Village Defense");
-        getLogger().log(Level.INFO, "Developed by Hyuchiha");
+        Output.log("Welcome to Village Defense");
+        Output.log("Developed by Hyuchiha");
 
         config = new ConfigManager(this);
         config.loadConfigFiles("config.yml", "arenas.yml", "shops.yml", "kits.yml", "messages.yml");
