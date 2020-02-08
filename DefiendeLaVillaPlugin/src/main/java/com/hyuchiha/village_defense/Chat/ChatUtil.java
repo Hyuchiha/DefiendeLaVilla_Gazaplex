@@ -58,7 +58,7 @@ public class ChatUtil {
         String playerName = sender.getName();
         World w = sender.getWorld();
 
-        group = Translator.change("PREFIX");
+        group = Translator.getPrefix();
         String primaryGroup0 = VaultHooks.getPermissionManager().getPrimaryGroup(Bukkit.getPlayer(playerName));
         String gprefix = VaultHooks.getChatManager().getGroupPrefix(w, primaryGroup0);
         s = group + fixDefault(ChatColor.translateAlternateColorCodes('&', gprefix)) + " " + playerName + DARK_AQUA + "" + BOLD + " > " + RESET;
@@ -81,7 +81,7 @@ public class ChatUtil {
     public static String formatDeathMessage(Player victim) {
         String victimName = ChatColor.RED + victim.getName() + ChatColor.GRAY;
 
-        String message = Translator.change("PLAYER_DEATH_MESSAGE");
+        String message = Translator.getColoredString("PLAYER_DEATH_MESSAGE");
         message = message.replace("%PLAYER%", victimName);
 
         return message;

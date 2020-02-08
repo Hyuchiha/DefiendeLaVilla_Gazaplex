@@ -45,7 +45,7 @@ public class ArenaListener implements Listener {
         GamePlayer playerEvent = event.getPlayer();
 
         if (arena == null) {
-            playerEvent.getPlayer().sendMessage(Translator.change("PREFIX") + " " + Translator.change("CANT_JOIN_ARENA"));
+            playerEvent.getPlayer().sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
             Output.logError("Se intento ingresa a la arena " + name + " pero retorno null");
             return;
         }
@@ -61,7 +61,7 @@ public class ArenaListener implements Listener {
                     //Aqui se verifica que tenga permiso
 
                     if (!playerEvent.getPlayer().hasPermission("VD.Player.spect")) {
-                        playerEvent.sendMessage(Translator.change("PREFIX") + " " + Translator.change("DONT_HAVE_PERMISSION_TO_SPECT"));
+                        playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
                     } else {
                         //Se añade como espectador
                         arena.getGame().addSpectator(playerEvent);
@@ -69,7 +69,7 @@ public class ArenaListener implements Listener {
                 } else {
                     //No tienes permito espectar
                     //Se envia mensaje para decirlo
-                    playerEvent.sendMessage(Translator.change("PREFIX") + " " + Translator.change("DONT_HAVE_PERMISSION_TO_SPECT"));
+                    playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
                 }
             } else {
                 //No estas en una arena y la arena no esta llena
@@ -82,7 +82,7 @@ public class ArenaListener implements Listener {
             }
         } else {
             //Se enviara mensaje para decirle que se encuentra en partida
-            playerEvent.sendMessage(Translator.change("PREFIX") + " " + Translator.change("YOU_ARE_IN_GAME"));
+            playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
         }
     }
 
@@ -102,7 +102,7 @@ public class ArenaListener implements Listener {
         new SavePlayersData(dataCloned, plugin);
 
         for (GamePlayer player : arena.getGame().getPlayersInGame()) {
-            player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("GAME_HAS_FINISHED"));
+            player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_HAS_FINISHED"));
             
             if (SpectatorManager.isSpectator(player.getPlayer())) {
                 SpectatorManager.removeSpectator(player.getPlayer());
@@ -133,11 +133,11 @@ public class ArenaListener implements Listener {
         arena.getGame().removeAllSpectators();
 
         //Se hara un broadcast del maximo de oleada
-        String messageFinish = Translator.change("ARENA_MAX_WAVE_BROADCAST");
+        String messageFinish = Translator.getColoredString("ARENA_MAX_WAVE_BROADCAST");
         messageFinish = messageFinish.replace("%TEAM%", arena.getName());
         messageFinish = messageFinish.replace("%WAVE_NUMBER%", Integer.toString(arena.getGame().getWave().getWaveNumber()));
 
-        ChatUtil.broadcast(plugin.getPrefix() + " " + messageFinish);
+        ChatUtil.broadcast(Translator.getPrefix() + " " + messageFinish);
         // Se reinician los valores de la arena
         arena.createNewGame();
 

@@ -69,8 +69,8 @@ public class SpecialUtils {
             Output.log("Sending message to: " + player.getPlayer().getName());
             TitleAPI.send(
                 player.getPlayer(),
-                Translator.change("SPECIAL_EVENT_TITLE"),
-                Translator.change("SPECIAL_EVENT_SUBTITLE"),
+                Translator.getColoredString("SPECIAL_EVENT_TITLE"),
+                Translator.getColoredString("SPECIAL_EVENT_SUBTITLE"),
                 10,
                 40,
                 10);

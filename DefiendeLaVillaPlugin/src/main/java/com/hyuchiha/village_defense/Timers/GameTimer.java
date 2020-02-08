@@ -64,7 +64,7 @@ public class GameTimer extends BukkitRunnable {
         if (hasSpawnedFirstWave && canFinish()) {
             game.getWave().cancelWave();
 
-            game.sendMessageToPlayers(Translator.change("PREFIX") + " " + Translator.change("GAME_RESTART"));
+            game.sendMessageToPlayers(Translator.getPrefix() + " " + Translator.getColoredString("GAME_RESTART"));
 
             new RestartTimer(plugin, game);
 
@@ -87,7 +87,7 @@ public class GameTimer extends BukkitRunnable {
                             player.regamePlayer();
                         }
                         player.updateGems(gemsPhase);
-                        player.sendMessage(plugin.getPrefix() + Translator.change("NEXT_WAVE_START").replace("%TIME%", Integer.toString(secondsTillNextWave)));
+                        player.sendMessage(Translator.getPrefix() + Translator.getColoredString("NEXT_WAVE_START").replace("%TIME%", Integer.toString(secondsTillNextWave)));
                         game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
                         game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
                     }
@@ -102,7 +102,7 @@ public class GameTimer extends BukkitRunnable {
                                 player.regamePlayer();
                             }
 
-                            player.sendMessage(plugin.getPrefix() + " " + Translator.change("WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
+                            player.sendMessage(Translator.getPrefix()+ " " + Translator.getColoredString("WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
                         }
 
                         giveWaveSpecials();
@@ -162,7 +162,7 @@ public class GameTimer extends BukkitRunnable {
                         player.getKit().getKit().giveSpawnItems(player.getPlayer());
 
                         ActionBar.send(player.getPlayer(),
-                                Translator.change("WAVE_START")
+                                Translator.getColoredString("WAVE_START")
                                         .replace("%WAVE_NUMBER%",
                                                 Integer.toString(
                                                         GameTimer.this.wave)));

@@ -32,7 +32,7 @@ public class JoinListener implements Listener{
         e.setJoinMessage("");
         final Player player = e.getPlayer();
 
-        player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_JOIN_MESSAGE"));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_JOIN_MESSAGE"));
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
         plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
@@ -41,8 +41,8 @@ public class JoinListener implements Listener{
         vdplayer.sendPlayerToLobby();
 
         TitleAPI.send(player,
-                Translator.change("SERVER_JOIN_TITLE"),
-                Translator.change("SERVER_JOIN_SUBTITLE"),
+                Translator.getColoredString("SERVER_JOIN_TITLE"),
+                Translator.getColoredString("SERVER_JOIN_SUBTITLE"),
                 10,
                 30,
                 10);

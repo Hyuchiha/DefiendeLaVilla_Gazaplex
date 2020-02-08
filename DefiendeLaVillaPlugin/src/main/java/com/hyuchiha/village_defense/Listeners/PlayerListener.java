@@ -210,7 +210,7 @@ public class PlayerListener implements Listener {
                                         b.close();
                                         out.close();
                                     } catch (Exception error) {
-                                        player.sendMessage(Translator.change("PREFIX") + " " + ChatColor.RED + "Could not connect to " + ServerExit);
+                                        player.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + "Could not connect to " + ServerExit);
                                     }
                                 }
                             }

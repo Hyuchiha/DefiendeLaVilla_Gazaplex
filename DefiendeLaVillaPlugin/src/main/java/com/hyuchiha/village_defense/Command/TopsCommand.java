@@ -33,14 +33,14 @@ public class TopsCommand implements CommandExecutor {
                 if(stat != null){
                     listTopStat((Player) sender, stat);
                 }else {
-                    sender.sendMessage(ChatColor.RED + Translator.string("ERROR_STAT_NOT_FOUND"));
+                    sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_STAT_NOT_FOUND"));
                 }
 
             }else {
-                sender.sendMessage(plugin.getPrefix() + " /top [KILLS, DEATHS, BOSSES_KILLS, MAX_WAVE_REACHED, MIN_WAVE_REACHED]");
+                sender.sendMessage(Translator.getPrefix() + " /top [KILLS, DEATHS, BOSSES_KILLS, MAX_WAVE_REACHED, MIN_WAVE_REACHED]");
             }
         }else {
-            sender.sendMessage(ChatColor.RED + Translator.string("ERROR_CONSOLE_PLAYERCOMMAND"));
+            sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_CONSOLE_PLAYERCOMMAND"));
             return true;
         }
 

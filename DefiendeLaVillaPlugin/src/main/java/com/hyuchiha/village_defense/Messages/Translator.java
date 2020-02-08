@@ -11,8 +11,8 @@ public class Translator {
 
     private static final Main plugin = Main.getInstance();
     private static final HashMap<String, String> messages = new HashMap<>();
-    
-    public static void initMessages(){
+
+    public static void initMessages() {
         Output.log("Iniciando los mensajes");
         Configuration yml = plugin.getConfig("messages.yml");
         for (String s : yml.getKeys(false)) {
@@ -20,13 +20,23 @@ public class Translator {
         }
     }
 
-    public static String string(String id) {
-        return ChatColor.stripColor(messages.get(id));
+    public static String getString(String id) {
+        return ChatColor.stripColor(findMessageWithId(id));
     }
 
-    public static String change(String s) {
-        String ss = string(s);
-        ss = ss.replaceAll("(&([a-fk-or0-9]))", "§$2");
-        return ss;
+    public static String getColoredString(String s) {
+        String ss = findMessageWithId(s);
+        return ChatColor.translateAlternateColorCodes('&', ss);
+    }
+
+    public static String getPrefix() {
+        return getColoredString("PREFIX") + " ";
+    }
+
+    private static String findMessageWithId(String id) {
+        if (messages.containsKey(id)) {
+            return messages.get(id);
+        }
+        return id;
     }
 }
