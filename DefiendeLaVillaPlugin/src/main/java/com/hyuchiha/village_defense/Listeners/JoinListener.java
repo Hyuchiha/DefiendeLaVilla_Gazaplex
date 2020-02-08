@@ -9,7 +9,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.MessagesAPI.TitleAPI;
+import com.hyuchiha.village_defense.MessagesApi.TitleAPI;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

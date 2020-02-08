@@ -11,7 +11,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.MessagesAPI.TitleAPI;
+import com.hyuchiha.village_defense.MessagesApi.TitleAPI;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -67,12 +67,13 @@ public class SpecialUtils {
         
         for(GamePlayer player: game.getPlayersInGame()){
             Output.log("Sending message to: " + player.getPlayer().getName());
-            TitleAPI.send(player.getPlayer(),
-                    Translator.change("SPECIAL_EVENT_TITLE"),
-                    Translator.change("SPECIAL_EVENT_SUBTITLE"),
-                    10,
-                    40,
-                    10);
+            TitleAPI.send(
+                player.getPlayer(),
+                Translator.change("SPECIAL_EVENT_TITLE"),
+                Translator.change("SPECIAL_EVENT_SUBTITLE"),
+                10,
+                40,
+                10);
         }
     }
 

@@ -95,9 +95,7 @@ public class ScoreboardManager {
     }
 
     public void removeScoreboard(String player) {
-        if (players.containsKey(player)) {
-            players.remove(player);
-        }
+        players.remove(player);
     }
 
     public void updateScoreboard(ScoreboardType... sts) {

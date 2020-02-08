@@ -166,7 +166,7 @@ public class Arena {
                 sign.removeMetadata("Arena", Main.getInstance());
 
                 sign.setLine(1, Name);
-                sign.setLine(2, 0 + "/" + Integer.toString(MaxNumberOfPlayers));
+                sign.setLine(2, 0 + "/" + MaxNumberOfPlayers);
                 sign.setLine(3, "Desabilitada");
                 sign.update();
             }

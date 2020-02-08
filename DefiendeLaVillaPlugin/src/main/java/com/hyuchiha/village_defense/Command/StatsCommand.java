@@ -118,9 +118,7 @@ public class StatsCommand implements CommandExecutor {
                     offlinePlayer.getName()
             );
 
-            if(offlineAccount != null){
-                return offlineAccount;
-            }
+            return offlineAccount;
         }
 
 

@@ -14,7 +14,7 @@ import com.hyuchiha.village_defense.Manager.MobManager;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
-import com.hyuchiha.village_defense.MessagesAPI.ActionBar;
+import com.hyuchiha.village_defense.MessagesApi.ActionBar;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import com.hyuchiha.village_defense.Utils.SpecialUtils;
 import org.bukkit.Bukkit;
