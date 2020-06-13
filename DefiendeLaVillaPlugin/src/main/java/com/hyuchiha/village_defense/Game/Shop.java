@@ -93,7 +93,7 @@ public class Shop implements Listener {
         switch (handItem.getType()) {
           case EMERALD:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("EQUIPMENT_STORE"))) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("SHOP.EQUIPMENT_STORE"))) {
                 if (vdplayer.getState() == PlayerState.INGAME) {
                   ShopManager.getShopConstructor(ShopManager.Equip).openShop(player);
                 }
@@ -102,7 +102,7 @@ public class Shop implements Listener {
             break;
           case QUARTZ:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("COMBAT_STORE"))) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("SHOP.COMBAT_STORE"))) {
                 if (vdplayer.getState() == PlayerState.INGAME) {
                   ShopManager.getShopConstructor(ShopManager.Combat).openShop(player);
                 }
@@ -111,7 +111,7 @@ public class Shop implements Listener {
             break;
           case REDSTONE:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("OTHER_STORE"))) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("SHOP.OTHER_STORE"))) {
                 if (vdplayer.getState() == PlayerState.INGAME) {
                   ShopManager.getShopConstructor(ShopManager.Others).openShop(player);
                 }
@@ -161,9 +161,9 @@ public class Shop implements Listener {
       buyerInv.addItem(stackToGive);
       buyer.updateInventory();
       player.setGems(player.getGems() - price);
-      buyer.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_PURCHASE_ITEM").replace("%ITEM%", stackName));
+      buyer.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.PLAYER_PURCHASE_ITEM").replace("%ITEM%", stackName));
     } else {
-      buyer.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("NOT_ENOUGHT_GEMS_TO_PURCHASE"));
+      buyer.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.NOT_ENOUGH_GEMS_TO_PURCHASE"));
     }
 
     player.getArena().getGame().getScoreboardManager().giveScoreboard(buyer.getName(), ScoreboardType.INGAME);

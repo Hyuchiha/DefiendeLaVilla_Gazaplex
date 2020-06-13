@@ -35,7 +35,7 @@ public class StatsCommand implements CommandExecutor {
           if (offlinePlayer != null && offlinePlayer.hasPlayedBefore()) {
             listStats((Player) sender, offlinePlayer.getName(), StatType.values());
           } else {
-            sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR_PLAYER_NOT_FOUND"));
+            sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR.PLAYER_NOT_FOUND"));
           }
         }
 
@@ -43,7 +43,7 @@ public class StatsCommand implements CommandExecutor {
         listStats((Player) sender);
       }
     } else {
-      sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR_CONSOLE_PLAYERCOMMAND"));
+      sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR.CONSOLE_PLAYER_COMMAND"));
     }
 
     return true;
@@ -57,7 +57,7 @@ public class StatsCommand implements CommandExecutor {
     String GRAY = ChatColor.GRAY.toString();
     String DARK_AQUA = ChatColor.DARK_AQUA.toString();
     String AQUA = ChatColor.AQUA.toString();
-    sender.sendMessage(GRAY + "=========[ " + DARK_AQUA + Translator.getColoredString("INFO_COMMAND_STATS") + GRAY
+    sender.sendMessage(GRAY + "=========[ " + DARK_AQUA + Translator.getColoredString("INFO.STATS") + GRAY
         + " ]=========");
 
     sender.sendMessage(GRAY + "=========  " + AQUA + player + GRAY + "  =========");

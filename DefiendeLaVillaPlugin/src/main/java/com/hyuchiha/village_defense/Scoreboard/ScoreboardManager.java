@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hyuchiha.village_defense.Scoreboard;
 
 import com.hyuchiha.village_defense.Game.Game;
@@ -49,35 +44,35 @@ public class ScoreboardManager {
         case LOBBY_GAME:
 
           obj.getScore(ChatColor.AQUA + "").setScore(score--);
-          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_PLAYERS")).setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD.LOBBY_PLAYERS")).setScore(score--);
           obj.getScore(ChatColor.WHITE + "" + game.getPlayersInGame().size()).setScore(score--);
           obj.getScore(ChatColor.BLUE + "").setScore(score--);
-          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_REMAINING")).setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD.LOBBY_REMAINING")).setScore(score--);
           obj.getScore(ChatColor.WHITE + "" + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size())).setScore(score--);
           obj.getScore(ChatColor.BOLD + "").setScore(score--);
-          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_MAP")).setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD.LOBBY_MAP")).setScore(score--);
           obj.getScore(ChatColor.WHITE + game.getArena().getName()).setScore(score--);
 
           break;
 
         case INGAME:
 
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYER_MONEY")).setScore((int) PlayerManager.getMoney(p));
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_GEMS")).setScore(gp.getGems());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_PLAYER_MONEY")).setScore((int) PlayerManager.getMoney(p));
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_GEMS")).setScore(gp.getGems());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES")).setScore(
               game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
 
           break;
 
         case SPECTATOR:
 
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
-          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES")).setScore(game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
 
           break;
 

@@ -31,7 +31,7 @@ public class Arena {
   private Location signLocation;
   private Location lobbyGameLocation;
   private Location spawnArenaLocation;
-  private List<Location> mobspawns;
+  private List<Location> mobSpawns;
   private int MaxNumberOfPlayers;
 
   private Game game;
@@ -58,10 +58,10 @@ public class Arena {
     this.lobbyGameLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".lobby"));
     this.spawnArenaLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".spawn"));
 
-    this.mobspawns = new ArrayList<>();
+    this.mobSpawns = new ArrayList<>();
     for (String loc : arenaConf.getStringList(Name + ".mobspawns")) {
       Location mobspawn = ArenaUtils.parseStringToLocation(world, loc);
-      mobspawns.add(mobspawn);
+      mobSpawns.add(mobspawn);
     }
 
     this.MaxNumberOfPlayers = arenaConf.getInt(Name + ".maxPlayers");
@@ -81,7 +81,7 @@ public class Arena {
     arenaConf.set(Name + ".sign", ArenaUtils.parseLocationToString(signLocation));
     arenaConf.set(Name + ".lobby", ArenaUtils.parseLocationToString(lobbyGameLocation));
     arenaConf.set(Name + ".spawn", ArenaUtils.parseLocationToString(spawnArenaLocation));
-    arenaConf.set(Name + ".mobspawns", ArenaUtils.parseListLocationToListString(mobspawns));
+    arenaConf.set(Name + ".mobSpawns", ArenaUtils.parseListLocationToListString(mobSpawns));
     arenaConf.set(Name + ".maxPlayers", MaxNumberOfPlayers);
   }
 
@@ -114,10 +114,10 @@ public class Arena {
         Sign s = (Sign) b.getState();
 
 
-        s.setLine(0, ChatColor.DARK_PURPLE + "Arena");
+        s.setLine(0, ChatColor.DARK_PURPLE + Translator.getString("COMMONS.ARENA"));
         s.setLine(1, ChatColor.BOLD + Name);
         s.setLine(2, ChatColor.UNDERLINE.toString() + game.getPlayersInGame().size()
-            + " " + Translator.getString("PLAYER")
+            + " " + Translator.getString("COMMONS.PLAYER")
             + (game.getPlayersInGame().size() > 1 ? "" : "s"));
 
         s.setLine(3, ChatColor.BOLD.toString() + game.getState().name());
@@ -145,8 +145,8 @@ public class Arena {
         sign.update();
 
       }
-    } catch (NotFoundException ignored) {
-      Output.logError(Color.RED + "Error en la creacion de los signs \n" + ignored.getMessage());
+    } catch (NotFoundException e) {
+      Output.logError(Color.RED + "Error en la creacion de los signs \n" + e.getMessage());
     }
   }
 
@@ -198,12 +198,12 @@ public class Arena {
     this.spawnArenaLocation = spawnArenaLocation;
   }
 
-  public List<Location> getMobspawns() {
-    return mobspawns;
+  public List<Location> getMobSpawns() {
+    return mobSpawns;
   }
 
-  public void setMobspawns(List<Location> mobspawns) {
-    this.mobspawns = mobspawns;
+  public void setMobSpawns(List<Location> mobSpawns) {
+    this.mobSpawns = mobSpawns;
   }
 
   public int getMaxNumberOfPlayers() {

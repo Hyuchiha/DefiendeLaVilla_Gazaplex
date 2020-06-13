@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hyuchiha.village_defense.Timers;
 
 import com.hyuchiha.village_defense.Game.Game;
@@ -47,7 +42,7 @@ public class LobbyTimer extends BukkitRunnable {
     if (game.getPlayersInGame().size() < game.getArena().getMaxNumberOfPlayers()) {
 
       for (GamePlayer player : game.getPlayersInGame()) {
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_CANCELED"));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.GAME_CANCELED"));
         game.getScoreboardManager().updateScoreboard(ScoreboardType.LOBBY_GAME);
       }
 
@@ -66,7 +61,7 @@ public class LobbyTimer extends BukkitRunnable {
       for (GamePlayer player : game.getPlayersInGame()) {
         player.sendMessage(
             Translator.getPrefix() + " " +
-                Translator.getColoredString("GAME_STARTING")
+                Translator.getColoredString("GAME.GAME_STARTING")
                     .replace("%TIME%",
                         Integer.toString(timeLeft)) + ((timeLeft == 1) ? "." : "s."));
       }

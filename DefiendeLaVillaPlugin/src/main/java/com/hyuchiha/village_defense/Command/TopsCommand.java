@@ -33,14 +33,14 @@ public class TopsCommand implements CommandExecutor {
         if (stat != null) {
           listTopStat((Player) sender, stat);
         } else {
-          sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_STAT_NOT_FOUND"));
+          sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR.STAT_NOT_FOUND"));
         }
 
       } else {
         sender.sendMessage(Translator.getPrefix() + " /top [KILLS, DEATHS, BOSSES_KILLS, MAX_WAVE_REACHED, MIN_WAVE_REACHED]");
       }
     } else {
-      sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_CONSOLE_PLAYERCOMMAND"));
+      sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR.CONSOLE_PLAYER_COMMAND"));
       return true;
     }
 
@@ -52,7 +52,7 @@ public class TopsCommand implements CommandExecutor {
     String DARK_AQUA = ChatColor.DARK_AQUA.toString();
     String AQUA = ChatColor.AQUA.toString();
 
-    sender.sendMessage(GRAY + "=========[ " + DARK_AQUA + "Top " + stat.name() + GRAY
+    sender.sendMessage(GRAY + "=========[ " + DARK_AQUA +  Translator.getString("INFO.TOP") + " " + stat.name() + GRAY
         + " ]=========");
 
     List<Account> tops = new ArrayList<>();
@@ -62,16 +62,16 @@ public class TopsCommand implements CommandExecutor {
         tops = plugin.getDatabase().getTopKillsAccounts(10);
         break;
       case DEATHS:
-        tops = plugin.getDatabase().getTopKillsAccounts(10);
+        tops = plugin.getDatabase().getTopDeathsAccounts(10);
         break;
       case BOSSES_KILLS:
-        tops = plugin.getDatabase().getTopKillsAccounts(10);
+        tops = plugin.getDatabase().getTopBossesAccounts(10);
         break;
       case MIN_WAVE_REACHED:
-        tops = plugin.getDatabase().getTopKillsAccounts(10);
+        tops = plugin.getDatabase().getTopMinWaveAccounts(10);
         break;
       case MAX_WAVE_REACHED:
-        tops = plugin.getDatabase().getTopKillsAccounts(10);
+        tops = plugin.getDatabase().getTopMaxWaveAccounts(10);
         break;
     }
 

@@ -2,7 +2,7 @@ package com.hyuchiha.village_defense;
 
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatListener;
-import com.hyuchiha.village_defense.Chat.VaultHooks;
+import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Command.StatsCommand;
 import com.hyuchiha.village_defense.Command.TopsCommand;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
@@ -77,33 +77,34 @@ public class Main extends JavaPlugin {
     Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
   }
 
-  public void hookVault() {
-    Bukkit.getScheduler().scheduleSyncDelayedTask(this, new Runnable() {
+  private void hookVault() {
+    if (getServer().getPluginManager().isPluginEnabled("Vault")) {
+      VaultHooks.vault = true;
 
-      @Override
-      public void run() {
-        if (getServer().getPluginManager().isPluginEnabled("Vault")) {
-          VaultHooks.vault = true;
 
-          if (!VaultHooks.instance().setupPermissions()) {
-            VaultHooks.vault = false;
-            getLogger().warning("Unable to load Vault: No permission plugin found.");
-          } else {
-            if (!VaultHooks.instance().setupChat()) {
-              VaultHooks.vault = false;
-              getLogger().warning("Unable to load Vault: No chat plugin found.");
-            } else {
-              if (!VaultHooks.instance().setupEconomy()) {
-                VaultHooks.vault = false;
-                getLogger().warning("Unable to load Vault: No economy plugin found.");
-              } else {
-                getLogger().info("Vault hook initalized!");
-              }
-            }
-          }
-        }
+      if (!VaultHooks.instance().setupPermissions()) {
+        VaultHooks.vault = false;
+        getLogger().warning("Unable to load Vault: No permission plugin found.");
       }
-    }, 40L);
+
+
+      if (!VaultHooks.instance().setupChat()) {
+        VaultHooks.vault = false;
+        getLogger().warning("Unable to load Vault: No chat plugin found.");
+      }
+
+
+      if (!VaultHooks.instance().setupEconomy()) {
+        VaultHooks.vault = false;
+        getLogger().warning("Unable to load Vault: No economy plugin found.");
+      }
+
+      if (VaultHooks.vault) {
+        getLogger().info("Vault hook initalized!");
+      }
+    } else {
+      getLogger().warning("Vault not found! Permissions features disabled.");
+    }
   }
 
   public void registerListeners() {

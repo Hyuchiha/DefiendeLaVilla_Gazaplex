@@ -2,6 +2,7 @@ package com.hyuchiha.village_defense.Chat;
 
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.PlayerState;
+import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.Bukkit;
@@ -81,7 +82,7 @@ public class ChatUtil {
   public static String formatDeathMessage(Player victim) {
     String victimName = ChatColor.RED + victim.getName() + ChatColor.GRAY;
 
-    String message = Translator.getColoredString("PLAYER_DEATH_MESSAGE");
+    String message = Translator.getColoredString("GAME.PLAYER_DEATH_MESSAGE");
     message = message.replace("%PLAYER%", victimName);
 
     return message;

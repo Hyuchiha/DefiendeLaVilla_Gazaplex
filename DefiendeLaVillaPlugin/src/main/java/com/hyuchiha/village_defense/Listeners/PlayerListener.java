@@ -175,7 +175,7 @@ public class PlayerListener implements Listener {
             break;
           case GOLD_INGOT:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains(Translator.change("UNLOCK_KIT"))) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("GAME.UNLOCK_KIT"))) {
                 e.setCancelled(true);
 
                 if (pmeta.getArena() == null) {
@@ -188,7 +188,7 @@ public class PlayerListener implements Listener {
             break;
           case COMPASS:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains(Translator.change("LEAVE_ARENA"))) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("GAME.LEAVE_ARENA"))) {
                 e.setCancelled(true);
                 if (pmeta.getArena() == null) {
                   return;
@@ -197,7 +197,7 @@ public class PlayerListener implements Listener {
                 Bukkit.getServer().getPluginManager().callEvent(
                     new ArenaLeaveEvent(pmeta, pmeta.getArena()));
               } else {
-                if (handItem.getItemMeta().getDisplayName().contains(Translator.change("RETURN_TO_LOBBY"))) {
+                if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("GAME.RETURN_TO_LOBBY"))) {
                   e.setCancelled(true);
                   final String ServerExit = plugin.getConfig().getString("ServerToConnect");
                   try {
@@ -217,7 +217,7 @@ public class PlayerListener implements Listener {
             break;
           case APPLE:
             if (handItem.getItemMeta().hasDisplayName()) {
-              if (handItem.getItemMeta().getDisplayName().contains("Dejar de espectar")) {
+              if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("GAME.LEAVE_SPECTATOR"))) {
                 e.setCancelled(true);
                 if (SpectatorManager.isSpectator(player)) {
                   pmeta.getArena().getGame().removeSpectator(pmeta);

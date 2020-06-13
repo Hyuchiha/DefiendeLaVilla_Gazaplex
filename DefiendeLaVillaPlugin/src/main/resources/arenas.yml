@@ -13,7 +13,7 @@ Spawn:
 #   spawn: "0,0,0"
 #Estos seran los puntos de aparicion de los mobs y de los aldeanos durante
 #la partida, se pueden agregar los q sean necesarios
-#   mobspawns:
+#   mobSpawns:
 #       - "0,0,0"
 #       - "0,0,0"
 #El numero maximo de jugadores que pueden haber en dicha partida

@@ -68,8 +68,8 @@ public class SpecialUtils {
       Output.log("Sending message to: " + player.getPlayer().getName());
       TitleAPI.send(
           player.getPlayer(),
-          Translator.getColoredString("SPECIAL_EVENT_TITLE"),
-          Translator.getColoredString("SPECIAL_EVENT_SUBTITLE"),
+          Translator.getColoredString("TITLE.SPECIAL_EVENT_TITLE"),
+          Translator.getColoredString("TITLE.SPECIAL_EVENT_SUBTITLE"),
           10,
           40,
           10);
@@ -141,7 +141,7 @@ public class SpecialUtils {
   }
 
   private static void spawnRandomNewMob(Arena arena) {
-    Location loc = arena.getMobspawns().get(0);
+    Location loc = arena.getMobSpawns().get(0);
 
   }
 
@@ -165,7 +165,7 @@ public class SpecialUtils {
 
   private static void spawnRandomsObjectsInGame(Arena arena) {
     Random ran = new Random();
-    Location loc = arena.getMobspawns().get(ran.nextInt(arena.getMobspawns().size()));
+    Location loc = arena.getMobSpawns().get(ran.nextInt(arena.getMobSpawns().size()));
     switch (ran.nextInt(3)) {
       case 1:
         loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.GOLDEN_APPLE));

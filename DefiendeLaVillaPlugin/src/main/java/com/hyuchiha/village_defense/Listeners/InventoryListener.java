@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hyuchiha.village_defense.Listeners;
 
 import com.google.common.base.Enums;
@@ -36,7 +31,7 @@ public class InventoryListener implements Listener {
     Inventory inv = e.getInventory();
     Player player = (Player) e.getWhoClicked();
 
-    if (inv.getTitle().startsWith(Translator.getColoredString("CLASS_SELECT_INV_TITLE"))) {
+    if (inv.getTitle().startsWith(Translator.getColoredString("INVENTORY.SELECT_CLASS_TITLE"))) {
 
       if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
         return;
@@ -48,7 +43,7 @@ public class InventoryListener implements Listener {
       GamePlayer meta = PlayerManager.getPlayer(player);
 
       if (meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME) {
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_HAS_CLASS_SELECTED"));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS"));
         return;
       }
 
@@ -56,23 +51,23 @@ public class InventoryListener implements Listener {
 
       if (toChoose != null) {
         if (!toChoose.isOwnedBy(player)) {
-          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
+          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.DONT_HAS_CLASS_UNLOCKED"));
           return;
         }
 
         meta.setKit(toChoose);
 
-        String classSelected = Translator.getColoredString("PLAYER_HAS_SELECTED_CLASS");
+        String classSelected = Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS");
         classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));
         player.sendMessage(Translator.getPrefix() + " " + classSelected);
       } else {
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR_NO_CLASS_FOUND"));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.NO_CLASS_FOUND"));
       }
 
       return;
     }
 
-    if (inv.getTitle().startsWith(Translator.getColoredString("UNLOCK_INV_TITLE"))) {
+    if (inv.getTitle().startsWith(Translator.getColoredString("INVENTORY.UNLOCK_INV_TITLE"))) {
 
       if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
         return;
@@ -94,10 +89,10 @@ public class InventoryListener implements Listener {
 
           PlayerManager.withdrawMoney(player, money);
 
-          String classUnlocked = Translator.getColoredString("PLAYER_UNLOCK_CLASS");
+          String classUnlocked = Translator.getColoredString("GAME.UNLOCK_CLASS");
           player.sendMessage(Translator.getPrefix() + " " + classUnlocked.replace("%CLASS%", name));
         } else {
-          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.DONT_HAVE_REQUIRED_MONEY"));
         }
 
         player.closeInventory();
@@ -105,7 +100,7 @@ public class InventoryListener implements Listener {
       } else {
         player.closeInventory();
         e.setCancelled(true);
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_ALREADY_HAVE_CLASS"));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.ALREADY_OWN_CLASS"));
       }
 
     }

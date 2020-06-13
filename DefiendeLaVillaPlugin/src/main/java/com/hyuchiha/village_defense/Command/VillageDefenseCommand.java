@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hyuchiha.village_defense.Command;
 
 import com.hyuchiha.village_defense.Arena.Arena;
@@ -52,7 +47,7 @@ public class VillageDefenseCommand implements CommandExecutor {
               Player player = (Player) sender;
 
               if (arena == null) {
-                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.CANT_JOIN"));
                 Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
                 return true;
               }
@@ -79,7 +74,7 @@ public class VillageDefenseCommand implements CommandExecutor {
             if (playervd.getState() == PlayerState.INGAME || playervd.getState() == PlayerState.LOBBY_GAME) {
               Bukkit.getPluginManager().callEvent(new ArenaLeaveEvent(playervd, playervd.getArena()));
             } else {
-              player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
+              player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.PLAYER_IN_GAME"));
             }
           }
           break;
@@ -91,15 +86,14 @@ public class VillageDefenseCommand implements CommandExecutor {
               Player player = (Player) sender;
 
               if (arena == null) {
-                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.CANT_JOIN"));
                 Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
                 return true;
               }
 
               //Verificarse que tenga permiso para jugar
               if (!player.getPlayer().hasPermission("VD.Player.spect")) {
-                player.getPlayer().sendMessage(Translator.getPrefix() + " " +
-                    Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
+                player.getPlayer().sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.DONT_HAVE_PERMISSION_TO_SPECT"));
                 return false;
               } else {
                 GamePlayer playervd = PlayerManager.getPlayer(player);

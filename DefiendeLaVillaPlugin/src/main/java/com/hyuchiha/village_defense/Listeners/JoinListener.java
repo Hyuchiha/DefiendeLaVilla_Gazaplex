@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Game.GamePlayer;
@@ -31,7 +26,7 @@ public class JoinListener implements Listener {
     e.setJoinMessage("");
     final Player player = e.getPlayer();
 
-    player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_JOIN_MESSAGE"));
+    player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.PLAYER_JOIN_MESSAGE"));
     GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
     plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
@@ -40,8 +35,8 @@ public class JoinListener implements Listener {
     vdplayer.sendPlayerToLobby();
 
     TitleAPI.send(player,
-        Translator.getColoredString("SERVER_JOIN_TITLE"),
-        Translator.getColoredString("SERVER_JOIN_SUBTITLE"),
+        Translator.getColoredString("TITLE:SERVER_JOIN_TITLE"),
+        Translator.getColoredString("TITLE.SERVER_JOIN_SUBTITLE"),
         10,
         30,
         10);

@@ -184,7 +184,7 @@ public class MobListener implements Listener {
             (rand.nextFloat() * 0.2F) + 0.9F);
 
         int gems = meta.get(0).asInt();
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GEMS_PICKUP").replace("%GEMS%", Integer.toString(gems)));
+        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.GEMS_PICKUP").replace("%GEMS%", Integer.toString(gems)));
         pl.updateGems(meta.get(0).asInt());
 
         pl.getArena().getGame().getScoreboardManager().updateScoreboard(ScoreboardType.INGAME, player.getName());

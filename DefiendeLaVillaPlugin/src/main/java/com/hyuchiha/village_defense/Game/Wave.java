@@ -120,7 +120,7 @@ public class Wave {
 
       BossEnemy e = MobManager.getBossEnemyObjects().get(r.nextInt(MobManager.getBossEnemyObjects().size()));
       //Se actualiza la scoreboard
-      enemies.add(e.spawnEntity(game.getArena().getMobspawns().get(r.nextInt(game.getArena().getMobspawns().size())), Main.getInstance(), getGame().getWave().getWaveNumber()));
+      enemies.add(e.spawnEntity(game.getArena().getMobSpawns().get(r.nextInt(game.getArena().getMobSpawns().size())), Main.getInstance(), getGame().getWave().getWaveNumber()));
 
       for (GamePlayer player : game.getPlayersInGame()) {
         player.sendMessage(Translator.getPrefix() + ChatColor.BLUE + ChatColor.stripColor(e.getCustomName()) + ChatColor.YELLOW + " ha aparecido!");
@@ -145,7 +145,7 @@ public class Wave {
         @Override
         public void run() {
           enemies.add(e.spawnEntity(
-              getGame().getArena().getMobspawns().get(r.nextInt(getGame().getArena().getMobspawns().size())),
+              getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size())),
               Main.getInstance(),
               getGame().getWave().getWaveNumber())
           );
@@ -178,7 +178,7 @@ public class Wave {
   private Entity createNewVillager() {
     Random r = new Random();
     Location spawnLocation
-        = getGame().getArena().getMobspawns().get(r.nextInt(getGame().getArena().getMobspawns().size()));
+        = getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size()));
     Entity e = spawnLocation.getWorld().spawnEntity(spawnLocation,
         EntityType.VILLAGER);
     LivingEntity entity = (LivingEntity) e;
