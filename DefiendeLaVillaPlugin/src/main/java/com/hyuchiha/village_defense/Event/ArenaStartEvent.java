@@ -7,13 +7,13 @@ import com.hyuchiha.village_defense.Arena.Arena;
  */
 public class ArenaStartEvent extends BaseEvent {
 
-    private Arena arena;
+  private Arena arena;
 
-    public ArenaStartEvent(Arena arena) {
-        this.arena = arena;
-    }
+  public ArenaStartEvent(Arena arena) {
+    this.arena = arena;
+  }
 
-    public Arena getArena() {
-        return arena;
-    }
+  public Arena getArena() {
+    return arena;
+  }
 }

@@ -31,76 +31,76 @@ import java.util.Random;
  */
 public class BossListener implements Listener {
 
-    public Main plugin;
+  public Main plugin;
 
-    public BossListener(Main plugin) {
-        this.plugin = plugin;
-    }
+  public BossListener(Main plugin) {
+    this.plugin = plugin;
+  }
 
-    @EventHandler
-    public void onDeath(EntityDeathEvent event) {
-        try {
-            LivingEntity entity = event.getEntity();
+  @EventHandler
+  public void onDeath(EntityDeathEvent event) {
+    try {
+      LivingEntity entity = event.getEntity();
 
-            for (BossEnemy e : MobManager.getBossEnemyObjects()) {
-                if (e.getBukkitEntityType() == entity.getType()) {
+      for (BossEnemy e : MobManager.getBossEnemyObjects()) {
+        if (e.getBukkitEntityType() == entity.getType()) {
 
-                    event.getDrops().clear();
+          event.getDrops().clear();
 
-                    entity.getWorld().dropItemNaturally(entity.getLocation(), getRandomItemBoss());
+          entity.getWorld().dropItemNaturally(entity.getLocation(), getRandomItemBoss());
 
-                    Player player = entity.getKiller();
-                    int moneyToGive = plugin.getConfig("config.yml").getInt("Game.money-boss-kill");
-                    PlayerManager.addMoney(player, moneyToGive);
+          Player player = entity.getKiller();
+          int moneyToGive = plugin.getConfig("config.yml").getInt("Game.money-boss-kill");
+          PlayerManager.addMoney(player, moneyToGive);
 
-                    //Se actualiza la BD
-                    Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
-                    data.setBosses_kills(data.getBosses_kills() + 1);
+          //Se actualiza la BD
+          Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
+          data.setBosses_kills(data.getBosses_kills() + 1);
 
-                    entity.remove();
+          entity.remove();
 
-                    Arena arena = ArenaManager.getArenaConfiguration(event.getEntity().getWorld().getName());
-                    Game game = arena.getGame();
-                    game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-                    game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
-                }
-            }
-        } catch (Exception e) {
-            Output.logError(e.getLocalizedMessage());
+          Arena arena = ArenaManager.getArenaConfiguration(event.getEntity().getWorld().getName());
+          Game game = arena.getGame();
+          game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+          game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
         }
+      }
+    } catch (Exception e) {
+      Output.logError(e.getLocalizedMessage());
     }
+  }
 
-    private ItemStack getRandomItemBoss() {
-        Random rand = new Random();
-        ItemStack bossLoot = new ItemStack(Material.ROTTEN_FLESH);
-        switch (rand.nextInt(5)) {
-            case 1:
-                bossLoot = new ItemStack(Material.DIAMOND_AXE);
-                bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
-                bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 4);
-                break;
-            case 2:
-                bossLoot = new ItemStack(Material.DIAMOND_SWORD);
-                bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
-                bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 4);
-                break;
-            case 3:
-                bossLoot = new ItemStack(Material.DIAMOND_LEGGINGS);
-                bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
-                bossLoot.addUnsafeEnchantment(Enchantment.THORNS, 4);
-                break;
-            case 4:
-                bossLoot = new ItemStack(Material.IRON_SWORD);
-                bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 7);
-                bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
-                break;
-            case 5:
-                bossLoot = new ItemStack(Material.DIAMOND_CHESTPLATE);
-                bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
-                bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
-                break;
-        }
-        return bossLoot;
+  private ItemStack getRandomItemBoss() {
+    Random rand = new Random();
+    ItemStack bossLoot = new ItemStack(Material.ROTTEN_FLESH);
+    switch (rand.nextInt(5)) {
+      case 1:
+        bossLoot = new ItemStack(Material.DIAMOND_AXE);
+        bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+        bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 4);
+        break;
+      case 2:
+        bossLoot = new ItemStack(Material.DIAMOND_SWORD);
+        bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 4);
+        bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 4);
+        break;
+      case 3:
+        bossLoot = new ItemStack(Material.DIAMOND_LEGGINGS);
+        bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, 4);
+        bossLoot.addUnsafeEnchantment(Enchantment.THORNS, 4);
+        break;
+      case 4:
+        bossLoot = new ItemStack(Material.IRON_SWORD);
+        bossLoot.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, 7);
+        bossLoot.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, 2);
+        break;
+      case 5:
+        bossLoot = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_EXPLOSIONS, 4);
+        bossLoot.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, 4);
+        break;
     }
+    return bossLoot;
+  }
 
 }

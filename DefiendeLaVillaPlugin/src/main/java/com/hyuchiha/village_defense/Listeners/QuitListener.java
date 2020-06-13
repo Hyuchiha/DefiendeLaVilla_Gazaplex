@@ -25,93 +25,93 @@ import org.bukkit.event.player.PlayerQuitEvent;
  */
 public class QuitListener implements Listener {
 
-    private Main plugin;
+  private Main plugin;
 
-    public QuitListener(Main main) {
-        this.plugin = main;
+  public QuitListener(Main main) {
+    this.plugin = main;
+  }
+
+  @EventHandler
+  public void onQuit(PlayerQuitEvent e) {
+    final Player player = e.getPlayer();
+    if (player == null) {
+      return;
+    }
+    GamePlayer vdplayer = PlayerManager.getPlayer(player);
+
+    if (vdplayer.getState() == PlayerState.SPECTATING) {
+      vdplayer.getArena().getGame().removeSpectator(vdplayer);
     }
 
-    @EventHandler
-    public void onQuit(PlayerQuitEvent e) {
-        final Player player = e.getPlayer();
-        if (player == null) {
-            return;
-        }
-        GamePlayer vdplayer = PlayerManager.getPlayer(player);
+    e.setQuitMessage("");
 
-        if (vdplayer.getState() == PlayerState.SPECTATING) {
-            vdplayer.getArena().getGame().removeSpectator(vdplayer);
-        }
-
-        e.setQuitMessage("");
-
-        if (SpectatorManager.isSpectator(player)) {
-            SpectatorManager.removeSpectator(player);
-        }
-
-        if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
-
-            if (vdplayer.getKit() == Kit.HUNTER) {
-                KitUtils.removePlayerWolfs(player.getPlayer());
-            }
-
-            vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
-
-            vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
-        }
-
-        //Se actualiza la BD
-        Database database = plugin.getDatabase();
-        Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
-
-        if (account != null) {
-            database.saveAccount(account);
-            database.removeCachedAccount(account);
-        }
-
-        PlayerManager.removePlayer(player);
+    if (SpectatorManager.isSpectator(player)) {
+      SpectatorManager.removeSpectator(player);
     }
 
-    @EventHandler
-    public void onKick(PlayerKickEvent e) {
-        final Player player = e.getPlayer();
-        if (player == null) {
-            return;
-        }
+    if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
 
-        GamePlayer vdplayer = PlayerManager.getPlayer(player);
+      if (vdplayer.getKit() == Kit.HUNTER) {
+        KitUtils.removePlayerWolfs(player.getPlayer());
+      }
 
-        if (vdplayer.getState() == PlayerState.SPECTATING) {
-            vdplayer.getArena().getGame().removeSpectator(vdplayer);
-        }
-        e.setLeaveMessage("");
+      vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
 
-        if (SpectatorManager.isSpectator(player)) {
-            SpectatorManager.removeSpectator(player);
-        }
-
-        if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
-
-            if (vdplayer.getKit() == Kit.HUNTER) {
-                KitUtils.removePlayerWolfs(player.getPlayer());
-            }
-
-            vdplayer.clearData();
-
-            vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
-
-            vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
-        }
-
-        //Se actualiza la BD
-        Database database = plugin.getDatabase();
-        Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
-
-        if (account != null) {
-            database.saveAccount(account);
-            database.removeCachedAccount(account);
-        }
-
-        PlayerManager.removePlayer(player);
+      vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
     }
+
+    //Se actualiza la BD
+    Database database = plugin.getDatabase();
+    Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
+
+    if (account != null) {
+      database.saveAccount(account);
+      database.removeCachedAccount(account);
+    }
+
+    PlayerManager.removePlayer(player);
+  }
+
+  @EventHandler
+  public void onKick(PlayerKickEvent e) {
+    final Player player = e.getPlayer();
+    if (player == null) {
+      return;
+    }
+
+    GamePlayer vdplayer = PlayerManager.getPlayer(player);
+
+    if (vdplayer.getState() == PlayerState.SPECTATING) {
+      vdplayer.getArena().getGame().removeSpectator(vdplayer);
+    }
+    e.setLeaveMessage("");
+
+    if (SpectatorManager.isSpectator(player)) {
+      SpectatorManager.removeSpectator(player);
+    }
+
+    if (vdplayer.getState() == PlayerState.INGAME || vdplayer.getState() == PlayerState.LOBBY_GAME) {
+
+      if (vdplayer.getKit() == Kit.HUNTER) {
+        KitUtils.removePlayerWolfs(player.getPlayer());
+      }
+
+      vdplayer.clearData();
+
+      vdplayer.getArena().getGame().getScoreboardManager().removeScoreboard(player.getName());
+
+      vdplayer.getArena().getGame().playerLeaveGame(vdplayer);
+    }
+
+    //Se actualiza la BD
+    Database database = plugin.getDatabase();
+    Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
+
+    if (account != null) {
+      database.saveAccount(account);
+      database.removeCachedAccount(account);
+    }
+
+    PlayerManager.removePlayer(player);
+  }
 }

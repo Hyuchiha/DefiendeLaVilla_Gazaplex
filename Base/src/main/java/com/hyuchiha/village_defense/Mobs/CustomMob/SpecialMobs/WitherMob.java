@@ -13,8 +13,8 @@ import com.hyuchiha.village_defense.Mobs.EntityType;
  */
 public class WitherMob extends BossEnemy {
 
-    public WitherMob(EntityType type) {
-        super(type, 500, 1000);
-    }
+  public WitherMob(EntityType type) {
+    super(type, 500, 1000);
+  }
 
 }

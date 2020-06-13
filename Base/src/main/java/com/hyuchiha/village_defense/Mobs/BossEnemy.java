@@ -21,66 +21,66 @@ import java.util.Random;
  */
 public abstract class BossEnemy extends EnemyIA {
 
-    private org.bukkit.entity.EntityType bukkitEntityType;
+  private org.bukkit.entity.EntityType bukkitEntityType;
 
-    public BossEnemy(EntityType entityType, int minDroppedGold, int maxDroppedGold) {
-        super(entityType, -1, minDroppedGold, maxDroppedGold, true);
-        setCustomName("");
+  public BossEnemy(EntityType entityType, int minDroppedGold, int maxDroppedGold) {
+    super(entityType, -1, minDroppedGold, maxDroppedGold, true);
+    setCustomName("");
+  }
+
+  public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+
+    Entity e = getEntityType().spawnEntity(spawnLocation);
+
+    this.bukkitEntityType = e.getType();
+
+    if (!(e instanceof LivingEntity)) {
+      e.remove();
     }
 
-    public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+    Random random = new Random();
+    LivingEntity entity = (LivingEntity) e;
 
-        Entity e = getEntityType().spawnEntity(spawnLocation);
+    Integer gems = Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold())) + 1;
 
-        this.bukkitEntityType = e.getType();
+    entity.setMetadata("gems", new FixedMetadataValue(plugin, gems));
 
-        if (!(e instanceof LivingEntity)) {
-            e.remove();
-        }
-
-        Random random = new Random();
-        LivingEntity entity = (LivingEntity) e;
-
-        Integer gems = Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold())) + 1;
-
-        entity.setMetadata("gems", new FixedMetadataValue(plugin, gems));
-
-        if (isBoss()) {
-            entity.setCustomName(ChatColor.YELLOW + "[" + ChatColor.BLUE + "BOSS" + ChatColor.YELLOW + "] " + ChatColor.RESET + getCustomName());
-            entity.setCustomNameVisible(true);
-        }
-
-        if (getArmor() != null) {
-            entity.getEquipment().setArmorContents(getArmor().clone());
-        }
-
-        if (getWeapon() != null) {
-            entity.getEquipment().setItemInHand(getWeapon().clone());
-        }
-
-        entity.getEquipment().setHelmetDropChance(0F);
-        entity.getEquipment().setChestplateDropChance(0F);
-        entity.getEquipment().setLeggingsDropChance(0F);
-        entity.getEquipment().setBootsDropChance(0F);
-        entity.getEquipment().setItemInHandDropChance(0F);
-
-        for (PotionEffect effect : getPotionEffects()) {
-            entity.addPotionEffect(effect);
-        }
-
-        if (entity instanceof Zombie) {
-            ((Zombie) entity).setBaby(isBaby());
-            ((Zombie) entity).setVillager(isVillager());
-        }
-
-        entity.setMaxHealth(getMaxHealth());
-        entity.setFireTicks(0);
-        entity.setCanPickupItems(false);
-
-        return entity;
+    if (isBoss()) {
+      entity.setCustomName(ChatColor.YELLOW + "[" + ChatColor.BLUE + "BOSS" + ChatColor.YELLOW + "] " + ChatColor.RESET + getCustomName());
+      entity.setCustomNameVisible(true);
     }
 
-    public org.bukkit.entity.EntityType getBukkitEntityType() {
-        return bukkitEntityType;
+    if (getArmor() != null) {
+      entity.getEquipment().setArmorContents(getArmor().clone());
     }
+
+    if (getWeapon() != null) {
+      entity.getEquipment().setItemInHand(getWeapon().clone());
+    }
+
+    entity.getEquipment().setHelmetDropChance(0F);
+    entity.getEquipment().setChestplateDropChance(0F);
+    entity.getEquipment().setLeggingsDropChance(0F);
+    entity.getEquipment().setBootsDropChance(0F);
+    entity.getEquipment().setItemInHandDropChance(0F);
+
+    for (PotionEffect effect : getPotionEffects()) {
+      entity.addPotionEffect(effect);
+    }
+
+    if (entity instanceof Zombie) {
+      ((Zombie) entity).setBaby(isBaby());
+      ((Zombie) entity).setVillager(isVillager());
+    }
+
+    entity.setMaxHealth(getMaxHealth());
+    entity.setFireTicks(0);
+    entity.setCanPickupItems(false);
+
+    return entity;
+  }
+
+  public org.bukkit.entity.EntityType getBukkitEntityType() {
+    return bukkitEntityType;
+  }
 }

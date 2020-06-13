@@ -10,19 +10,19 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Commander extends BaseKit {
 
-    public Commander(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
-    }
+  public Commander(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
 
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.STONE_SWORD));
-    }
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.STONE_SWORD));
+  }
 
-    @Override
-    public void giveSpawnItems(Player recipient) {
-        super.giveSpawnItems(recipient);
+  @Override
+  public void giveSpawnItems(Player recipient) {
+    super.giveSpawnItems(recipient);
 
-        recipient.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
-    }
+    recipient.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 0));
+  }
 }

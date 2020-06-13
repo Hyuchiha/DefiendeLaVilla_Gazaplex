@@ -22,104 +22,104 @@ import java.util.List;
  */
 public class PlayerManager {
 
-    public static List<GamePlayer> players = new ArrayList<>();
-    private static Respawner respawner = null;
+  public static List<GamePlayer> players = new ArrayList<>();
+  private static Respawner respawner = null;
 
-    public static void fetchRespawner() {
-        Output.log("Getting respawner for the server version");
+  public static void fetchRespawner() {
+    Output.log("Getting respawner for the server version");
 
-        switch (Minecraft.Version.getVersion()) {
-            case v1_9_R1:
-                respawner = new Respawner_v1_9_R1();
-                break;
-            case v1_9_R2:
-                respawner = new Respawner_v1_9_R2();
-                break;
-            case v1_10_R1:
-                respawner = new Respawner_v1_10_R1();
-                break;
-            case v1_11_R1:
-                respawner = new Respawner_v1_11_R1();
-                break;
-            case v1_12_R1:
-                respawner = new Respawner_v1_12_R1();
-                break;
-            default:
-                Output.logError("Version not supported");
-                Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
-                break;
-        }
+    switch (Minecraft.Version.getVersion()) {
+      case v1_9_R1:
+        respawner = new Respawner_v1_9_R1();
+        break;
+      case v1_9_R2:
+        respawner = new Respawner_v1_9_R2();
+        break;
+      case v1_10_R1:
+        respawner = new Respawner_v1_10_R1();
+        break;
+      case v1_11_R1:
+        respawner = new Respawner_v1_11_R1();
+        break;
+      case v1_12_R1:
+        respawner = new Respawner_v1_12_R1();
+        break;
+      default:
+        Output.logError("Version not supported");
+        Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
+        break;
+    }
+  }
+
+  public static GamePlayer getPlayer(Player player) {
+    for (GamePlayer vdplayer : players) {
+      if (vdplayer.getPlayerUUID().toString().equalsIgnoreCase(player.getUniqueId().toString())) {
+        return vdplayer;
+      }
     }
 
-    public static GamePlayer getPlayer(Player player) {
-        for (GamePlayer vdplayer : players) {
-            if (vdplayer.getPlayerUUID().toString().equalsIgnoreCase(player.getUniqueId().toString())) {
-                return vdplayer;
-            }
-        }
+    return createPlayerData(player);
+  }
 
-        return createPlayerData(player);
+  private static GamePlayer createPlayerData(Player player) {
+    GamePlayer actualPlayer = new GamePlayer(player.getUniqueId());
+    players.add(actualPlayer);
+    return actualPlayer;
+  }
+
+  public static void removePlayer(Player player) {
+    GamePlayer vdplayer = getPlayer(player);
+    players.remove(vdplayer);
+  }
+
+  public static void respawnPlayer(Player player) {
+    if (respawner != null) {
+      Output.log("Respawning without spigot");
+      respawner.respawm(player);
+    } else {
+      Output.log("Respawning using spigot api");
+      player.spigot().respawn();
+    }
+  }
+
+  public static void addMoney(Player p, double money) {
+    if (!VaultHooks.vault) {
+      return;
     }
 
-    private static GamePlayer createPlayerData(Player player) {
-        GamePlayer actualPlayer = new GamePlayer(player.getUniqueId());
-        players.add(actualPlayer);
-        return actualPlayer;
+    if (!VaultHooks.getEconomyManager().hasAccount(p)) {
+      VaultHooks.getEconomyManager().createPlayerAccount(p);
     }
 
-    public static void removePlayer(Player player) {
-        GamePlayer vdplayer = getPlayer(player);
-        players.remove(vdplayer);
+    p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_MONEY_GRANT")
+        .replace("%MONEY%", Double.toString(money)));
+    VaultHooks.getEconomyManager().depositPlayer(p, money);
+
+  }
+
+  public static double getMoney(Player p) {
+    if (!VaultHooks.vault) {
+      return 0;
     }
 
-    public static void respawnPlayer(Player player) {
-        if (respawner != null) {
-            Output.log("Respawning without spigot");
-            respawner.respawm(player);
-        } else {
-            Output.log("Respawning using spigot api");
-            player.spigot().respawn();
-        }
+    if (!VaultHooks.getEconomyManager().hasAccount(p)) {
+      return 0;
     }
 
-    public static void addMoney(Player p, double money) {
-        if (!VaultHooks.vault) {
-            return;
-        }
+    return VaultHooks.getEconomyManager().getBalance(p);
+  }
 
-        if (!VaultHooks.getEconomyManager().hasAccount(p)) {
-            VaultHooks.getEconomyManager().createPlayerAccount(p);
-        }
+  public static boolean withdrawMoney(Player p, double money) {
 
-        p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_MONEY_GRANT")
-                .replace("%MONEY%", Double.toString(money)));
-        VaultHooks.getEconomyManager().depositPlayer(p, money);
-
+    if (VaultHooks.vault) {
+      if (VaultHooks.getEconomyManager().has(p, money)) {
+        VaultHooks.getEconomyManager().withdrawPlayer(p, money);
+        return true;
+      }
     }
 
-    public static double getMoney(Player p) {
-        if (!VaultHooks.vault) {
-            return 0;
-        }
+    p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+    return false;
 
-        if (!VaultHooks.getEconomyManager().hasAccount(p)) {
-            return 0;
-        }
-
-        return VaultHooks.getEconomyManager().getBalance(p);
-    }
-
-    public static boolean withdrawMoney(Player p, double money) {
-
-        if (VaultHooks.vault) {
-            if (VaultHooks.getEconomyManager().has(p, money)) {
-                VaultHooks.getEconomyManager().withdrawPlayer(p, money);
-                return true;
-            }
-        }
-
-        p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
-        return false;
-
-    }
+  }
 }

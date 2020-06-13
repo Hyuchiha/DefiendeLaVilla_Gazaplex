@@ -9,27 +9,27 @@ import com.hyuchiha.village_defense.Game.ShopItem;
  */
 public class ItemPurchaseEvent extends BaseEvent {
 
-    private final ShopItem purchasedItem;
-    private final Arena arena;
-    private final GamePlayer playerWhoBuy;
+  private final ShopItem purchasedItem;
+  private final Arena arena;
+  private final GamePlayer playerWhoBuy;
 
 
-    public ItemPurchaseEvent(ShopItem item, Arena arena, GamePlayer player) {
-        this.purchasedItem = item;
-        this.arena = arena;
-        this.playerWhoBuy = player;
-    }
+  public ItemPurchaseEvent(ShopItem item, Arena arena, GamePlayer player) {
+    this.purchasedItem = item;
+    this.arena = arena;
+    this.playerWhoBuy = player;
+  }
 
-    public ShopItem getPurchasedItem() {
-        return purchasedItem;
-    }
+  public ShopItem getPurchasedItem() {
+    return purchasedItem;
+  }
 
-    public Arena getArena() {
-        return arena;
-    }
+  public Arena getArena() {
+    return arena;
+  }
 
-    public GamePlayer getPlayerWhoBuy() {
-        return playerWhoBuy;
-    }
+  public GamePlayer getPlayerWhoBuy() {
+    return playerWhoBuy;
+  }
 
 }

@@ -12,28 +12,28 @@ import org.bukkit.inventory.ItemStack;
 
 public class Merchant extends BaseKit {
 
-    public Merchant(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
-    }
+  public Merchant(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
 
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.STONE_SWORD));
-    }
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.STONE_SWORD));
+  }
 
-    @EventHandler
-    public void onItemPurchase(ItemPurchaseEvent event) {
-        Arena arena = event.getArena();
+  @EventHandler
+  public void onItemPurchase(ItemPurchaseEvent event) {
+    Arena arena = event.getArena();
 
-        GamePlayer playerWhoPurchased = event.getPlayerWhoBuy();
+    GamePlayer playerWhoPurchased = event.getPlayerWhoBuy();
 
-        //TODO check
-        for (GamePlayer player : arena.getGame().getPlayersInGame()) {
-            if (player.getKit() == Kit.MERCHANT) {
-                if (!player.getPlayer().getName().equals(playerWhoPurchased.getPlayer().getName())) {
-                    player.setGems((int) (player.getGems() * .3));
-                }
-            }
+    //TODO check
+    for (GamePlayer player : arena.getGame().getPlayersInGame()) {
+      if (player.getKit() == Kit.MERCHANT) {
+        if (!player.getPlayer().getName().equals(playerWhoPurchased.getPlayer().getName())) {
+          player.setGems((int) (player.getGems() * .3));
         }
+      }
     }
+  }
 }

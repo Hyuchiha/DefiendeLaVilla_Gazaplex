@@ -9,22 +9,22 @@ import org.bukkit.inventory.PlayerInventory;
 
 public class Tank extends BaseKit {
 
-    public Tank(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
-    }
+  public Tank(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
 
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.WOOD_SWORD));
-    }
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+  }
 
-    @Override
-    public void giveSpawnItems(Player recipient) {
-        super.giveSpawnItems(recipient);
+  @Override
+  public void giveSpawnItems(Player recipient) {
+    super.giveSpawnItems(recipient);
 
-        PlayerInventory inventory = recipient.getInventory();
-        inventory.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
-    }
+    PlayerInventory inventory = recipient.getInventory();
+    inventory.setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
+  }
 
 
 }

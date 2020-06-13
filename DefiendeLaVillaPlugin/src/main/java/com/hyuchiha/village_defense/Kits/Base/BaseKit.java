@@ -14,55 +14,55 @@ import java.util.List;
 
 public abstract class BaseKit implements Listener {
 
-    private String name;
-    private final ItemStack icon;
-    protected final List<ItemStack> spawnItems = new ArrayList<>();
+  private String name;
+  private final ItemStack icon;
+  protected final List<ItemStack> spawnItems = new ArrayList<>();
 
-    public BaseKit(String name, ItemStack icon, ConfigurationSection section) {
-        this.name = name;
-        this.icon = icon;
+  public BaseKit(String name, ItemStack icon, ConfigurationSection section) {
+    this.name = name;
+    this.icon = icon;
 
-        setupLore(section);
-        setupSpawnItems();
+    setupLore(section);
+    setupSpawnItems();
 
-        registerListener();
+    registerListener();
+  }
+
+  private void registerListener() {
+    Plugin plugin = Main.getInstance();
+    plugin.getServer().getPluginManager().registerEvents(this, plugin);
+  }
+
+  private void setupLore(ConfigurationSection section) {
+    List<String> lore = new ArrayList<>();
+
+    for (String line : section.getStringList("lore")) {
+      line = line.replaceAll("(&([a-fk-or0-9]))", "§$2");
+      lore.add(line);
     }
 
-    private void registerListener() {
-        Plugin plugin = Main.getInstance();
-        plugin.getServer().getPluginManager().registerEvents(this, plugin);
+    ItemMeta meta = icon.getItemMeta();
+    meta.setLore(lore);
+    icon.setItemMeta(meta);
+  }
+
+  protected abstract void setupSpawnItems();
+
+  public void giveSpawnItems(Player recipient) {
+    PlayerInventory inv = recipient.getInventory();
+
+    for (ItemStack item : spawnItems) {
+      ItemStack toGive = item.clone();
+      inv.addItem(toGive);
     }
 
-    private void setupLore(ConfigurationSection section) {
-        List<String> lore = new ArrayList<>();
+  }
 
-        for (String line : section.getStringList("lore")) {
-            line = line.replaceAll("(&([a-fk-or0-9]))", "§$2");
-            lore.add(line);
-        }
+  public ItemStack getIcon() {
+    return icon;
+  }
 
-        ItemMeta meta = icon.getItemMeta();
-        meta.setLore(lore);
-        icon.setItemMeta(meta);
-    }
-
-    protected abstract void setupSpawnItems();
-
-    public void giveSpawnItems(Player recipient) {
-        PlayerInventory inv = recipient.getInventory();
-
-        for (ItemStack item : spawnItems) {
-            ItemStack toGive = item.clone();
-            inv.addItem(toGive);
-        }
-
-    }
-
-    public ItemStack getIcon() {
-        return icon;
-    }
-
-    public String getName() {
-        return name.substring(0, 1) + name.substring(1).toLowerCase();
-    }
+  public String getName() {
+    return name.substring(0, 1) + name.substring(1).toLowerCase();
+  }
 }

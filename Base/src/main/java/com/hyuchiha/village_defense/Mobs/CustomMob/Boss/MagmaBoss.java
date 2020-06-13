@@ -24,34 +24,34 @@ import java.util.Random;
  */
 public class MagmaBoss extends BossEnemy {
 
-    public MagmaBoss(ConfigurationSection section, EntityType type) {
-        super(type, section.getInt("min-gems"), section.getInt("max-gems"));
+  public MagmaBoss(ConfigurationSection section, EntityType type) {
+    super(type, section.getInt("min-gems"), section.getInt("max-gems"));
 
-        super.setCustomName(section.getString("name"));
-        super.setPotionEffects(new PotionEffect[]{new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 7), new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2)});
+    super.setCustomName(section.getString("name"));
+    super.setPotionEffects(new PotionEffect[]{new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 7), new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2)});
+  }
+
+  @Override
+  public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+
+    Entity e = getEntityType().spawnEntity(spawnLocation);
+
+    if (!(e instanceof LivingEntity)) {
+      e.remove();
     }
 
-    @Override
-    public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+    Random random = new Random();
+    LivingEntity entity = (LivingEntity) e;
+    MagmaCube magmaBoss = (MagmaCube) entity;
 
-        Entity e = getEntityType().spawnEntity(spawnLocation);
+    magmaBoss.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
 
-        if (!(e instanceof LivingEntity)) {
-            e.remove();
-        }
+    try {
+      magmaBoss.setSize(5);
+    } catch (Exception ex) {
 
-        Random random = new Random();
-        LivingEntity entity = (LivingEntity) e;
-        MagmaCube magmaBoss = (MagmaCube) entity;
-
-        magmaBoss.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
-
-        try {
-            magmaBoss.setSize(5);
-        } catch (Exception ex) {
-
-        }
-
-        return magmaBoss;
     }
+
+    return magmaBoss;
+  }
 }

@@ -5,9 +5,9 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.List;
 
 public interface MobCreator {
-    List<EnemyIA> createWaveMobs(ConfigurationSection configuration);
+  List<EnemyIA> createWaveMobs(ConfigurationSection configuration);
 
-    List<BossEnemy> createBossMobs(ConfigurationSection configuration);
+  List<BossEnemy> createBossMobs(ConfigurationSection configuration);
 
-    List<BossEnemy> createSpecialMobs();
+  List<BossEnemy> createSpecialMobs();
 }

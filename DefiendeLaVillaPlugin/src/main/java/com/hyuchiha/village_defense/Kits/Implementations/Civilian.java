@@ -7,12 +7,12 @@ import org.bukkit.inventory.ItemStack;
 
 public class Civilian extends BaseKit {
 
-    public Civilian(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
-    }
+  public Civilian(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
 
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.WOOD_SWORD));
-    }
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+  }
 }

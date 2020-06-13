@@ -25,47 +25,47 @@ import org.bukkit.event.player.PlayerInteractEvent;
  */
 public class SignListener implements Listener {
 
-    private final Main plugin;
+  private final Main plugin;
 
-    public SignListener(Main main) {
-        this.plugin = main;
-    }
+  public SignListener(Main main) {
+    this.plugin = main;
+  }
 
-    @EventHandler
-    public void onSingClick(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        GamePlayer gamePlayer = PlayerManager.getPlayer(player);
+  @EventHandler
+  public void onSingClick(PlayerInteractEvent event) {
+    Player player = event.getPlayer();
+    GamePlayer gamePlayer = PlayerManager.getPlayer(player);
 
-        Action a = event.getAction();
-        if (a == Action.RIGHT_CLICK_BLOCK) {
-            if (event.getClickedBlock() != null) {
-                Material clickedType = event.getClickedBlock().getType();
-                if (clickedType == Material.SIGN_POST
-                        || clickedType == Material.WALL_SIGN) {
-                    Sign s = (Sign) event.getClickedBlock().getState();
-
-                    if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {
-                        String arenaName = ChatColor.stripColor(s.getLine(1));
-
-                        Bukkit.getServer().getPluginManager().
-                                callEvent(new ArenaJoinEvent(arenaName, gamePlayer));
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void onSignBreak(BlockBreakEvent event) {
-        Material clickedType = event.getBlock().getType();
+    Action a = event.getAction();
+    if (a == Action.RIGHT_CLICK_BLOCK) {
+      if (event.getClickedBlock() != null) {
+        Material clickedType = event.getClickedBlock().getType();
         if (clickedType == Material.SIGN_POST
-                || clickedType == Material.WALL_SIGN) {
-            Sign s = (Sign) event.getBlock().getState();
+            || clickedType == Material.WALL_SIGN) {
+          Sign s = (Sign) event.getClickedBlock().getState();
 
-            if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {
-                event.setCancelled(true);
-            }
+          if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {
+            String arenaName = ChatColor.stripColor(s.getLine(1));
+
+            Bukkit.getServer().getPluginManager().
+                callEvent(new ArenaJoinEvent(arenaName, gamePlayer));
+          }
         }
+      }
     }
+  }
+
+  @EventHandler
+  public void onSignBreak(BlockBreakEvent event) {
+    Material clickedType = event.getBlock().getType();
+    if (clickedType == Material.SIGN_POST
+        || clickedType == Material.WALL_SIGN) {
+      Sign s = (Sign) event.getBlock().getState();
+
+      if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {
+        event.setCancelled(true);
+      }
+    }
+  }
 
 }

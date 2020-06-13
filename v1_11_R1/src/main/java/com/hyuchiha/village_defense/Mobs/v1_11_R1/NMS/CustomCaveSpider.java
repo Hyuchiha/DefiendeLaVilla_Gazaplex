@@ -12,7 +12,7 @@ import net.minecraft.server.v1_11_R1.EntityCaveSpider;
  */
 public class CustomCaveSpider extends EntityCaveSpider {
 
-    public CustomCaveSpider(net.minecraft.server.v1_11_R1.World world) {
-        super(world);
-    }
+  public CustomCaveSpider(net.minecraft.server.v1_11_R1.World world) {
+    super(world);
+  }
 }

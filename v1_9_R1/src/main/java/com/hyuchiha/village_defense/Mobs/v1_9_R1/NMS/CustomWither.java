@@ -4,7 +4,7 @@ import net.minecraft.server.v1_9_R1.EntityWither;
 import net.minecraft.server.v1_9_R1.World;
 
 public class CustomWither extends EntityWither {
-    public CustomWither(World world) {
-        super(world);
-    }
+  public CustomWither(World world) {
+    super(world);
+  }
 }

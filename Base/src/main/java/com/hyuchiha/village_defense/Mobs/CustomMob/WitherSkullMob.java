@@ -23,50 +23,50 @@ import java.util.Random;
  */
 public class WitherSkullMob extends EnemyIA {
 
-    public WitherSkullMob(ConfigurationSection section, EntityType type) {
-        super(type, section.getInt("difficulty"), section.getInt("min-gems"), section.getInt("max-gems"));
-        setStartingWave(section.getInt("spawnAt"));
+  public WitherSkullMob(ConfigurationSection section, EntityType type) {
+    super(type, section.getInt("difficulty"), section.getInt("min-gems"), section.getInt("max-gems"));
+    setStartingWave(section.getInt("spawnAt"));
+  }
+
+  @Override
+  public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+
+    Entity e = getEntityType().spawnEntity(spawnLocation);
+
+    if (!(e instanceof LivingEntity)) {
+      e.remove();
     }
 
-    @Override
-    public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+    Random random = new Random();
+    LivingEntity entity = (LivingEntity) e;
+    org.bukkit.entity.WitherSkeleton skeleton = (org.bukkit.entity.WitherSkeleton) entity;
 
-        Entity e = getEntityType().spawnEntity(spawnLocation);
+    skeleton.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
 
-        if (!(e instanceof LivingEntity)) {
-            e.remove();
-        }
+    int difficultyOfMob = (wave / 10);
 
-        Random random = new Random();
-        LivingEntity entity = (LivingEntity) e;
-        org.bukkit.entity.WitherSkeleton skeleton = (org.bukkit.entity.WitherSkeleton) entity;
+    if (wave > 5) {
+      ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
+      skeleton.getEquipment().setHelmet(armor[0]);
+      skeleton.getEquipment().setChestplate(armor[1]);
+      skeleton.getEquipment().setLeggings(armor[2]);
+      skeleton.getEquipment().setBoots(armor[3]);
 
-        skeleton.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
-
-        int difficultyOfMob = (wave / 10);
-
-        if (wave > 5) {
-            ItemStack[] armor = MobUtils.getRandomArmor(difficultyOfMob);
-            skeleton.getEquipment().setHelmet(armor[0]);
-            skeleton.getEquipment().setChestplate(armor[1]);
-            skeleton.getEquipment().setLeggings(armor[2]);
-            skeleton.getEquipment().setBoots(armor[3]);
-
-            MobUtils.addRandomPotionEffects(wave, skeleton);
-        }
-
-        skeleton.getEquipment().setItemInHand(MobUtils.getRandomWeapon(difficultyOfMob));
-
-        skeleton.getEquipment().setHelmetDropChance(0F);
-        skeleton.getEquipment().setChestplateDropChance(0F);
-        skeleton.getEquipment().setLeggingsDropChance(0F);
-        skeleton.getEquipment().setBootsDropChance(0F);
-        skeleton.getEquipment().setItemInHandDropChance(0F);
-        skeleton.setFireTicks(0);
-        skeleton.setHealth(skeleton.getMaxHealth());
-        skeleton.setCanPickupItems(false);
-
-        return skeleton;
+      MobUtils.addRandomPotionEffects(wave, skeleton);
     }
+
+    skeleton.getEquipment().setItemInHand(MobUtils.getRandomWeapon(difficultyOfMob));
+
+    skeleton.getEquipment().setHelmetDropChance(0F);
+    skeleton.getEquipment().setChestplateDropChance(0F);
+    skeleton.getEquipment().setLeggingsDropChance(0F);
+    skeleton.getEquipment().setBootsDropChance(0F);
+    skeleton.getEquipment().setItemInHandDropChance(0F);
+    skeleton.setFireTicks(0);
+    skeleton.setHealth(skeleton.getMaxHealth());
+    skeleton.setCanPickupItems(false);
+
+    return skeleton;
+  }
 
 }

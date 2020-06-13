@@ -13,8 +13,8 @@ import net.minecraft.server.v1_12_R1.World;
  */
 public class CustomWitherSkeleton extends EntitySkeletonWither {
 
-    public CustomWitherSkeleton(World world) {
-        super(world);
-    }
+  public CustomWitherSkeleton(World world) {
+    super(world);
+  }
 
 }

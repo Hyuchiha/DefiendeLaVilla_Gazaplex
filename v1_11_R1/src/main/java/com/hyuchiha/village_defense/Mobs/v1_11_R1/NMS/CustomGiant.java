@@ -4,7 +4,7 @@ import net.minecraft.server.v1_11_R1.EntityGiantZombie;
 import net.minecraft.server.v1_11_R1.World;
 
 public class CustomGiant extends EntityGiantZombie {
-    public CustomGiant(World world) {
-        super(world);
-    }
+  public CustomGiant(World world) {
+    super(world);
+  }
 }

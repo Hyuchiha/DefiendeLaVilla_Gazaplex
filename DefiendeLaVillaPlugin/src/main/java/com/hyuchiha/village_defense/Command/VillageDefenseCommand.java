@@ -26,101 +26,101 @@ import org.bukkit.entity.Player;
  */
 public class VillageDefenseCommand implements CommandExecutor {
 
-    private Main plugin;
+  private Main plugin;
 
-    public VillageDefenseCommand(Main main) {
-        this.plugin = main;
-    }
+  public VillageDefenseCommand(Main main) {
+    this.plugin = main;
+  }
 
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+  @Override
+  public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
-        if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
-            sender.sendMessage(Translator.getPrefix() + "/vd join [arena]");
-            sender.sendMessage(Translator.getPrefix() + "/vd leave");
-            sender.sendMessage(Translator.getPrefix() + "/vd spect [arena]");
-            //sender.sendMessage(plugin.getPrefix() + "/vd arena");
+    if (args.length == 0 || args[0].equalsIgnoreCase("help")) {
+      sender.sendMessage(Translator.getPrefix() + "/vd join [arena]");
+      sender.sendMessage(Translator.getPrefix() + "/vd leave");
+      sender.sendMessage(Translator.getPrefix() + "/vd spect [arena]");
+      //sender.sendMessage(plugin.getPrefix() + "/vd arena");
 
-            return true;
-        } else {
-            switch (args[0]) {
-                case "join":
-                    try {
-                        String arenaName = args[1];
-                        Arena arena = ArenaManager.getArenaConfiguration(arenaName);
-                        if (sender instanceof Player) {
-                            Player player = (Player) sender;
+      return true;
+    } else {
+      switch (args[0]) {
+        case "join":
+          try {
+            String arenaName = args[1];
+            Arena arena = ArenaManager.getArenaConfiguration(arenaName);
+            if (sender instanceof Player) {
+              Player player = (Player) sender;
 
-                            if (arena == null) {
-                                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
-                                Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
-                                return true;
-                            }
+              if (arena == null) {
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+                Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
+                return true;
+              }
 
-                            GamePlayer playerjoin = PlayerManager.getPlayer(player);
+              GamePlayer playerjoin = PlayerManager.getPlayer(player);
 
-                            Bukkit.getPluginManager().callEvent(new ArenaJoinEvent(arenaName, playerjoin));
+              Bukkit.getPluginManager().callEvent(new ArenaJoinEvent(arenaName, playerjoin));
 
-                        } else {
-                            Output.log("Solo puedes unirte si eres un jugador");
-                            return false;
-                        }
-
-                    } catch (Exception e) {
-                        Output.logError(e.getMessage());
-                    }
-
-                    break;
-                case "leave":
-                    if (sender instanceof Player) {
-                        Player player = (Player) sender;
-                        GamePlayer playervd = PlayerManager.getPlayer(player);
-
-                        if (playervd.getState() == PlayerState.INGAME || playervd.getState() == PlayerState.LOBBY_GAME) {
-                            Bukkit.getPluginManager().callEvent(new ArenaLeaveEvent(playervd, playervd.getArena()));
-                        } else {
-                            player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
-                        }
-                    }
-                    break;
-                case "spect":
-                    try {
-                        String arenaName = args[1];
-                        Arena arena = ArenaManager.getArenaConfiguration(arenaName);
-                        if (sender instanceof Player) {
-                            Player player = (Player) sender;
-
-                            if (arena == null) {
-                                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
-                                Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
-                                return true;
-                            }
-
-                            //Verificarse que tenga permiso para jugar
-                            if (!player.getPlayer().hasPermission("VD.Player.spect")) {
-                                player.getPlayer().sendMessage(Translator.getPrefix() + " " +
-                                        Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
-                                return false;
-                            } else {
-                                GamePlayer playervd = PlayerManager.getPlayer(player);
-                                arena.getGame().addSpectator(playervd);
-                            }
-
-                        } else {
-                            Output.log("Solo puedes unirte si eres un jugador");
-                            return false;
-                        }
-                    } catch (Exception e) {
-                        Output.logError(e.getMessage());
-                    }
-                    break;
-                default:
-
-                    break;
+            } else {
+              Output.log("Solo puedes unirte si eres un jugador");
+              return false;
             }
-        }
 
-        return false;
+          } catch (Exception e) {
+            Output.logError(e.getMessage());
+          }
+
+          break;
+        case "leave":
+          if (sender instanceof Player) {
+            Player player = (Player) sender;
+            GamePlayer playervd = PlayerManager.getPlayer(player);
+
+            if (playervd.getState() == PlayerState.INGAME || playervd.getState() == PlayerState.LOBBY_GAME) {
+              Bukkit.getPluginManager().callEvent(new ArenaLeaveEvent(playervd, playervd.getArena()));
+            } else {
+              player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
+            }
+          }
+          break;
+        case "spect":
+          try {
+            String arenaName = args[1];
+            Arena arena = ArenaManager.getArenaConfiguration(arenaName);
+            if (sender instanceof Player) {
+              Player player = (Player) sender;
+
+              if (arena == null) {
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+                Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
+                return true;
+              }
+
+              //Verificarse que tenga permiso para jugar
+              if (!player.getPlayer().hasPermission("VD.Player.spect")) {
+                player.getPlayer().sendMessage(Translator.getPrefix() + " " +
+                    Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
+                return false;
+              } else {
+                GamePlayer playervd = PlayerManager.getPlayer(player);
+                arena.getGame().addSpectator(playervd);
+              }
+
+            } else {
+              Output.log("Solo puedes unirte si eres un jugador");
+              return false;
+            }
+          } catch (Exception e) {
+            Output.logError(e.getMessage());
+          }
+          break;
+        default:
+
+          break;
+      }
     }
+
+    return false;
+  }
 
 }

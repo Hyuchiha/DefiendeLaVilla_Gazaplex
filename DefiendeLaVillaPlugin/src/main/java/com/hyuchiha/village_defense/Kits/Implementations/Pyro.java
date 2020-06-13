@@ -16,28 +16,28 @@ import org.bukkit.inventory.ItemStack;
 
 public class Pyro extends BaseKit {
 
-    public Pyro(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
+  public Pyro(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
+
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.STONE_SWORD));
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void KitDamageHelpers(EntityDamageByEntityEvent event) {
+    Entity entityAttacker = event.getDamager();
+    Entity entityAttacked = event.getEntity();
+    if ((entityAttacker.getType() == EntityType.PLAYER) && (entityAttacked.getType() != EntityType.PLAYER)) {
+      Player damager = (Player) entityAttacker;
+
+      GamePlayer player = PlayerManager.getPlayer(damager);
+
+      if (player.getKit() == Kit.PYRO) {
+        entityAttacked.setFireTicks(200);
+      }
+
     }
-
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.STONE_SWORD));
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void KitDamageHelpers(EntityDamageByEntityEvent event) {
-        Entity entityAttacker = event.getDamager();
-        Entity entityAttacked = event.getEntity();
-        if ((entityAttacker.getType() == EntityType.PLAYER) && (entityAttacked.getType() != EntityType.PLAYER)) {
-            Player damager = (Player) entityAttacker;
-
-            GamePlayer player = PlayerManager.getPlayer(damager);
-
-            if (player.getKit() == Kit.PYRO) {
-                entityAttacked.setFireTicks(200);
-            }
-
-        }
-    }
+  }
 }

@@ -12,8 +12,8 @@ import net.minecraft.server.v1_11_R1.EntitySkeletonWither;
  */
 public class CustomWitherSkeleton extends EntitySkeletonWither {
 
-    public CustomWitherSkeleton(net.minecraft.server.v1_11_R1.World world) {
-        super(world);
-    }
+  public CustomWitherSkeleton(net.minecraft.server.v1_11_R1.World world) {
+    super(world);
+  }
 
 }

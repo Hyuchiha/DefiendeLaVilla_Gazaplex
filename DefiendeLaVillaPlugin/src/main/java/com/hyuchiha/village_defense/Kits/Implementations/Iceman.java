@@ -19,28 +19,28 @@ import org.bukkit.potion.PotionEffectType;
 
 public class Iceman extends BaseKit {
 
-    public Iceman(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
+  public Iceman(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
+
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+  }
+
+  @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
+  public void KitDamageHelpers(EntityDamageByEntityEvent event) {
+    Entity entityAttacker = event.getDamager();
+    Entity entityAttacked = event.getEntity();
+    if ((entityAttacker.getType() == EntityType.PLAYER) && entityAttacked instanceof LivingEntity && (entityAttacked.getType() != EntityType.PLAYER)) {
+      Player damager = (Player) entityAttacker;
+
+      GamePlayer player = PlayerManager.getPlayer(damager);
+
+      if (player.getKit() == Kit.ICEMAN) {
+        ((LivingEntity) entityAttacked).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2));
+      }
+
     }
-
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.WOOD_SWORD));
-    }
-
-    @EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
-    public void KitDamageHelpers(EntityDamageByEntityEvent event) {
-        Entity entityAttacker = event.getDamager();
-        Entity entityAttacked = event.getEntity();
-        if ((entityAttacker.getType() == EntityType.PLAYER) && entityAttacked instanceof LivingEntity && (entityAttacked.getType() != EntityType.PLAYER)) {
-            Player damager = (Player) entityAttacker;
-
-            GamePlayer player = PlayerManager.getPlayer(damager);
-
-            if (player.getKit() == Kit.ICEMAN) {
-                ((LivingEntity) entityAttacked).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2));
-            }
-
-        }
-    }
+  }
 }

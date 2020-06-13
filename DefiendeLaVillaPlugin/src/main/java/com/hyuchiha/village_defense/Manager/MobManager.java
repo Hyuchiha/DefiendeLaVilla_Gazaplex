@@ -26,69 +26,69 @@ import java.util.Random;
  */
 public class MobManager {
 
-    private static final ArrayList<EnemyIA> enemyObjects = new ArrayList<>();
-    private static final ArrayList<BossEnemy> bossEnemyObjects = new ArrayList<>();
+  private static final ArrayList<EnemyIA> enemyObjects = new ArrayList<>();
+  private static final ArrayList<BossEnemy> bossEnemyObjects = new ArrayList<>();
 
-    public static void registerMobs() {
-        Output.log("Registrando mounstruos");
-        Configuration config = Main.getInstance().getConfig("config.yml");
+  public static void registerMobs() {
+    Output.log("Registrando mounstruos");
+    Configuration config = Main.getInstance().getConfig("config.yml");
 
-        MobCreator creator = null;
+    MobCreator creator = null;
 
-        switch (Minecraft.Version.getVersion()) {
-            case v1_9_R1:
-                creator = new MobCreator_v1_9_R1();
-                break;
-            case v1_9_R2:
-                creator = new MobCreator_v1_9_R2();
-                break;
-            case v1_10_R1:
-                creator = new MobCreator_v1_10_R1();
-                break;
-            case v1_11_R1:
-                creator = new MobCreator_v1_11_R1();
-                break;
-            case v1_12_R1:
-                creator = new MobCreator_v1_12_R1();
-                break;
-            default:
-                Output.log("Version not supported");
-                break;
+    switch (Minecraft.Version.getVersion()) {
+      case v1_9_R1:
+        creator = new MobCreator_v1_9_R1();
+        break;
+      case v1_9_R2:
+        creator = new MobCreator_v1_9_R2();
+        break;
+      case v1_10_R1:
+        creator = new MobCreator_v1_10_R1();
+        break;
+      case v1_11_R1:
+        creator = new MobCreator_v1_11_R1();
+        break;
+      case v1_12_R1:
+        creator = new MobCreator_v1_12_R1();
+        break;
+      default:
+        Output.log("Version not supported");
+        break;
+    }
+
+    if (creator != null) {
+      enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
+      bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
+    } else {
+      Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
+    }
+  }
+
+  public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty) {
+    ArrayList<EnemyIA> enemies = new ArrayList<>();
+    Random random = new Random();
+
+    for (EnemyIA enemy : enemyObjects) {
+      if (currentWave >= enemy.getStartingWave()) {
+        int val = (difficulty / enemy.getDifficulty()) + 2;
+        int toSpawn = random.nextInt(val) + 1;
+
+        while (toSpawn > 0) {
+          enemies.add(enemy);
+          toSpawn--;
         }
-
-        if (creator != null) {
-            enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
-            bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
-        } else {
-            Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
-        }
+      }
     }
 
-    public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty) {
-        ArrayList<EnemyIA> enemies = new ArrayList<>();
-        Random random = new Random();
-
-        for (EnemyIA enemy : enemyObjects) {
-            if (currentWave >= enemy.getStartingWave()) {
-                int val = (difficulty / enemy.getDifficulty()) + 2;
-                int toSpawn = random.nextInt(val) + 1;
-
-                while (toSpawn > 0) {
-                    enemies.add(enemy);
-                    toSpawn--;
-                }
-            }
-        }
-
-        return enemies;
-    }
+    return enemies;
+  }
 
 
-    public static ArrayList<EnemyIA> getEnemyObjects() {
-        return enemyObjects;
-    }
+  public static ArrayList<EnemyIA> getEnemyObjects() {
+    return enemyObjects;
+  }
 
-    public static ArrayList<BossEnemy> getBossEnemyObjects() {
-        return bossEnemyObjects;
-    }
+  public static ArrayList<BossEnemy> getBossEnemyObjects() {
+    return bossEnemyObjects;
+  }
 }

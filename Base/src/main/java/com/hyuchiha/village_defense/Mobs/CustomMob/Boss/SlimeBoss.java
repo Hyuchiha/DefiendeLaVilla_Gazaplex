@@ -23,30 +23,30 @@ import java.util.Random;
  */
 public class SlimeBoss extends BossEnemy {
 
-    public SlimeBoss(ConfigurationSection section, EntityType type) {
-        super(type, section.getInt("min-gems"), section.getInt("max-gems"));
+  public SlimeBoss(ConfigurationSection section, EntityType type) {
+    super(type, section.getInt("min-gems"), section.getInt("max-gems"));
 
-        super.setCustomName(section.getString("name"));
-        super.setPotionEffects(new PotionEffect[]{new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 7), new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2)});
+    super.setCustomName(section.getString("name"));
+    super.setPotionEffects(new PotionEffect[]{new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 7), new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 2)});
+  }
+
+  @Override
+  public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+
+    Entity e = getEntityType().spawnEntity(spawnLocation);
+
+    if (!(e instanceof LivingEntity)) {
+      e.remove();
     }
 
-    @Override
-    public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+    Random random = new Random();
+    LivingEntity entity = (LivingEntity) e;
+    org.bukkit.entity.Slime slimeBoss = (org.bukkit.entity.Slime) entity;
 
-        Entity e = getEntityType().spawnEntity(spawnLocation);
+    slimeBoss.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
 
-        if (!(e instanceof LivingEntity)) {
-            e.remove();
-        }
+    slimeBoss.setSize(5);
 
-        Random random = new Random();
-        LivingEntity entity = (LivingEntity) e;
-        org.bukkit.entity.Slime slimeBoss = (org.bukkit.entity.Slime) entity;
-
-        slimeBoss.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
-
-        slimeBoss.setSize(5);
-
-        return slimeBoss;
-    }
+    return slimeBoss;
+  }
 }

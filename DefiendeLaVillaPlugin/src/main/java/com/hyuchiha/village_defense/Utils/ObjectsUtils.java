@@ -25,91 +25,91 @@ import java.util.List;
  */
 public class ObjectsUtils {
 
-    public static void showNewClassSelector(Player p) {
-        int size = ((46 + 8) / 9) * 9;
-        Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("CLASS_SELECT_INV_TITLE"));
+  public static void showNewClassSelector(Player p) {
+    int size = ((46 + 8) / 9) * 9;
+    Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("CLASS_SELECT_INV_TITLE"));
 
-        ArrayList<Kit> notUnlocked = new ArrayList<>();
+    ArrayList<Kit> notUnlocked = new ArrayList<>();
 
-        int kitsCount = 0;
+    int kitsCount = 0;
 
-        for (Kit kit : Kit.values()) {
-            if (kit.isOwnedBy(p)) {
-                ItemStack i = kit.getKit().getIcon().clone();
-                ItemMeta im = i.getItemMeta();
-                List<String> lore = im.getLore();
-                lore.add(ChatColor.GRAY + "---------------");
-                lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
-                lore.add(ChatColor.GRAY + "---------------");
-                im.setLore(lore);
-                i.setItemMeta(im);
-                inv.addItem(i);
+    for (Kit kit : Kit.values()) {
+      if (kit.isOwnedBy(p)) {
+        ItemStack i = kit.getKit().getIcon().clone();
+        ItemMeta im = i.getItemMeta();
+        List<String> lore = im.getLore();
+        lore.add(ChatColor.GRAY + "---------------");
+        lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
+        lore.add(ChatColor.GRAY + "---------------");
+        im.setLore(lore);
+        i.setItemMeta(im);
+        inv.addItem(i);
 
-                kitsCount++;
-            } else {
-                notUnlocked.add(kit);
-            }
-        }
-
-        int kitsCopy = kitsCount;
-        kitsCount = (Math.round((kitsCount + 8) / 9) + 1) * 9;
-
-        ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
-        ItemMeta metaglass = glass.getItemMeta();
-        metaglass.setDisplayName(ChatColor.BLACK + "");
-        glass.setItemMeta(metaglass);
-
-        for (int i = kitsCopy; i < kitsCount; i++) {
-            inv.setItem(i, glass);
-        }
-
-        for (Kit kit : notUnlocked) {
-            ItemStack i = kit.getKit().getIcon().clone();
-            ItemMeta im = i.getItemMeta();
-            List<String> lore = im.getLore();
-            lore.add(ChatColor.GRAY + "---------------");
-            lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
-            lore.add(ChatColor.GRAY + "---------------");
-            im.setLore(lore);
-            i.setItemMeta(im);
-            inv.addItem(i);
-            kitsCount++;
-        }
-
-        for (int i = kitsCount; i < inv.getSize(); i++) {
-            inv.setItem(i, glass);
-        }
-
-        p.openInventory(inv);
+        kitsCount++;
+      } else {
+        notUnlocked.add(kit);
+      }
     }
 
-    public static void showUnlockerSelector(Player p) {
-        int size = ((Kit.values().length + 8) / 9) * 9;
-        Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("UNLOCK_INV_TITLE"));
-        for (Kit kit : Kit.values()) {
-            ItemStack i = kit.getKit().getIcon().clone();
+    int kitsCopy = kitsCount;
+    kitsCount = (Math.round((kitsCount + 8) / 9) + 1) * 9;
 
-            ItemMeta im = i.getItemMeta();
-            List<String> lore = new ArrayList<>();
+    ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+    ItemMeta metaglass = glass.getItemMeta();
+    metaglass.setDisplayName(ChatColor.BLACK + "");
+    glass.setItemMeta(metaglass);
 
-            int price = Main.getInstance()
-                    .getConfig("kits.yml")
-                    .getInt("Kits." + kit.name().toUpperCase() + ".price");
-
-            lore.add(ChatColor.GRAY + "---------------");
-            if (kit.isOwnedBy(p)) {
-                lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
-            } else {
-                lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
-                lore.add("");
-                lore.add(ChatColor.RED + Translator.getColoredString("UNLOCK_WITH").replace("%POINTS%", Integer.toString(price)));
-            }
-            lore.add(ChatColor.GRAY + "---------------");
-            im.setLore(lore);
-            i.setItemMeta(im);
-            inv.addItem(i);
-        }
-        p.openInventory(inv);
+    for (int i = kitsCopy; i < kitsCount; i++) {
+      inv.setItem(i, glass);
     }
+
+    for (Kit kit : notUnlocked) {
+      ItemStack i = kit.getKit().getIcon().clone();
+      ItemMeta im = i.getItemMeta();
+      List<String> lore = im.getLore();
+      lore.add(ChatColor.GRAY + "---------------");
+      lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
+      lore.add(ChatColor.GRAY + "---------------");
+      im.setLore(lore);
+      i.setItemMeta(im);
+      inv.addItem(i);
+      kitsCount++;
+    }
+
+    for (int i = kitsCount; i < inv.getSize(); i++) {
+      inv.setItem(i, glass);
+    }
+
+    p.openInventory(inv);
+  }
+
+  public static void showUnlockerSelector(Player p) {
+    int size = ((Kit.values().length + 8) / 9) * 9;
+    Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("UNLOCK_INV_TITLE"));
+    for (Kit kit : Kit.values()) {
+      ItemStack i = kit.getKit().getIcon().clone();
+
+      ItemMeta im = i.getItemMeta();
+      List<String> lore = new ArrayList<>();
+
+      int price = Main.getInstance()
+          .getConfig("kits.yml")
+          .getInt("Kits." + kit.name().toUpperCase() + ".price");
+
+      lore.add(ChatColor.GRAY + "---------------");
+      if (kit.isOwnedBy(p)) {
+        lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
+      } else {
+        lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
+        lore.add("");
+        lore.add(ChatColor.RED + Translator.getColoredString("UNLOCK_WITH").replace("%POINTS%", Integer.toString(price)));
+      }
+      lore.add(ChatColor.GRAY + "---------------");
+      im.setLore(lore);
+      i.setItemMeta(im);
+      inv.addItem(i);
+    }
+    p.openInventory(inv);
+  }
 
 }

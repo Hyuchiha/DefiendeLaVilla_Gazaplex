@@ -15,24 +15,24 @@ import java.util.Set;
  */
 public class CustomWitch extends EntityWitch {
 
-    public CustomWitch(World world) {
-        super(world);
-        Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
-        goalB.clear();
-        Set goalC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
-        goalC.clear();
-        Set targetB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
-        targetB.clear();
-        Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
-        targetC.clear();
+  public CustomWitch(World world) {
+    super(world);
+    Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
+    goalB.clear();
+    Set goalC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
+    goalC.clear();
+    Set targetB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
+    targetB.clear();
+    Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
+    targetC.clear();
 
-        this.goalSelector.a(1, new PathfinderGoalFloat(this));
-        this.goalSelector.a(2, new PathfinderGoalArrowAttack(this, 1.0, 60, 10.0f));
-        this.goalSelector.a(2, new PathfinderGoalRandomStroll(this, 1.0));
-        this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0f));
-        this.goalSelector.a(3, new PathfinderGoalRandomLookaround(this));
-        this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false));
-        this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, true, true));
-        this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityVillager.class, true, true));
-    }
+    this.goalSelector.a(1, new PathfinderGoalFloat(this));
+    this.goalSelector.a(2, new PathfinderGoalArrowAttack(this, 1.0, 60, 10.0f));
+    this.goalSelector.a(2, new PathfinderGoalRandomStroll(this, 1.0));
+    this.goalSelector.a(3, new PathfinderGoalLookAtPlayer(this, EntityHuman.class, 8.0f));
+    this.goalSelector.a(3, new PathfinderGoalRandomLookaround(this));
+    this.targetSelector.a(1, new PathfinderGoalHurtByTarget(this, false));
+    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityHuman.class, true, true));
+    this.targetSelector.a(2, new PathfinderGoalNearestAttackableTarget(this, EntityVillager.class, true, true));
+  }
 }

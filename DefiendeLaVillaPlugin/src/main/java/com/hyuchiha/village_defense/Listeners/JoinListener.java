@@ -20,32 +20,32 @@ import org.bukkit.event.player.PlayerJoinEvent;
  */
 public class JoinListener implements Listener {
 
-    private final Main plugin;
+  private final Main plugin;
 
-    public JoinListener(Main main) {
-        this.plugin = main;
-    }
+  public JoinListener(Main main) {
+    this.plugin = main;
+  }
 
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent e) {
-        e.setJoinMessage("");
-        final Player player = e.getPlayer();
+  @EventHandler
+  public void onPlayerJoin(PlayerJoinEvent e) {
+    e.setJoinMessage("");
+    final Player player = e.getPlayer();
 
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_JOIN_MESSAGE"));
-        GamePlayer vdplayer = PlayerManager.getPlayer(player);
+    player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_JOIN_MESSAGE"));
+    GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
-        plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
+    plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
 
-        //Se envia el jugador al lobby principal
-        vdplayer.sendPlayerToLobby();
+    //Se envia el jugador al lobby principal
+    vdplayer.sendPlayerToLobby();
 
-        TitleAPI.send(player,
-                Translator.getColoredString("SERVER_JOIN_TITLE"),
-                Translator.getColoredString("SERVER_JOIN_SUBTITLE"),
-                10,
-                30,
-                10);
+    TitleAPI.send(player,
+        Translator.getColoredString("SERVER_JOIN_TITLE"),
+        Translator.getColoredString("SERVER_JOIN_SUBTITLE"),
+        10,
+        30,
+        10);
 
-    }
+  }
 
 }

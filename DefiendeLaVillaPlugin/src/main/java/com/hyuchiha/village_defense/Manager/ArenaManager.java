@@ -11,47 +11,47 @@ import java.util.HashMap;
 
 public class ArenaManager {
 
-    private static HashMap<String, Arena> arenas = new HashMap<>();
-    private static MainLobby lobby = null;
+  private static HashMap<String, Arena> arenas = new HashMap<>();
+  private static MainLobby lobby = null;
 
-    public static void initArenas() {
-        Output.log("Cargando configuraciones de arena");
+  public static void initArenas() {
+    Output.log("Cargando configuraciones de arena");
 
-        Configuration arenasConfig = Main.getInstance().getConfig("arenas.yml");
+    Configuration arenasConfig = Main.getInstance().getConfig("arenas.yml");
 
-        for (String arena : arenasConfig.getKeys(false)) {
-            if (!arena.equals("Spawn")) {
-                arenas.put(arena, loadArena(arena));
-            } else {
-                lobby = getLobby();
-            }
-        }
+    for (String arena : arenasConfig.getKeys(false)) {
+      if (!arena.equals("Spawn")) {
+        arenas.put(arena, loadArena(arena));
+      } else {
+        lobby = getLobby();
+      }
     }
+  }
 
-    public static MainLobby getLobby() {
-        if (lobby == null) {
-            return new MainLobby();
-        } else {
-            return lobby;
-        }
+  public static MainLobby getLobby() {
+    if (lobby == null) {
+      return new MainLobby();
+    } else {
+      return lobby;
     }
+  }
 
-    public static Arena getArenaConfiguration(String arena) {
-        return arenas.get(arena);
-    }
+  public static Arena getArenaConfiguration(String arena) {
+    return arenas.get(arena);
+  }
 
-    private static Arena loadArena(String arena) {
-        return new Arena(arena);
-    }
+  private static Arena loadArena(String arena) {
+    return new Arena(arena);
+  }
 
-    public static void initShopForArenas() {
-        Output.log("Iniciando los shops para cada arena");
-        for (Arena arena : arenas.values()) {
-            ShopManager.InitArenaShop(arena);
-        }
+  public static void initShopForArenas() {
+    Output.log("Iniciando los shops para cada arena");
+    for (Arena arena : arenas.values()) {
+      ShopManager.InitArenaShop(arena);
     }
+  }
 
-    public static Collection<Arena> getArenas() {
-        return arenas.values();
-    }
+  public static Collection<Arena> getArenas() {
+    return arenas.values();
+  }
 }

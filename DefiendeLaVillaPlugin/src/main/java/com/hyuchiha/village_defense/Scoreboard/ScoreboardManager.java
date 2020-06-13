@@ -24,96 +24,96 @@ import java.util.HashMap;
  */
 public class ScoreboardManager {
 
-    private final HashMap<String, ScoreboardType> players = new HashMap<>();
+  private final HashMap<String, ScoreboardType> players = new HashMap<>();
 
-    public void giveScoreboard(String player, ScoreboardType st) {
-        try {
+  public void giveScoreboard(String player, ScoreboardType st) {
+    try {
 
-            Player p = Bukkit.getPlayer(player);
+      Player p = Bukkit.getPlayer(player);
 
-            if (p == null) {
-                players.remove(player);
-                return;
-            }
-
-            Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
-            Objective obj = board.registerNewObjective(p.getName(), "dummy");
-
-            int score = 15;
-            GamePlayer gp = PlayerManager.getPlayer(p);
-            Game game = gp.getArena().getGame();
-
-            obj.setDisplayName(ChatColor.BOLD + "" + Translator.getColoredString("SCOREBOARD_TITLE"));
-
-            switch (st) {
-                case LOBBY_GAME:
-
-                    obj.getScore(ChatColor.AQUA + "").setScore(score--);
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_PLAYERS")).setScore(score--);
-                    obj.getScore(ChatColor.WHITE + "" + game.getPlayersInGame().size()).setScore(score--);
-                    obj.getScore(ChatColor.BLUE + "").setScore(score--);
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_REMAINING")).setScore(score--);
-                    obj.getScore(ChatColor.WHITE + "" + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size())).setScore(score--);
-                    obj.getScore(ChatColor.BOLD + "").setScore(score--);
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_MAP")).setScore(score--);
-                    obj.getScore(ChatColor.WHITE + game.getArena().getName()).setScore(score--);
-
-                    break;
-
-                case INGAME:
-
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYER_MONEY")).setScore((int) PlayerManager.getMoney(p));
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_GEMS")).setScore(gp.getGems());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(
-                            game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
-
-                    break;
-
-                case SPECTATOR:
-
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
-                    obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
-
-                    break;
-
-            }
-
-            obj.setDisplaySlot(DisplaySlot.SIDEBAR);
-            p.setScoreboard(board);
-
-            players.put(player, st);
-        } catch (Exception e) {
-            e.printStackTrace();
-            Output.logError("Problema al asignar la scoreboard a " + player + " " + e.getLocalizedMessage());
-            players.remove(player);
-        }
-    }
-
-    public void removeScoreboard(String player) {
+      if (p == null) {
         players.remove(player);
-    }
+        return;
+      }
 
-    public void updateScoreboard(ScoreboardType... sts) {
-        for (ScoreboardType st : sts) {
-            for (String p : players.keySet()) {
-                Player player = Bukkit.getPlayer(p);
-                if (player != null) {
-                    if (players.get(p) == st) {
-                        this.giveScoreboard(p, st);
-                    }
-                }
-            }
-        }
-    }
+      Scoreboard board = Bukkit.getScoreboardManager().getNewScoreboard();
+      Objective obj = board.registerNewObjective(p.getName(), "dummy");
 
-    public void updateScoreboard(ScoreboardType sts, String player) {
-        if (players.containsKey(player)) {
-            this.giveScoreboard(player, sts);
-        }
+      int score = 15;
+      GamePlayer gp = PlayerManager.getPlayer(p);
+      Game game = gp.getArena().getGame();
+
+      obj.setDisplayName(ChatColor.BOLD + "" + Translator.getColoredString("SCOREBOARD_TITLE"));
+
+      switch (st) {
+        case LOBBY_GAME:
+
+          obj.getScore(ChatColor.AQUA + "").setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_PLAYERS")).setScore(score--);
+          obj.getScore(ChatColor.WHITE + "" + game.getPlayersInGame().size()).setScore(score--);
+          obj.getScore(ChatColor.BLUE + "").setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_REMAINING")).setScore(score--);
+          obj.getScore(ChatColor.WHITE + "" + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size())).setScore(score--);
+          obj.getScore(ChatColor.BOLD + "").setScore(score--);
+          obj.getScore(Translator.getColoredString("SCOREBOARD_LOBBY_MAP")).setScore(score--);
+          obj.getScore(ChatColor.WHITE + game.getArena().getName()).setScore(score--);
+
+          break;
+
+        case INGAME:
+
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYER_MONEY")).setScore((int) PlayerManager.getMoney(p));
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_GEMS")).setScore(gp.getGems());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(
+              game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+
+          break;
+
+        case SPECTATOR:
+
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_WAVE_NUMBER")).setScore(game.getWave().getWaveNumber());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_ENEMIES")).setScore(game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_PLAYERS_ALIVE")).setScore(game.getNumberOfAlivePlayers());
+          obj.getScore(Translator.getColoredString("SCOREBOARD_INGAME_VILLAGERS_REMAINING")).setScore(game.getWave().getNumberOfLiveVillagers());
+
+          break;
+
+      }
+
+      obj.setDisplaySlot(DisplaySlot.SIDEBAR);
+      p.setScoreboard(board);
+
+      players.put(player, st);
+    } catch (Exception e) {
+      e.printStackTrace();
+      Output.logError("Problema al asignar la scoreboard a " + player + " " + e.getLocalizedMessage());
+      players.remove(player);
     }
+  }
+
+  public void removeScoreboard(String player) {
+    players.remove(player);
+  }
+
+  public void updateScoreboard(ScoreboardType... sts) {
+    for (ScoreboardType st : sts) {
+      for (String p : players.keySet()) {
+        Player player = Bukkit.getPlayer(p);
+        if (player != null) {
+          if (players.get(p) == st) {
+            this.giveScoreboard(p, st);
+          }
+        }
+      }
+    }
+  }
+
+  public void updateScoreboard(ScoreboardType sts, String player) {
+    if (players.containsKey(player)) {
+      this.giveScoreboard(player, sts);
+    }
+  }
 }

@@ -15,10 +15,10 @@ import org.bukkit.inventory.ItemStack;
  */
 public class GiantMob extends BossEnemy {
 
-    public GiantMob(EntityType type) {
-        super(type, 100, 200);
-        setArmorContents(new ItemStack(Material.DIAMOND_HELMET), new ItemStack(Material.DIAMOND_CHESTPLATE), new ItemStack(Material.DIAMOND_LEGGINGS), new ItemStack(Material.DIAMOND_BOOTS));
-        setWeaponItemStack(new ItemStack(Material.DIAMOND_SWORD));
-    }
+  public GiantMob(EntityType type) {
+    super(type, 100, 200);
+    setArmorContents(new ItemStack(Material.DIAMOND_HELMET), new ItemStack(Material.DIAMOND_CHESTPLATE), new ItemStack(Material.DIAMOND_LEGGINGS), new ItemStack(Material.DIAMOND_BOOTS));
+    setWeaponItemStack(new ItemStack(Material.DIAMOND_SWORD));
+  }
 
 }

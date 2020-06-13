@@ -24,35 +24,35 @@ import java.util.Random;
  */
 public class SpiderMob extends EnemyIA {
 
-    public SpiderMob(ConfigurationSection section, EntityType type) {
-        super(type, section.getInt("difficulty"), section.getInt("min-gems"), section.getInt("max-gems"));
+  public SpiderMob(ConfigurationSection section, EntityType type) {
+    super(type, section.getInt("difficulty"), section.getInt("min-gems"), section.getInt("max-gems"));
 
-        setStartingWave(section.getInt("spawnAt"));
+    setStartingWave(section.getInt("spawnAt"));
+  }
+
+  @Override
+  public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+
+    Entity e = getEntityType().spawnEntity(spawnLocation);
+
+    if (!(e instanceof LivingEntity)) {
+      e.remove();
     }
 
-    @Override
-    public LivingEntity spawnEntity(Location spawnLocation, Plugin plugin, int wave) {
+    Random random = new Random();
+    LivingEntity entity = (LivingEntity) e;
+    org.bukkit.entity.Spider spider = (org.bukkit.entity.Spider) entity;
 
-        Entity e = getEntityType().spawnEntity(spawnLocation);
+    spider.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
 
-        if (!(e instanceof LivingEntity)) {
-            e.remove();
-        }
-
-        Random random = new Random();
-        LivingEntity entity = (LivingEntity) e;
-        org.bukkit.entity.Spider spider = (org.bukkit.entity.Spider) entity;
-
-        spider.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));
-
-        if (wave > 10) {
-            MobUtils.addRandomPotionEffects(wave, spider);
-        }
-
-        spider.setHealth(spider.getMaxHealth());
-        spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
-
-        return spider;
+    if (wave > 10) {
+      MobUtils.addRandomPotionEffects(wave, spider);
     }
+
+    spider.setHealth(spider.getMaxHealth());
+    spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+
+    return spider;
+  }
 
 }

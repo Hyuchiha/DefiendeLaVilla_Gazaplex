@@ -4,7 +4,7 @@ import net.minecraft.server.v1_9_R1.EntitySlime;
 import net.minecraft.server.v1_9_R1.World;
 
 public class CustomSlime extends EntitySlime {
-    public CustomSlime(World world) {
-        super(world);
-    }
+  public CustomSlime(World world) {
+    super(world);
+  }
 }

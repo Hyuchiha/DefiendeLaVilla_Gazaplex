@@ -11,26 +11,26 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class RestartTimer extends BukkitRunnable {
 
-    private final Main plugin;
-    private final Game game;
-    private int timeLeft = 20;
+  private final Main plugin;
+  private final Game game;
+  private int timeLeft = 20;
 
-    public RestartTimer(Main plugin, Game game) {
-        this.plugin = plugin;
-        this.game = game;
+  public RestartTimer(Main plugin, Game game) {
+    this.plugin = plugin;
+    this.game = game;
 
-        this.runTaskTimer(plugin, 20L, 20L);
+    this.runTaskTimer(plugin, 20L, 20L);
+  }
+
+  @Override
+  public void run() {
+
+    if (timeLeft == 0) {
+      Bukkit.getServer().getPluginManager().
+          callEvent(new ArenaFinishEvent(game.getArena().getName()));
+      cancel();
     }
 
-    @Override
-    public void run() {
-
-        if (timeLeft == 0) {
-            Bukkit.getServer().getPluginManager().
-                    callEvent(new ArenaFinishEvent(game.getArena().getName()));
-            cancel();
-        }
-
-        timeLeft--;
-    }
+    timeLeft--;
+  }
 }

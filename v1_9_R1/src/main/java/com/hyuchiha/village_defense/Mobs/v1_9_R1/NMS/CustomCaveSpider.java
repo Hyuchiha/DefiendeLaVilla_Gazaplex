@@ -13,7 +13,7 @@ import net.minecraft.server.v1_9_R1.World;
  */
 public class CustomCaveSpider extends EntityCaveSpider {
 
-    public CustomCaveSpider(World world) {
-        super(world);
-    }
+  public CustomCaveSpider(World world) {
+    super(world);
+  }
 }

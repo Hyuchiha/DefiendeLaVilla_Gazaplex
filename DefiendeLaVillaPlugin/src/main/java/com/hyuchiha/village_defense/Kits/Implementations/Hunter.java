@@ -23,75 +23,75 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 public class Hunter extends BaseKit {
 
-    public Hunter(String name, ItemStack icon, ConfigurationSection section) {
-        super(name, icon, section);
-    }
+  public Hunter(String name, ItemStack icon, ConfigurationSection section) {
+    super(name, icon, section);
+  }
 
-    @Override
-    protected void setupSpawnItems() {
-        spawnItems.add(new ItemStack(Material.WOOD_SWORD));
-        ItemStack bone = new ItemStack(Material.BONE, 3);
-        ItemMeta meta = bone.getItemMeta();
-        meta.setDisplayName(ChatColor.GOLD + "Wolf");
-        bone.setItemMeta(meta);
-        spawnItems.add(bone);
-    }
+  @Override
+  protected void setupSpawnItems() {
+    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+    ItemStack bone = new ItemStack(Material.BONE, 3);
+    ItemMeta meta = bone.getItemMeta();
+    meta.setDisplayName(ChatColor.GOLD + "Wolf");
+    bone.setItemMeta(meta);
+    spawnItems.add(bone);
+  }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void RightClickChecks(PlayerInteractEvent event) {
-        final Player player = event.getPlayer();
-        GamePlayer eventPlayer = PlayerManager.getPlayer(player);
+  @EventHandler(priority = EventPriority.HIGHEST)
+  public void RightClickChecks(PlayerInteractEvent event) {
+    final Player player = event.getPlayer();
+    GamePlayer eventPlayer = PlayerManager.getPlayer(player);
 
-        ItemStack stack = event.getItem();
-        if (stack != null) {
-            if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
+    ItemStack stack = event.getItem();
+    if (stack != null) {
+      if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
 
-                if (eventPlayer.getKit() == Kit.HUNTER) {
-                    if (stack.getType() == Material.BONE) {
-                        if (KitUtils.isItem(stack, ChatColor.GOLD + "Wolf")) {
-                            //Se invoca a un lobo
-                            event.setCancelled(true);
+        if (eventPlayer.getKit() == Kit.HUNTER) {
+          if (stack.getType() == Material.BONE) {
+            if (KitUtils.isItem(stack, ChatColor.GOLD + "Wolf")) {
+              //Se invoca a un lobo
+              event.setCancelled(true);
 
-                            KitUtils.createWolf(player);
+              KitUtils.createWolf(player);
 
-                            //Se elimina el objeto en mano
-                            int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
-                            if (amount <= 0) {
-                                player.getInventory().removeItem(player.getInventory().getItemInMainHand());
-                            } else {
-                                player.getInventory().getItemInMainHand().setAmount(amount);
-                            }
-                        }
-                    }
-                }
+              //Se elimina el objeto en mano
+              int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
+              if (amount <= 0) {
+                player.getInventory().removeItem(player.getInventory().getItemInMainHand());
+              } else {
+                player.getInventory().getItemInMainHand().setAmount(amount);
+              }
             }
+          }
         }
+      }
+    }
+  }
+
+  @EventHandler
+  public void onWolfDamage(EntityDamageByEntityEvent event) {
+    Entity damage = event.getDamager();
+    Entity wolf = event.getEntity();
+
+    if (wolf instanceof Wolf && damage instanceof Player) {
+      event.setCancelled(true);
+    }
+  }
+
+  @EventHandler
+  public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
+      return;
+    }
+    Projectile proj = (Projectile) event.getDamager();
+    if (!(proj.getShooter() instanceof Player)) {
+      return;
     }
 
-    @EventHandler
-    public void onWolfDamage(EntityDamageByEntityEvent event) {
-        Entity damage = event.getDamager();
-        Entity wolf = event.getEntity();
+    Entity shot = event.getEntity();
 
-        if (wolf instanceof Wolf && damage instanceof Player) {
-            event.setCancelled(true);
-        }
+    if (shot instanceof Wolf) {
+      event.setCancelled(true);
     }
-
-    @EventHandler
-    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-        if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {
-            return;
-        }
-        Projectile proj = (Projectile) event.getDamager();
-        if (!(proj.getShooter() instanceof Player)) {
-            return;
-        }
-
-        Entity shot = event.getEntity();
-
-        if (shot instanceof Wolf) {
-            event.setCancelled(true);
-        }
-    }
+  }
 }

@@ -19,31 +19,31 @@ import java.util.List;
  */
 public class SavePlayersData extends BukkitRunnable {
 
-    private final Main plugin;
-    private final List<GamePlayer> playersToSave;
+  private final Main plugin;
+  private final List<GamePlayer> playersToSave;
 
-    public SavePlayersData(List<GamePlayer> players, Main plugin) {
-        this.playersToSave = players;
-        this.plugin = plugin;
+  public SavePlayersData(List<GamePlayer> players, Main plugin) {
+    this.playersToSave = players;
+    this.plugin = plugin;
 
-        this.runTaskLater(plugin, 5 * 20L);
+    this.runTaskLater(plugin, 5 * 20L);
+  }
+
+  @Override
+  public void run() {
+    try {
+      for (GamePlayer player : playersToSave) {
+        Database database = plugin.getDatabase();
+        Account data = database.getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
+
+        database.saveAccount(data);
+      }
+    } catch (Exception e) {
+      Output.logError("Runnable: " + e.getLocalizedMessage());
+      Output.logError("Runnable: " + e.getMessage());
     }
 
-    @Override
-    public void run() {
-        try {
-            for (GamePlayer player : playersToSave) {
-                Database database = plugin.getDatabase();
-                Account data = database.getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
-
-                database.saveAccount(data);
-            }
-        } catch (Exception e) {
-            Output.logError("Runnable: " + e.getLocalizedMessage());
-            Output.logError("Runnable: " + e.getMessage());
-        }
-
-        this.cancel();
-    }
+    this.cancel();
+  }
 
 }

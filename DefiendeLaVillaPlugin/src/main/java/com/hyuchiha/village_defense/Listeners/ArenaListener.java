@@ -31,140 +31,140 @@ import java.util.List;
  */
 public class ArenaListener implements Listener {
 
-    private Main plugin;
+  private Main plugin;
 
-    public ArenaListener(Main main) {
-        this.plugin = main;
+  public ArenaListener(Main main) {
+    this.plugin = main;
+  }
+
+  @EventHandler
+  public void onArenaJoin(ArenaJoinEvent event) {
+    String name = event.getArenaName();
+    Arena arena = ArenaManager.getArenaConfiguration(name);
+    GamePlayer playerEvent = event.getPlayer();
+
+    if (arena == null) {
+      playerEvent.getPlayer().sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+      Output.logError("Se intento ingresa a la arena " + name + " pero retorno null");
+      return;
     }
 
-    @EventHandler
-    public void onArenaJoin(ArenaJoinEvent event) {
-        String name = event.getArenaName();
-        Arena arena = ArenaManager.getArenaConfiguration(name);
-        GamePlayer playerEvent = event.getPlayer();
+    //Se tiene permiso y se empieza la validacion de si
+    //estas en otra partida
+    if (playerEvent.getState() != PlayerState.LOBBY_GAME && playerEvent.getState() != PlayerState.INGAME) {
+      if (arena.getGame().getPlayersInGame().size() == arena.getMaxNumberOfPlayers()) {
+        //La arena esta llena y no te puedes unir
+        //Se verifica si puedes ingresar como espectador
 
-        if (arena == null) {
-            playerEvent.getPlayer().sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
-            Output.logError("Se intento ingresa a la arena " + name + " pero retorno null");
-            return;
-        }
+        if (arena.getGame().getState() == GameState.INGAME) {
+          //Aqui se verifica que tenga permiso
 
-        //Se tiene permiso y se empieza la validacion de si
-        //estas en otra partida
-        if (playerEvent.getState() != PlayerState.LOBBY_GAME && playerEvent.getState() != PlayerState.INGAME) {
-            if (arena.getGame().getPlayersInGame().size() == arena.getMaxNumberOfPlayers()) {
-                //La arena esta llena y no te puedes unir
-                //Se verifica si puedes ingresar como espectador
-
-                if (arena.getGame().getState() == GameState.INGAME) {
-                    //Aqui se verifica que tenga permiso
-
-                    if (!playerEvent.getPlayer().hasPermission("VD.Player.spect")) {
-                        playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
-                    } else {
-                        //Se añade como espectador
-                        arena.getGame().addSpectator(playerEvent);
-                    }
-                } else {
-                    //No tienes permito espectar
-                    //Se envia mensaje para decirlo
-                    playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
-                }
-            } else {
-                //No estas en una arena y la arena no esta llena
-                //Por lo que puedes unirte normalmente
-                if (arena.getGame().getState() != GameState.INGAME) {
-                    arena.getGame().playerJoinGame(playerEvent);
-                } else {
-                    arena.getGame().addSpectator(playerEvent);
-                }
-            }
+          if (!playerEvent.getPlayer().hasPermission("VD.Player.spect")) {
+            playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
+          } else {
+            //Se añade como espectador
+            arena.getGame().addSpectator(playerEvent);
+          }
         } else {
-            //Se enviara mensaje para decirle que se encuentra en partida
-            playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
+          //No tienes permito espectar
+          //Se envia mensaje para decirlo
+          playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("DONT_HAVE_PERMISSION_TO_SPECT"));
         }
+      } else {
+        //No estas en una arena y la arena no esta llena
+        //Por lo que puedes unirte normalmente
+        if (arena.getGame().getState() != GameState.INGAME) {
+          arena.getGame().playerJoinGame(playerEvent);
+        } else {
+          arena.getGame().addSpectator(playerEvent);
+        }
+      }
+    } else {
+      //Se enviara mensaje para decirle que se encuentra en partida
+      playerEvent.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("YOU_ARE_IN_GAME"));
+    }
+  }
+
+  @EventHandler
+  public void onArenaStart(ArenaStartEvent event) {
+    //Se pueden agregar mas cosas
+    Arena arena = event.getArena();
+
+    new LobbyTimer(plugin, arena.getGame());
+  }
+
+  @EventHandler
+  public void onArenaFinish(ArenaFinishEvent event) {
+    Arena arena = ArenaManager.getArenaConfiguration(event.getArena());
+
+    List<GamePlayer> dataCloned = arena.getGame().getPlayersInGame();
+    new SavePlayersData(dataCloned, plugin);
+
+    for (GamePlayer player : arena.getGame().getPlayersInGame()) {
+      player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_HAS_FINISHED"));
+
+      if (SpectatorManager.isSpectator(player.getPlayer())) {
+        SpectatorManager.removeSpectator(player.getPlayer());
+      }
+
+      if (player.getKit() == Kit.HUNTER) {
+        KitUtils.removePlayerWolfs(player.getPlayer());
+      }
+
+      player.sendPlayerToLobby();
+
+      //Se actualiza la BD
+      Account data = plugin.getDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
+
+      try {
+        if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {
+          data.setMax_wave_reached(arena.getGame().getWave().getWaveNumber());
+        }
+
+        if (data.getMin_wave_reached() > arena.getGame().getWave().getWaveNumber()) {
+          data.setMin_wave_reached(arena.getGame().getWave().getWaveNumber());
+        }
+      } catch (Exception e) {
+        Output.logError("Error al poner las oleadas maximas y minimas " + e.getLocalizedMessage());
+      }
     }
 
-    @EventHandler
-    public void onArenaStart(ArenaStartEvent event) {
-        //Se pueden agregar mas cosas
-        Arena arena = event.getArena();
+    arena.getGame().removeAllSpectators();
 
-        new LobbyTimer(plugin, arena.getGame());
+    //Se hara un broadcast del maximo de oleada
+    String messageFinish = Translator.getColoredString("ARENA_MAX_WAVE_BROADCAST");
+    messageFinish = messageFinish.replace("%TEAM%", arena.getName());
+    messageFinish = messageFinish.replace("%WAVE_NUMBER%", Integer.toString(arena.getGame().getWave().getWaveNumber()));
+
+    ChatUtil.broadcast(Translator.getPrefix() + " " + messageFinish);
+    // Se reinician los valores de la arena
+    arena.createNewGame();
+
+    for (Entity entity : Bukkit.getWorld(arena.getName()).getEntities()) {
+      entity.remove();
+    }
+  }
+
+  @EventHandler
+  public void onArenaLeave(ArenaLeaveEvent event) {
+    Arena arena = event.getArena();
+
+    GamePlayer player = event.getPlayer();
+
+    if (SpectatorManager.isSpectator(player.getPlayer())) {
+      SpectatorManager.removeSpectator(player.getPlayer());
     }
 
-    @EventHandler
-    public void onArenaFinish(ArenaFinishEvent event) {
-        Arena arena = ArenaManager.getArenaConfiguration(event.getArena());
+    if (player.getState() == PlayerState.INGAME || player.getState() == PlayerState.LOBBY_GAME) {
 
-        List<GamePlayer> dataCloned = arena.getGame().getPlayersInGame();
-        new SavePlayersData(dataCloned, plugin);
+      if (player.getKit() == Kit.HUNTER) {
+        KitUtils.removePlayerWolfs(player.getPlayer());
+      }
 
-        for (GamePlayer player : arena.getGame().getPlayersInGame()) {
-            player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_HAS_FINISHED"));
-
-            if (SpectatorManager.isSpectator(player.getPlayer())) {
-                SpectatorManager.removeSpectator(player.getPlayer());
-            }
-
-            if (player.getKit() == Kit.HUNTER) {
-                KitUtils.removePlayerWolfs(player.getPlayer());
-            }
-
-            player.sendPlayerToLobby();
-
-            //Se actualiza la BD
-            Account data = plugin.getDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
-
-            try {
-                if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {
-                    data.setMax_wave_reached(arena.getGame().getWave().getWaveNumber());
-                }
-
-                if (data.getMin_wave_reached() > arena.getGame().getWave().getWaveNumber()) {
-                    data.setMin_wave_reached(arena.getGame().getWave().getWaveNumber());
-                }
-            } catch (Exception e) {
-                Output.logError("Error al poner las oleadas maximas y minimas " + e.getLocalizedMessage());
-            }
-        }
-
-        arena.getGame().removeAllSpectators();
-
-        //Se hara un broadcast del maximo de oleada
-        String messageFinish = Translator.getColoredString("ARENA_MAX_WAVE_BROADCAST");
-        messageFinish = messageFinish.replace("%TEAM%", arena.getName());
-        messageFinish = messageFinish.replace("%WAVE_NUMBER%", Integer.toString(arena.getGame().getWave().getWaveNumber()));
-
-        ChatUtil.broadcast(Translator.getPrefix() + " " + messageFinish);
-        // Se reinician los valores de la arena
-        arena.createNewGame();
-
-        for (Entity entity : Bukkit.getWorld(arena.getName()).getEntities()) {
-            entity.remove();
-        }
+      arena.getGame().playerLeaveGame(player);
+      arena.getGame().getScoreboardManager().removeScoreboard(player.getPlayer().getName());
     }
 
-    @EventHandler
-    public void onArenaLeave(ArenaLeaveEvent event) {
-        Arena arena = event.getArena();
-
-        GamePlayer player = event.getPlayer();
-
-        if (SpectatorManager.isSpectator(player.getPlayer())) {
-            SpectatorManager.removeSpectator(player.getPlayer());
-        }
-
-        if (player.getState() == PlayerState.INGAME || player.getState() == PlayerState.LOBBY_GAME) {
-
-            if (player.getKit() == Kit.HUNTER) {
-                KitUtils.removePlayerWolfs(player.getPlayer());
-            }
-
-            arena.getGame().playerLeaveGame(player);
-            arena.getGame().getScoreboardManager().removeScoreboard(player.getPlayer().getName());
-        }
-
-    }
+  }
 
 }
