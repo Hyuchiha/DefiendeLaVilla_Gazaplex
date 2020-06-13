@@ -9,9 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>v1_9_R2</artifactId>
+    <artifactId>v1_13_R1</artifactId>
     <version>v1.0</version>
-    <name>Defiende la Villa Mob implementation v1_9_R2</name>
+    <name>Defiende la Villa Mob implementation v1_13_R1</name>
 
     <repositories>
         <repository>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
-            <version>1.9.4-R0.1-SNAPSHOT</version>
+            <version>1.13-R0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
