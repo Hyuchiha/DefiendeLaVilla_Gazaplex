@@ -3,7 +3,6 @@ package com.hyuchiha.village_defense.Messages;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;

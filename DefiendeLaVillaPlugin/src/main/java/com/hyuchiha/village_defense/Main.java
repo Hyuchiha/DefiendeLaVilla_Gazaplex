@@ -2,7 +2,6 @@ package com.hyuchiha.village_defense;
 
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatListener;
-import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Command.StatsCommand;
 import com.hyuchiha.village_defense.Command.TopsCommand;
 import com.hyuchiha.village_defense.Command.VillageDefenseCommand;
@@ -12,6 +11,7 @@ import com.hyuchiha.village_defense.Database.Databases.MongoDB;
 import com.hyuchiha.village_defense.Database.Databases.MySQLDB;
 import com.hyuchiha.village_defense.Database.Databases.SQLiteDB;
 import com.hyuchiha.village_defense.Game.GameState;
+import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Listeners.*;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;

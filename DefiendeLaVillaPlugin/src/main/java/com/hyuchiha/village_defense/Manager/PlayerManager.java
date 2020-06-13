@@ -6,8 +6,8 @@
 package com.hyuchiha.village_defense.Manager;
 
 import com.hyuchiha.village_defense.Base.*;
-import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;

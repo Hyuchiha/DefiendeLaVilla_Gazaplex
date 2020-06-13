@@ -190,12 +190,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item26:
     type: DIAMOND_CHESTPLATE
     price: 700
@@ -203,12 +201,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item27:
     type: DIAMOND_LEGGINGS
     price: 650
@@ -216,12 +212,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item28:
     type: DIAMOND_BOOTS
     price: 600
@@ -229,12 +223,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item29:
     type: LEATHER_HELMET
     price: 300
@@ -242,12 +234,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item30:
     type: LEATHER_CHESTPLATE
     price: 300
@@ -255,12 +245,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item31:
     type: LEATHER_LEGGINGS
     price: 300
@@ -268,12 +256,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item32:
     type: LEATHER_BOOTS
     price: 300
@@ -281,12 +267,10 @@ Equipment:
     hasEnchant: true
     enchants:
       THORNS: 2
-      PROTECTION_PROJECTILE: 2
       PROTECTION_ENVIRONMENTAL: 2
       PROTECTION_FIRE: 2
       PROTECTION_FALL: 2
       PROTECTION_EXPLOSIONS: 2
-      PROTECTION_PROJECTILE: 2
   item33:
     type: CHAINMAIL_HELMET
     price: 50
