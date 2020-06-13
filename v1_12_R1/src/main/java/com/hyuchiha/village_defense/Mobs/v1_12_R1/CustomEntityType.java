@@ -74,8 +74,6 @@ public enum CustomEntityType implements EntityType {
         return new CustomWitch(((CraftWorld) world).getHandle());
       case CUSTOM_WITHER_SKELETON:
         return new CustomWitherSkeleton(((CraftWorld) world).getHandle());
-      case CUSTOM_ZOMBIE:
-        return new CustomZombie(((CraftWorld) world).getHandle());
       case CUSTOM_GIANT:
         return new CustomGiant(((CraftWorld) world).getHandle());
       case CUSTOM_MAGMA_CUBE:
@@ -84,6 +82,7 @@ public enum CustomEntityType implements EntityType {
         return new CustomSlime(((CraftWorld) world).getHandle());
       case CUSTOM_WITHER:
         return new CustomWither(((CraftWorld) world).getHandle());
+      case CUSTOM_ZOMBIE:
       default:
         return new CustomZombie(((CraftWorld) world).getHandle());
     }
