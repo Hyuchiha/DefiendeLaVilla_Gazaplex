@@ -59,7 +59,7 @@ public class Arena {
     this.spawnArenaLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".spawn"));
 
     this.mobSpawns = new ArrayList<>();
-    for (String loc : arenaConf.getStringList(Name + ".mobspawns")) {
+    for (String loc : arenaConf.getStringList(Name + ".mobSpawns")) {
       Location mobspawn = ArenaUtils.parseStringToLocation(world, loc);
       mobSpawns.add(mobspawn);
     }
