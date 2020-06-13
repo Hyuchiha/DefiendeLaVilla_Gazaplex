@@ -37,7 +37,7 @@ public class InventoryListener implements Listener{
         Inventory inv = e.getInventory();
         Player player = (Player) e.getWhoClicked();
 
-        if (inv.getTitle().startsWith(Translator.change("CLASS_SELECT_INV_TITLE"))) {
+        if (inv.getTitle().startsWith(Translator.getColoredString("CLASS_SELECT_INV_TITLE"))) {
 
             if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
                 return;
@@ -49,7 +49,7 @@ public class InventoryListener implements Listener{
             GamePlayer meta = PlayerManager.getPlayer(player);
 
             if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
-                player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_HAS_CLASS_SELECTED"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_HAS_CLASS_SELECTED"));
                 return;
             }
 
@@ -57,23 +57,23 @@ public class InventoryListener implements Listener{
 
             if(toChoose != null){
                 if (!toChoose.isOwnedBy(player)) {
-                    player.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
+                    player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
                     return;
                 }
 
                 meta.setKit(toChoose);
 
-                String classSelected = Translator.change("PLAYER_HAS_SELECTED_CLASS");
+                String classSelected = Translator.getColoredString("PLAYER_HAS_SELECTED_CLASS");
                 classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));
-                player.sendMessage(plugin.getPrefix() +" "+ classSelected);
+                player.sendMessage(Translator.getPrefix() +" "+ classSelected);
             }else {
-                player.sendMessage(plugin.getPrefix() + " " + Translator.change("ERROR_NO_CLASS_FOUND"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR_NO_CLASS_FOUND"));
             }
 
             return;
         }
 
-        if (inv.getTitle().startsWith(Translator.change("UNLOCK_INV_TITLE"))) {
+        if (inv.getTitle().startsWith(Translator.getColoredString("UNLOCK_INV_TITLE"))) {
 
             if (e.getCurrentItem().getType() == Material.AIR || e.getCurrentItem().getType() == null) {
                 return;
@@ -95,10 +95,10 @@ public class InventoryListener implements Listener{
 
                     PlayerManager.withdrawMoney(player, money);
 
-                    String classUnlocked = Translator.change("PLAYER_UNLOCK_CLASS");
-                    player.sendMessage(Translator.change("PREFIX") + " " + classUnlocked.replace("%CLASS%", name));
+                    String classUnlocked = Translator.getColoredString("PLAYER_UNLOCK_CLASS");
+                    player.sendMessage(Translator.getPrefix() + " " + classUnlocked.replace("%CLASS%", name));
                 } else {
-                    player.sendMessage(plugin.getPrefix() + " " + Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+                    player.sendMessage(Translator.getPrefix()+ " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
                 }
 
                 player.closeInventory();
@@ -106,7 +106,7 @@ public class InventoryListener implements Listener{
             } else {
                 player.closeInventory();
                 e.setCancelled(true);
-                player.sendMessage(plugin.getPrefix() + " "+ Translator.change("PLAYER_ALREADY_HAVE_CLASS"));
+                player.sendMessage(Translator.getPrefix() + " "+ Translator.getColoredString("PLAYER_ALREADY_HAVE_CLASS"));
             }
 
         }

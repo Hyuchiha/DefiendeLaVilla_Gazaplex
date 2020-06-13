@@ -118,7 +118,7 @@ public class Arena {
                 s.setLine(0, ChatColor.DARK_PURPLE + "Arena");
                 s.setLine(1, ChatColor.BOLD + Name);
                 s.setLine(2, ChatColor.UNDERLINE.toString() + game.getPlayersInGame().size()
-                        + " " + Translator.change("PLAYER")
+                        + " " + Translator.getString("PLAYER")
                         + (game.getPlayersInGame().size() > 1 ? "" : "s"));
 
                 s.setLine(3, ChatColor.BOLD.toString() + game.getState().name());
@@ -166,7 +166,7 @@ public class Arena {
                 sign.removeMetadata("Arena", Main.getInstance());
 
                 sign.setLine(1, Name);
-                sign.setLine(2, 0 + "/" + Integer.toString(MaxNumberOfPlayers));
+                sign.setLine(2, 0 + "/" + MaxNumberOfPlayers);
                 sign.setLine(3, "Desabilitada");
                 sign.update();
             }

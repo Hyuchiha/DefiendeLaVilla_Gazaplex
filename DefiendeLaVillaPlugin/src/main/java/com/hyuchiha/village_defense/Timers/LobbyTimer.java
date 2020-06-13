@@ -48,7 +48,7 @@ public class LobbyTimer extends BukkitRunnable {
         if (game.getPlayersInGame().size() < game.getArena().getMaxNumberOfPlayers()) {
 
             for (GamePlayer player : game.getPlayersInGame()) {
-                player.sendMessage(plugin.getPrefix() + Translator.change("GAME_CANCELED"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_CANCELED"));
                 game.getScoreboardManager().updateScoreboard(ScoreboardType.LOBBY_GAME);
             }
 
@@ -66,8 +66,8 @@ public class LobbyTimer extends BukkitRunnable {
         if (timeLeft == 20 || timeLeft == 10 || timeLeft <= 5) {
             for (GamePlayer player : game.getPlayersInGame()) {
                 player.sendMessage(
-                        Translator.change("PREFIX") + " " +
-                                Translator.change("GAME_STARTING")
+                        Translator.getPrefix() + " " +
+                                Translator.getColoredString("GAME_STARTING")
                                         .replace("%TIME%",
                                                 Integer.toString(timeLeft)) + ((timeLeft == 1) ? "." : "s."));
             }

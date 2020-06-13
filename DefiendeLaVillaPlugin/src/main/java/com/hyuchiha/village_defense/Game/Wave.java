@@ -2,6 +2,7 @@ package com.hyuchiha.village_defense.Game;
 
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.MobManager;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
@@ -123,7 +124,7 @@ public class Wave {
             enemies.add(e.spawnEntity(game.getArena().getMobspawns().get(r.nextInt(game.getArena().getMobspawns().size())), Main.getInstance(), getGame().getWave().getWaveNumber()));
 
             for (GamePlayer player : game.getPlayersInGame()) {
-                player.sendMessage(Main.getInstance().getPrefix() + ChatColor.BLUE + ChatColor.stripColor(e.getCustomName()) + ChatColor.YELLOW + " ha aparecido!");
+                player.sendMessage(Translator.getPrefix() + ChatColor.BLUE + ChatColor.stripColor(e.getCustomName()) + ChatColor.YELLOW + " ha aparecido!");
                 game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
                 game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
             }

@@ -28,7 +28,7 @@ public class ObjectsUtils {
     
     public static void showNewClassSelector(Player p) {
         int size = ((46 + 8) / 9) * 9;
-        Inventory inv = Bukkit.createInventory(p, size, Translator.change("CLASS_SELECT_INV_TITLE"));
+        Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("CLASS_SELECT_INV_TITLE"));
 
         ArrayList<Kit> notUnlocked = new ArrayList<>();
 
@@ -40,7 +40,7 @@ public class ObjectsUtils {
                 ItemMeta im = i.getItemMeta();
                 List<String> lore = im.getLore();
                 lore.add(ChatColor.GRAY + "---------------");
-                lore.add(ChatColor.GREEN + Translator.string("UNLOCKED"));
+                lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
                 lore.add(ChatColor.GRAY + "---------------");
                 im.setLore(lore);
                 i.setItemMeta(im);
@@ -69,7 +69,7 @@ public class ObjectsUtils {
             ItemMeta im = i.getItemMeta();
             List<String> lore = im.getLore();
             lore.add(ChatColor.GRAY + "---------------");
-            lore.add(ChatColor.RED + Translator.string("LOCKED"));
+            lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
             lore.add(ChatColor.GRAY + "---------------");
             im.setLore(lore);
             i.setItemMeta(im);
@@ -86,7 +86,7 @@ public class ObjectsUtils {
     
     public static void showUnlockerSelector(Player p) {
         int size = ((Kit.values().length + 8) / 9) * 9;
-        Inventory inv = Bukkit.createInventory(p, size, Translator.change("UNLOCK_INV_TITLE"));
+        Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("UNLOCK_INV_TITLE"));
         for (Kit kit : Kit.values()) {
             ItemStack i = kit.getKit().getIcon().clone();
 
@@ -99,11 +99,11 @@ public class ObjectsUtils {
 
             lore.add(ChatColor.GRAY + "---------------");
             if (kit.isOwnedBy(p)) {
-                lore.add(ChatColor.GREEN + Translator.string("UNLOCKED"));
+                lore.add(ChatColor.GREEN + Translator.getColoredString("UNLOCKED"));
             } else {
-                lore.add(ChatColor.RED + Translator.string("LOCKED"));
+                lore.add(ChatColor.RED + Translator.getColoredString("LOCKED"));
                 lore.add("");
-                lore.add(ChatColor.RED + Translator.string("UNLOCK_WITH").replace("%POINTS%", Integer.toString(price)));
+                lore.add(ChatColor.RED + Translator.getColoredString("UNLOCK_WITH").replace("%POINTS%", Integer.toString(price)));
             }
             lore.add(ChatColor.GRAY + "---------------");
             im.setLore(lore);

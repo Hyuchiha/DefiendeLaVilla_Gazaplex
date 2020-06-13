@@ -131,10 +131,6 @@ public class Main extends JavaPlugin {
         return config.getConfig(configName);
     }
 
-    public String getPrefix() {
-        return Translator.change("PREFIX");
-    }
-
     public void initDatabase(){
         Configuration configValues = getConfig("config.yml");
 

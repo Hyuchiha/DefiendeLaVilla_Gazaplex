@@ -67,14 +67,14 @@ public class ArenaUtils {
         
         ItemStack kitPurchase = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMetaPurchase = kitPurchase.getItemMeta();
-        itemMetaPurchase.setDisplayName(Translator.change("UNLOCK_KIT"));
+        itemMetaPurchase.setDisplayName(Translator.getColoredString("UNLOCK_KIT"));
         kitPurchase.setItemMeta(itemMetaPurchase);
         player.getInventory().setItem(1, kitPurchase);
         player.updateInventory();
         
         ItemStack exitArena = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exitArena.getItemMeta();
-        itemMetaExitArena.setDisplayName(Translator.change("LEAVE_ARENA"));
+        itemMetaExitArena.setDisplayName(Translator.getColoredString("LEAVE_ARENA"));
         exitArena.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exitArena);
         player.updateInventory();
@@ -83,21 +83,21 @@ public class ArenaUtils {
     public static void giveShopObjects(Player player){
         ItemStack ShopEquipo = new ItemStack(Material.EMERALD);
         ItemMeta EquipoMeta = ShopEquipo.getItemMeta();
-        EquipoMeta.setDisplayName(Translator.change("EQUIPMENT_STORE"));
+        EquipoMeta.setDisplayName(Translator.getColoredString("EQUIPMENT_STORE"));
         ShopEquipo.setItemMeta(EquipoMeta);
         player.getInventory().setItem(0, ShopEquipo);
         player.updateInventory();
 
         ItemStack ShopCombat = new ItemStack(Material.QUARTZ);
         ItemMeta CombatMeta = ShopCombat.getItemMeta();
-        CombatMeta.setDisplayName(Translator.change("COMBAT_STORE"));
+        CombatMeta.setDisplayName(Translator.getColoredString("COMBAT_STORE"));
         ShopCombat.setItemMeta(CombatMeta);
         player.getInventory().setItem(1, ShopCombat);
         player.updateInventory();
         
         ItemStack ShopOther = new ItemStack(Material.REDSTONE);
         ItemMeta OtherMeta = ShopOther.getItemMeta();
-        OtherMeta.setDisplayName(Translator.change("OTHER_STORE"));
+        OtherMeta.setDisplayName(Translator.getColoredString("OTHER_STORE"));
         ShopOther.setItemMeta(OtherMeta);
         player.getInventory().setItem(2, ShopOther);
         player.updateInventory();
@@ -111,7 +111,7 @@ public class ArenaUtils {
 
         ItemStack exit = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
-        itemMetaExitArena.setDisplayName(Translator.change("RETURN_TO_LOBBY"));
+        itemMetaExitArena.setDisplayName(Translator.getColoredString("RETURN_TO_LOBBY"));
         exit.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exit);
         player.updateInventory();
@@ -120,7 +120,7 @@ public class ArenaUtils {
     public static void giveSpectatorObjects(Player player){
         ItemStack exit = new ItemStack(Material.APPLE);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
-        itemMetaExitArena.setDisplayName(Translator.change("LEAVE_SPECTATOR"));
+        itemMetaExitArena.setDisplayName(Translator.getColoredString("LEAVE_SPECTATOR"));
         exit.setItemMeta(itemMetaExitArena);
         player.getInventory().setItem(8, exit);
         player.updateInventory();

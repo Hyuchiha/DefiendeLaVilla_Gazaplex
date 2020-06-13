@@ -92,7 +92,7 @@ public class PlayerManager {
             VaultHooks.getEconomyManager().createPlayerAccount(p);
         }
 
-        p.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_MONEY_GRANT")
+        p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_MONEY_GRANT")
                 .replace("%MONEY%", Double.toString(money)));
         VaultHooks.getEconomyManager().depositPlayer(p, money);
 
@@ -119,7 +119,7 @@ public class PlayerManager {
             }
         }
 
-        p.sendMessage(Translator.change("PREFIX") + " " + Translator.change("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+        p.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
         return false;
 
     }
