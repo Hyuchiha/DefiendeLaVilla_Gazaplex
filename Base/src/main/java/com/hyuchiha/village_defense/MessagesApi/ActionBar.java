@@ -1,6 +1,5 @@
 package com.hyuchiha.village_defense.MessagesApi;
 
-import net.md_5.bungee.api.ChatMessageType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.inventivetalent.reflection.minecraft.Minecraft;
@@ -19,6 +18,7 @@ public class ActionBar {
 
   static Class<?> IChatBaseComponent = nmsClassResolver.resolveSilent("IChatBaseComponent");
   static Class<?> ChatSerializer = nmsClassResolver.resolveSilent("ChatSerializer", "IChatBaseComponent$ChatSerializer");
+  static Class<?> ChatMessageType = nmsClassResolver.resolveSilent("ChatMessageType");
   static Class<?> PlayerConnection = nmsClassResolver.resolveSilent("PlayerConnection");
   static Class<?> EntityPlayer = nmsClassResolver.resolveSilent("EntityPlayer");
   static Class<?> PacketPlayOutChat = classResolver.resolveSilent("net.minecraft.server." + Minecraft.getVersion() + "PacketPlayOutChat");
@@ -63,8 +63,8 @@ public class ActionBar {
       } else {
         packetChat = PacketChatConstructorResolver.resolve(new Class[]{
                 IChatBaseComponent,
-                ChatMessageType.class
-        }).newInstance(serialized, ChatMessageType.ACTION_BAR);
+                ChatMessageType
+        }).newInstance(serialized, ChatMessageType.getEnumConstants()[0]);
       }
 
       sendPacket(player, packetChat);
