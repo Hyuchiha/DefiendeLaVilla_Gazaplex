@@ -101,7 +101,7 @@ public class ConfigManager {
 
   private static class Configuration {
     private final File configFile;
-    private YamlConfiguration config;
+    private final YamlConfiguration config;
 
     public Configuration(File configFile) {
       this.configFile = configFile;

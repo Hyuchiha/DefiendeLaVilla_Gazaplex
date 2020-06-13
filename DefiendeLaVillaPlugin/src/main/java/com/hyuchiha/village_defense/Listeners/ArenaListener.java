@@ -31,7 +31,7 @@ import java.util.List;
  */
 public class ArenaListener implements Listener {
 
-  private Main plugin;
+  private final Main plugin;
 
   public ArenaListener(Main main) {
     this.plugin = main;

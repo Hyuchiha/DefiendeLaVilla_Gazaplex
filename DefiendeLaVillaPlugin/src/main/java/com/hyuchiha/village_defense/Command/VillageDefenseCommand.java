@@ -21,7 +21,7 @@ import org.bukkit.entity.Player;
  */
 public class VillageDefenseCommand implements CommandExecutor {
 
-  private Main plugin;
+  private final Main plugin;
 
   public VillageDefenseCommand(Main main) {
     this.plugin = main;

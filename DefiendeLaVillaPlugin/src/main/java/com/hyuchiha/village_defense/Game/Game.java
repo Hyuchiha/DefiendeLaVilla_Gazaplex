@@ -20,11 +20,11 @@ public class Game {
 
   private GameState state;
   private String arena;
-  private List<GamePlayer> gamePlayers;
-  private List<GamePlayer> spectators;
+  private final List<GamePlayer> gamePlayers;
+  private final List<GamePlayer> spectators;
   private Wave wave;
 
-  private ScoreboardManager scoreboardManager;
+  private final ScoreboardManager scoreboardManager;
 
   public Game(String arena) {
     this.arena = arena;

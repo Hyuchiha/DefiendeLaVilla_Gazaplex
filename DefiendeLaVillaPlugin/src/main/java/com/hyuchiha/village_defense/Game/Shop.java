@@ -31,7 +31,7 @@ public class Shop implements Listener {
 
   private final String name;
   private ArrayList<ShopItem> itemsShop;
-  private Main plugin;
+  private final Main plugin;
 
   public Shop(Main plugin, String name, Configuration config) {
     this.plugin = plugin;

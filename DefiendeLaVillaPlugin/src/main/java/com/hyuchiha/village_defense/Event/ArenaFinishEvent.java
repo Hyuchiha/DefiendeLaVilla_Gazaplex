@@ -5,7 +5,7 @@ package com.hyuchiha.village_defense.Event;
  */
 public class ArenaFinishEvent extends BaseEvent {
 
-  private String arena;
+  private final String arena;
 
   public ArenaFinishEvent(String arena) {
     this.arena = arena;

@@ -25,7 +25,7 @@ public enum Kit {
   TANK("TANK", Material.DIAMOND_CHESTPLATE),
   THOR("THOR", Material.GOLD_AXE);
 
-  private HashMap<String, BaseKit> kits = new HashMap<>();
+  private final HashMap<String, BaseKit> kits = new HashMap<>();
 
   Kit(String name, Material m) {
 

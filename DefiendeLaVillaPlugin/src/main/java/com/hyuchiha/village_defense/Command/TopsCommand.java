@@ -16,7 +16,7 @@ import java.util.List;
 
 public class TopsCommand implements CommandExecutor {
 
-  private Main plugin;
+  private final Main plugin;
 
   public TopsCommand(Main plugin) {
     this.plugin = plugin;

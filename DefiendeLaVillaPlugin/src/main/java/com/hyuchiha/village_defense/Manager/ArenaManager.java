@@ -11,7 +11,7 @@ import java.util.HashMap;
 
 public class ArenaManager {
 
-  private static HashMap<String, Arena> arenas = new HashMap<>();
+  private static final HashMap<String, Arena> arenas = new HashMap<>();
   private static MainLobby lobby = null;
 
   public static void initArenas() {

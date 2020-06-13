@@ -8,8 +8,8 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
  */
 public class ArenaLeaveEvent extends BaseEvent {
 
-  private GamePlayer player;
-  private Arena arena;
+  private final GamePlayer player;
+  private final Arena arena;
 
   public ArenaLeaveEvent(GamePlayer player, Arena arena) {
     this.player = player;

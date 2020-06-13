@@ -19,7 +19,7 @@ public abstract class SQLDB extends Database {
   protected static final String KITS_TABLE = "village_defense_kits";
   protected static final String KITS_UNLOCKED_TABLE = "village_defense_kits_unlocked";
 
-  private Main plugin;
+  private final Main plugin;
   private Connection connection;
 
   public SQLDB(Main plugin) {

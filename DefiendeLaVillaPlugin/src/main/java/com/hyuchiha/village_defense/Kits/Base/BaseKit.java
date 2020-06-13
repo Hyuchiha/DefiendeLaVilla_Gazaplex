@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class BaseKit implements Listener {
 
-  private String name;
+  private final String name;
   private final ItemStack icon;
   protected final List<ItemStack> spawnItems = new ArrayList<>();
 

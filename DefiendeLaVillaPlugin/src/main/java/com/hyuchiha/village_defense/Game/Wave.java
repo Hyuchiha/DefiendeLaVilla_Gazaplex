@@ -25,9 +25,9 @@ public class Wave {
 
   private int wave, difficulty;
   private boolean bossWave;
-  private Game game;
+  private final Game game;
   private ArrayList<LivingEntity> enemies = new ArrayList<>();
-  private ArrayList<LivingEntity> villagers = new ArrayList<>();
+  private final ArrayList<LivingEntity> villagers = new ArrayList<>();
   private WaveState state;
   private ArrayList<EnemyIA> toSpawn = new ArrayList<>();
 

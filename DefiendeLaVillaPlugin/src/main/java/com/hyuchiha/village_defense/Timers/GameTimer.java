@@ -27,7 +27,7 @@ import org.bukkit.scheduler.BukkitRunnable;
  */
 public class GameTimer extends BukkitRunnable {
 
-  private Main plugin;
+  private final Main plugin;
   private int wave = 1, secondsTillNextWave = -1;
   private final Game game;
   private boolean hasSpawnedFirstWave = false;

@@ -7,8 +7,8 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
  */
 public class ArenaJoinEvent extends BaseEvent {
 
-  private String arenaName;
-  private GamePlayer player;
+  private final String arenaName;
+  private final GamePlayer player;
 
   public ArenaJoinEvent(String arenaName, GamePlayer playerjoin) {
     this.arenaName = arenaName;

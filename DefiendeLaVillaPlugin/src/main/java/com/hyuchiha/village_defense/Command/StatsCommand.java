@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
 
 public class StatsCommand implements CommandExecutor {
 
-  private Main plugin;
+  private final Main plugin;
 
   public StatsCommand(Main plugin) {
     this.plugin = plugin;

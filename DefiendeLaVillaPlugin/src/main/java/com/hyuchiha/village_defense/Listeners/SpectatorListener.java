@@ -29,7 +29,7 @@ import org.bukkit.event.player.PlayerShearEntityEvent;
  */
 public class SpectatorListener implements Listener {
 
-  private Main plugin;
+  private final Main plugin;
 
   public SpectatorListener(Main plugin) {
     this.plugin = plugin;

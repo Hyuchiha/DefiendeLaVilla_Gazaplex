@@ -8,10 +8,16 @@ import org.bukkit.potion.PotionEffect;
 
 public abstract class EnemyIA {
 
-  private EntityType entityType;
+  private final EntityType entityType;
   private String customName = "";
-  private boolean boss, baby = false, villager = false, invisible = false;
-  private int minDroppedGold, maxDroppedGold, difficulty, startingWave = 1;
+  private final boolean boss;
+  private boolean baby = false;
+  private boolean villager = false;
+  private boolean invisible = false;
+  private final int minDroppedGold;
+  private final int maxDroppedGold;
+  private final int difficulty;
+  private int startingWave = 1;
   private double Maxhealth = 50;
 
   private ItemStack weapon = null;

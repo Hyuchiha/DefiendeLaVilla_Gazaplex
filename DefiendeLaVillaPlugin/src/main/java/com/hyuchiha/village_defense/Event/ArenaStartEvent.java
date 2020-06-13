@@ -7,7 +7,7 @@ import com.hyuchiha.village_defense.Arena.Arena;
  */
 public class ArenaStartEvent extends BaseEvent {
 
-  private Arena arena;
+  private final Arena arena;
 
   public ArenaStartEvent(Arena arena) {
     this.arena = arena;
