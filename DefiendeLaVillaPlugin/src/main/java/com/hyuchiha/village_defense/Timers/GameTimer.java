@@ -63,7 +63,7 @@ public class GameTimer extends BukkitRunnable {
     if (hasSpawnedFirstWave && canFinish()) {
       game.getWave().cancelWave();
 
-      game.sendMessageToPlayers(Translator.getPrefix() + " " + Translator.getColoredString("GAME.GAME_RESTART"));
+      game.sendMessageToPlayers(Translator.getPrefix() + Translator.getColoredString("GAME.GAME_RESTART"));
 
       new RestartTimer(plugin, game);
 
@@ -101,7 +101,7 @@ public class GameTimer extends BukkitRunnable {
                 player.regamePlayer();
               }
 
-              player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
+              player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
             }
 
             giveWaveSpecials();

@@ -43,7 +43,7 @@ public class InventoryListener implements Listener {
       GamePlayer meta = PlayerManager.getPlayer(player);
 
       if (meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME) {
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS"));
+        player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS"));
         return;
       }
 
@@ -51,7 +51,7 @@ public class InventoryListener implements Listener {
 
       if (toChoose != null) {
         if (!toChoose.isOwnedBy(player)) {
-          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.DONT_HAS_CLASS_UNLOCKED"));
+          player.sendMessage(Translator.getPrefix() + Translator.getColoredString("ERROR.DONT_HAS_CLASS_UNLOCKED"));
           return;
         }
 
@@ -59,9 +59,9 @@ public class InventoryListener implements Listener {
 
         String classSelected = Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS");
         classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));
-        player.sendMessage(Translator.getPrefix() + " " + classSelected);
+        player.sendMessage(Translator.getPrefix() + classSelected);
       } else {
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.NO_CLASS_FOUND"));
+        player.sendMessage(Translator.getPrefix() + Translator.getColoredString("ERROR.NO_CLASS_FOUND"));
       }
 
       return;
@@ -90,9 +90,9 @@ public class InventoryListener implements Listener {
           PlayerManager.withdrawMoney(player, money);
 
           String classUnlocked = Translator.getColoredString("GAME.UNLOCK_CLASS");
-          player.sendMessage(Translator.getPrefix() + " " + classUnlocked.replace("%CLASS%", name));
+          player.sendMessage(Translator.getPrefix() + classUnlocked.replace("%CLASS%", name));
         } else {
-          player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR.DONT_HAVE_REQUIRED_MONEY"));
+          player.sendMessage(Translator.getPrefix() + Translator.getColoredString("ERROR.DONT_HAVE_REQUIRED_MONEY"));
         }
 
         player.closeInventory();
@@ -100,7 +100,7 @@ public class InventoryListener implements Listener {
       } else {
         player.closeInventory();
         e.setCancelled(true);
-        player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME.ALREADY_OWN_CLASS"));
+        player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.ALREADY_OWN_CLASS"));
       }
 
     }

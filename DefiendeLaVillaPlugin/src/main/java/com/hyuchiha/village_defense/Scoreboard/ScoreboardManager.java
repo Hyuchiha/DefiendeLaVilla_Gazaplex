@@ -38,7 +38,7 @@ public class ScoreboardManager {
       GamePlayer gp = PlayerManager.getPlayer(p);
       Game game = gp.getArena().getGame();
 
-      obj.setDisplayName(ChatColor.BOLD + "" + Translator.getColoredString("SCOREBOARD_TITLE"));
+      obj.setDisplayName(ChatColor.BOLD + "" + Translator.getColoredString("SCOREBOARD.TITLE"));
 
       switch (st) {
         case LOBBY_GAME:

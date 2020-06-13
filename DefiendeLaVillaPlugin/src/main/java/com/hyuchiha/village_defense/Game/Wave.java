@@ -140,18 +140,14 @@ public class Wave {
     final Random r = new Random();
 
     for (final EnemyIA e : toSpawn) {
-      Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
-
-        @Override
-        public void run() {
-          enemies.add(e.spawnEntity(
-              getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size())),
-              Main.getInstance(),
-              getGame().getWave().getWaveNumber())
-          );
-          game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-          game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
-        }
+      Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
+        enemies.add(e.spawnEntity(
+            getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size())),
+            Main.getInstance(),
+            getGame().getWave().getWaveNumber())
+        );
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
       }, value * (timeSpawn++));
     }
   }
@@ -163,14 +159,10 @@ public class Wave {
     int timeSpawn = 1;
     for (int i = 0; i < cant * 2; i++) {
 
-      Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
-
-        @Override
-        public void run() {
-          villagers.add((LivingEntity) createNewVillager());
-          game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-          game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-        }
+      Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
+        villagers.add((LivingEntity) createNewVillager());
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
       }, value * (timeSpawn++));
     }
   }
@@ -240,13 +232,10 @@ public class Wave {
   }
 
   private void prepareNextWave() {
-    Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new Runnable() {
-      @Override
-      public void run() {
-        difficulty = (((difficulty * (wave + 1)) + ((wave + 1) * 3)) / (((wave + 1) % 50) + 1)) + 10;
-        ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(wave + 1, difficulty);
-        setToSpawn(toSpawnInNextWave);
-      }
+    Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
+      difficulty = (((difficulty * (wave + 1)) + ((wave + 1) * 3)) / (((wave + 1) % 50) + 1)) + 10;
+      ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(wave + 1, difficulty);
+      setToSpawn(toSpawnInNextWave);
     });
   }
 

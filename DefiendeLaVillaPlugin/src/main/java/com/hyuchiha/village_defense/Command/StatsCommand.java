@@ -35,7 +35,7 @@ public class StatsCommand implements CommandExecutor {
           if (offlinePlayer != null && offlinePlayer.hasPlayedBefore()) {
             listStats((Player) sender, offlinePlayer.getName(), StatType.values());
           } else {
-            sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR.PLAYER_NOT_FOUND"));
+            sender.sendMessage(Translator.getPrefix() + ChatColor.RED + Translator.getColoredString("ERROR.PLAYER_NOT_FOUND"));
           }
         }
 
@@ -43,7 +43,7 @@ public class StatsCommand implements CommandExecutor {
         listStats((Player) sender);
       }
     } else {
-      sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR.CONSOLE_PLAYER_COMMAND"));
+      sender.sendMessage(Translator.getPrefix() + ChatColor.RED + Translator.getColoredString("ERROR.CONSOLE_PLAYER_COMMAND"));
     }
 
     return true;
