@@ -1,6 +1,7 @@
 name: Defiende_la_villa
 main: com.hyuchiha.village_defense.Main
 authors: [Hyuchiha]
+softdepend: [Vault]
 version: 3.0
 commands:
   villagedefense:
