@@ -21,11 +21,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class ObjectsUtils {
-    
+
     public static void showNewClassSelector(Player p) {
         int size = ((46 + 8) / 9) * 9;
         Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("CLASS_SELECT_INV_TITLE"));
@@ -83,7 +82,7 @@ public class ObjectsUtils {
 
         p.openInventory(inv);
     }
-    
+
     public static void showUnlockerSelector(Player p) {
         int size = ((Kit.values().length + 8) / 9) * 9;
         Inventory inv = Bukkit.createInventory(p, size, Translator.getColoredString("UNLOCK_INV_TITLE"));

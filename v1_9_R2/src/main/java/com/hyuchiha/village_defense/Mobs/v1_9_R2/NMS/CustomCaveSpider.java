@@ -8,11 +8,10 @@ package com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS;
 import net.minecraft.server.v1_9_R2.EntityCaveSpider;
 
 /**
- *
  * @author hyuchiha
  */
-public class CustomCaveSpider extends EntityCaveSpider{
-    
+public class CustomCaveSpider extends EntityCaveSpider {
+
     public CustomCaveSpider(net.minecraft.server.v1_9_R2.World world) {
         super(world);
     }

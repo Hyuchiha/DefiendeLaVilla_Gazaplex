@@ -7,7 +7,7 @@ import org.bukkit.plugin.Plugin;
 import java.sql.Connection;
 import java.sql.DriverManager;
 
-public class MySQLDB extends SQLDB{
+public class MySQLDB extends SQLDB {
 
     private final Plugin plugin;
 

@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Thor extends BaseKit{
+public class Thor extends BaseKit {
 
     public Thor(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);
@@ -40,7 +40,7 @@ public class Thor extends BaseKit{
         ItemStack stack = event.getItem();
         if (stack != null) {
             if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
-                if(eventPlayer.getKit() == Kit.THOR){
+                if (eventPlayer.getKit() == Kit.THOR) {
                     if (stack.getType() == Material.GOLD_AXE) {
                         if (KitUtils.isItem(stack, ChatColor.GOLD + "Hammer")) {
                             //Se invoca a la lluvia de rayos

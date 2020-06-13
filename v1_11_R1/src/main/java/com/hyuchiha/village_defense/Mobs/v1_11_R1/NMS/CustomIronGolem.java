@@ -13,11 +13,10 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
- *
  * @author hyuchiha
  */
 public class CustomIronGolem extends EntityIronGolem {
-    
+
     public CustomIronGolem(World world) {
         super(world);
         Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

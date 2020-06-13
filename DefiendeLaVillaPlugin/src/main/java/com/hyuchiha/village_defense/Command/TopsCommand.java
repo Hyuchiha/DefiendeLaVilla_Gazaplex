@@ -26,20 +26,20 @@ public class TopsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
 
         if (sender instanceof Player) {
-            if (args.length > 0){
+            if (args.length > 0) {
 
-                StatType stat  = Enums.getIfPresent(StatType.class, args[0].toUpperCase()).orNull();
+                StatType stat = Enums.getIfPresent(StatType.class, args[0].toUpperCase()).orNull();
 
-                if(stat != null){
+                if (stat != null) {
                     listTopStat((Player) sender, stat);
-                }else {
+                } else {
                     sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_STAT_NOT_FOUND"));
                 }
 
-            }else {
+            } else {
                 sender.sendMessage(Translator.getPrefix() + " /top [KILLS, DEATHS, BOSSES_KILLS, MAX_WAVE_REACHED, MIN_WAVE_REACHED]");
             }
-        }else {
+        } else {
             sender.sendMessage(ChatColor.RED + Translator.getColoredString("ERROR_CONSOLE_PLAYERCOMMAND"));
             return true;
         }
@@ -57,7 +57,7 @@ public class TopsCommand implements CommandExecutor {
 
         List<Account> tops = new ArrayList<>();
 
-        switch (stat){
+        switch (stat) {
             case KILLS:
                 tops = plugin.getDatabase().getTopKillsAccounts(10);
                 break;
@@ -75,10 +75,10 @@ public class TopsCommand implements CommandExecutor {
                 break;
         }
 
-        for(Account account: tops){
+        for (Account account : tops) {
             int statValue = getPlayerStat(stat, account);
 
-            String resultPlayer = DARK_AQUA + account.getName() + " - "+ AQUA + statValue;
+            String resultPlayer = DARK_AQUA + account.getName() + " - " + AQUA + statValue;
 
             sender.sendMessage(resultPlayer);
         }
@@ -86,8 +86,8 @@ public class TopsCommand implements CommandExecutor {
         sender.sendMessage(GRAY + "=========================");
     }
 
-    private int getPlayerStat(StatType stat, Account account){
-        switch (stat){
+    private int getPlayerStat(StatType stat, Account account) {
+        switch (stat) {
             case KILLS:
                 return account.getKills();
             case DEATHS:

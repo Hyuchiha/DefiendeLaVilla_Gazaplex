@@ -5,30 +5,16 @@
  */
 package com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS;
 
+import com.hyuchiha.village_defense.Mobs.MobUtils;
+import net.minecraft.server.v1_9_R2.*;
+
 import java.util.List;
 
-import com.hyuchiha.village_defense.Mobs.MobUtils;
-import net.minecraft.server.v1_9_R2.EntityCreeper;
-import net.minecraft.server.v1_9_R2.EntityHuman;
-import net.minecraft.server.v1_9_R2.EntityOcelot;
-import net.minecraft.server.v1_9_R2.EntityVillager;
-import net.minecraft.server.v1_9_R2.PathfinderGoalAvoidTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalFloat;
-import net.minecraft.server.v1_9_R2.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_9_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_9_R2.PathfinderGoalSelector;
-import net.minecraft.server.v1_9_R2.PathfinderGoalSwell;
-
 /**
- *
  * @author hyuchiha
  */
-public class CustomCreeper extends EntityCreeper{
-    
+public class CustomCreeper extends EntityCreeper {
+
     public CustomCreeper(net.minecraft.server.v1_9_R2.World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

@@ -15,7 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.List;
 
 /**
- *
  * @author Kev'
  */
 public class SavePlayersData extends BukkitRunnable {
@@ -40,10 +39,10 @@ public class SavePlayersData extends BukkitRunnable {
                 database.saveAccount(data);
             }
         } catch (Exception e) {
-            Output.logError("Runnable: "+ e.getLocalizedMessage());
-            Output.logError("Runnable: "+ e.getMessage());
+            Output.logError("Runnable: " + e.getLocalizedMessage());
+            Output.logError("Runnable: " + e.getMessage());
         }
-        
+
         this.cancel();
     }
 

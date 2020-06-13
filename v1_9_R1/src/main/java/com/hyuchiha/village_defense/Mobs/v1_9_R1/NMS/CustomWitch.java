@@ -11,11 +11,10 @@ import net.minecraft.server.v1_9_R1.*;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
-public class CustomWitch extends EntityWitch{
-    
+public class CustomWitch extends EntityWitch {
+
     public CustomWitch(World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

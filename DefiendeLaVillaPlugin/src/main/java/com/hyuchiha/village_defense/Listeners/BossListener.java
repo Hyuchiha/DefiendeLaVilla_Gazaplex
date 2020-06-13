@@ -27,7 +27,6 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
 public class BossListener implements Listener {
@@ -45,7 +44,7 @@ public class BossListener implements Listener {
 
             for (BossEnemy e : MobManager.getBossEnemyObjects()) {
                 if (e.getBukkitEntityType() == entity.getType()) {
-                    
+
                     event.getDrops().clear();
 
                     entity.getWorld().dropItemNaturally(entity.getLocation(), getRandomItemBoss());
@@ -59,7 +58,7 @@ public class BossListener implements Listener {
                     data.setBosses_kills(data.getBosses_kills() + 1);
 
                     entity.remove();
-                    
+
                     Arena arena = ArenaManager.getArenaConfiguration(event.getEntity().getWorld().getName());
                     Game game = arena.getGame();
                     game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);

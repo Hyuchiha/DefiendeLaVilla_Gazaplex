@@ -21,7 +21,6 @@ import org.bukkit.event.player.PlayerKickEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 /**
- *
  * @author hyuchiha
  */
 public class QuitListener implements Listener {
@@ -39,11 +38,11 @@ public class QuitListener implements Listener {
             return;
         }
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
-        
-        if(vdplayer.getState() == PlayerState.SPECTATING){
+
+        if (vdplayer.getState() == PlayerState.SPECTATING) {
             vdplayer.getArena().getGame().removeSpectator(vdplayer);
         }
-        
+
         e.setQuitMessage("");
 
         if (SpectatorManager.isSpectator(player)) {
@@ -65,7 +64,7 @@ public class QuitListener implements Listener {
         Database database = plugin.getDatabase();
         Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
-        if(account != null){
+        if (account != null) {
             database.saveAccount(account);
             database.removeCachedAccount(account);
         }
@@ -81,8 +80,8 @@ public class QuitListener implements Listener {
         }
 
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
-        
-        if(vdplayer.getState() == PlayerState.SPECTATING){
+
+        if (vdplayer.getState() == PlayerState.SPECTATING) {
             vdplayer.getArena().getGame().removeSpectator(vdplayer);
         }
         e.setLeaveMessage("");
@@ -108,7 +107,7 @@ public class QuitListener implements Listener {
         Database database = plugin.getDatabase();
         Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
-        if(account != null){
+        if (account != null) {
             database.saveAccount(account);
             database.removeCachedAccount(account);
         }

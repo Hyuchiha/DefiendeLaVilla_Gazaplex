@@ -15,7 +15,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.util.Collections;
 
 /**
- *
  * @author hyuchiha
  */
 public class ShopItem {
@@ -28,8 +27,8 @@ public class ShopItem {
         this.price = price;
         this.item.setAmount(qty);
     }
-    
-    public ShopItem(ItemStack type, int price){
+
+    public ShopItem(ItemStack type, int price) {
         this.item = type;
         this.price = price;
     }
@@ -41,10 +40,10 @@ public class ShopItem {
         return this;
     }
 
-    public void addEnchant(Enchantment ench, int level){
+    public void addEnchant(Enchantment ench, int level) {
         this.item.addUnsafeEnchantment(ench, level);
     }
-    
+
     public ItemStack getShopStack() {
         ItemStack stack = item.clone();
         String priceStr = ChatColor.GOLD.toString() + price + " Gems";

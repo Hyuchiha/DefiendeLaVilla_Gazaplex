@@ -3,12 +3,12 @@ main: com.hyuchiha.village_defense.Main
 authors: [Hyuchiha]
 version: 1.0
 commands:
-    villagedefense:
-      description: Comando para unirse o dejar una arena
-      aliases: vd
-    stats:
-      description: Comando para listar estadisticas de un jugador
-      aliases: s
-    top:
-      description: Comando para listar el top de kills, deaths, etc...
-      aliases: t
+  villagedefense:
+    description: Comando para unirse o dejar una arena
+    aliases: vd
+  stats:
+    description: Comando para listar estadisticas de un jugador
+    aliases: s
+  top:
+    description: Comando para listar el top de kills, deaths, etc...
+    aliases: t

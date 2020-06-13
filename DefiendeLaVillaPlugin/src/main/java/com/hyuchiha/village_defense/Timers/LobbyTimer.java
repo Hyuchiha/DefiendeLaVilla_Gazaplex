@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- *
  * @author hyuchiha
  */
 public class LobbyTimer extends BukkitRunnable {
@@ -32,7 +31,7 @@ public class LobbyTimer extends BukkitRunnable {
 
         for (GamePlayer player : game.getPlayersInGame()) {
             Player inGamePlayer = player.getPlayer();
-            if(inGamePlayer != null){
+            if (inGamePlayer != null) {
                 inGamePlayer.playSound(
                         inGamePlayer.getPlayer().getLocation(),
                         Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);

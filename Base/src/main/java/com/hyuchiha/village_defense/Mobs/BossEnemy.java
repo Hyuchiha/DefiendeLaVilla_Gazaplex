@@ -7,7 +7,9 @@ package com.hyuchiha.village_defense.Mobs;
 
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Zombie;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
@@ -15,10 +17,9 @@ import org.bukkit.potion.PotionEffect;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
-public abstract class BossEnemy extends EnemyIA{
+public abstract class BossEnemy extends EnemyIA {
 
     private org.bukkit.entity.EntityType bukkitEntityType;
 

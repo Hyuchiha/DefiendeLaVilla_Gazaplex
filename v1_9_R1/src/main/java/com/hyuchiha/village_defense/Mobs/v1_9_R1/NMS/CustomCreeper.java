@@ -11,11 +11,10 @@ import net.minecraft.server.v1_9_R1.*;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
-public class CustomCreeper extends EntityCreeper{
-    
+public class CustomCreeper extends EntityCreeper {
+
     public CustomCreeper(World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

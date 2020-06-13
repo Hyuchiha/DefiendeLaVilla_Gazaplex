@@ -16,7 +16,6 @@ import java.lang.reflect.Field;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
 public class MobUtils {
@@ -30,7 +29,7 @@ public class MobUtils {
         ItemStack boots = getRandomBoots(difficulty);
 
         ItemStack[] armor = new ItemStack[]{
-            helmet, chessplate, leggings, boots
+                helmet, chessplate, leggings, boots
         };
 
         for (ItemStack stack : armor) {
@@ -43,11 +42,11 @@ public class MobUtils {
     //Plantilla basica de encantamiento de armaduras
     private static ItemStack addRandomArmorEnchantments(ItemStack armor, int difficulty) {
         try {
-            
-            if(armor == null){
+
+            if (armor == null) {
                 return armor;
             }
-            
+
             switch (ran.nextInt(10)) {
                 case 0:
                     armor.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, ran.nextInt(5));
@@ -72,11 +71,11 @@ public class MobUtils {
     //Encantamientos para espadas
     private static ItemStack addRandomSwordEnchantments(ItemStack weapon, int difficulty) {
         try {
-            
-            if(weapon == null){
+
+            if (weapon == null) {
                 return weapon;
             }
-            
+
             switch (ran.nextInt(15)) {
                 case 0:
                     weapon.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, ran.nextInt(5));
@@ -123,10 +122,10 @@ public class MobUtils {
     }
 
     public static ItemStack getRandomWeapon(int difficulty) {
-        if(ran.nextFloat() > .3){
+        if (ran.nextFloat() > .3) {
             return null;
         }
-        
+
         ItemStack weapon = null;
         switch (difficulty) {
             case 1:
@@ -148,10 +147,10 @@ public class MobUtils {
     }
 
     private static ItemStack getRandomChestplate(int difficulty) {
-        if(ran.nextFloat() > .5){
+        if (ran.nextFloat() > .5) {
             return null;
         }
-        
+
         ItemStack Chestplate = null;
         switch (difficulty) {
             case 1:
@@ -175,10 +174,10 @@ public class MobUtils {
     }
 
     private static ItemStack getRandomBoots(int difficulty) {
-        if(ran.nextFloat() > .5){
+        if (ran.nextFloat() > .5) {
             return null;
         }
-        
+
         ItemStack Boots = null;
         switch (difficulty) {
             case 1:
@@ -202,10 +201,10 @@ public class MobUtils {
     }
 
     private static ItemStack getRandomHelmet(int difficulty) {
-        if(ran.nextFloat() > .5){
+        if (ran.nextFloat() > .5) {
             return null;
         }
-        
+
         ItemStack Helmet = null;
         switch (difficulty) {
             case 1:
@@ -228,10 +227,10 @@ public class MobUtils {
     }
 
     private static ItemStack getRandomLeggings(int difficulty) {
-        if(ran.nextFloat() > .5){
+        if (ran.nextFloat() > .5) {
             return null;
         }
-        
+
         ItemStack Leggings = null;
         switch (difficulty) {
             case 1:
@@ -256,7 +255,7 @@ public class MobUtils {
     public static void addRandomPotionEffects(int waveNumber, LivingEntity entity) {
         Random ran = new Random();
 
-        int potionsToApply = ran.nextInt(waveNumber)%3;
+        int potionsToApply = ran.nextInt(waveNumber) % 3;
 
         for (int i = 0; i < potionsToApply; i++) {
             int potion = ran.nextInt(10);

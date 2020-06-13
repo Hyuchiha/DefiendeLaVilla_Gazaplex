@@ -8,7 +8,6 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 
 /**
- *
  * @author hyuchiha
  */
 public class SpectatorManager {
@@ -33,7 +32,7 @@ public class SpectatorManager {
         player.setFlying(true);
         spectators.add(player.getName());
 
-        if(vdplayer.getState() == PlayerState.SPECTATING){
+        if (vdplayer.getState() == PlayerState.SPECTATING) {
             vdplayer.getPlayer().teleport(vdplayer.getArena().getSpawnArenaLocation());
         }
     }

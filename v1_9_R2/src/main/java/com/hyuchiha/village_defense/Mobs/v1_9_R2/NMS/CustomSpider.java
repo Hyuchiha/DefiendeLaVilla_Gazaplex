@@ -5,29 +5,16 @@
  */
 package com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS;
 
+import com.hyuchiha.village_defense.Mobs.MobUtils;
+import net.minecraft.server.v1_9_R2.*;
+
 import java.util.List;
 
-import com.hyuchiha.village_defense.Mobs.MobUtils;
-import net.minecraft.server.v1_9_R2.EntityHuman;
-import net.minecraft.server.v1_9_R2.EntitySpider;
-import net.minecraft.server.v1_9_R2.EntityVillager;
-import net.minecraft.server.v1_9_R2.PathfinderGoalFloat;
-import net.minecraft.server.v1_9_R2.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMoveThroughVillage;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMoveTowardsRestriction;
-import net.minecraft.server.v1_9_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_9_R2.PathfinderGoalSelector;
-
 /**
- *
  * @author hyuchiha
  */
-public class CustomSpider extends EntitySpider{
-    
+public class CustomSpider extends EntitySpider {
+
     public CustomSpider(net.minecraft.server.v1_9_R2.World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
@@ -38,7 +25,7 @@ public class CustomSpider extends EntitySpider{
         targetB.clear();
         List targetC = (List) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
         targetC.clear();
-        
+
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, 1.0D, false));
         this.goalSelector.a(4, new PathfinderGoalMeleeAttack(this, 1.0D, true));

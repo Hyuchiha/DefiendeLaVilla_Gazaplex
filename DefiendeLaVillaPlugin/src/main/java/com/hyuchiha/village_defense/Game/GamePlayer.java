@@ -65,7 +65,7 @@ public class GamePlayer {
         this.playerUUID = playerUUID;
     }
 
-    public Player getPlayer(){
+    public Player getPlayer() {
         return Bukkit.getPlayer(playerUUID);
     }
 
@@ -73,14 +73,14 @@ public class GamePlayer {
         this.arena = arena;
     }
 
-    public Arena getArena(){
+    public Arena getArena() {
         return ArenaManager.getArenaConfiguration(arena);
     }
 
-    public void sendMessage(String message){
+    public void sendMessage(String message) {
         Player player = getPlayer();
 
-        if(player != null){
+        if (player != null) {
             player.sendMessage(message);
         }
     }
@@ -102,7 +102,7 @@ public class GamePlayer {
         player.setFoodLevel(20);
         player.setFlying(false);
 
-        for(PotionEffect effect :player.getActivePotionEffects()){
+        for (PotionEffect effect : player.getActivePotionEffects()) {
             player.removePotionEffect(effect.getType());
         }
 
@@ -179,7 +179,7 @@ public class GamePlayer {
         getPlayer().getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
     }
 
-    public void setPlayerSpectator(){
+    public void setPlayerSpectator() {
         getPlayer().teleport(getArena().getSpawnArenaLocation());
         setState(PlayerState.SPECTATING);
         SpectatorManager.addSpectator(getPlayer());
@@ -196,7 +196,7 @@ public class GamePlayer {
         return kit;
     }
 
-    public void setKit(Kit kit){
+    public void setKit(Kit kit) {
         this.kit = kit;
     }
 }

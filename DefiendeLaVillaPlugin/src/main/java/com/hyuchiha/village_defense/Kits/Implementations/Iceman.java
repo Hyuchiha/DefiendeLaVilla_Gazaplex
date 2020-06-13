@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Iceman extends BaseKit{
+public class Iceman extends BaseKit {
 
     public Iceman(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);
@@ -32,12 +32,12 @@ public class Iceman extends BaseKit{
     public void KitDamageHelpers(EntityDamageByEntityEvent event) {
         Entity entityAttacker = event.getDamager();
         Entity entityAttacked = event.getEntity();
-        if ((entityAttacker.getType() == EntityType.PLAYER) && entityAttacked instanceof LivingEntity &&(entityAttacked.getType() != EntityType.PLAYER)) {
+        if ((entityAttacker.getType() == EntityType.PLAYER) && entityAttacked instanceof LivingEntity && (entityAttacked.getType() != EntityType.PLAYER)) {
             Player damager = (Player) entityAttacker;
 
             GamePlayer player = PlayerManager.getPlayer(damager);
 
-            if(player.getKit() == Kit.ICEMAN){
+            if (player.getKit() == Kit.ICEMAN) {
                 ((LivingEntity) entityAttacked).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2));
             }
 

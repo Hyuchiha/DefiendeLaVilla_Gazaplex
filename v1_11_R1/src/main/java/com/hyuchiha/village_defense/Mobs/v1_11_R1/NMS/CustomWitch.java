@@ -11,11 +11,10 @@ import net.minecraft.server.v1_11_R1.*;
 import java.util.Set;
 
 /**
- *
  * @author hyuchiha
  */
-public class CustomWitch extends EntityWitch{
-    
+public class CustomWitch extends EntityWitch {
+
     public CustomWitch(World world) {
         super(world);
         Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

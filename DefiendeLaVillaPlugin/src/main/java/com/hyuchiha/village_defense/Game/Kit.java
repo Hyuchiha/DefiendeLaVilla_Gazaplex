@@ -16,14 +16,14 @@ import java.util.HashMap;
 public enum Kit {
 
     CIVILIAN("CIVILIAN", Material.WORKBENCH),
-    COMMANDER("COMMANDER",Material.IRON_HELMET),
-    HUNTER("HUNTER",Material.BONE),
-    ICEMAN("ICEMAN",Material.ICE),
-    INVOKER("INVOKER",Material.EGG),
-    MERCHANT("MERCHANT",Material.CHEST),
-    PYRO("PYRO",Material.BLAZE_POWDER),
-    TANK("TANK",Material.DIAMOND_CHESTPLATE),
-    THOR("THOR",Material.GOLD_AXE);
+    COMMANDER("COMMANDER", Material.IRON_HELMET),
+    HUNTER("HUNTER", Material.BONE),
+    ICEMAN("ICEMAN", Material.ICE),
+    INVOKER("INVOKER", Material.EGG),
+    MERCHANT("MERCHANT", Material.CHEST),
+    PYRO("PYRO", Material.BLAZE_POWDER),
+    TANK("TANK", Material.DIAMOND_CHESTPLATE),
+    THOR("THOR", Material.GOLD_AXE);
 
     private HashMap<String, BaseKit> kits = new HashMap<>();
 
@@ -40,7 +40,7 @@ public enum Kit {
     }
 
     private void loadKit(String name, ItemStack icon, ConfigurationSection configurationSection) {
-        switch (name){
+        switch (name) {
             case "CIVILIAN":
                 kits.put(name, new Civilian(name, icon, configurationSection));
                 break;

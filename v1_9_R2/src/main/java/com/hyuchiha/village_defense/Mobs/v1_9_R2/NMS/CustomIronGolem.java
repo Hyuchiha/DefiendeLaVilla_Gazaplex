@@ -6,30 +6,16 @@
 package com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS;
 
 import com.google.common.base.Predicate;
+import com.hyuchiha.village_defense.Mobs.MobUtils;
+import net.minecraft.server.v1_9_R2.*;
+
 import java.util.List;
 
-import com.hyuchiha.village_defense.Mobs.MobUtils;
-import net.minecraft.server.v1_9_R2.EntityHuman;
-import net.minecraft.server.v1_9_R2.EntityIronGolem;
-import net.minecraft.server.v1_9_R2.PathfinderGoalDefendVillage;
-import net.minecraft.server.v1_9_R2.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMeleeAttack;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMoveThroughVillage;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMoveTowardsRestriction;
-import net.minecraft.server.v1_9_R2.PathfinderGoalMoveTowardsTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalOfferFlower;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_9_R2.PathfinderGoalSelector;
-
 /**
- *
  * @author hyuchiha
  */
 public class CustomIronGolem extends EntityIronGolem {
-    
+
     public CustomIronGolem(net.minecraft.server.v1_9_R2.World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

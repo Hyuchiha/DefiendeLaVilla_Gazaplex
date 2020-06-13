@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
-public class Commander extends BaseKit{
+public class Commander extends BaseKit {
 
     public Commander(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);

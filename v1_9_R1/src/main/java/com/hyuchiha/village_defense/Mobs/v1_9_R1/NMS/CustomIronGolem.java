@@ -12,11 +12,10 @@ import net.minecraft.server.v1_9_R1.*;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class CustomIronGolem extends EntityIronGolem {
-    
+
     public CustomIronGolem(World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

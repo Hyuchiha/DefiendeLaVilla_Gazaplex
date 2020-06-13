@@ -5,7 +5,7 @@ import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-public class Civilian extends BaseKit{
+public class Civilian extends BaseKit {
 
     public Civilian(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);

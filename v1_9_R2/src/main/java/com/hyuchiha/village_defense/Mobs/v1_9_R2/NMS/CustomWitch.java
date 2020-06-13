@@ -5,27 +5,16 @@
  */
 package com.hyuchiha.village_defense.Mobs.v1_9_R2.NMS;
 
+import com.hyuchiha.village_defense.Mobs.MobUtils;
+import net.minecraft.server.v1_9_R2.*;
+
 import java.util.List;
 
-import com.hyuchiha.village_defense.Mobs.MobUtils;
-import net.minecraft.server.v1_9_R2.EntityHuman;
-import net.minecraft.server.v1_9_R2.EntityVillager;
-import net.minecraft.server.v1_9_R2.EntityWitch;
-import net.minecraft.server.v1_9_R2.PathfinderGoalArrowAttack;
-import net.minecraft.server.v1_9_R2.PathfinderGoalFloat;
-import net.minecraft.server.v1_9_R2.PathfinderGoalHurtByTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalLookAtPlayer;
-import net.minecraft.server.v1_9_R2.PathfinderGoalNearestAttackableTarget;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomLookaround;
-import net.minecraft.server.v1_9_R2.PathfinderGoalRandomStroll;
-import net.minecraft.server.v1_9_R2.PathfinderGoalSelector;
-
 /**
- *
  * @author hyuchiha
  */
-public class CustomWitch extends EntityWitch{
-    
+public class CustomWitch extends EntityWitch {
+
     public CustomWitch(net.minecraft.server.v1_9_R2.World world) {
         super(world);
         List goalB = (List) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);

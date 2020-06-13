@@ -22,21 +22,20 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
 public class MobManager {
-    
+
     private static final ArrayList<EnemyIA> enemyObjects = new ArrayList<>();
     private static final ArrayList<BossEnemy> bossEnemyObjects = new ArrayList<>();
 
-    public static void registerMobs(){
+    public static void registerMobs() {
         Output.log("Registrando mounstruos");
         Configuration config = Main.getInstance().getConfig("config.yml");
 
         MobCreator creator = null;
 
-        switch (Minecraft.Version.getVersion()){
+        switch (Minecraft.Version.getVersion()) {
             case v1_9_R1:
                 creator = new MobCreator_v1_9_R1();
                 break;
@@ -57,34 +56,34 @@ public class MobManager {
                 break;
         }
 
-        if(creator != null){
+        if (creator != null) {
             enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
             bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
-        }else {
+        } else {
             Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
         }
     }
 
-    public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty){
+    public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty) {
         ArrayList<EnemyIA> enemies = new ArrayList<>();
         Random random = new Random();
-        
-        for(EnemyIA enemy : enemyObjects){
-            if(currentWave >= enemy.getStartingWave()){
-                int val = (difficulty /enemy.getDifficulty())+2;
-                int toSpawn = random.nextInt(val)+1;
-                
-                while(toSpawn >0){
+
+        for (EnemyIA enemy : enemyObjects) {
+            if (currentWave >= enemy.getStartingWave()) {
+                int val = (difficulty / enemy.getDifficulty()) + 2;
+                int toSpawn = random.nextInt(val) + 1;
+
+                while (toSpawn > 0) {
                     enemies.add(enemy);
                     toSpawn--;
                 }
             }
         }
-        
+
         return enemies;
     }
-    
-    
+
+
     public static ArrayList<EnemyIA> getEnemyObjects() {
         return enemyObjects;
     }

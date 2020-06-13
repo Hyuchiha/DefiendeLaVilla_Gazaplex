@@ -11,7 +11,6 @@ import net.minecraft.server.v1_9_R1.*;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class CustomZombie extends EntityZombie {

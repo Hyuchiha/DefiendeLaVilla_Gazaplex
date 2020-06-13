@@ -9,11 +9,10 @@ import net.minecraft.server.v1_10_R1.EntityCaveSpider;
 import net.minecraft.server.v1_10_R1.World;
 
 /**
- *
  * @author hyuchiha
  */
-public class CustomCaveSpider extends EntityCaveSpider{
-    
+public class CustomCaveSpider extends EntityCaveSpider {
+
     public CustomCaveSpider(World world) {
         super(world);
     }

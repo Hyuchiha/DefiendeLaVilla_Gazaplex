@@ -64,8 +64,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        for(Arena arena: ArenaManager.getArenas()){
-            if(arena.getGame() != null && arena.getGame().getState() == GameState.INGAME){
+        for (Arena arena : ArenaManager.getArenas()) {
+            if (arena.getGame() != null && arena.getGame().getState() == GameState.INGAME) {
                 arena.getGame().getWave().cancelWave();
             }
         }
@@ -73,7 +73,7 @@ public class Main extends JavaPlugin {
         database.close();
     }
 
-    public void hookBungeeCord(){
+    public void hookBungeeCord() {
         Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
     }
 
@@ -131,10 +131,10 @@ public class Main extends JavaPlugin {
         return config.getConfig(configName);
     }
 
-    public void initDatabase(){
+    public void initDatabase() {
         Configuration configValues = getConfig("config.yml");
 
-        switch (configValues.getString("Database.type")){
+        switch (configValues.getString("Database.type")) {
             case "MySQL":
                 database = new MySQLDB(this);
                 break;
@@ -146,8 +146,8 @@ public class Main extends JavaPlugin {
                 break;
         }
 
-        if(database != null){
-            if(!database.init()){
+        if (database != null) {
+            if (!database.init()) {
                 Output.logError("Database init error");
 
                 setEnabled(false);

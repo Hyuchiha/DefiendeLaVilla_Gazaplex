@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class Arena {
@@ -54,7 +53,7 @@ public class Arena {
         //el sign es probable que esto de problema
         WorldCreator wc = new WorldCreator(Name);
         World world = Bukkit.getServer().createWorld(wc);
-        
+
         this.signLocation = ArenaUtils.parseStringToLocation(ArenaManager.getLobby().getWorld(), arenaConf.getString(Name + ".sign"));
         this.lobbyGameLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".lobby"));
         this.spawnArenaLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".spawn"));
@@ -66,11 +65,11 @@ public class Arena {
         }
 
         this.MaxNumberOfPlayers = arenaConf.getInt(Name + ".maxPlayers");
-        
+
         initSettingForArena(world);
     }
-    
-    public void initSettingForArena(World world){
+
+    public void initSettingForArena(World world) {
         world.setGameRuleValue("doFireTick", "false");
         world.setGameRuleValue("doDaylightCycle", "false");
         world.setGameRuleValue("doMobSpawning", "false");
@@ -78,7 +77,7 @@ public class Arena {
 
     public void saveConfigArena() {
         Configuration arenaConf = Main.getInstance().getConfig("arenas.yml");
-    
+
         arenaConf.set(Name + ".sign", ArenaUtils.parseLocationToString(signLocation));
         arenaConf.set(Name + ".lobby", ArenaUtils.parseLocationToString(lobbyGameLocation));
         arenaConf.set(Name + ".spawn", ArenaUtils.parseLocationToString(spawnArenaLocation));
@@ -125,7 +124,7 @@ public class Arena {
 
                 s.update(true);
             }
-            
+
         } catch (NullPointerException e) {
             Output.logError(Color.RED + "Error en la creacion de los signs \n" + e.getMessage());
         }

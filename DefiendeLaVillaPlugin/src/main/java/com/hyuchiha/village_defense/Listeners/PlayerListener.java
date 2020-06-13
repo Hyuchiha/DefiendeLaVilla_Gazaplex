@@ -1,7 +1,7 @@
 package com.hyuchiha.village_defense.Listeners;
 
-import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.Database.Base.Account;
+import com.hyuchiha.village_defense.Event.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
@@ -35,7 +35,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 
 /**
- *
  * @author hyuchiha
  */
 public class PlayerListener implements Listener {
@@ -80,12 +79,12 @@ public class PlayerListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent e){
+    public void onPlayerRespawn(PlayerRespawnEvent e) {
         Player player = e.getPlayer();
 
         GamePlayer gamePlayer = PlayerManager.getPlayer(player);
 
-        if(gamePlayer.getState() == PlayerState.INGAME){
+        if (gamePlayer.getState() == PlayerState.INGAME) {
             Location location = gamePlayer.getArena().getSpawnArenaLocation();
 
             e.setRespawnLocation(location);
@@ -134,7 +133,7 @@ public class PlayerListener implements Listener {
                 break;
         }
     }
-    
+
     @EventHandler
     public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
         if (event.getCause() != EntityDamageEvent.DamageCause.PROJECTILE) {

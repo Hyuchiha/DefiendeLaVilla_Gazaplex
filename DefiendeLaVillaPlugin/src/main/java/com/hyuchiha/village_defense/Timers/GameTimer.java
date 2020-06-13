@@ -23,7 +23,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- *
  * @author hyuchiha
  */
 public class GameTimer extends BukkitRunnable {
@@ -96,13 +95,13 @@ public class GameTimer extends BukkitRunnable {
                 } else {
                     if (secondsTillNextWave == 0) {
                         secondsTillNextWave = -1;
-                        
+
                         for (GamePlayer player : game.getPlayersInGame()) {
                             if (player.isKilled()) {
                                 player.regamePlayer();
                             }
 
-                            player.sendMessage(Translator.getPrefix()+ " " + Translator.getColoredString("WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
+                            player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
                         }
 
                         giveWaveSpecials();
@@ -146,7 +145,7 @@ public class GameTimer extends BukkitRunnable {
     }
 
     private void playWave() {
-        
+
         if (wave == 1) {
             Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
 
@@ -192,7 +191,7 @@ public class GameTimer extends BukkitRunnable {
 
             game.getWave().startWave();
         }
-        
+
     }
-    
+
 }

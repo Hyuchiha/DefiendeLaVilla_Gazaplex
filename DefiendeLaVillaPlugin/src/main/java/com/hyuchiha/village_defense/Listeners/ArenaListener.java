@@ -2,11 +2,11 @@ package com.hyuchiha.village_defense.Listeners;
 
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatUtil;
-import com.hyuchiha.village_defense.CustomEvents.ArenaFinishEvent;
-import com.hyuchiha.village_defense.CustomEvents.ArenaJoinEvent;
-import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
-import com.hyuchiha.village_defense.CustomEvents.ArenaStartEvent;
 import com.hyuchiha.village_defense.Database.Base.Account;
+import com.hyuchiha.village_defense.Event.ArenaFinishEvent;
+import com.hyuchiha.village_defense.Event.ArenaJoinEvent;
+import com.hyuchiha.village_defense.Event.ArenaLeaveEvent;
+import com.hyuchiha.village_defense.Event.ArenaStartEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Game.Kit;
@@ -27,7 +27,6 @@ import org.bukkit.event.Listener;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class ArenaListener implements Listener {
@@ -98,12 +97,12 @@ public class ArenaListener implements Listener {
     public void onArenaFinish(ArenaFinishEvent event) {
         Arena arena = ArenaManager.getArenaConfiguration(event.getArena());
 
-        List<GamePlayer> dataCloned =  arena.getGame().getPlayersInGame();
+        List<GamePlayer> dataCloned = arena.getGame().getPlayersInGame();
         new SavePlayersData(dataCloned, plugin);
 
         for (GamePlayer player : arena.getGame().getPlayersInGame()) {
             player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_HAS_FINISHED"));
-            
+
             if (SpectatorManager.isSpectator(player.getPlayer())) {
                 SpectatorManager.removeSpectator(player.getPlayer());
             }
@@ -126,7 +125,7 @@ public class ArenaListener implements Listener {
                     data.setMin_wave_reached(arena.getGame().getWave().getWaveNumber());
                 }
             } catch (Exception e) {
-                Output.logError("Error al poner las oleadas maximas y minimas "+e.getLocalizedMessage());
+                Output.logError("Error al poner las oleadas maximas y minimas " + e.getLocalizedMessage());
             }
         }
 

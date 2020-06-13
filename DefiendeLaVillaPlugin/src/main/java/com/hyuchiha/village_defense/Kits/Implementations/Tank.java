@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-public class Tank extends BaseKit{
+public class Tank extends BaseKit {
 
     public Tank(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);

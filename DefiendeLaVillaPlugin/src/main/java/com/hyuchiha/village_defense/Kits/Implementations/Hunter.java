@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Hunter extends BaseKit{
+public class Hunter extends BaseKit {
 
     public Hunter(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);
@@ -46,7 +46,7 @@ public class Hunter extends BaseKit{
         if (stack != null) {
             if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
 
-                if(eventPlayer.getKit() == Kit.HUNTER){
+                if (eventPlayer.getKit() == Kit.HUNTER) {
                     if (stack.getType() == Material.BONE) {
                         if (KitUtils.isItem(stack, ChatColor.GOLD + "Wolf")) {
                             //Se invoca a un lobo

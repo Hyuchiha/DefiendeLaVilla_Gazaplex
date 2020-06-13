@@ -24,7 +24,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
 public class SpecialUtils {
@@ -64,16 +63,16 @@ public class SpecialUtils {
                 Output.log("Error");
                 break;
         }
-        
-        for(GamePlayer player: game.getPlayersInGame()){
+
+        for (GamePlayer player : game.getPlayersInGame()) {
             Output.log("Sending message to: " + player.getPlayer().getName());
             TitleAPI.send(
-                player.getPlayer(),
-                Translator.getColoredString("SPECIAL_EVENT_TITLE"),
-                Translator.getColoredString("SPECIAL_EVENT_SUBTITLE"),
-                10,
-                40,
-                10);
+                    player.getPlayer(),
+                    Translator.getColoredString("SPECIAL_EVENT_TITLE"),
+                    Translator.getColoredString("SPECIAL_EVENT_SUBTITLE"),
+                    10,
+                    40,
+                    10);
         }
     }
 
@@ -143,7 +142,7 @@ public class SpecialUtils {
 
     private static void spawnRandomNewMob(Arena arena) {
         Location loc = arena.getMobspawns().get(0);
-        
+
     }
 
     private static void incrementMaxHealthToEveryone(final Game game) {
@@ -178,7 +177,7 @@ public class SpecialUtils {
                 loc.getWorld().dropItemNaturally(loc, new ItemStack(Material.DIAMOND_SWORD));
                 break;
             default:
-                
+
                 break;
         }
     }

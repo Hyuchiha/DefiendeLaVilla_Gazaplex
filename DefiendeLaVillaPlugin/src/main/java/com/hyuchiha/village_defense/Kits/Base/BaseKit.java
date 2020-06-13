@@ -12,13 +12,13 @@ import org.bukkit.plugin.Plugin;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseKit implements Listener{
+public abstract class BaseKit implements Listener {
 
     private String name;
     private final ItemStack icon;
     protected final List<ItemStack> spawnItems = new ArrayList<>();
 
-    public BaseKit(String name, ItemStack icon, ConfigurationSection section){
+    public BaseKit(String name, ItemStack icon, ConfigurationSection section) {
         this.name = name;
         this.icon = icon;
 
@@ -36,7 +36,7 @@ public abstract class BaseKit implements Listener{
     private void setupLore(ConfigurationSection section) {
         List<String> lore = new ArrayList<>();
 
-        for(String line: section.getStringList("lore")){
+        for (String line : section.getStringList("lore")) {
             line = line.replaceAll("(&([a-fk-or0-9]))", "§$2");
             lore.add(line);
         }
@@ -48,7 +48,7 @@ public abstract class BaseKit implements Listener{
 
     protected abstract void setupSpawnItems();
 
-    public void giveSpawnItems(Player recipient){
+    public void giveSpawnItems(Player recipient) {
         PlayerInventory inv = recipient.getInventory();
 
         for (ItemStack item : spawnItems) {
@@ -58,7 +58,7 @@ public abstract class BaseKit implements Listener{
 
     }
 
-    public ItemStack getIcon(){
+    public ItemStack getIcon() {
         return icon;
     }
 

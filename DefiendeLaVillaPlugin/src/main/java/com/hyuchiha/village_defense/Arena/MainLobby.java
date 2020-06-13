@@ -14,22 +14,21 @@ import org.bukkit.WorldCreator;
 import org.bukkit.configuration.Configuration;
 
 /**
- *
  * @author hyuchiha
  */
 public class MainLobby {
     private final Location lobbyLocation;
     private final World world;
-    
-    public MainLobby(){
+
+    public MainLobby() {
         Configuration config = Main.getInstance().getConfig("arenas.yml");
-        
-        WorldCreator wc = new WorldCreator(config.getString("Spawn."+"worldName"));
+
+        WorldCreator wc = new WorldCreator(config.getString("Spawn." + "worldName"));
         this.world = Bukkit.getServer().createWorld(wc);
         this.world.setGameRuleValue("doFireTick", "false");
         this.world.setGameRuleValue("doDaylightCycle", "false");
-        
-        this.lobbyLocation = ArenaUtils.parseStringToLocation(world, config.getString("Spawn."+"lobbyLocation"));
+
+        this.lobbyLocation = ArenaUtils.parseStringToLocation(world, config.getString("Spawn." + "lobbyLocation"));
     }
 
     public Location getLobbyLocation() {
@@ -39,5 +38,5 @@ public class MainLobby {
     public World getWorld() {
         return world;
     }
-    
+
 }

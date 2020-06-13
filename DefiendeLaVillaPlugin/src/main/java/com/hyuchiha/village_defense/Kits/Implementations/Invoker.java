@@ -16,7 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-public class Invoker extends BaseKit{
+public class Invoker extends BaseKit {
     public Invoker(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);
     }
@@ -41,7 +41,7 @@ public class Invoker extends BaseKit{
         if (stack != null) {
             if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
 
-                if(eventPlayer.getKit() == Kit.INVOKER){
+                if (eventPlayer.getKit() == Kit.INVOKER) {
                     if (stack.getType() == Material.MONSTER_EGG) {
                         if (KitUtils.isItem(stack, ChatColor.GOLD + "Villager")) {
                             //Se invoca a un aldeano

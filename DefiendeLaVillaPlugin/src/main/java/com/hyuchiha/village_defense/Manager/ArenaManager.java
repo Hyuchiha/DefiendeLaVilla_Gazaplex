@@ -29,14 +29,14 @@ public class ArenaManager {
     }
 
     public static MainLobby getLobby() {
-        if(lobby == null){
+        if (lobby == null) {
             return new MainLobby();
-        }else{
+        } else {
             return lobby;
         }
     }
 
-    public static Arena getArenaConfiguration(String arena){
+    public static Arena getArenaConfiguration(String arena) {
         return arenas.get(arena);
     }
 
@@ -44,9 +44,9 @@ public class ArenaManager {
         return new Arena(arena);
     }
 
-    public static void initShopForArenas(){
+    public static void initShopForArenas() {
         Output.log("Iniciando los shops para cada arena");
-        for(Arena arena: arenas.values()){
+        for (Arena arena : arenas.values()) {
             ShopManager.InitArenaShop(arena);
         }
     }

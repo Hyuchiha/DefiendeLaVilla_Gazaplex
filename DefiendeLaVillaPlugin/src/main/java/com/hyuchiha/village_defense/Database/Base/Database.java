@@ -100,21 +100,31 @@ public abstract class Database {
         return topAccounts;
     }
 
-    /** Database code for loading based in stats **/
+    /**
+     * Database code for loading based in stats
+     **/
     protected abstract List<Account> loadTopAccountsByStatType(StatType type, int size);
 
-    /** Database code for create the account registry **/
+    /**
+     * Database code for create the account registry
+     **/
     protected abstract void createAccountAndAddToDatabase(Account account);
 
-    /** Database code for load account data **/
+    /**
+     * Database code for load account data
+     **/
     protected abstract Account loadAccount(String uuid);
 
-    /** Database code for update account data **/
+    /**
+     * Database code for update account data
+     **/
     public abstract void saveAccount(Account account);
 
     public abstract void addUnlockedKit(String uuid, String kit);
 
-    /** Called every time we need the acount **/
+    /**
+     * Called every time we need the acount
+     **/
     public Account getAccount(String uuid, String name) {
         Account account = getCachedAccount(uuid, name);
 
@@ -124,7 +134,7 @@ public abstract class Database {
 
         Account loadedAccount = loadAccount(uuid);
 
-        if(loadedAccount != null){
+        if (loadedAccount != null) {
             loadedAccount.setName(name);
             return loadedAccount;
         }
@@ -132,7 +142,9 @@ public abstract class Database {
         return null;
     }
 
-    /** Called when login user **/
+    /**
+     * Called when login user
+     **/
     public Account createAccount(String uuid, String name) {
         Account account = getAccount(uuid, name);
 
@@ -164,7 +176,7 @@ public abstract class Database {
     private Account getCachedAccount(String uuid, String name) {
         Account account = cachedAccounts.get(uuid);
 
-        if(account != null){
+        if (account != null) {
             account.setName(name);
         }
 
@@ -174,7 +186,7 @@ public abstract class Database {
     public void close() {
         Collection<Account> collection = cachedAccounts.values();
 
-        for (Account account: collection){
+        for (Account account : collection) {
             saveAccount(account);
         }
     }

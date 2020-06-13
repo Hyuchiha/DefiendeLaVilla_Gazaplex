@@ -19,89 +19,89 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class BossBarAPI {
-  private static final Map<UUID, BossBar> barMap = new ConcurrentHashMap<>();
-  private static Plugin pluginInstance;
+    private static final Map<UUID, BossBar> barMap = new ConcurrentHashMap<>();
+    private static Plugin pluginInstance;
 
-  public static void init(Plugin plugin) {
+    public static void init(Plugin plugin) {
 
-    pluginInstance = plugin;
+        pluginInstance = plugin;
 
-    Iterator players = Bukkit.getOnlinePlayers().iterator();
+        Iterator players = Bukkit.getOnlinePlayers().iterator();
 
-    while (players.hasNext()) {
-      Player player = (Player) players.next();
-      removeBar(player);
+        while (players.hasNext()) {
+            Player player = (Player) players.next();
+            removeBar(player);
+        }
+
+        PluginManager pm = plugin.getServer().getPluginManager();
+        pm.registerEvents(new BossBarListener(), plugin);
+
     }
 
-    PluginManager pm = plugin.getServer().getPluginManager();
-    pm.registerEvents(new BossBarListener(), plugin);
+    public static void setMessage(Player player, String message, float percentage) {
 
-  }
+        if (!barMap.containsKey(player.getUniqueId())) {
+            BossBar bossBar = Bukkit.createBossBar(message, BarColor.PURPLE, BarStyle.SOLID, BarFlag.DARKEN_SKY);
+            bossBar.addPlayer(player);
+            bossBar.setProgress(percentage);
 
-  public static void setMessage(Player player, String message, float percentage) {
+            barMap.put(player.getUniqueId(), bossBar);
+        }
 
-    if (!barMap.containsKey(player.getUniqueId())) {
-      BossBar bossBar = Bukkit.createBossBar(message, BarColor.PURPLE, BarStyle.SOLID, BarFlag.DARKEN_SKY);
-      bossBar.addPlayer(player);
-      bossBar.setProgress(percentage);
+        BossBar bar = barMap.get(player.getUniqueId());
+        if (!bar.getTitle().equals(message)) {
+            bar.setTitle(message);
+        }
 
-      barMap.put(player.getUniqueId(), bossBar);
-    }
+        if (bar.getProgress() != percentage) {
+            bar.setProgress(percentage);
+        }
 
-    BossBar bar = barMap.get(player.getUniqueId());
-    if (!bar.getTitle().equals(message)) {
-      bar.setTitle(message);
-    }
-
-    if (bar.getProgress() != percentage) {
-      bar.setProgress(percentage);
-    }
-
-    if (!bar.isVisible()) {
-      bar.setVisible(true);
-    }
-
-  }
-
-  protected static void removeBarForPlayer(Player player, BossBar bossBar) {
-    bossBar.removePlayer(player);
-    BossBar bar = barMap.get(player.getUniqueId());
-    if (bar != null) {
-      barMap.remove(player.getUniqueId());
-    }
-  }
-
-  public static void removeBar(@Nonnull Player player) {
-    BossBar bar = getBossBar(player);
-    if (bar != null) {
-      bar.setVisible(false);
-
-      removeBarForPlayer(player, bar);
-    }
-  }
-
-  public static boolean hasBar(@Nonnull Player player) {
-    return barMap.containsKey(player.getUniqueId());
-  }
-
-  @Nullable
-  public static BossBar getBossBar(@Nonnull Player player) {
-    return barMap.get(player.getUniqueId());
-  }
-
-  public static void handlePlayerTeleport(Player player, Location from, Location to) {
-    if (hasBar(player)) {
-      final BossBar bar = getBossBar(player);
-
-      if (bar != null) {
-        bar.setVisible(false);
-        (new BukkitRunnable() {
-          public void run() {
+        if (!bar.isVisible()) {
             bar.setVisible(true);
-          }
-        }).runTaskLater(pluginInstance, 2L);
-      }
+        }
+
     }
-  }
+
+    protected static void removeBarForPlayer(Player player, BossBar bossBar) {
+        bossBar.removePlayer(player);
+        BossBar bar = barMap.get(player.getUniqueId());
+        if (bar != null) {
+            barMap.remove(player.getUniqueId());
+        }
+    }
+
+    public static void removeBar(@Nonnull Player player) {
+        BossBar bar = getBossBar(player);
+        if (bar != null) {
+            bar.setVisible(false);
+
+            removeBarForPlayer(player, bar);
+        }
+    }
+
+    public static boolean hasBar(@Nonnull Player player) {
+        return barMap.containsKey(player.getUniqueId());
+    }
+
+    @Nullable
+    public static BossBar getBossBar(@Nonnull Player player) {
+        return barMap.get(player.getUniqueId());
+    }
+
+    public static void handlePlayerTeleport(Player player, Location from, Location to) {
+        if (hasBar(player)) {
+            final BossBar bar = getBossBar(player);
+
+            if (bar != null) {
+                bar.setVisible(false);
+                (new BukkitRunnable() {
+                    public void run() {
+                        bar.setVisible(true);
+                    }
+                }).runTaskLater(pluginInstance, 2L);
+            }
+        }
+    }
 
 }

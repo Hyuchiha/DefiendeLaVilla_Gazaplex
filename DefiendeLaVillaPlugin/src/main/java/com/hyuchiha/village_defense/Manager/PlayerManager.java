@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class PlayerManager {
@@ -26,10 +25,10 @@ public class PlayerManager {
     public static List<GamePlayer> players = new ArrayList<>();
     private static Respawner respawner = null;
 
-    public static void fetchRespawner(){
+    public static void fetchRespawner() {
         Output.log("Getting respawner for the server version");
 
-        switch (Minecraft.Version.getVersion()){
+        switch (Minecraft.Version.getVersion()) {
             case v1_9_R1:
                 respawner = new Respawner_v1_9_R1();
                 break;
@@ -61,7 +60,7 @@ public class PlayerManager {
 
         return createPlayerData(player);
     }
-    
+
     private static GamePlayer createPlayerData(Player player) {
         GamePlayer actualPlayer = new GamePlayer(player.getUniqueId());
         players.add(actualPlayer);
@@ -73,11 +72,11 @@ public class PlayerManager {
         players.remove(vdplayer);
     }
 
-    public static void respawnPlayer(Player player){
-        if(respawner != null){
+    public static void respawnPlayer(Player player) {
+        if (respawner != null) {
             Output.log("Respawning without spigot");
             respawner.respawm(player);
-        }else {
+        } else {
             Output.log("Respawning using spigot api");
             player.spigot().respawn();
         }

@@ -91,7 +91,7 @@ public class Account {
         return kits;
     }
 
-    public void addUnlockedKit(Kit kit){
+    public void addUnlockedKit(Kit kit) {
         kits.add(kit);
     }
 
@@ -100,8 +100,8 @@ public class Account {
     }
 
     public boolean hasKit(Kit kitToVerify) {
-        for(Kit kit : kits){
-            if(kit == kitToVerify){
+        for (Kit kit : kits) {
+            if (kit == kitToVerify) {
                 return true;
             }
         }

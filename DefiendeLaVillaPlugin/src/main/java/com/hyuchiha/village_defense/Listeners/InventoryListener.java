@@ -21,17 +21,16 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 
 /**
- *
  * @author hyuchiha
  */
-public class InventoryListener implements Listener{
-    
+public class InventoryListener implements Listener {
+
     private final Main plugin;
-    
-    public InventoryListener(Main plugin){
-        this.plugin= plugin;
+
+    public InventoryListener(Main plugin) {
+        this.plugin = plugin;
     }
-    
+
     @EventHandler
     public void onInventoryClick(InventoryClickEvent e) {
         Inventory inv = e.getInventory();
@@ -48,14 +47,14 @@ public class InventoryListener implements Listener{
             String name = e.getCurrentItem().getItemMeta().getDisplayName();
             GamePlayer meta = PlayerManager.getPlayer(player);
 
-            if(meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME){
+            if (meta.getKit() != Kit.CIVILIAN && meta.getState() == PlayerState.LOBBY_GAME) {
                 player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_HAS_CLASS_SELECTED"));
                 return;
             }
 
             Kit toChoose = Enums.getIfPresent(Kit.class, ChatColor.stripColor(name).toUpperCase()).orNull();
 
-            if(toChoose != null){
+            if (toChoose != null) {
                 if (!toChoose.isOwnedBy(player)) {
                     player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAS_CLASS_UNLOCKED"));
                     return;
@@ -65,8 +64,8 @@ public class InventoryListener implements Listener{
 
                 String classSelected = Translator.getColoredString("PLAYER_HAS_SELECTED_CLASS");
                 classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(name));
-                player.sendMessage(Translator.getPrefix() +" "+ classSelected);
-            }else {
+                player.sendMessage(Translator.getPrefix() + " " + classSelected);
+            } else {
                 player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("ERROR_NO_CLASS_FOUND"));
             }
 
@@ -98,7 +97,7 @@ public class InventoryListener implements Listener{
                     String classUnlocked = Translator.getColoredString("PLAYER_UNLOCK_CLASS");
                     player.sendMessage(Translator.getPrefix() + " " + classUnlocked.replace("%CLASS%", name));
                 } else {
-                    player.sendMessage(Translator.getPrefix()+ " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
+                    player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_DONT_HAVE_REQUIRED_MONEY"));
                 }
 
                 player.closeInventory();
@@ -106,7 +105,7 @@ public class InventoryListener implements Listener{
             } else {
                 player.closeInventory();
                 e.setCancelled(true);
-                player.sendMessage(Translator.getPrefix() + " "+ Translator.getColoredString("PLAYER_ALREADY_HAVE_CLASS"));
+                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("PLAYER_ALREADY_HAVE_CLASS"));
             }
 
         }

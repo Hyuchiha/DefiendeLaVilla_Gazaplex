@@ -16,9 +16,9 @@ import java.util.List;
 
 public abstract class SQLDB extends Database {
 
-    private static final String accountsTable        = "village_defense_accounts";
-    private static final String kitsTable            = "village_defense_kits";
-    private static final String unlockedKitsTable    = "village_defense_kits_unlocked";
+    private static final String accountsTable = "village_defense_accounts";
+    private static final String kitsTable = "village_defense_kits";
+    private static final String unlockedKitsTable = "village_defense_kits_unlocked";
 
     private Main plugin;
     private Connection connection;
@@ -142,11 +142,11 @@ public abstract class SQLDB extends Database {
 
             PreparedStatement statement = connection.prepareStatement(query);
 
-            if(statement.execute()){
+            if (statement.execute()) {
                 statement.close();
             }
 
-            cachedAccounts.put(account.getUUID(),account);
+            cachedAccounts.put(account.getUUID(), account);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -161,7 +161,7 @@ public abstract class SQLDB extends Database {
 
         try {
             String query = "SELECT * FROM " + accountsTable +
-                    " JOIN "+ unlockedKitsTable +" WHERE UPPER(uuid) LIKE UPPER(?)";
+                    " JOIN " + unlockedKitsTable + " WHERE UPPER(uuid) LIKE UPPER(?)";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
@@ -185,7 +185,7 @@ public abstract class SQLDB extends Database {
 
             set.close();
 
-            if(account != null){
+            if (account != null) {
                 List<Kit> kits = getKitsFromAccount(uuid);
                 account.setKits(kits);
             }
@@ -205,7 +205,7 @@ public abstract class SQLDB extends Database {
         checkConnection();
 
         try {
-            String query = "UPDATE `"+ accountsTable +"` SET "
+            String query = "UPDATE `" + accountsTable + "` SET "
                     + "`username`= '" + account.getName() + "',"
                     + "`kills`= '" + account.getKills() + "',"
                     + "`deaths`='" + account.getDeaths() + "',"
@@ -216,7 +216,7 @@ public abstract class SQLDB extends Database {
 
             PreparedStatement statement = connection.prepareStatement(query);
 
-            if(statement.execute()){
+            if (statement.execute()) {
                 statement.close();
             }
 
@@ -233,29 +233,29 @@ public abstract class SQLDB extends Database {
             int idKit = getIdOfElement(kit);
 
             String query = "INSERT INTO `" + unlockedKitsTable + "`(`clv_kit`,`player`)  VALUES "
-                    + "('" + idKit + "', '"+ uuid +"');";
+                    + "('" + idKit + "', '" + uuid + "');";
 
             PreparedStatement statement = connection.prepareStatement(query);
 
-            if(statement.execute()){
+            if (statement.execute()) {
                 statement.close();
             }
 
             Account account = null;
 
-            for (Account cache: cachedAccounts.values()){
-                if(cache.getUUID().equalsIgnoreCase(uuid)){
+            for (Account cache : cachedAccounts.values()) {
+                if (cache.getUUID().equalsIgnoreCase(uuid)) {
                     account = cache;
                 }
             }
 
-            if(account != null){
+            if (account != null) {
                 account.getKits().add(Kit.valueOf(kit.toUpperCase()));
 
                 cachedAccounts.put(uuid, account);
             }
 
-        }catch (SQLException e){
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -284,14 +284,14 @@ public abstract class SQLDB extends Database {
         return -1;
     }
 
-    private List<Kit> getKitsFromAccount(String uuid){
+    private List<Kit> getKitsFromAccount(String uuid) {
         checkConnection();
 
         List<Kit> kits = new ArrayList<>();
 
         try {
-            String query = "SELECT "+ kitsTable + ".name from " + unlockedKitsTable
-                    + " JOIN " + kitsTable + " where "+ kitsTable +".clv_kit = "+ unlockedKitsTable +".clv_kit " +
+            String query = "SELECT " + kitsTable + ".name from " + unlockedKitsTable
+                    + " JOIN " + kitsTable + " where " + kitsTable + ".clv_kit = " + unlockedKitsTable + ".clv_kit " +
                     "AND player = '" + uuid + "';";
 
             ResultSet set = connection.createStatement().executeQuery(query);
@@ -302,14 +302,14 @@ public abstract class SQLDB extends Database {
                 kits.add(Kit.valueOf(kitName));
             }
 
-        }catch (SQLException ex){
+        } catch (SQLException ex) {
             ex.printStackTrace();
         }
 
         return kits;
     }
 
-    private static final String ACCOUNTS_QUERY = "CREATE TABLE IF NOT EXISTS `"+accountsTable+"` ("
+    private static final String ACCOUNTS_QUERY = "CREATE TABLE IF NOT EXISTS `" + accountsTable + "` ("
             + "  `uuid` varchar(36) NOT NULL,"
             + "  `username` varchar(16) NOT NULL,"
             + "  `kills` int(16) NOT NULL,"
@@ -321,18 +321,18 @@ public abstract class SQLDB extends Database {
             + "  UNIQUE KEY `uuid` (`uuid`)"
             + ") ENGINE=InnoDB;";
 
-    private static final String KITS_QUERY = "CREATE TABLE IF NOT EXISTS `"+ kitsTable +"` ( "
+    private static final String KITS_QUERY = "CREATE TABLE IF NOT EXISTS `" + kitsTable + "` ( "
             + "`clv_kit` int(6) NOT NULL AUTO_INCREMENT,"
             + "`name` varchar(45) NOT NULL,"
             + "PRIMARY KEY (`clv_kit`), "
             + "UNIQUE KEY `clv_kit` (`clv_kit`) ) "
             + "ENGINE=InnoDB AUTO_INCREMENT=1";
 
-    private static final String UNLOCKEDS_QUERY = "CREATE TABLE IF NOT EXISTS `"+ unlockedKitsTable +"` "
+    private static final String UNLOCKEDS_QUERY = "CREATE TABLE IF NOT EXISTS `" + unlockedKitsTable + "` "
             + "(`clv_kit` int(6) NOT NULL,"
             + "`player` varchar(36) NOT NULL, "
             + "PRIMARY KEY (`clv_kit` , `player` ) ,"
-            + "FOREIGN KEY (`clv_kit`) REFERENCES "+ kitsTable +"(`clv_kit`), "
-            + "FOREIGN KEY (`player`) REFERENCES "+ accountsTable +"(`uuid`) )  "
+            + "FOREIGN KEY (`clv_kit`) REFERENCES " + kitsTable + "(`clv_kit`), "
+            + "FOREIGN KEY (`player`) REFERENCES " + accountsTable + "(`uuid`) )  "
             + "ENGINE=InnoDB;";
 }

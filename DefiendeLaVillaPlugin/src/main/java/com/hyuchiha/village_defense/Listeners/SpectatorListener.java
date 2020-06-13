@@ -25,17 +25,16 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.event.player.PlayerShearEntityEvent;
 
 /**
- *
  * @author hyuchiha
  */
 public class SpectatorListener implements Listener {
 
     private Main plugin;
-    
-    public SpectatorListener(Main plugin){
-        this.plugin=plugin;
+
+    public SpectatorListener(Main plugin) {
+        this.plugin = plugin;
     }
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         Player player = event.getPlayer();
@@ -71,7 +70,7 @@ public class SpectatorListener implements Listener {
                 event.setCancelled(true);
             }
         } catch (Exception e) {
-            
+
         }
     }
 
@@ -95,8 +94,8 @@ public class SpectatorListener implements Listener {
             event.setCancelled(true);
         }
     }
-    
-     @EventHandler(ignoreCancelled = true)
+
+    @EventHandler(ignoreCancelled = true)
     public void onFoodChange(FoodLevelChangeEvent event) {
         if (event.getEntity() instanceof Player) {
             final Player player = (Player) event.getEntity();
@@ -120,20 +119,20 @@ public class SpectatorListener implements Listener {
     }
 
     @EventHandler
-    public void onItemDrop (PlayerDropItemEvent event) {
+    public void onItemDrop(PlayerDropItemEvent event) {
         Player player = event.getPlayer();
         if (SpectatorManager.isSpectator(player)) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true)
     public void onEntityTarget(EntityTargetEvent event) {
         if ((event.getTarget() instanceof Player) && SpectatorManager.isSpectator((Player) event.getTarget())) {
             event.setCancelled(true);
         }
     }
-    
+
     @EventHandler(ignoreCancelled = true)
     public void onShear(PlayerShearEntityEvent event) {
         if (SpectatorManager.isSpectator(event.getPlayer())) {

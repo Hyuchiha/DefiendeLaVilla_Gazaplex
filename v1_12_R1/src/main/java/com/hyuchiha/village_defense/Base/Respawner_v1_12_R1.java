@@ -5,7 +5,7 @@ import net.minecraft.server.v1_12_R1.PacketPlayInClientCommand;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
 
-public class Respawner_v1_12_R1 implements Respawner{
+public class Respawner_v1_12_R1 implements Respawner {
     @Override
     public void respawm(Player player) {
         PacketPlayInClientCommand in = new PacketPlayInClientCommand(

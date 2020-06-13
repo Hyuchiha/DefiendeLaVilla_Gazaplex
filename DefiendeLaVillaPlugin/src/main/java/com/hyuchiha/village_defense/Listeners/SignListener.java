@@ -5,7 +5,7 @@
  */
 package com.hyuchiha.village_defense.Listeners;
 
-import com.hyuchiha.village_defense.CustomEvents.ArenaJoinEvent;
+import com.hyuchiha.village_defense.Event.ArenaJoinEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
@@ -21,7 +21,6 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
- *
  * @author hyuchiha
  */
 public class SignListener implements Listener {

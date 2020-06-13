@@ -17,7 +17,6 @@ import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
 import java.util.Map;
 
 /**
- *
  * @author hyuchiha
  */
 public enum CustomEntityType implements EntityType {
@@ -58,34 +57,34 @@ public enum CustomEntityType implements EntityType {
         //((Map)getPrivateField("g", net.minecraft.server.v1_7_R4.EntityTypes.class, null)).put(name, Integer.valueOf(id));
     }
 
-    public Entity getEntity(CustomEntityType entity, World world){
-        switch(entity){
+    public Entity getEntity(CustomEntityType entity, World world) {
+        switch (entity) {
             case CUSTOM_CAVESPIDER:
-                return new CustomCaveSpider(((CraftWorld)world).getHandle());
+                return new CustomCaveSpider(((CraftWorld) world).getHandle());
             case CUSTOM_CREEPER:
-                return new CustomCreeper(((CraftWorld)world).getHandle());
+                return new CustomCreeper(((CraftWorld) world).getHandle());
             case CUSTOM_IRONGOLEM:
-                return new CustomIronGolem(((CraftWorld)world).getHandle());
+                return new CustomIronGolem(((CraftWorld) world).getHandle());
             case CUSTOM_PIGZOMBIE:
-                return new CustomPigZombie(((CraftWorld)world).getHandle());
+                return new CustomPigZombie(((CraftWorld) world).getHandle());
             case CUSTOM_SKELETON:
-                return new CustomSkeleton(((CraftWorld)world).getHandle());
+                return new CustomSkeleton(((CraftWorld) world).getHandle());
             case CUSTOM_SPIDER:
-                return new CustomSpider(((CraftWorld)world).getHandle());
+                return new CustomSpider(((CraftWorld) world).getHandle());
             case CUSTOM_WITCH:
-                return new CustomWitch(((CraftWorld)world).getHandle());
+                return new CustomWitch(((CraftWorld) world).getHandle());
             case CUSTOM_ZOMBIE:
-                return new CustomZombie(((CraftWorld)world).getHandle());
+                return new CustomZombie(((CraftWorld) world).getHandle());
             case CUSTOM_GIANT:
-                return new CustomGiant(((CraftWorld)world).getHandle());
+                return new CustomGiant(((CraftWorld) world).getHandle());
             case CUSTOM_MAGMA_CUBE:
-                return new CustomMagmaCube(((CraftWorld)world).getHandle());
+                return new CustomMagmaCube(((CraftWorld) world).getHandle());
             case CUSTOM_SLIME:
-                return new CustomSlime(((CraftWorld)world).getHandle());
+                return new CustomSlime(((CraftWorld) world).getHandle());
             case CUSTOM_WITHER:
-                return new CustomWither(((CraftWorld)world).getHandle());
+                return new CustomWither(((CraftWorld) world).getHandle());
             default:
-                return new CustomZombie(((CraftWorld)world).getHandle());
+                return new CustomZombie(((CraftWorld) world).getHandle());
         }
     }
 }

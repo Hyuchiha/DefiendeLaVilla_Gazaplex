@@ -6,6 +6,8 @@ import java.util.List;
 
 public interface MobCreator {
     List<EnemyIA> createWaveMobs(ConfigurationSection configuration);
+
     List<BossEnemy> createBossMobs(ConfigurationSection configuration);
+
     List<BossEnemy> createSpecialMobs();
 }

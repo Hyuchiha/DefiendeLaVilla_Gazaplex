@@ -6,8 +6,8 @@
 package com.hyuchiha.village_defense.Command;
 
 import com.hyuchiha.village_defense.Arena.Arena;
-import com.hyuchiha.village_defense.CustomEvents.ArenaJoinEvent;
-import com.hyuchiha.village_defense.CustomEvents.ArenaLeaveEvent;
+import com.hyuchiha.village_defense.Event.ArenaJoinEvent;
+import com.hyuchiha.village_defense.Event.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
@@ -22,7 +22,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- *
  * @author hyuchiha
  */
 public class VillageDefenseCommand implements CommandExecutor {
@@ -59,7 +58,7 @@ public class VillageDefenseCommand implements CommandExecutor {
                             }
 
                             GamePlayer playerjoin = PlayerManager.getPlayer(player);
-                            
+
                             Bukkit.getPluginManager().callEvent(new ArenaJoinEvent(arenaName, playerjoin));
 
                         } else {
@@ -92,11 +91,11 @@ public class VillageDefenseCommand implements CommandExecutor {
                             Player player = (Player) sender;
 
                             if (arena == null) {
-                                player.sendMessage(Translator.getPrefix()+ " " + Translator.getColoredString("CANT_JOIN_ARENA"));
+                                player.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("CANT_JOIN_ARENA"));
                                 Output.logError("Se intento ingresa a la arena " + arenaName + " pero retorno null");
                                 return true;
                             }
-                            
+
                             //Verificarse que tenga permiso para jugar
                             if (!player.getPlayer().hasPermission("VD.Player.spect")) {
                                 player.getPlayer().sendMessage(Translator.getPrefix() + " " +

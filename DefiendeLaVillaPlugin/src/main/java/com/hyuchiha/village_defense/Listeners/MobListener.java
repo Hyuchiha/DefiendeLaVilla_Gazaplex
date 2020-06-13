@@ -29,7 +29,6 @@ import java.util.Random;
 import java.util.Set;
 
 /**
- *
  * @author hyuchiha
  */
 public class MobListener implements Listener {
@@ -73,7 +72,7 @@ public class MobListener implements Listener {
                 event.setDroppedExp(0);
                 if (meta.get(0) != null) {
                     ItemStack gems = new ItemStack(Material.EMERALD);
-                    
+
                     Entity item = mob.getWorld().dropItem(mob.getLocation(), gems);
                     item.setMetadata("gems", new FixedMetadataValue(plugin, meta.get(0).asInt()));
                     //Se obtiene el jugador que lo mato si es q existe y se actualiza en BD
@@ -102,10 +101,10 @@ public class MobListener implements Listener {
             Output.logError(e.getLocalizedMessage());
         }
     }
-    
+
     @EventHandler
-    public void onMobTarget(EntityTargetEvent event){
-        if(isHostile(event.getEntityType()) && event.getTarget() != null && isHostile(event.getTarget().getType())){
+    public void onMobTarget(EntityTargetEvent event) {
+        if (isHostile(event.getEntityType()) && event.getTarget() != null && isHostile(event.getTarget().getType())) {
             event.setCancelled(true);
         }
     }
@@ -221,21 +220,21 @@ public class MobListener implements Listener {
             }
         }
     }
-    
+
     @EventHandler
     public void onTarget(EntityTargetEvent e) {
         try {
             if (isHostile(e.getEntityType())) {
                 if (e.getTarget() instanceof Player) {
                     Player p = (Player) e.getTarget();
-                    if(SpectatorManager.isSpectator(p)){
+                    if (SpectatorManager.isSpectator(p)) {
                         e.setTarget(null);
                         e.setCancelled(true);
                     }
                 }
             }
         } catch (Exception ex) {
-            
+
         }
     }
 

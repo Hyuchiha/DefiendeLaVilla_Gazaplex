@@ -19,7 +19,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- *
  * @author hyuchiha
  */
 public class Wave {
@@ -64,10 +63,10 @@ public class Wave {
 
         int livingZombieCount = getNumberOfEnemiesLeft();
 
-        if(livingZombieCount == -1){
+        if (livingZombieCount == -1) {
             return 100f;
         }
-        
+
         if (livingZombieCount == 0) {
             state = WaveState.RESTARTING;
             return 0f;
@@ -93,7 +92,7 @@ public class Wave {
 
     public void cancelWave() {
         this.state = WaveState.ENDING;
-        
+
         killVillagers();
 
         for (LivingEntity e : enemies) {
@@ -109,7 +108,7 @@ public class Wave {
 
     public void startWave() {
         this.wave++;
-        
+
         final Random r = new Random();
 
         this.state = WaveState.PROGRESS;
@@ -129,17 +128,17 @@ public class Wave {
                 game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
             }
         }
-        
+
         prepareNextWave();
     }
-    
-    private void spawnEnemies(){
+
+    private void spawnEnemies() {
         this.enemies.clear();
-        
+
         long value = 5L;
         int timeSpawn = 1;
         final Random r = new Random();
-        
+
         for (final EnemyIA e : toSpawn) {
             Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), new Runnable() {
 
@@ -153,13 +152,13 @@ public class Wave {
                     game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
                     game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
                 }
-            }, value * (timeSpawn++) );
+            }, value * (timeSpawn++));
         }
     }
-    
+
     private void spawnVillagers(int cant) {
         this.villagers.clear();
-        
+
         long value = 5L;
         int timeSpawn = 1;
         for (int i = 0; i < cant * 2; i++) {
@@ -211,16 +210,16 @@ public class Wave {
     public int getNumberOfEnemiesLeft() {
         int livingZombieCount = 0;
 
-        if(enemies.isEmpty()){
+        if (enemies.isEmpty()) {
             return -1;
         }
-        
+
         for (LivingEntity le : enemies) {
             if (le != null && !le.isDead()) {
                 livingZombieCount++;
             }
         }
-        
+
         return livingZombieCount;
     }
 
@@ -235,24 +234,24 @@ public class Wave {
     public void setToSpawn(ArrayList<EnemyIA> toSpawn) {
         this.toSpawn = toSpawn;
     }
-    
-    public void endWave(){
+
+    public void endWave() {
         this.killVillagers();
     }
-    
-    private void prepareNextWave(){
+
+    private void prepareNextWave() {
         Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), new Runnable() {
             @Override
             public void run() {
-                difficulty = (((difficulty * (wave+1))+((wave+1)*3))/(((wave+1)%50)+1))+10;
-                ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(wave+1, difficulty);
+                difficulty = (((difficulty * (wave + 1)) + ((wave + 1) * 3)) / (((wave + 1) % 50) + 1)) + 10;
+                ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(wave + 1, difficulty);
                 setToSpawn(toSpawnInNextWave);
             }
         });
     }
-    
-    public enum WaveState{
-        STARTING,PROGRESS,RESTARTING,ENDING
+
+    public enum WaveState {
+        STARTING, PROGRESS, RESTARTING, ENDING
     }
-    
+
 }

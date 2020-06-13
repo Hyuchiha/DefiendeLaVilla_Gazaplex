@@ -17,7 +17,6 @@ import org.bukkit.potion.PotionEffectType;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class KitUtils {

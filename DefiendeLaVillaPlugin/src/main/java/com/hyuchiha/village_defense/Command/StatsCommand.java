@@ -24,25 +24,25 @@ public class StatsCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if(sender instanceof Player){
-            if (args.length > 0){
+        if (sender instanceof Player) {
+            if (args.length > 0) {
                 Player playerToCheck = Bukkit.getPlayer(args[0]);
 
-                if(playerToCheck != null){
+                if (playerToCheck != null) {
                     listStats((Player) sender, playerToCheck.getName(), StatType.values());
-                }else {
+                } else {
                     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(args[0]);
-                    if(offlinePlayer != null && offlinePlayer.hasPlayedBefore()){
+                    if (offlinePlayer != null && offlinePlayer.hasPlayedBefore()) {
                         listStats((Player) sender, offlinePlayer.getName(), StatType.values());
-                    }else {
+                    } else {
                         sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR_PLAYER_NOT_FOUND"));
                     }
                 }
 
-            }else{
+            } else {
                 listStats((Player) sender);
             }
-        }else {
+        } else {
             sender.sendMessage(Translator.getPrefix() + " " + ChatColor.RED + Translator.getColoredString("ERROR_CONSOLE_PLAYERCOMMAND"));
         }
 
@@ -74,37 +74,37 @@ public class StatsCommand implements CommandExecutor {
     }
 
 
-    private int getStat(StatType statType, String playerName){
-       Account account = getPlayerAccount(playerName);
+    private int getStat(StatType statType, String playerName) {
+        Account account = getPlayerAccount(playerName);
 
-       if(account != null){
-           switch (statType){
-               case KILLS:
-                   return account.getKills();
-               case DEATHS:
-                   return account.getDeaths();
-               case BOSSES_KILLS:
-                   return account.getBosses_kills();
-               case MAX_WAVE_REACHED:
-                   return account.getMax_wave_reached();
-               case MIN_WAVE_REACHED:
-                   return account.getMin_wave_reached();
-           }
-       }
+        if (account != null) {
+            switch (statType) {
+                case KILLS:
+                    return account.getKills();
+                case DEATHS:
+                    return account.getDeaths();
+                case BOSSES_KILLS:
+                    return account.getBosses_kills();
+                case MAX_WAVE_REACHED:
+                    return account.getMax_wave_reached();
+                case MIN_WAVE_REACHED:
+                    return account.getMin_wave_reached();
+            }
+        }
 
-       return 0;
+        return 0;
     }
 
-    private Account getPlayerAccount(String playerName){
+    private Account getPlayerAccount(String playerName) {
         Player player = Bukkit.getPlayer(playerName);
 
-        if(player != null){
+        if (player != null) {
             Account onlineAccount = plugin.getDatabase().getAccount(
                     player.getUniqueId().toString(),
                     player.getName()
             );
 
-            if(onlineAccount != null){
+            if (onlineAccount != null) {
                 return onlineAccount;
             }
 
@@ -112,7 +112,7 @@ public class StatsCommand implements CommandExecutor {
 
         OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
 
-        if(offlinePlayer != null){
+        if (offlinePlayer != null) {
             Account offlineAccount = plugin.getDatabase().getAccount(
                     offlinePlayer.getUniqueId().toString(),
                     offlinePlayer.getName()

@@ -1,13 +1,12 @@
 package com.hyuchiha.village_defense.Timers;
 
-import com.hyuchiha.village_defense.CustomEvents.ArenaFinishEvent;
+import com.hyuchiha.village_defense.Event.ArenaFinishEvent;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
- *
  * @author hyuchiha
  */
 public class RestartTimer extends BukkitRunnable {
@@ -26,9 +25,9 @@ public class RestartTimer extends BukkitRunnable {
     @Override
     public void run() {
 
-        if (timeLeft == 0) {            
+        if (timeLeft == 0) {
             Bukkit.getServer().getPluginManager().
-                                callEvent(new ArenaFinishEvent(game.getArena().getName()));
+                    callEvent(new ArenaFinishEvent(game.getArena().getName()));
             cancel();
         }
 

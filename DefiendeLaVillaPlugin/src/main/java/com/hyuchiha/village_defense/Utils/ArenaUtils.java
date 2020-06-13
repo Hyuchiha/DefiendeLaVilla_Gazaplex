@@ -19,11 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author hyuchiha
  */
 public class ArenaUtils {
-    
+
     public static Location parseStringToLocation(World w, String in) {
         String[] params = in.split(",");
         for (String s : params) {
@@ -42,36 +41,36 @@ public class ArenaUtils {
         }
         return null;
     }
-    
-    public static String parseLocationToString(Location loc){
-        return loc.getBlockX()+","+loc.getBlockY()+","+loc.getBlockZ();
+
+    public static String parseLocationToString(Location loc) {
+        return loc.getBlockX() + "," + loc.getBlockY() + "," + loc.getBlockZ();
     }
-    
-    public static List<String> parseListLocationToListString(List<Location> list){
+
+    public static List<String> parseListLocationToListString(List<Location> list) {
         List<String> values = new ArrayList<>();
-        
-        for(Location loc:list){
+
+        for (Location loc : list) {
             values.add(parseLocationToString(loc));
         }
-        
+
         return values;
     }
-    
-    public static void giveArenaLobbyObjects(Player player){
+
+    public static void giveArenaLobbyObjects(Player player) {
         ItemStack kitselector = new ItemStack(Material.DIAMOND);
         ItemMeta itemMetaSelector = kitselector.getItemMeta();
         itemMetaSelector.setDisplayName(ChatColor.BLUE + "Kit");
         kitselector.setItemMeta(itemMetaSelector);
         player.getInventory().setItem(0, kitselector);
         player.updateInventory();
-        
+
         ItemStack kitPurchase = new ItemStack(Material.GOLD_INGOT);
         ItemMeta itemMetaPurchase = kitPurchase.getItemMeta();
         itemMetaPurchase.setDisplayName(Translator.getColoredString("UNLOCK_KIT"));
         kitPurchase.setItemMeta(itemMetaPurchase);
         player.getInventory().setItem(1, kitPurchase);
         player.updateInventory();
-        
+
         ItemStack exitArena = new ItemStack(Material.COMPASS);
         ItemMeta itemMetaExitArena = exitArena.getItemMeta();
         itemMetaExitArena.setDisplayName(Translator.getColoredString("LEAVE_ARENA"));
@@ -79,8 +78,8 @@ public class ArenaUtils {
         player.getInventory().setItem(8, exitArena);
         player.updateInventory();
     }
-    
-    public static void giveShopObjects(Player player){
+
+    public static void giveShopObjects(Player player) {
         ItemStack ShopEquipo = new ItemStack(Material.EMERALD);
         ItemMeta EquipoMeta = ShopEquipo.getItemMeta();
         EquipoMeta.setDisplayName(Translator.getColoredString("EQUIPMENT_STORE"));
@@ -94,7 +93,7 @@ public class ArenaUtils {
         ShopCombat.setItemMeta(CombatMeta);
         player.getInventory().setItem(1, ShopCombat);
         player.updateInventory();
-        
+
         ItemStack ShopOther = new ItemStack(Material.REDSTONE);
         ItemMeta OtherMeta = ShopOther.getItemMeta();
         OtherMeta.setDisplayName(Translator.getColoredString("OTHER_STORE"));
@@ -102,10 +101,10 @@ public class ArenaUtils {
         player.getInventory().setItem(2, ShopOther);
         player.updateInventory();
     }
-    
-    public static void givePrincipalLobbyObjects(Player player){
 
-        if(!Main.getInstance().getConfig().getBoolean("EnableBungeeComunication")){
+    public static void givePrincipalLobbyObjects(Player player) {
+
+        if (!Main.getInstance().getConfig().getBoolean("EnableBungeeComunication")) {
             return;
         }
 
@@ -116,8 +115,8 @@ public class ArenaUtils {
         player.getInventory().setItem(8, exit);
         player.updateInventory();
     }
-    
-    public static void giveSpectatorObjects(Player player){
+
+    public static void giveSpectatorObjects(Player player) {
         ItemStack exit = new ItemStack(Material.APPLE);
         ItemMeta itemMetaExitArena = exit.getItemMeta();
         itemMetaExitArena.setDisplayName(Translator.getColoredString("LEAVE_SPECTATOR"));

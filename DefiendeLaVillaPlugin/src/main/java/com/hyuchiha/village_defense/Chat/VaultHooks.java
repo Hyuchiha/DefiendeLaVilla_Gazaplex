@@ -37,16 +37,15 @@ public class VaultHooks {
         return economy;
     }
 
-    public static String getGroup(String name)
-    {
+    public static String getGroup(String name) {
         if (!vault) return "";
-        
+
         String prefix = VaultHooks.getChatManager().getPlayerPrefix(Bukkit.getPlayer(name));
         String group = VaultHooks.getPermissionManager().getPrimaryGroup(Bukkit.getPlayer(name));
-        
+
         if (prefix == null || prefix.equals(""))
             prefix = VaultHooks.getChatManager().getGroupPrefix(Bukkit.getPlayer(name).getWorld(), group);
-        
+
         return ChatColor.translateAlternateColorCodes('&', prefix);
     }
 

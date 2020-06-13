@@ -76,8 +76,8 @@ public class MongoDB extends Database {
 
         List<Account> accounts = new ArrayList<>();
 
-        MongoCursor<Document> cursor= result.iterator();
-        while (cursor.hasNext()){
+        MongoCursor<Document> cursor = result.iterator();
+        while (cursor.hasNext()) {
             Document document = cursor.next();
             accounts.add(getAccountFromDocument(document));
         }
@@ -102,13 +102,13 @@ public class MongoDB extends Database {
 
         Document document = database.getCollection(ACCOUNTS_COLLECTION).find(eq("uuid", uuid)).first();
 
-        if(document != null){
+        if (document != null) {
             Account account = getAccountFromDocument(document);
 
             cachedAccounts.put(uuid, account);
 
             return account;
-        }else {
+        } else {
             return null;
         }
     }
@@ -121,12 +121,12 @@ public class MongoDB extends Database {
 
         Document dbAccount = collection.find(eq("uuid", account.getUUID())).first();
 
-        if(dbAccount != null){
+        if (dbAccount != null) {
             collection.replaceOne(
                     eq("_id", dbAccount.get("_id")),
                     getDocument(account)
-                    );
-        }else {
+            );
+        } else {
             collection.insertOne(getDocument(account));
         }
 
@@ -153,7 +153,7 @@ public class MongoDB extends Database {
 
     }
 
-    private Document getDocument(Account account){
+    private Document getDocument(Account account) {
         Document document = new Document(
                 "uuid", account.getUUID())
                 .append("username", account.getName())
@@ -165,7 +165,7 @@ public class MongoDB extends Database {
 
         List<String> kits = new ArrayList<>();
 
-        for(Kit kit : account.getKits()){
+        for (Kit kit : account.getKits()) {
             kits.add(kit.name());
         }
 
@@ -174,7 +174,7 @@ public class MongoDB extends Database {
         return document;
     }
 
-    private Account getAccountFromDocument(Document document){
+    private Account getAccountFromDocument(Document document) {
         Account account = new Account(
                 document.getString("uuid"),
                 document.getString("username"),
@@ -189,7 +189,7 @@ public class MongoDB extends Database {
 
         List<Kit> kits = new ArrayList<>();
 
-        for(String kitToFind : kitsDB){
+        for (String kitToFind : kitsDB) {
             Kit loadedKit = Kit.valueOf(kitToFind);
             kits.add(loadedKit);
         }

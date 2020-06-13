@@ -14,7 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
 
-public class Pyro extends BaseKit{
+public class Pyro extends BaseKit {
 
     public Pyro(String name, ItemStack icon, ConfigurationSection section) {
         super(name, icon, section);
@@ -34,7 +34,7 @@ public class Pyro extends BaseKit{
 
             GamePlayer player = PlayerManager.getPlayer(damager);
 
-            if(player.getKit() == Kit.PYRO){
+            if (player.getKit() == Kit.PYRO) {
                 entityAttacked.setFireTicks(200);
             }
 

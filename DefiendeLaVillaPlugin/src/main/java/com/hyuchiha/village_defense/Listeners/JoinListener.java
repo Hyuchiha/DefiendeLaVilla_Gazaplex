@@ -16,17 +16,16 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 /**
- *
  * @author hyuchiha
  */
-public class JoinListener implements Listener{
-    
+public class JoinListener implements Listener {
+
     private final Main plugin;
-    
-    public JoinListener(Main main){
+
+    public JoinListener(Main main) {
         this.plugin = main;
     }
-    
+
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         e.setJoinMessage("");
@@ -36,7 +35,7 @@ public class JoinListener implements Listener{
         GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
         plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
-        
+
         //Se envia el jugador al lobby principal
         vdplayer.sendPlayerToLobby();
 
@@ -48,5 +47,5 @@ public class JoinListener implements Listener{
                 10);
 
     }
-    
+
 }

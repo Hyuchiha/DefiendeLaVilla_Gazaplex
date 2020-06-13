@@ -2,7 +2,7 @@ package com.hyuchiha.village_defense.Game;
 
 import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Chat.ChatUtil;
-import com.hyuchiha.village_defense.CustomEvents.ArenaStartEvent;
+import com.hyuchiha.village_defense.Event.ArenaStartEvent;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
@@ -35,12 +35,12 @@ public class Game {
         this.scoreboardManager = new ScoreboardManager();
     }
 
-    public void setGameState(GameState state){
+    public void setGameState(GameState state) {
         this.state = state;
         getArena().updateSign();
     }
 
-    public GameState getState(){
+    public GameState getState() {
         return this.state;
     }
 
@@ -60,7 +60,7 @@ public class Game {
         }
     }
 
-    public List<GamePlayer> getSpectators(){
+    public List<GamePlayer> getSpectators() {
         removePlayersNotOnline();
         return spectators;
     }
@@ -122,7 +122,7 @@ public class Game {
             //Se inicia el juego lanzando un nuevo evento
             Bukkit.getServer()
                     .getPluginManager().callEvent(
-                            new ArenaStartEvent(ArenaManager.getArenaConfiguration(arena)));
+                    new ArenaStartEvent(ArenaManager.getArenaConfiguration(arena)));
         } else {
             //Se enviara mensaje a todos los jugadores acerca de cuantos
             //jugadores faltan
@@ -141,7 +141,7 @@ public class Game {
         for (GamePlayer spectator : getSpectators()) {
             Player playervd = spectator.getPlayer();
 
-            if(playervd != null){
+            if (playervd != null) {
                 SpectatorManager.removeSpectator(playervd);
                 getScoreboardManager().removeScoreboard(playervd.getName());
                 spectator.sendMessage(Translator.getPrefix() + " " + Translator.getColoredString("GAME_HAS_FINISHED"));
@@ -160,7 +160,7 @@ public class Game {
         spectator.setArena(null);
         spectators.remove(spectator);
 
-        if(player != null){
+        if (player != null) {
             SpectatorManager.removeSpectator(player);
             getScoreboardManager().removeScoreboard(player.getName());
         }
@@ -180,7 +180,7 @@ public class Game {
         return count;
     }
 
-    public int getNumberOfAlivePlayers(){
+    public int getNumberOfAlivePlayers() {
         int count = 0;
         for (GamePlayer player : getPlayersInGame()) {
             if (!player.isKilled()) {
@@ -211,7 +211,7 @@ public class Game {
         String deathMessage = ChatUtil.formatDeathMessage(player.getPlayer());
 
         for (GamePlayer playerInGame : getPlayersInGame()) {
-            playerInGame.sendMessage(Translator.getPrefix()+ " " + deathMessage);
+            playerInGame.sendMessage(Translator.getPrefix() + " " + deathMessage);
         }
 
         for (GamePlayer gameSpectator : getSpectators()) {
@@ -223,7 +223,7 @@ public class Game {
         return ArenaManager.getArenaConfiguration(arena);
     }
 
-    public void removeWaveData(){
+    public void removeWaveData() {
         this.wave.endWave();
         this.wave = null;
         this.arena = null;

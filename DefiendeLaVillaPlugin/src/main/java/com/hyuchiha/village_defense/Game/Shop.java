@@ -43,7 +43,7 @@ public class Shop implements Listener {
     public ArrayList<ShopItem> getRandomItemsForShop() {
         ArrayList<ShopItem> arenaItems = new ArrayList<>();
 
-        int size = itemsShop.size() >= 9 ? 9: itemsShop.size() ;
+        int size = itemsShop.size() >= 9 ? 9 : itemsShop.size();
         Random ran = new Random();
 
         while (size != 0) {
@@ -51,11 +51,11 @@ public class Shop implements Listener {
 
             ShopItem itemToAdd = itemsShop.get(val);
 
-            if(!arenaItems.contains(itemToAdd)){
+            if (!arenaItems.contains(itemToAdd)) {
                 arenaItems.add(itemToAdd);
                 size--;
             }
-            
+
         }
 
         return arenaItems;
@@ -187,15 +187,15 @@ public class Shop implements Listener {
             ShopItem item = null;
             if (type == Material.POTION) {
 
-                String potionType   = config.getString(name + "." + itemName + ".potionType");
+                String potionType = config.getString(name + "." + itemName + ".potionType");
                 int potionEffectNum = config.getInt(name + "." + itemName + ".potionEffectNum");
-                boolean splash      = config.getBoolean(name + "." + itemName + ".splash");
-                boolean extended    = config.getBoolean(name + "." + itemName + ".extended");
+                boolean splash = config.getBoolean(name + "." + itemName + ".splash");
+                boolean extended = config.getBoolean(name + "." + itemName + ".extended");
 
                 Potion potion = new Potion(PotionType.valueOf(potionType), potionEffectNum);
                 potion.setSplash(splash);
 
-                if(extended){
+                if (extended) {
                     potion.setHasExtendedDuration(extended);
                 }
 

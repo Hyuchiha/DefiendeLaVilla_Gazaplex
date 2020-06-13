@@ -11,11 +11,10 @@ import net.minecraft.server.v1_10_R1.*;
 import java.util.Set;
 
 /**
- *
  * @author hyuchiha
  */
 public class CustomSpider extends EntitySpider {
-    
+
     public CustomSpider(World world) {
         super(world);
         Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
@@ -26,7 +25,7 @@ public class CustomSpider extends EntitySpider {
         targetB.clear();
         Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
         targetC.clear();
-        
+
         this.goalSelector.a(0, new PathfinderGoalFloat(this));
         this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, 1.0D, false));
         this.goalSelector.a(4, new PathfinderGoalMeleeAttack(this, 1.0D, true));
