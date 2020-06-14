@@ -5,7 +5,6 @@
  */
 package com.hyuchiha.village_defense.Arena;
 
-import com.avaje.ebeaninternal.server.lib.util.NotFoundException;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
@@ -145,7 +144,7 @@ public class Arena {
         sign.update();
 
       }
-    } catch (NotFoundException e) {
+    } catch (Exception e) {
       Output.logError(Color.RED + "Error en la creacion de los signs \n" + e.getMessage());
     }
   }
@@ -169,7 +168,7 @@ public class Arena {
         sign.setLine(3, "Desabilitada");
         sign.update();
       }
-    } catch (NotFoundException e) {
+    } catch (Exception e) {
       Output.logError("No se puede remover el sign");
     }
   }
