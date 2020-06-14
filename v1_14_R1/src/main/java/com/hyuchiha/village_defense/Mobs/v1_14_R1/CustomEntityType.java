@@ -25,7 +25,7 @@ public enum CustomEntityType implements EntityType {
   CUSTOM_GIANT("Giant", 53, CustomGiant.class),
   CUSTOM_WITHER("Wither", 64, CustomWither.class);
 
-  private static CustomEntityRegistry ENTITY_REGISTRY;
+  private static CustomEntityRegistry ENTITY_REGISTRY = CustomEntityRegistry.getInstance();
 
   CustomEntityType(String name, int id, Class<? extends Entity> custom) {
     addToMaps(custom, name, id);

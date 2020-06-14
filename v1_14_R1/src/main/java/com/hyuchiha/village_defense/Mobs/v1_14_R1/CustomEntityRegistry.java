@@ -5,18 +5,56 @@ import com.google.common.collect.HashBiMap;
 import com.google.common.collect.Maps;
 import net.minecraft.server.v1_14_R1.*;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.util.*;
 
 @SuppressWarnings("rawtypes")
 public class CustomEntityRegistry extends RegistryBlocks {
+
+  private static CustomEntityRegistry instance = null;
+
   private final BiMap<MinecraftKey, EntityTypes> entities = HashBiMap.create();
   private final BiMap<EntityTypes, MinecraftKey> entityClasses = this.entities.inverse();
   private final Map<EntityTypes, Integer> entityIds = Maps.newHashMap();
+
   private final RegistryMaterials<EntityTypes<?>> wrapped;
 
   public CustomEntityRegistry(RegistryBlocks<EntityTypes<?>> original) {
     super(original.a().getKey());
     this.wrapped = original;
+  }
+
+  public static CustomEntityRegistry getInstance() {
+    if (instance != null) {
+      return instance;
+    }
+
+    try {
+      Field registryMaterialsField = IRegistry.class.getDeclaredField("REGISTRY");
+      registryMaterialsField.setAccessible(true);
+
+      MethodHandle registryMaterialsSetter = MethodHandles.lookup().unreflectSetter(registryMaterialsField);
+      MethodHandle registryMaterialsGetter = MethodHandles.lookup().unreflectGetter(registryMaterialsField);
+
+      Field modifiersField = Field.class.getDeclaredField("modifiers");
+      modifiersField.setAccessible(true);
+      modifiersField.setInt(registryMaterialsField, registryMaterialsField.getModifiers() & ~Modifier.FINAL);
+
+      instance = new CustomEntityRegistry((RegistryBlocks<EntityTypes<?>>) registryMaterialsGetter.invoke());
+
+      registryMaterialsSetter.invoke(instance);
+    } catch (Exception e) {
+      instance = null;
+
+      throw new RuntimeException("Unable to override the old entity RegistryMaterials", e);
+    } catch (Throwable throwable) {
+      throw new RuntimeException("Error trying to set EntityRegistry");
+    }
+
+    return instance;
   }
 
   @Override
