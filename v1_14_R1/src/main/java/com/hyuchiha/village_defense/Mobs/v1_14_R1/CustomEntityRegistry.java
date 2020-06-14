@@ -33,7 +33,7 @@ public class CustomEntityRegistry extends RegistryBlocks {
     }
 
     try {
-      Field registryMaterialsField = IRegistry.class.getDeclaredField("REGISTRY");
+      Field registryMaterialsField = IRegistry.class.getDeclaredField("ENTITY_TYPE");
       registryMaterialsField.setAccessible(true);
 
       MethodHandle registryMaterialsSetter = MethodHandles.lookup().unreflectSetter(registryMaterialsField);
