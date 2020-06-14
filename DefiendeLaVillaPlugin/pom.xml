@@ -80,6 +80,11 @@
             <version>v1.0</version>
         </dependency>
         <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>v1_13_R2</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver</artifactId>
             <version>3.6.0</version>
@@ -119,11 +124,13 @@
                                 <includes>
                                     <include>org.inventivetalent:reflectionhelper**</include>
                                     <include>com.hyuchiha.gazaplex:Base**</include>
-                                    <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
-                                    <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
-                                    <include>com.hyuchiha.gazaplex:v1_10_R1**</include>
-                                    <include>com.hyuchiha.gazaplex:v1_9_R2**</include>
                                     <include>com.hyuchiha.gazaplex:v1_9_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_9_R2**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_10_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_11_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_13_R1**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_13_R2**</include>
                                     <include>org.mongodb:mongodb-driver</include>
                                     <include>org.mongodb:bson</include>
                                     <include>org.mongodb:mongodb-driver-core</include>

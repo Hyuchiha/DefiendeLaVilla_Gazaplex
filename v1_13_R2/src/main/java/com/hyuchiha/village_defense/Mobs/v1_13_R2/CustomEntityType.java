@@ -1,11 +1,13 @@
-package com.hyuchiha.village_defense.Mobs.v1_13_R1;
+package com.hyuchiha.village_defense.Mobs.v1_13_R2;
 
 import com.hyuchiha.village_defense.Mobs.EntityType;
-import com.hyuchiha.village_defense.Mobs.v1_13_R1.NMS.*;
-import net.minecraft.server.v1_13_R1.Entity;
+import com.hyuchiha.village_defense.Mobs.v1_13_R2.NMS.*;
+import net.minecraft.server.v1_13_R2.Entity;
+import net.minecraft.server.v1_13_R2.EntityTypes;
+import net.minecraft.server.v1_13_R2.MinecraftKey;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.craftbukkit.v1_13_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
 import org.bukkit.event.entity.CreatureSpawnEvent;
 
 public enum CustomEntityType implements EntityType {
@@ -23,6 +25,8 @@ public enum CustomEntityType implements EntityType {
   CUSTOM_GIANT("Giant", 53, CustomGiant.class),
   CUSTOM_WITHER("Wither", 64, CustomWither.class);
 
+  private static CustomEntityRegistry ENTITY_REGISTRY;
+
   CustomEntityType(String name, int id, Class<? extends Entity> custom) {
     addToMaps(custom, name, id);
   }
@@ -37,7 +41,7 @@ public enum CustomEntityType implements EntityType {
   }
 
   public void addToMaps(Class clazz, String name, int id) {
-    CustomEntityRegistry.registerCustomEntity(id, name, clazz);
+    registerEntityClass(clazz);
   }
 
   public Entity getEntity(CustomEntityType entity, World world) {
@@ -72,5 +76,22 @@ public enum CustomEntityType implements EntityType {
       default:
         return new CustomZombie(craftWorld.getHandle());
     }
+  }
+
+  public void registerEntityClass(Class<?> clazz) {
+    if (ENTITY_REGISTRY == null)
+      return;
+
+    Class<?> search = clazz;
+    while ((search = search.getSuperclass()) != null && Entity.class.isAssignableFrom(search)) {
+      EntityTypes<?> type = ENTITY_REGISTRY.findType(search);
+      MinecraftKey key = ENTITY_REGISTRY.getKey(type);
+      if (key == null)
+        continue;
+      int code = ENTITY_REGISTRY.a(type);
+      ENTITY_REGISTRY.put(code, key, type);
+      return;
+    }
+    throw new IllegalArgumentException("unable to find valid entity superclass for class " + clazz.toString());
   }
 }
