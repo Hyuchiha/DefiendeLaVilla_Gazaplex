@@ -12,6 +12,9 @@ import com.hyuchiha.village_defense.Mobs.MobCreator;
 import com.hyuchiha.village_defense.Mobs.v1_10_R1.MobCreator_v1_10_R1;
 import com.hyuchiha.village_defense.Mobs.v1_11_R1.MobCreator_v1_11_R1;
 import com.hyuchiha.village_defense.Mobs.v1_12_R1.MobCreator_v1_12_R1;
+import com.hyuchiha.village_defense.Mobs.v1_13_R1.MobCreator_v1_13_R1;
+import com.hyuchiha.village_defense.Mobs.v1_13_R2.MobCreator_v1_13_R2;
+import com.hyuchiha.village_defense.Mobs.v1_14_R1.MobCreator_v1_14_R1;
 import com.hyuchiha.village_defense.Mobs.v1_9_R1.MobCreator_v1_9_R1;
 import com.hyuchiha.village_defense.Mobs.v1_9_R2.MobCreator_v1_9_R2;
 import com.hyuchiha.village_defense.Output.Output;
@@ -50,6 +53,15 @@ public class MobManager {
         break;
       case v1_12_R1:
         creator = new MobCreator_v1_12_R1();
+        break;
+      case v1_13_R1:
+        creator = new MobCreator_v1_13_R1();
+        break;
+      case v1_13_R2:
+        creator = new MobCreator_v1_13_R2();
+        break;
+      case v1_14_R1:
+        creator = new MobCreator_v1_14_R1();
         break;
       default:
         Output.log("Version not supported");
