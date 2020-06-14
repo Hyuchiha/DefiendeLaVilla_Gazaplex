@@ -85,6 +85,11 @@
             <version>v1.0</version>
         </dependency>
         <dependency>
+            <groupId>com.hyuchiha.gazaplex</groupId>
+            <artifactId>v1_14_R1</artifactId>
+            <version>v1.0</version>
+        </dependency>
+        <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver</artifactId>
             <version>3.6.0</version>
@@ -131,6 +136,7 @@
                                     <include>com.hyuchiha.gazaplex:v1_12_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_13_R1**</include>
                                     <include>com.hyuchiha.gazaplex:v1_13_R2**</include>
+                                    <include>com.hyuchiha.gazaplex:v1_14_R1**</include>
                                     <include>org.mongodb:mongodb-driver</include>
                                     <include>org.mongodb:bson</include>
                                     <include>org.mongodb:mongodb-driver-core</include>
