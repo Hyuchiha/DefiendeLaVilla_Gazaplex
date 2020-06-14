@@ -41,6 +41,7 @@ public class ArenaManager {
   }
 
   private static Arena loadArena(String arena) {
+    Output.log("Loading arena: " + arena);
     return new Arena(arena);
   }
 
