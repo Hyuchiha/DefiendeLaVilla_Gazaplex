@@ -114,7 +114,7 @@ public class ArenaListener implements Listener {
       player.sendPlayerToLobby();
 
       //Se actualiza la BD
-      Account data = plugin.getDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
+      Account data = plugin.getMainDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
 
       try {
         if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {

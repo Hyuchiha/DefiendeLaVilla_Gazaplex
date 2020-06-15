@@ -49,7 +49,7 @@ public class BossListener implements Listener {
           PlayerManager.addMoney(player, moneyToGive);
 
           //Se actualiza la BD
-          Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
+          Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
           data.setBosses_kills(data.getBosses_kills() + 1);
 
           entity.remove();

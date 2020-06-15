@@ -11,6 +11,7 @@ import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Utils.ArenaUtils;
+import com.hyuchiha.village_defense.Utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
@@ -92,7 +93,7 @@ public class Arena {
       }
 
       Material m = b.getType();
-      if (m == Material.SIGN_POST || m == Material.WALL_SIGN) {
+      if (Utils.isWallSign(m)) {
         updateSign();
       }
     } catch (Exception e) {
@@ -109,7 +110,7 @@ public class Arena {
 
     try {
       Material m = b.getType();
-      if (m == Material.SIGN_POST || m == Material.WALL_SIGN) {
+      if (Utils.isWallSign(m)) {
         Sign s = (Sign) b.getState();
 
 

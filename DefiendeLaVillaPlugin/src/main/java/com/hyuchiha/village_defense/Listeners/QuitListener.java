@@ -61,7 +61,7 @@ public class QuitListener implements Listener {
     }
 
     //Se actualiza la BD
-    Database database = plugin.getDatabase();
+    Database database = plugin.getMainDatabase();
     Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
     if (account != null) {
@@ -104,7 +104,7 @@ public class QuitListener implements Listener {
     }
 
     //Se actualiza la BD
-    Database database = plugin.getDatabase();
+    Database database = plugin.getMainDatabase();
     Account account = database.getAccount(player.getUniqueId().toString(), player.getName());
 
     if (account != null) {

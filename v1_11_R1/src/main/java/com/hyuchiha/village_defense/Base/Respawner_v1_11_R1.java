@@ -3,6 +3,7 @@ package com.hyuchiha.village_defense.Base;
 import net.minecraft.server.v1_11_R1.EntityPlayer;
 import net.minecraft.server.v1_11_R1.PacketPlayInClientCommand;
 import org.bukkit.craftbukkit.v1_11_R1.entity.CraftPlayer;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 
 public class Respawner_v1_11_R1 implements Respawner {

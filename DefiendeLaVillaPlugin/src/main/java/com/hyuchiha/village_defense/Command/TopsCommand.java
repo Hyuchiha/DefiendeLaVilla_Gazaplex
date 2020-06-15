@@ -59,19 +59,19 @@ public class TopsCommand implements CommandExecutor {
 
     switch (stat) {
       case KILLS:
-        tops = plugin.getDatabase().getTopKillsAccounts(10);
+        tops = plugin.getMainDatabase().getTopKillsAccounts(10);
         break;
       case DEATHS:
-        tops = plugin.getDatabase().getTopDeathsAccounts(10);
+        tops = plugin.getMainDatabase().getTopDeathsAccounts(10);
         break;
       case BOSSES_KILLS:
-        tops = plugin.getDatabase().getTopBossesAccounts(10);
+        tops = plugin.getMainDatabase().getTopBossesAccounts(10);
         break;
       case MIN_WAVE_REACHED:
-        tops = plugin.getDatabase().getTopMinWaveAccounts(10);
+        tops = plugin.getMainDatabase().getTopMinWaveAccounts(10);
         break;
       case MAX_WAVE_REACHED:
-        tops = plugin.getDatabase().getTopMaxWaveAccounts(10);
+        tops = plugin.getMainDatabase().getTopMaxWaveAccounts(10);
         break;
     }
 

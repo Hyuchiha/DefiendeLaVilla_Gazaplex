@@ -29,7 +29,7 @@ public class JoinListener implements Listener {
     player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.PLAYER_JOIN_MESSAGE"));
     GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
-    plugin.getDatabase().createAccount(player.getUniqueId().toString(), player.getName());
+    plugin.getMainDatabase().createAccount(player.getUniqueId().toString(), player.getName());
 
     //Se envia el jugador al lobby principal
     vdplayer.sendPlayerToLobby();

@@ -99,7 +99,7 @@ public class StatsCommand implements CommandExecutor {
     Player player = Bukkit.getPlayer(playerName);
 
     if (player != null) {
-      Account onlineAccount = plugin.getDatabase().getAccount(
+      Account onlineAccount = plugin.getMainDatabase().getAccount(
           player.getUniqueId().toString(),
           player.getName()
       );
@@ -113,7 +113,7 @@ public class StatsCommand implements CommandExecutor {
     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
 
     if (offlinePlayer != null) {
-      Account offlineAccount = plugin.getDatabase().getAccount(
+      Account offlineAccount = plugin.getMainDatabase().getAccount(
           offlinePlayer.getUniqueId().toString(),
           offlinePlayer.getName()
       );

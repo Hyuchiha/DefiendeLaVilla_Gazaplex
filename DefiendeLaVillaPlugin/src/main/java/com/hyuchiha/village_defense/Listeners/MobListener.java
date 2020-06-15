@@ -12,8 +12,8 @@ import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
+import com.hyuchiha.village_defense.Utils.Sound;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -22,6 +22,7 @@ import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
+import org.inventivetalent.reflection.minecraft.Minecraft;
 
 import java.util.HashSet;
 import java.util.List;
@@ -45,13 +46,15 @@ public class MobListener implements Listener {
       add(EntityType.ENDERMAN);
       add(EntityType.MAGMA_CUBE);
       add(EntityType.SLIME);
-      add(EntityType.MAGMA_CUBE);
       add(EntityType.WITCH);
       add(EntityType.IRON_GOLEM);
-      add(EntityType.WITHER_SKELETON);
       add(EntityType.ZOMBIE);
       add(EntityType.BLAZE);
       add(EntityType.PIG_ZOMBIE);
+
+      if (Minecraft.Version.getVersion().olderThan(Minecraft.Version.v1_10_R1)) {
+        add(EntityType.valueOf("WITHER_SKELETON"));
+      }
     }
   };
   public Main plugin;
@@ -78,7 +81,7 @@ public class MobListener implements Listener {
           //Se obtiene el jugador que lo mato si es q existe y se actualiza en BD
           Player player = event.getEntity().getKiller();
           if (player != null) {
-            Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
+            Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
             data.setKills(data.getKills() + 1);
           }
 
@@ -180,7 +183,7 @@ public class MobListener implements Listener {
         }
 
         Random rand = new Random();
-        player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1.0F,
+        player.playSound(player.getLocation(), Sound.ORB_PICKUP.bukkitSound(), 1.0F,
             (rand.nextFloat() * 0.2F) + 0.9F);
 
         int gems = meta.get(0).asInt();

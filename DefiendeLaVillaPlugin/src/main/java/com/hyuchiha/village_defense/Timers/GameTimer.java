@@ -16,9 +16,9 @@ import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.MessagesApi.ActionBar;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
+import com.hyuchiha.village_defense.Utils.Sound;
 import com.hyuchiha.village_defense.Utils.SpecialUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -157,7 +157,7 @@ public class GameTimer extends BukkitRunnable {
           game.setWave(wave);
 
           for (GamePlayer player : game.getPlayersInGame()) {
-            player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1.5F, 1.5F);
+            player.getPlayer().playSound(player.getPlayer().getLocation(), Sound.ENDERDRAGON_GROWL.bukkitSound(), 1.5F, 1.5F);
             player.getKit().getKit().giveSpawnItems(player.getPlayer());
 
             ActionBar.send(player.getPlayer(),
@@ -183,7 +183,7 @@ public class GameTimer extends BukkitRunnable {
 
       for (GamePlayer player : game.getPlayersInGame()) {
         Player inGamePlayer = player.getPlayer();
-        inGamePlayer.playSound(inGamePlayer.getLocation(), Sound.ENTITY_ENDERDRAGON_GROWL, 1.5F, 1.5F);
+        inGamePlayer.playSound(inGamePlayer.getLocation(), Sound.ENDERDRAGON_GROWL.bukkitSound(), 1.5F, 1.5F);
       }
 
       game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);

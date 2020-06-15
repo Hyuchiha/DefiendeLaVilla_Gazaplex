@@ -85,7 +85,7 @@ public class InventoryListener implements Listener {
         double userMoney = PlayerManager.getMoney(player);
 
         if (userMoney >= money) {
-          plugin.getDatabase().addUnlockedKit(player.getUniqueId().toString(), name);
+          plugin.getMainDatabase().addUnlockedKit(player.getUniqueId().toString(), name);
 
           PlayerManager.withdrawMoney(player, money);
 

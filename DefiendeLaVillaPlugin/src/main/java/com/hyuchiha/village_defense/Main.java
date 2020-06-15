@@ -156,7 +156,7 @@ public class Main extends JavaPlugin {
     }
   }
 
-  public Database getDatabase() {
+  public Database getMainDatabase() {
     return database;
   }
 }

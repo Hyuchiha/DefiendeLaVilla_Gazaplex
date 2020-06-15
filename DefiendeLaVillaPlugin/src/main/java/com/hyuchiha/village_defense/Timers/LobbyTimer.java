@@ -5,7 +5,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
-import org.bukkit.Sound;
+import com.hyuchiha.village_defense.Utils.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -29,7 +29,7 @@ public class LobbyTimer extends BukkitRunnable {
       if (inGamePlayer != null) {
         inGamePlayer.playSound(
             inGamePlayer.getPlayer().getLocation(),
-            Sound.ENTITY_PLAYER_LEVELUP, 1F, 1F);
+            Sound.LEVEL_UP.bukkitSound(), 1F, 1F);
       }
     }
 

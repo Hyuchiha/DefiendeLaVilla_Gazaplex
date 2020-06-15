@@ -66,7 +66,7 @@ public class PlayerListener implements Listener {
 
     event.getDrops().clear();
 
-    Account data = plugin.getDatabase().getAccount(player.getUniqueId().toString(), player.getName());
+    Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
     data.setDeaths(data.getDeaths() + 1);
 
     Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {

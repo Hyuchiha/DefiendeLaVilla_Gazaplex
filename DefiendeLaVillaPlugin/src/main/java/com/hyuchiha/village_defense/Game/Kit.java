@@ -80,7 +80,7 @@ public enum Kit {
   }
 
   public boolean isOwnedBy(Player p) {
-    Account account = Main.getInstance().getDatabase().getAccount(p.getUniqueId().toString(), p.getName());
+    Account account = Main.getInstance().getMainDatabase().getAccount(p.getUniqueId().toString(), p.getName());
 
     return p.isOp()
         || this == CIVILIAN

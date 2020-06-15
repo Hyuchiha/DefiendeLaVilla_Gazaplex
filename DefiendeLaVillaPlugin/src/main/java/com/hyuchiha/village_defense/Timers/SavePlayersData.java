@@ -33,7 +33,7 @@ public class SavePlayersData extends BukkitRunnable {
   public void run() {
     try {
       for (GamePlayer player : playersToSave) {
-        Database database = plugin.getDatabase();
+        Database database = plugin.getMainDatabase();
         Account data = database.getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
 
         database.saveAccount(data);
