@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Kits.Implementations.*;
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
@@ -15,7 +16,7 @@ import java.util.HashMap;
 
 public enum Kit {
 
-  CIVILIAN("CIVILIAN", Material.WORKBENCH),
+  CIVILIAN("CIVILIAN", XMaterial.CRAFTING_TABLE.parseMaterial()),
   COMMANDER("COMMANDER", Material.IRON_HELMET),
   HUNTER("HUNTER", Material.BONE),
   ICEMAN("ICEMAN", Material.ICE),
@@ -23,7 +24,7 @@ public enum Kit {
   MERCHANT("MERCHANT", Material.CHEST),
   PYRO("PYRO", Material.BLAZE_POWDER),
   TANK("TANK", Material.DIAMOND_CHESTPLATE),
-  THOR("THOR", Material.GOLD_AXE);
+  THOR("THOR", XMaterial.GOLDEN_AXE.parseMaterial());
 
   private final HashMap<String, BaseKit> kits = new HashMap<>();
 

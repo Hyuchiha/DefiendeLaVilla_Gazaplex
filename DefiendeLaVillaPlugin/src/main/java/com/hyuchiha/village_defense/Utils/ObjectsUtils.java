@@ -54,7 +54,7 @@ public class ObjectsUtils {
     int kitsCopy = kitsCount;
     kitsCount = (Math.round((kitsCount + 8) / 9) + 1) * 9;
 
-    ItemStack glass = new ItemStack(Material.STAINED_GLASS_PANE, 1, DyeColor.BLACK.getDyeData());
+    ItemStack glass = Utils.getDyeGlassPane(DyeColor.BLACK);
     ItemMeta metaglass = glass.getItemMeta();
     metaglass.setDisplayName(ChatColor.BLACK + "");
     glass.setItemMeta(metaglass);

@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Kits.Implementations;
 
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -13,6 +14,7 @@ public class Civilian extends BaseKit {
 
   @Override
   protected void setupSpawnItems() {
-    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+    ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
+    spawnItems.add(woodSword);
   }
 }

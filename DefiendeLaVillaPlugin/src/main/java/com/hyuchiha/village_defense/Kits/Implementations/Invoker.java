@@ -5,6 +5,8 @@ import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Utils.KitUtils;
+import com.hyuchiha.village_defense.Utils.Utils;
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -23,9 +25,10 @@ public class Invoker extends BaseKit {
 
   @Override
   protected void setupSpawnItems() {
-    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+    ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
+    spawnItems.add(woodSword);
 
-    ItemStack invocador = new ItemStack(Material.MONSTER_EGG, 3, (short) 12);
+    ItemStack invocador = Utils.getVillagerEgg(3);
     ItemMeta meta = invocador.getItemMeta();
     meta.setDisplayName(ChatColor.GOLD + "Villager");
     invocador.setItemMeta(meta);
@@ -42,7 +45,7 @@ public class Invoker extends BaseKit {
       if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
 
         if (eventPlayer.getKit() == Kit.INVOKER) {
-          if (stack.getType() == Material.MONSTER_EGG) {
+          if (stack.getType().name().contains("_EGG")) {
             if (KitUtils.isItem(stack, ChatColor.GOLD + "Villager")) {
               //Se invoca a un aldeano
               event.setCancelled(true);

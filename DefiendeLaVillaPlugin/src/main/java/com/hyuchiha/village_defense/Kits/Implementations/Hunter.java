@@ -5,6 +5,7 @@ import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Utils.KitUtils;
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -29,7 +30,9 @@ public class Hunter extends BaseKit {
 
   @Override
   protected void setupSpawnItems() {
-    spawnItems.add(new ItemStack(Material.WOOD_SWORD));
+    ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
+    spawnItems.add(woodSword);
+
     ItemStack bone = new ItemStack(Material.BONE, 3);
     ItemMeta meta = bone.getItemMeta();
     meta.setDisplayName(ChatColor.GOLD + "Wolf");
