@@ -80,7 +80,6 @@ public class PlayerListener implements Listener {
 
     Bukkit.getScheduler().runTaskLater(plugin, () -> {
       PlayerManager.respawnPlayer(player);
-      SpectatorManager.addSpectator(player);
     }, 5L);
   }
 

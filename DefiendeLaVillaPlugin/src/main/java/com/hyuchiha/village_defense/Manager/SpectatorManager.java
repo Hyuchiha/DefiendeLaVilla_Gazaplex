@@ -2,6 +2,7 @@ package com.hyuchiha.village_defense.Manager;
 
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.PlayerState;
+import com.hyuchiha.village_defense.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -24,7 +25,7 @@ public class SpectatorManager {
 
     for (GamePlayer playerInGame : vdplayer.getArena().getGame().getPlayersInGame()) {
       if (!vdplayer.getPlayer().getName().equals(playerInGame.getPlayer().getName())) {
-        playerInGame.getPlayer().hidePlayer(player);
+        playerInGame.getPlayer().hidePlayer(Main.getInstance(), player);
       }
     }
 
@@ -44,7 +45,7 @@ public class SpectatorManager {
   public static void removeSpectator(Player player) {
     if (player.isOnline()) {
       for (Player pl : Bukkit.getOnlinePlayers()) {
-        pl.showPlayer(player);
+        pl.showPlayer(Main.getInstance(), player);
       }
     }
 
