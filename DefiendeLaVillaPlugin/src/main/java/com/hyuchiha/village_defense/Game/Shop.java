@@ -9,6 +9,7 @@ import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Container;
 import org.bukkit.configuration.Configuration;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
@@ -20,6 +21,8 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryMoveItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.Potion;
 import org.bukkit.potion.PotionType;
@@ -61,12 +64,13 @@ public class Shop implements Listener {
     return arenaItems;
   }
 
-  @SuppressWarnings("deprecation")
   @EventHandler
   public void onShopInventoryClick(InventoryClickEvent e) {
     Player buyer = (Player) e.getWhoClicked();
     GamePlayer vdplayer = PlayerManager.getPlayer(buyer);
-    if (e.getInventory().getName().equals(name + " Shop")) {
+    InventoryView view = e.getView();
+
+    if (view.getTitle().equals(name + " Shop")) {
       int slot = e.getRawSlot();
       if (slot < e.getInventory().getSize() && slot >= 0) {
         ArrayList<ShopItem> items = ShopManager.getShop(vdplayer.getArena(), name);
@@ -120,14 +124,6 @@ public class Shop implements Listener {
             break;
         }
       }
-    }
-  }
-
-  @EventHandler
-  public void ItemMoveEvent(InventoryMoveItemEvent event) {
-    Inventory inv = event.getSource();
-    if (inv.getName().equals(name + " Shop")) {
-      event.setCancelled(true);
     }
   }
 

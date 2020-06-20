@@ -10,7 +10,7 @@ import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
-import com.hyuchiha.village_defense.Utils.ObjectsUtils;
+import com.hyuchiha.village_defense.Utils.MenuUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -169,7 +169,7 @@ public class PlayerListener implements Listener {
                   return;
                 }
 
-                ObjectsUtils.showNewClassSelector(player);
+                MenuUtils.showKitSelector(player);
               }
             }
             break;
@@ -182,7 +182,7 @@ public class PlayerListener implements Listener {
                   return;
                 }
 
-                ObjectsUtils.showUnlockerSelector(player);
+                MenuUtils.showUnlockerSelector(player);
               }
             }
             break;
