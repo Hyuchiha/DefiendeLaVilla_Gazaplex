@@ -7,7 +7,6 @@ import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.XMaterial;
-import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;

@@ -2,7 +2,6 @@ package com.hyuchiha.village_defense.Kits.Implementations;
 
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Utils.XMaterial;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 

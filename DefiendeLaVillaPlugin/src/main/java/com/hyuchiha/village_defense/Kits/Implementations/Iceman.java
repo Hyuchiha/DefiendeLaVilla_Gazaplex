@@ -5,7 +5,6 @@ import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Utils.XMaterial;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;

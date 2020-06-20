@@ -1,9 +1,9 @@
 package com.hyuchiha.village_defense.Mobs.v1_13_R1;
 
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
-import com.hyuchiha.village_defense.Mobs.CustomMob.*;
 import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.MagmaBoss;
 import com.hyuchiha.village_defense.Mobs.CustomMob.Boss.SlimeBoss;
+import com.hyuchiha.village_defense.Mobs.CustomMob.*;
 import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.GiantMob;
 import com.hyuchiha.village_defense.Mobs.CustomMob.SpecialMobs.WitherMob;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;

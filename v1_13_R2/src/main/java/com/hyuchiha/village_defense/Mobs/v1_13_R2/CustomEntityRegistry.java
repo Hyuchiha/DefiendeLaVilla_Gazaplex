@@ -1,5 +1,13 @@
 package com.hyuchiha.village_defense.Mobs.v1_13_R2;
 
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
+import com.google.common.collect.Maps;
+import net.minecraft.server.v1_13_R2.EntityTypes;
+import net.minecraft.server.v1_13_R2.IRegistry;
+import net.minecraft.server.v1_13_R2.MinecraftKey;
+import net.minecraft.server.v1_13_R2.RegistryMaterials;
+
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
 import java.lang.reflect.Field;
@@ -8,15 +16,6 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
-
-import com.google.common.collect.BiMap;
-import com.google.common.collect.HashBiMap;
-import com.google.common.collect.Maps;
-
-import net.minecraft.server.v1_13_R2.EntityTypes;
-import net.minecraft.server.v1_13_R2.IRegistry;
-import net.minecraft.server.v1_13_R2.MinecraftKey;
-import net.minecraft.server.v1_13_R2.RegistryMaterials;
 
 @SuppressWarnings("rawtypes")
 public class CustomEntityRegistry extends RegistryMaterials {

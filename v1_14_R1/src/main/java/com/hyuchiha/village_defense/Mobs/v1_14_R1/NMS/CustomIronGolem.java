@@ -1,10 +1,8 @@
 package com.hyuchiha.village_defense.Mobs.v1_14_R1.NMS;
 
-import com.google.common.base.Predicate;
 import com.hyuchiha.village_defense.Mobs.MobUtils;
 import net.minecraft.server.v1_14_R1.*;
 
-import javax.annotation.Nullable;
 import java.util.Set;
 
 /**
