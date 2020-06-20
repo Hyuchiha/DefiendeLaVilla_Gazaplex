@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.ChatColor;
@@ -15,6 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Thor extends BaseKit {
@@ -28,28 +30,26 @@ public class Thor extends BaseKit {
     spawnItems.add(new ItemStack(Material.STONE_SWORD));
     ItemStack hammer = XMaterial.GOLDEN_AXE.parseItem();
     ItemMeta meta = hammer.getItemMeta();
-    meta.setDisplayName(ChatColor.GOLD + "Hammer");
+    meta.setDisplayName(Translator.getColoredString("KITS.THOR_ITEM"));
     hammer.setItemMeta(meta);
     spawnItems.add(hammer);
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void RightClickChecks(PlayerInteractEvent event) {
-    final Player player = event.getPlayer();
-    GamePlayer eventPlayer = PlayerManager.getPlayer(player);
+    Player player = event.getPlayer();
+    GamePlayer gPlayer = PlayerManager.getPlayer(player);
+    Action action = event.getAction();
 
-    ItemStack stack = event.getItem();
-    if (stack != null) {
-      if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
-        if (eventPlayer.getKit() == Kit.THOR) {
-          if (stack.getType() == XMaterial.GOLDEN_AXE.parseMaterial()) {
-            if (KitUtils.isItem(stack, ChatColor.GOLD + "Hammer")) {
-              //Se invoca a la lluvia de rayos
-              event.setCancelled(true);
-              KitUtils.strikeDamage(player);
-            }
-          }
-        }
+    if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+      PlayerInventory inventory = player.getInventory();
+      ItemStack handItem = inventory.getItemInMainHand();
+
+      if (handItem != null && KitUtils.isItem(handItem, "KITS.THOR_ITEM")
+          && gPlayer.getKit() == Kit.THOR) {
+        //Se invoca a la lluvia de rayos
+        event.setCancelled(true);
+        KitUtils.strikeDamage(player);
       }
     }
   }

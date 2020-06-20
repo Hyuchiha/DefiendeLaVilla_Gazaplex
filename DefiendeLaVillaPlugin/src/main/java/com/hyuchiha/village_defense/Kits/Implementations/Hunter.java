@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.ChatColor;
@@ -20,6 +21,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Hunter extends BaseKit {
@@ -35,39 +37,37 @@ public class Hunter extends BaseKit {
 
     ItemStack bone = new ItemStack(Material.BONE, 3);
     ItemMeta meta = bone.getItemMeta();
-    meta.setDisplayName(ChatColor.GOLD + "Wolf");
+    meta.setDisplayName(Translator.getColoredString("KITS.HUNTER_ITEM"));
     bone.setItemMeta(meta);
     spawnItems.add(bone);
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void RightClickChecks(PlayerInteractEvent event) {
-    final Player player = event.getPlayer();
-    GamePlayer eventPlayer = PlayerManager.getPlayer(player);
+    Player player = event.getPlayer();
+    GamePlayer gPlayer = PlayerManager.getPlayer(player);
+    Action action = event.getAction();
 
-    ItemStack stack = event.getItem();
-    if (stack != null) {
-      if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
+    if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+      PlayerInventory inventory = player.getInventory();
+      ItemStack handItem = inventory.getItemInMainHand();
 
-        if (eventPlayer.getKit() == Kit.HUNTER) {
-          if (stack.getType() == Material.BONE) {
-            if (KitUtils.isItem(stack, ChatColor.GOLD + "Wolf")) {
-              //Se invoca a un lobo
-              event.setCancelled(true);
+      if (handItem != null && KitUtils.isItem(handItem, "KITS.HUNTER_ITEM")
+          && gPlayer.getKit() == Kit.HUNTER) {
+        //Se invoca a un lobo
+        event.setCancelled(true);
 
-              KitUtils.createWolf(player);
+        KitUtils.createWolf(player);
 
-              //Se elimina el objeto en mano
-              int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
-              if (amount <= 0) {
-                player.getInventory().removeItem(player.getInventory().getItemInMainHand());
-              } else {
-                player.getInventory().getItemInMainHand().setAmount(amount);
-              }
-            }
-          }
+        //Se elimina el objeto en mano
+        int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
+        if (amount <= 0) {
+          player.getInventory().removeItem(player.getInventory().getItemInMainHand());
+        } else {
+          player.getInventory().getItemInMainHand().setAmount(amount);
         }
       }
+
     }
   }
 

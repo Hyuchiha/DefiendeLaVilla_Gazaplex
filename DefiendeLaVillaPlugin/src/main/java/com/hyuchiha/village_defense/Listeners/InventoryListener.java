@@ -70,7 +70,7 @@ public class InventoryListener implements Listener {
 
         vdPlayer.setKit(kitSelected);
 
-        String classSelected = Translator.getColoredString("GAME.ALREADY_SELECTED_CLASS");
+        String classSelected = Translator.getColoredString("GAME.CLASS_SELECTED");
         classSelected = classSelected.replace("%CLASS%", ChatColor.stripColor(itemName));
         player.sendMessage(Translator.getPrefix() + classSelected);
       } else {

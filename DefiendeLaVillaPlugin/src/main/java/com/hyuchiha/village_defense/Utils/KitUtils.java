@@ -5,6 +5,7 @@
  */
 package com.hyuchiha.village_defense.Utils;
 
+import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.World;
@@ -88,14 +89,9 @@ public class KitUtils {
     }
   }
 
-  public static boolean isItem(ItemStack stack, String name) {
-    if (stack == null) {
-      return false;
-    }
-    ItemMeta meta = stack.getItemMeta();
-    if (meta == null) {
-      return false;
-    }
-    return meta.hasDisplayName() && meta.getDisplayName().equalsIgnoreCase(name);
+  public static boolean isItem(ItemStack item, String translation) {
+    return item.hasItemMeta()
+        && item.getItemMeta().hasDisplayName()
+        && item.getItemMeta().getDisplayName().equals(Translator.getColoredString(translation));
   }
 }

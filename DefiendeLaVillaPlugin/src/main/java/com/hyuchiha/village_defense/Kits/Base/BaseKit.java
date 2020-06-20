@@ -1,6 +1,7 @@
 package com.hyuchiha.village_defense.Kits.Base;
 
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
@@ -50,6 +51,8 @@ public abstract class BaseKit implements Listener {
 
   public void giveSpawnItems(Player recipient) {
     PlayerInventory inv = recipient.getInventory();
+
+    inv.setItemInOffHand(XMaterial.SHIELD.parseItem());
 
     for (ItemStack item : spawnItems) {
       ItemStack toGive = item.clone();

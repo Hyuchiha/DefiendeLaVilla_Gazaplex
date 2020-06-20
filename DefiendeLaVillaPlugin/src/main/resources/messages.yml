@@ -9,11 +9,16 @@ COMMONS:
   LOCKED: "✘ Bloqueada"
   TOTALLY: "Yes"
   NOPE: "No"
+KITS:
+  HUNTER_ITEM: "&6Wolf"
+  INVOKER_ITEM: "&6Villager"
+  THOR_ITEM: "&6Hammer"
 GAME:
   CANT_JOIN: "&4Imposible unirse a la arena, contacte a un Administrador"
   PLAYER_IN_GAME: "&4Te encuentras ya en una partida"
   ARENA_MAX_WAVE_BROADCAST: "&2El equipo &6%TEAM% &2alcanzo la oleada &6%WAVE_NUMBER%"
   ALREADY_SELECTED_CLASS: "&4Ya cuentas con una clase seleccionada."
+  CLASS_SELECTED: "&Clases %KIT% seleccionada"
   ALREADY_OWN_CLASS: "&1Esta clase ya te pertenece"
   SELECT_CLASS: "&7Clase Seleccionada: &6%CLASS%"
   UNLOCK_CLASS: "&3Haz desbloqueado la clase &6%CLASS%"

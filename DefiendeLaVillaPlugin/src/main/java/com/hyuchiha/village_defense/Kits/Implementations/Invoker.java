@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
+import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.Utils;
 import com.hyuchiha.village_defense.Utils.XMaterial;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 
 public class Invoker extends BaseKit {
@@ -30,37 +32,34 @@ public class Invoker extends BaseKit {
 
     ItemStack invocador = Utils.getVillagerEgg(3);
     ItemMeta meta = invocador.getItemMeta();
-    meta.setDisplayName(ChatColor.GOLD + "Villager");
+    meta.setDisplayName(Translator.getColoredString("KITS.INVOKER_ITEM"));
     invocador.setItemMeta(meta);
     spawnItems.add(invocador);
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
   public void RightClickChecks(PlayerInteractEvent event) {
-    final Player player = event.getPlayer();
-    GamePlayer eventPlayer = PlayerManager.getPlayer(player);
+    Player player = event.getPlayer();
+    GamePlayer gPlayer = PlayerManager.getPlayer(player);
+    Action action = event.getAction();
 
-    ItemStack stack = event.getItem();
-    if (stack != null) {
-      if ((event.getAction() == Action.RIGHT_CLICK_BLOCK) || (event.getAction() == Action.RIGHT_CLICK_AIR)) {
+    if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
+      PlayerInventory inventory = player.getInventory();
+      ItemStack handItem = inventory.getItemInMainHand();
 
-        if (eventPlayer.getKit() == Kit.INVOKER) {
-          if (stack.getType().name().contains("_EGG")) {
-            if (KitUtils.isItem(stack, ChatColor.GOLD + "Villager")) {
-              //Se invoca a un aldeano
-              event.setCancelled(true);
-              eventPlayer.getArena().getGame().getWave().addNewVillagerCreatedByPlayer();
+      if (handItem != null && KitUtils.isItem(handItem, "KITS.INVOKER_ITEM")
+          && gPlayer.getKit() == Kit.INVOKER) {
+        //Se invoca a un aldeano
+        event.setCancelled(true);
+        gPlayer.getArena().getGame().getWave().addNewVillagerCreatedByPlayer();
 
-              //Se elimina el objeto en mano
-              int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
+        //Se elimina el objeto en mano
+        int amount = player.getInventory().getItemInMainHand().getAmount() - 1;
 
-              if (amount <= 0) {
-                player.getInventory().removeItem(player.getInventory().getItemInMainHand());
-              } else {
-                player.getInventory().getItemInMainHand().setAmount(amount);
-              }
-            }
-          }
+        if (amount <= 0) {
+          player.getInventory().removeItem(player.getInventory().getItemInMainHand());
+        } else {
+          player.getInventory().getItemInMainHand().setAmount(amount);
         }
       }
     }
