@@ -1,14 +1,18 @@
 package com.hyuchiha.village_defense.Listeners;
 
+import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Event.ArenaLeaveEvent;
+import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
+import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.MenuUtils;
 import org.bukkit.*;
@@ -69,12 +73,14 @@ public class PlayerListener implements Listener {
     Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
     data.setDeaths(data.getDeaths() + 1);
 
-    Bukkit.getScheduler().runTaskLater(plugin, new Runnable() {
-      @Override
-      public void run() {
-        PlayerManager.respawnPlayer(player);
-        SpectatorManager.addSpectator(player);
-      }
+    Arena arena = ArenaManager.getArenaConfiguration(player.getWorld().getName());
+    Game game = arena.getGame();
+    game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+    game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
+
+    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+      PlayerManager.respawnPlayer(player);
+      SpectatorManager.addSpectator(player);
     }, 5L);
   }
 
