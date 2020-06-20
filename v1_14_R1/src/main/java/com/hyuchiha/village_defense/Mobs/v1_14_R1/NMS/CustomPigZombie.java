@@ -12,14 +12,11 @@ public class CustomPigZombie extends EntityPigZombie {
 
   public CustomPigZombie(World world) {
     super(EntityTypes.ZOMBIE_PIGMAN, world);
-    Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
+
+    Set goalB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, goalSelector);
     goalB.clear();
-    Set goalC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
-    goalC.clear();
-    Set targetB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
+    Set targetB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, targetSelector);
     targetB.clear();
-    Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
-    targetC.clear();
 
     this.goalSelector.a(0, new PathfinderGoalFloat(this));
     this.goalSelector.a(2, new PathfinderGoalMeleeAttack(this, 1.0D, false));

@@ -12,14 +12,11 @@ public class CustomIronGolem extends EntityIronGolem {
 
   public CustomIronGolem(World world) {
     super(EntityTypes.IRON_GOLEM, world);
-    Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
+    Set goalB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, goalSelector);
     goalB.clear();
-    Set goalC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
-    goalC.clear();
-    Set targetB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
+
+    Set targetB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, targetSelector);
     targetB.clear();
-    Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
-    targetC.clear();
 
     this.goalSelector.a(1, new PathfinderGoalMeleeAttack(this, 1.0D, true));
     this.goalSelector.a(2, new PathfinderGoalMoveTowardsTarget(this, 0.9D, 32.0F));

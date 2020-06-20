@@ -13,14 +13,10 @@ public class CustomCreeper extends EntityCreeper {
   public CustomCreeper(World world) {
     super(EntityTypes.CREEPER, world);
 
-    Set goalB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, goalSelector);
+    Set goalB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, goalSelector);
     goalB.clear();
-    Set goalC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, goalSelector);
-    goalC.clear();
-    Set targetB = (Set) MobUtils.getPrivateField("b", PathfinderGoalSelector.class, targetSelector);
+    Set targetB = (Set) MobUtils.getPrivateField("d", PathfinderGoalSelector.class, targetSelector);
     targetB.clear();
-    Set targetC = (Set) MobUtils.getPrivateField("c", PathfinderGoalSelector.class, targetSelector);
-    targetC.clear();
 
     this.goalSelector.a(1, new PathfinderGoalFloat(this));
     this.goalSelector.a(2, new PathfinderGoalSwell(this));
