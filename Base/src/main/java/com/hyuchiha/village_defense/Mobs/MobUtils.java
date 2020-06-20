@@ -5,6 +5,7 @@
  */
 package com.hyuchiha.village_defense.Mobs;
 
+import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
@@ -129,17 +130,17 @@ public class MobUtils {
     ItemStack weapon = null;
     switch (difficulty) {
       case 1:
-        weapon = new ItemStack(Material.WOOD_SWORD);
+        weapon = XMaterial.WOODEN_SWORD.parseItem();
         break;
       case 2:
-        weapon = new ItemStack(Material.GOLD_SWORD);
+        weapon = XMaterial.GOLDEN_SWORD.parseItem();
         break;
       case 3:
-        weapon = new ItemStack(Material.IRON_SWORD);
+        weapon = XMaterial.IRON_SWORD.parseItem();
         break;
       case 4:
       default:
-        weapon = new ItemStack(Material.DIAMOND_SWORD);
+        weapon = XMaterial.DIAMOND_SWORD.parseItem();
         break;
     }
 
@@ -154,20 +155,20 @@ public class MobUtils {
     ItemStack Chestplate = null;
     switch (difficulty) {
       case 1:
-        Chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
+        Chestplate =  XMaterial.LEATHER_CHESTPLATE.parseItem();
         break;
       case 2:
-        Chestplate = new ItemStack(Material.IRON_CHESTPLATE);
+        Chestplate = XMaterial.IRON_CHESTPLATE.parseItem();
         break;
       case 3:
-        Chestplate = new ItemStack(Material.CHAINMAIL_CHESTPLATE);
+        Chestplate = XMaterial.CHAINMAIL_CHESTPLATE.parseItem();
         break;
       case 4:
-        Chestplate = new ItemStack(Material.GOLD_CHESTPLATE);
+        Chestplate = XMaterial.GOLDEN_CHESTPLATE.parseItem();
         break;
       case 5:
       default:
-        Chestplate = new ItemStack(Material.DIAMOND_CHESTPLATE);
+        Chestplate = XMaterial.DIAMOND_CHESTPLATE.parseItem();
         break;
     }
     return Chestplate;
@@ -181,20 +182,20 @@ public class MobUtils {
     ItemStack Boots = null;
     switch (difficulty) {
       case 1:
-        Boots = new ItemStack(Material.LEATHER_BOOTS);
+        Boots = XMaterial.LEATHER_BOOTS.parseItem();
         break;
       case 2:
-        Boots = new ItemStack(Material.IRON_BOOTS);
+        Boots = XMaterial.IRON_BOOTS.parseItem();
         break;
       case 3:
-        Boots = new ItemStack(Material.CHAINMAIL_BOOTS);
+        Boots = XMaterial.CHAINMAIL_BOOTS.parseItem();
         break;
       case 4:
-        Boots = new ItemStack(Material.GOLD_BOOTS);
+        Boots = XMaterial.GOLDEN_BOOTS.parseItem();
         break;
       case 5:
       default:
-        Boots = new ItemStack(Material.DIAMOND_BOOTS);
+        Boots = XMaterial.DIAMOND_BOOTS.parseItem();
         break;
     }
     return Boots;
@@ -208,19 +209,19 @@ public class MobUtils {
     ItemStack Helmet = null;
     switch (difficulty) {
       case 1:
-        Helmet = new ItemStack(Material.LEATHER_HELMET);
+        Helmet = XMaterial.LEATHER_HELMET.parseItem();
         break;
       case 2:
-        Helmet = new ItemStack(Material.IRON_HELMET);
+        Helmet = XMaterial.IRON_HELMET.parseItem();
         break;
       case 3:
-        Helmet = new ItemStack(Material.CHAINMAIL_HELMET);
+        Helmet = XMaterial.CHAINMAIL_HELMET.parseItem();
         break;
       case 4:
-        Helmet = new ItemStack(Material.GOLD_HELMET);
+        Helmet = XMaterial.GOLDEN_HELMET.parseItem();
         break;
       case 5:
-        Helmet = new ItemStack(Material.DIAMOND_HELMET);
+        Helmet = XMaterial.DIAMOND_HELMET.parseItem();
         break;
     }
     return Helmet;
@@ -234,19 +235,19 @@ public class MobUtils {
     ItemStack Leggings = null;
     switch (difficulty) {
       case 1:
-        Leggings = new ItemStack(Material.LEATHER_LEGGINGS);
+        Leggings = XMaterial.LEATHER_LEGGINGS.parseItem();
         break;
       case 2:
-        Leggings = new ItemStack(Material.IRON_LEGGINGS);
+        Leggings = XMaterial.IRON_LEGGINGS.parseItem();
         break;
       case 3:
-        Leggings = new ItemStack(Material.CHAINMAIL_LEGGINGS);
+        Leggings = XMaterial.CHAINMAIL_LEGGINGS.parseItem();
         break;
       case 4:
-        Leggings = new ItemStack(Material.GOLD_LEGGINGS);
+        Leggings = XMaterial.GOLDEN_LEGGINGS.parseItem();
         break;
       case 5:
-        Leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
+        Leggings = XMaterial.DIAMOND_LEGGINGS.parseItem();
         break;
     }
     return Leggings;

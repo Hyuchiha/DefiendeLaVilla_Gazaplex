@@ -92,8 +92,7 @@ public class Arena {
         return;
       }
 
-      Material m = b.getType();
-      if (Utils.isWallSign(m)) {
+      if (Utils.isWallSign(b)) {
         updateSign();
       }
     } catch (Exception e) {
@@ -109,8 +108,7 @@ public class Arena {
     }
 
     try {
-      Material m = b.getType();
-      if (Utils.isWallSign(m)) {
+      if (Utils.isWallSign(b)) {
         Sign s = (Sign) b.getState();
 
 

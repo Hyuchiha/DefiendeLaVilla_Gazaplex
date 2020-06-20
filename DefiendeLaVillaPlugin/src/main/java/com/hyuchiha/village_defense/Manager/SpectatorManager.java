@@ -25,7 +25,7 @@ public class SpectatorManager {
 
     for (GamePlayer playerInGame : vdplayer.getArena().getGame().getPlayersInGame()) {
       if (!vdplayer.getPlayer().getName().equals(playerInGame.getPlayer().getName())) {
-        playerInGame.getPlayer().hidePlayer(Main.getInstance(), player);
+        playerInGame.getPlayer().hidePlayer(player);
       }
     }
 
@@ -45,7 +45,7 @@ public class SpectatorManager {
   public static void removeSpectator(Player player) {
     if (player.isOnline()) {
       for (Player pl : Bukkit.getOnlinePlayers()) {
-        pl.showPlayer(Main.getInstance(), player);
+        pl.showPlayer(player);
       }
     }
 

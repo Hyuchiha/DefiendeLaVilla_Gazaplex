@@ -13,6 +13,7 @@ import com.hyuchiha.village_defense.Utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,8 +41,8 @@ public class SignListener implements Listener {
     Action a = event.getAction();
     if (a == Action.RIGHT_CLICK_BLOCK) {
       if (event.getClickedBlock() != null) {
-        Material clickedType = event.getClickedBlock().getType();
-        if (Utils.isWallSign(clickedType)) {
+        Block block = event.getClickedBlock();
+        if (Utils.isWallSign(block)) {
           Sign s = (Sign) event.getClickedBlock().getState();
 
           if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {
@@ -57,8 +58,8 @@ public class SignListener implements Listener {
 
   @EventHandler
   public void onSignBreak(BlockBreakEvent event) {
-    Material clickedType = event.getBlock().getType();
-    if (Utils.isWallSign(clickedType)) {
+    Block block = event.getBlock();
+    if (Utils.isWallSign(block)) {
       Sign s = (Sign) event.getBlock().getState();
 
       if (s.getLine(0).contains(ChatColor.DARK_PURPLE + "Arena")) {

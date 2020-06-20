@@ -202,7 +202,7 @@ public enum Sound {
   VILLAGER_NO("VILLAGER_NO", "ENTITY_VILLAGER_NO"),
   VILLAGER_YES("VILLAGER_YES", "ENTITY_VILLAGER_YES");
 
-  private String[] versionDependentNames;
+  private final String[] versionDependentNames;
   private org.bukkit.Sound cached = null;
 
   Sound(String... versionDependentNames) {
