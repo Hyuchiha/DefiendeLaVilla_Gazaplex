@@ -9,6 +9,7 @@ import com.hyuchiha.village_defense.Utils.KitUtils;
 import com.hyuchiha.village_defense.Utils.Utils;
 import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -51,7 +52,9 @@ public class Invoker extends BaseKit {
           && gPlayer.getKit() == Kit.INVOKER) {
         //Se invoca a un aldeano
         event.setCancelled(true);
-        gPlayer.getArena().getGame().getWave().addNewVillagerCreatedByPlayer();
+
+        Location spawnLocation = player.getLocation();
+        gPlayer.getArena().getGame().getWave().addNewVillagerCreatedByPlayer(spawnLocation);
 
         //Se elimina el objeto en mano
         int amount = player.getInventory().getItemInMainHand().getAmount() - 1;

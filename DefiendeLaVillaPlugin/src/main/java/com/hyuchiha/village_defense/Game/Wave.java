@@ -5,6 +5,7 @@ import com.hyuchiha.village_defense.Manager.MobManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
+import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -100,8 +101,9 @@ public class Wave {
     }
   }
 
-  public void addNewVillagerCreatedByPlayer() {
-    villagers.add((LivingEntity) createNewVillager());
+  public void addNewVillagerCreatedByPlayer(Location spawnLocation) {
+    Output.log("Generating villager");
+    villagers.add((LivingEntity) createNewVillageInLocation(spawnLocation));
     game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
     game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
   }
@@ -169,10 +171,15 @@ public class Wave {
 
   private Entity createNewVillager() {
     Random r = new Random();
-    Location spawnLocation
-        = getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size()));
-    Entity e = spawnLocation.getWorld().spawnEntity(spawnLocation,
-        EntityType.VILLAGER);
+    Location spawnLocation = getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size()));
+    Entity e = spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.VILLAGER);
+    LivingEntity entity = (LivingEntity) e;
+    entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
+    return entity;
+  }
+
+  public Entity createNewVillageInLocation(Location spawnLocation) {
+    Entity e = spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.VILLAGER);
     LivingEntity entity = (LivingEntity) e;
     entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 1));
     return entity;
