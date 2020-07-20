@@ -6,6 +6,7 @@
 package com.hyuchiha.village_defense.Manager;
 
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.MobCreator_v1_15_R1;
 import com.hyuchiha.village_defense.Mobs.BossEnemy;
 import com.hyuchiha.village_defense.Mobs.EnemyIA;
 import com.hyuchiha.village_defense.Mobs.MobCreator;
@@ -62,6 +63,9 @@ public class MobManager {
         break;
       case v1_14_R1:
         creator = new MobCreator_v1_14_R1();
+        break;
+      case v1_15_R1:
+        creator = new MobCreator_v1_15_R1();
         break;
       default:
         Output.log("Version not supported");
