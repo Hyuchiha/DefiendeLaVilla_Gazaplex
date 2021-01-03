@@ -143,6 +143,7 @@ public class CustomEntityRegistry extends RegistryBlocks {
     minecraftClassMap.put(EntityTypes.ARMOR_STAND, EntityArmorStand.class);
     minecraftClassMap.put(EntityTypes.ARROW, EntityTippedArrow.class);
     minecraftClassMap.put(EntityTypes.BAT, EntityBat.class);
+    minecraftClassMap.put(EntityTypes.BEE, EntityBee.class);
     minecraftClassMap.put(EntityTypes.BLAZE, EntityBlaze.class);
     minecraftClassMap.put(EntityTypes.BOAT, EntityBoat.class);
     minecraftClassMap.put(EntityTypes.CAT, EntityCat.class);
@@ -214,6 +215,7 @@ public class CustomEntityRegistry extends RegistryBlocks {
     minecraftClassMap.put(EntityTypes.SPIDER, EntitySpider.class);
     minecraftClassMap.put(EntityTypes.SQUID, EntitySquid.class);
     minecraftClassMap.put(EntityTypes.STRAY, EntitySkeletonStray.class);
+    minecraftClassMap.put(EntityTypes.TRADER_LLAMA, EntityLlamaTrader.class);
     minecraftClassMap.put(EntityTypes.TROPICAL_FISH, EntityTropicalFish.class);
     minecraftClassMap.put(EntityTypes.TURTLE, EntityTurtle.class);
     minecraftClassMap.put(EntityTypes.EGG, EntityEgg.class);
