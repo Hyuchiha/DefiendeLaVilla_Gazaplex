@@ -13,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 public class Game {
@@ -45,23 +44,13 @@ public class Game {
   }
 
   public List<GamePlayer> getPlayersInGame() {
-    removePlayersNotOnline();
+    // Getter puro: antes hacia un sweep O(n) con Bukkit.getPlayer por elemento en
+    // CADA llamada (y se llama dentro de loops -> O(n^2)). Los jugadores offline se
+    // remueven por evento en quit/kick (playerLeaveGame), no hace falta barrer aqui.
     return gamePlayers;
   }
 
-  private void removePlayersNotOnline() {
-    Iterator<GamePlayer> players = gamePlayers.iterator();
-    while (players.hasNext()) {
-
-      Player player = players.next().getPlayer();
-      if (player == null) {
-        players.remove();
-      }
-    }
-  }
-
   public List<GamePlayer> getSpectators() {
-    removePlayersNotOnline();
     return spectators;
   }
 

@@ -14,6 +14,10 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -40,97 +44,58 @@ public class MobUtils {
     return armor;
   }
 
+  private static final Enchantment[] ARMOR_ENCHANTS = {
+      Enchantment.PROTECTION_ENVIRONMENTAL, Enchantment.PROTECTION_FIRE,
+      Enchantment.THORNS, Enchantment.DURABILITY, Enchantment.PROTECTION_PROJECTILE
+  };
+  private static final Enchantment[] SWORD_ENCHANTS = {
+      Enchantment.DAMAGE_ALL, Enchantment.FIRE_ASPECT, Enchantment.KNOCKBACK,
+      Enchantment.DAMAGE_UNDEAD, Enchantment.DURABILITY
+  };
+  private static final Enchantment[] BOW_ENCHANTS = {
+      Enchantment.ARROW_DAMAGE, Enchantment.ARROW_FIRE, Enchantment.DURABILITY,
+      Enchantment.DAMAGE_ALL, Enchantment.ARROW_KNOCKBACK
+  };
+
+  /**
+   * Aplica encantamientos escalados por dificultad: a mayor dificultad (que crece
+   * con la oleada, ver wave/10 en los mobs) se aplican MAS encantamientos distintos
+   * y de mayor nivel, para que el mob sea mas duro de matar. El numero se topa al
+   * tamaño del pool. Se eligen distintos (sin repetir) mezclando el pool.
+   */
+  private static void applyScaledEnchants(ItemStack item, Enchantment[] pool, int difficulty) {
+    if (item == null) {
+      return;
+    }
+
+    int tier = Math.max(1, difficulty);
+    int count = Math.min(tier, pool.length);
+    int maxLevel = Math.min(tier, 5);
+
+    List<Enchantment> shuffled = new ArrayList<>(Arrays.asList(pool));
+    Collections.shuffle(shuffled, ran);
+
+    for (int i = 0; i < count; i++) {
+      int level = 1 + ran.nextInt(maxLevel);
+      item.addUnsafeEnchantment(shuffled.get(i), level);
+    }
+  }
+
   //Plantilla basica de encantamiento de armaduras
   private static ItemStack addRandomArmorEnchantments(ItemStack armor, int difficulty) {
-    try {
-
-      if (armor == null) {
-        return armor;
-      }
-
-      switch (ran.nextInt(10)) {
-        case 0:
-          armor.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, ran.nextInt(5));
-          break;
-        case 1:
-          armor.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, ran.nextInt(5));
-          break;
-        case 2:
-          armor.addUnsafeEnchantment(Enchantment.THORNS, ran.nextInt(5));
-          break;
-        case 3:
-          armor.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
-          break;
-        case 4:
-          armor.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, ran.nextInt(5));
-          break;
-        default:
-          break;
-      }
-    } catch (ArithmeticException e) {
-
-    }
+    applyScaledEnchants(armor, ARMOR_ENCHANTS, difficulty);
     return armor;
   }
 
   //Encantamientos para espadas
   private static ItemStack addRandomSwordEnchantments(ItemStack weapon, int difficulty) {
-    try {
-
-      if (weapon == null) {
-        return weapon;
-      }
-
-      switch (ran.nextInt(15)) {
-        case 0:
-          weapon.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, ran.nextInt(5));
-          break;
-        case 1:
-          weapon.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, ran.nextInt(5));
-          break;
-        case 2:
-          weapon.addUnsafeEnchantment(Enchantment.KNOCKBACK, ran.nextInt(5));
-          break;
-        case 3:
-          weapon.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, ran.nextInt(5));
-          break;
-        case 4:
-          weapon.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
-          break;
-        default:
-          break;
-      }
-    } catch (ArithmeticException e) {
-
-    }
+    applyScaledEnchants(weapon, SWORD_ENCHANTS, difficulty);
     return weapon;
   }
 
   //Encantamientos para arcos
   public static ItemStack addRandonBowEnchantments(ItemStack bow, int difficulty) {
-    try {
-      switch (ran.nextInt(15)) {
-        case 0:
-          bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, ran.nextInt(5));
-          break;
-        case 1:
-          bow.addUnsafeEnchantment(Enchantment.ARROW_FIRE, ran.nextInt(5));
-          break;
-        case 2:
-          bow.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
-          break;
-        case 3:
-          bow.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, ran.nextInt(5));
-          break;
-        case 4:
-          bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, ran.nextInt(10));
-          break;
-        default:
-          break;
-      }
-    } catch (ArithmeticException e) {
-
-    }
+    applyScaledEnchants(bow, BOW_ENCHANTS, difficulty);
     return bow;
   }
 
