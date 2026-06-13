@@ -73,7 +73,9 @@ public class Wave {
       return 0f;
     }
 
-    return enemies.size() / livingZombieCount;
+    // Fracción de enemigos de la oleada que sigue viva (0.0 = todos muertos, 1.0 = ninguno muerto).
+    // División float explícita: con ints la expresión siempre daba 0 o 1 y la oleada nunca avanzaba.
+    return (float) livingZombieCount / enemies.size();
   }
 
   public ArrayList<LivingEntity> getEnemies() {

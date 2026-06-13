@@ -43,6 +43,10 @@ public class SpectatorManager {
   }
 
   public static void removeSpectator(Player player) {
+    if (player == null) {
+      return;
+    }
+
     if (player.isOnline()) {
       for (Player pl : Bukkit.getOnlinePlayers()) {
         pl.showPlayer(player);
@@ -61,15 +65,13 @@ public class SpectatorManager {
   }
 
   public static void clearSpectators() {
-    try {
-      for (String name : spectators) {
-        removeSpectator(Bukkit.getPlayerExact(name));
-      }
-
-      spectators.clear();
-    } catch (Exception e) {
-
+    // Se itera sobre una copia: removeSpectator() muta la lista 'spectators'
+    // (CME si se recorre la lista viva). getPlayerExact puede ser null si el
+    // jugador esta offline; removeSpectator ya lo maneja.
+    for (String name : new ArrayList<>(spectators)) {
+      removeSpectator(Bukkit.getPlayerExact(name));
     }
 
+    spectators.clear();
   }
 }

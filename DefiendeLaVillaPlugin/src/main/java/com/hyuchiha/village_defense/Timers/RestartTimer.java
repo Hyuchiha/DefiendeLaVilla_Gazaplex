@@ -26,8 +26,12 @@ public class RestartTimer extends BukkitRunnable {
   public void run() {
 
     if (timeLeft == 0) {
-      Bukkit.getServer().getPluginManager().
-          callEvent(new ArenaFinishEvent(game.getArena().getName()));
+      // getArena() puede ser null si los datos de la partida ya se limpiaron
+      // (removeWaveData). En ese caso no hay arena que finalizar.
+      if (game.getArena() != null) {
+        Bukkit.getServer().getPluginManager().
+            callEvent(new ArenaFinishEvent(game.getArena().getName()));
+      }
       cancel();
     }
 

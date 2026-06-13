@@ -92,6 +92,9 @@ public class GamePlayer {
 
   public void clearData() {
     Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
 
     player.setGameMode(GameMode.SURVIVAL);
     player.setExp(0.0F);
@@ -112,6 +115,9 @@ public class GamePlayer {
 
   private void clearArmor() {
     Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
 
     player.getInventory().setHelmet(null);
     player.getInventory().setChestplate(null);
@@ -120,12 +126,16 @@ public class GamePlayer {
   }
 
   public void sendPlayerToLobbyArena() {
+    Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
 
     clearData();
-    ArenaUtils.giveArenaLobbyObjects(getPlayer());
+    ArenaUtils.giveArenaLobbyObjects(player);
     Location loc = getArena().getLobbyGameLocation();
 
-    getPlayer().teleport(loc);
+    player.teleport(loc);
     setKilled(false);
     sendMessage(Translator.getPrefix() +
         Translator.getColoredString("GAME.PLAYER_JOIN_ARENA")
@@ -136,56 +146,76 @@ public class GamePlayer {
     //y no este iniciada
     Game game = getArena().getGame();
     game.getScoreboardManager()
-        .giveScoreboard(getPlayer().getName(), ScoreboardType.LOBBY_GAME);
+        .giveScoreboard(player.getName(), ScoreboardType.LOBBY_GAME);
 
   }
 
   public void sendPlayerToArena() {
+    Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
+
     initGameSettings();
-    ArenaUtils.giveShopObjects(getPlayer());
-    getPlayer().teleport(getArena().getSpawnArenaLocation());
+    ArenaUtils.giveShopObjects(player);
+    player.teleport(getArena().getSpawnArenaLocation());
     setKilled(false);
-    getPlayer().sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.ARENA_INIT"));
+    player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.ARENA_INIT"));
 
     setState(PlayerState.INGAME);
     //Se reinicia la antigua scoreboard
-    getPlayer().getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+    player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
   }
 
   public void regamePlayer() {
-    getPlayer().teleport(getArena().getSpawnArenaLocation());
-    SpectatorManager.removeSpectator(getPlayer());
-    initGameSettings();
-    ArenaUtils.giveShopObjects(getPlayer());
-    setKilled(false);
-    getPlayer().sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.PLAYER_RESPAWN"));
+    Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
 
-    getKit().getKit().giveSpawnItems(getPlayer());
+    player.teleport(getArena().getSpawnArenaLocation());
+    SpectatorManager.removeSpectator(player);
+    initGameSettings();
+    ArenaUtils.giveShopObjects(player);
+    setKilled(false);
+    player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.PLAYER_RESPAWN"));
+
+    getKit().getKit().giveSpawnItems(player);
     //Se actualizara aqui el scoreboard
     getArena().getGame().getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
   }
 
   public void sendPlayerToLobby() {
+    Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
+
     initGameSettings();
-    getPlayer().teleport(ArenaManager.getLobby().getLobbyLocation());
+    player.teleport(ArenaManager.getLobby().getLobbyLocation());
     setState(PlayerState.LOBBY);
     setArena(null);
     setKit(Kit.CIVILIAN);
     setGems(0);
     setKilled(false);
     //Se entregan los objetos del lobby principal
-    ArenaUtils.givePrincipalLobbyObjects(getPlayer());
+    ArenaUtils.givePrincipalLobbyObjects(player);
     //Se cambiara el scoreboard o se eliminara
-    getPlayer().getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
+    player.getScoreboard().clearSlot(DisplaySlot.SIDEBAR);
   }
 
   public void setPlayerSpectator() {
-    getPlayer().teleport(getArena().getSpawnArenaLocation());
+    Player player = getPlayer();
+    if (player == null) {
+      return;
+    }
+
+    player.teleport(getArena().getSpawnArenaLocation());
     setState(PlayerState.SPECTATING);
-    SpectatorManager.addSpectator(getPlayer());
+    SpectatorManager.addSpectator(player);
 
     //Se entrega el objeto de espectador
-    ArenaUtils.giveSpectatorObjects(getPlayer());
+    ArenaUtils.giveSpectatorObjects(player);
   }
 
   public void updateGems(int gemsPhase) {

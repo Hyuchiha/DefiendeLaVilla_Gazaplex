@@ -44,13 +44,18 @@ public class BossListener implements Listener {
 
           entity.getWorld().dropItemNaturally(entity.getLocation(), getRandomItemBoss());
 
+          // getKiller() es null si el boss murio sin jugador (caida, fuego, despawn).
+          // El dinero y las stats solo se otorgan si hubo killer, pero la entidad
+          // SIEMPRE debe eliminarse para que la oleada pueda completarse.
           Player player = entity.getKiller();
-          int moneyToGive = plugin.getConfig("config.yml").getInt("Game.money-boss-kill");
-          PlayerManager.addMoney(player, moneyToGive);
+          if (player != null) {
+            int moneyToGive = plugin.getConfig("config.yml").getInt("Game.money-boss-kill");
+            PlayerManager.addMoney(player, moneyToGive);
 
-          //Se actualiza la BD
-          Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
-          data.setBosses_kills(data.getBosses_kills() + 1);
+            //Se actualiza la BD
+            Account data = plugin.getMainDatabase().getAccount(player.getUniqueId().toString(), player.getName());
+            data.setBosses_kills(data.getBosses_kills() + 1);
+          }
 
           entity.remove();
 

@@ -11,6 +11,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
+import com.hyuchiha.village_defense.Game.Wave;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
@@ -20,10 +21,13 @@ import com.hyuchiha.village_defense.Timers.LobbyTimer;
 import com.hyuchiha.village_defense.Timers.SavePlayersData;
 import com.hyuchiha.village_defense.Utils.KitUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -97,32 +101,49 @@ public class ArenaListener implements Listener {
   public void onArenaFinish(ArenaFinishEvent event) {
     Arena arena = ArenaManager.getArenaConfiguration(event.getArena());
 
-    List<GamePlayer> dataCloned = arena.getGame().getPlayersInGame();
-    new SavePlayersData(dataCloned, plugin);
+    if (arena == null) {
+      Output.logError("ArenaFinishEvent para la arena " + event.getArena() + " pero retorno null");
+      return;
+    }
 
-    for (GamePlayer player : arena.getGame().getPlayersInGame()) {
+    // Se captura el numero de oleada una sola vez, antes de createNewGame()
+    // (que pone wave=null). Si la wave ya fue limpiada se usa 0 como fallback.
+    Wave wave = arena.getGame().getWave();
+    int waveNumber = wave != null ? wave.getWaveNumber() : 0;
+
+    // Se itera sobre una COPIA: el cuerpo del loop muta el estado de la partida
+    // (espectadores, lobby) y getPlayersInGame() devuelve la lista viva.
+    List<GamePlayer> playersInGame = new ArrayList<>(arena.getGame().getPlayersInGame());
+    new SavePlayersData(playersInGame, plugin);
+
+    for (GamePlayer player : playersInGame) {
+      Player bukkitPlayer = player.getPlayer();
+      if (bukkitPlayer == null) {
+        continue;
+      }
+
       player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.GAME_HAS_FINISHED"));
 
-      if (SpectatorManager.isSpectator(player.getPlayer())) {
-        SpectatorManager.removeSpectator(player.getPlayer());
+      if (SpectatorManager.isSpectator(bukkitPlayer)) {
+        SpectatorManager.removeSpectator(bukkitPlayer);
       }
 
       if (player.getKit() == Kit.HUNTER) {
-        KitUtils.removePlayerWolfs(player.getPlayer());
+        KitUtils.removePlayerWolfs(bukkitPlayer);
       }
 
       player.sendPlayerToLobby();
 
       //Se actualiza la BD
-      Account data = plugin.getMainDatabase().getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
+      Account data = plugin.getMainDatabase().getAccount(player.getPlayerUUID().toString(), bukkitPlayer.getName());
 
       try {
-        if (data.getMax_wave_reached() < arena.getGame().getWave().getWaveNumber()) {
-          data.setMax_wave_reached(arena.getGame().getWave().getWaveNumber());
+        if (data.getMax_wave_reached() < waveNumber) {
+          data.setMax_wave_reached(waveNumber);
         }
 
-        if (data.getMin_wave_reached() > arena.getGame().getWave().getWaveNumber()) {
-          data.setMin_wave_reached(arena.getGame().getWave().getWaveNumber());
+        if (data.getMin_wave_reached() > waveNumber) {
+          data.setMin_wave_reached(waveNumber);
         }
       } catch (Exception e) {
         Output.logError("Error al poner las oleadas maximas y minimas " + e.getLocalizedMessage());
@@ -134,14 +155,17 @@ public class ArenaListener implements Listener {
     //Se hara un broadcast del maximo de oleada
     String messageFinish = Translator.getColoredString("GAME.ARENA_MAX_WAVE_BROADCAST");
     messageFinish = messageFinish.replace("%TEAM%", arena.getName());
-    messageFinish = messageFinish.replace("%WAVE_NUMBER%", Integer.toString(arena.getGame().getWave().getWaveNumber()));
+    messageFinish = messageFinish.replace("%WAVE_NUMBER%", Integer.toString(waveNumber));
 
     ChatUtil.broadcast(Translator.getPrefix() + messageFinish);
     // Se reinician los valores de la arena
     arena.createNewGame();
 
-    for (Entity entity : Bukkit.getWorld(arena.getName()).getEntities()) {
-      entity.remove();
+    World arenaWorld = Bukkit.getWorld(arena.getName());
+    if (arenaWorld != null) {
+      for (Entity entity : arenaWorld.getEntities()) {
+        entity.remove();
+      }
     }
   }
 

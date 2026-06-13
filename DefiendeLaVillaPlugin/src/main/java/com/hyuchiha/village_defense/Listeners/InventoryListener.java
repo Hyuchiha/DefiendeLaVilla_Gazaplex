@@ -133,16 +133,20 @@ public class InventoryListener implements Listener {
         player.closeInventory();
 
         String name = inventory.getItem(4).getItemMeta().getDisplayName();
+        // El display name lleva codigos de color; hay que quitarlos para que la key
+        // del config coincida. Sin esto el precio resolvia a 0 y los kits se
+        // desbloqueaban gratis.
+        String kitName = ChatColor.stripColor(name).toUpperCase();
 
         if (e.getCurrentItem().getType() == Material.REDSTONE_BLOCK) {
           return;
         }
 
-        double money = Main.getInstance().getConfig("kits.yml").getInt("Kits." + name.toUpperCase() + ".price");
+        double money = Main.getInstance().getConfig("kits.yml").getInt("Kits." + kitName + ".price");
         double userMoney = PlayerManager.getMoney(player);
 
         if (userMoney >= money) {
-          Main.getInstance().getMainDatabase().addUnlockedKit(player.getUniqueId().toString(), ChatColor.stripColor(name).toUpperCase());
+          Main.getInstance().getMainDatabase().addUnlockedKit(player.getUniqueId().toString(), kitName);
 
           PlayerManager.withdrawMoney(player, money);
 
