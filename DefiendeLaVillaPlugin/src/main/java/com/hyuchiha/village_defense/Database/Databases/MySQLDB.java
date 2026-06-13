@@ -1,13 +1,13 @@
 package com.hyuchiha.village_defense.Database.Databases;
 
-import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Main;
+import com.zaxxer.hikari.HikariConfig;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.plugin.Plugin;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.util.Arrays;
+import java.util.List;
 
 public class MySQLDB extends SQLDB {
 
@@ -19,19 +19,27 @@ public class MySQLDB extends SQLDB {
   }
 
   @Override
-  protected Connection getNewConnection() {
+  protected HikariConfig buildHikariConfig() {
     ConfigurationSection config = getConfigSection();
 
-    try {
-      Class.forName("com.mysql.jdbc.Driver");
+    HikariConfig hc = new HikariConfig();
+    String url = "jdbc:mysql://" + config.getString("host") + ":" + config.getString("port") + "/"
+        + config.getString("name")
+        + "?useSSL=false&autoReconnect=true&allowPublicKeyRetrieval=true";
 
-      String url = "jdbc:mysql://" + config.getString("host") + ":" + config.getString("port") + "/" + config.getString("name");
-
-      return DriverManager.getConnection(url, config.getString("user"), config.getString("pass"));
-    } catch (Exception e) {
-      e.printStackTrace();
-      return null;
-    }
+    hc.setJdbcUrl(url);
+    hc.setUsername(config.getString("user"));
+    hc.setPassword(config.getString("pass"));
+    hc.setDriverClassName("com.mysql.jdbc.Driver");
+    hc.setPoolName("VillageDefense-MySQL");
+    // Pool acotado para un server Spigot: el pico real es un puñado de guardados
+    // concurrentes al terminar una partida; ajustable via config.
+    hc.setMaximumPoolSize(config.getInt("pool-size", 10));
+    hc.setMinimumIdle(2);
+    hc.setConnectionTimeout(10_000);
+    hc.setIdleTimeout(600_000);
+    hc.setMaxLifetime(1_800_000);
+    return hc;
   }
 
   @Override
@@ -44,8 +52,7 @@ public class MySQLDB extends SQLDB {
         + "  `bosses_kills` int(16) NOT NULL,"
         + "  `max_wave_reached` int(16) NOT NULL,"
         + "  `min_wave_reached` int(16) NOT NULL,"
-        + "  PRIMARY KEY (`uuid`), "
-        + "  UNIQUE KEY `uuid` (`uuid`)"
+        + "  PRIMARY KEY (`uuid`)"
         + ") ENGINE=InnoDB;";
   }
 
@@ -77,25 +84,40 @@ public class MySQLDB extends SQLDB {
   }
 
   @Override
-  protected String getCreateAccountQuery(Account account) {
-    return "INSERT IGNORE INTO `" + ACCOUNTS_TABLE + "` (`uuid`, `username`, `kills`, "
-        + "`deaths`, `bosses_kills`, `max_wave_reached`, `min_wave_reached`) VALUES "
-        + "('"
-        + account.getUUID() + "', '"
-        + account.getName()
-        + "', '0', '0', '0', '0', '0');";
+  protected List<String> getIndexQueries() {
+    // MySQL no tiene CREATE INDEX IF NOT EXISTS; SQLDB.init() traga el error de
+    // nombre-de-indice-duplicado (1061) cuando el indice ya existe.
+    return Arrays.asList(
+        // Ownership de kit: getKitsFromAccount filtra WHERE player = ?
+        // (la PK compuesta (clv_kit, player) no sirve para un filtro solo-player).
+        "CREATE INDEX `idx_ku_player` ON `" + KITS_UNLOCKED_TABLE + "` (`player`)",
+        // getIdOfElement filtra WHERE name = ?; ademas fuerza unicidad del nombre.
+        "CREATE UNIQUE INDEX `idx_kits_name` ON `" + KITS_TABLE + "` (`name`)",
+        // Leaderboards: ORDER BY <stat> DESC LIMIT n.
+        "CREATE INDEX `idx_acc_kills` ON `" + ACCOUNTS_TABLE + "` (`kills`)",
+        "CREATE INDEX `idx_acc_deaths` ON `" + ACCOUNTS_TABLE + "` (`deaths`)",
+        "CREATE INDEX `idx_acc_bosses_kills` ON `" + ACCOUNTS_TABLE + "` (`bosses_kills`)",
+        "CREATE INDEX `idx_acc_max_wave` ON `" + ACCOUNTS_TABLE + "` (`max_wave_reached`)",
+        "CREATE INDEX `idx_acc_min_wave` ON `" + ACCOUNTS_TABLE + "` (`min_wave_reached`)"
+    );
   }
 
   @Override
-  protected String getUpdateAccountQuery(Account account) {
+  protected String getCreateAccountQuery() {
+    return "INSERT IGNORE INTO `" + ACCOUNTS_TABLE + "` (`uuid`, `username`, `kills`, "
+        + "`deaths`, `bosses_kills`, `max_wave_reached`, `min_wave_reached`) VALUES (?, ?, 0, 0, 0, 0, 0);";
+  }
+
+  @Override
+  protected String getUpdateAccountQuery() {
     return "UPDATE `" + ACCOUNTS_TABLE + "` SET "
-        + "`username`= '" + account.getName() + "',"
-        + "`kills`= '" + account.getKills() + "',"
-        + "`deaths`='" + account.getDeaths() + "',"
-        + "`bosses_kills`='" + account.getBosses_kills() + "',"
-        + "`max_wave_reached`='" + account.getMax_wave_reached() + "',"
-        + "`min_wave_reached`='" + account.getMin_wave_reached() + "' "
-        + "WHERE `uuid`='" + account.getUUID() + "';";
+        + "`username`=?, "
+        + "`kills`=?, "
+        + "`deaths`=?, "
+        + "`bosses_kills`=?, "
+        + "`max_wave_reached`=?, "
+        + "`min_wave_reached`=? "
+        + "WHERE `uuid`=?;";
   }
 
   private ConfigurationSection getConfigSection() {

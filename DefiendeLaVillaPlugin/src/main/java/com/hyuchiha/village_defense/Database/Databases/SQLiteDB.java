@@ -1,13 +1,15 @@
 package com.hyuchiha.village_defense.Database.Databases;
 
-import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Main;
+import com.hyuchiha.village_defense.Output.Output;
+import com.zaxxer.hikari.HikariConfig;
 import org.bukkit.plugin.Plugin;
 
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 public class SQLiteDB extends SQLDB {
 
@@ -15,19 +17,31 @@ public class SQLiteDB extends SQLDB {
 
   public SQLiteDB(Main plugin) {
     super(plugin);
-
     this.plugin = plugin;
   }
 
   @Override
-  protected Connection getNewConnection() {
-    try {
-      Class.forName("org.sqlite.JDBC");
+  protected HikariConfig buildHikariConfig() {
+    File dataFolder = new File(plugin.getDataFolder(), "database.db");
 
-      return DriverManager.getConnection("jdbc:sqlite:" + new File(plugin.getDataFolder(), "database.db").getAbsolutePath());
-    } catch (Exception e) {
-      return null;
+    if (!dataFolder.exists()) {
+      try {
+        dataFolder.createNewFile();
+      } catch (IOException e) {
+        Output.logError("File write error: database.db");
+      }
     }
+
+    HikariConfig hc = new HikariConfig();
+    hc.setJdbcUrl("jdbc:sqlite:" + dataFolder.getAbsolutePath());
+    hc.setDriverClassName("org.sqlite.JDBC");
+    hc.setPoolName("VillageDefense-SQLite");
+    // SQLite serializa escrituras a nivel de archivo. Pool de tamaño 1 mantiene
+    // todo simple y evita errores "database is locked" bajo contencion.
+    hc.setMaximumPoolSize(1);
+    hc.setMinimumIdle(1);
+    hc.setConnectionTimeout(10_000);
+    return hc;
   }
 
   @Override
@@ -68,24 +82,38 @@ public class SQLiteDB extends SQLDB {
   }
 
   @Override
-  protected String getCreateAccountQuery(Account account) {
-    return "INSERT OR IGNORE INTO `" + ACCOUNTS_TABLE + "` (`uuid`, `username`, `kills`, "
-        + "`deaths`, `bosses_kills`, `max_wave_reached`, `min_wave_reached`) VALUES "
-        + "('"
-        + account.getUUID() + "', '"
-        + account.getName()
-        + "', '0', '0', '0', '0', '0');";
+  protected List<String> getIndexQueries() {
+    // SQLite soporta CREATE INDEX IF NOT EXISTS, asi que son idempotentes de por si.
+    return Arrays.asList(
+        // Ownership de kit: getKitsFromAccount filtra WHERE player = ?
+        // (la PK compuesta (clv_kit, player) no sirve para un filtro solo-player).
+        "CREATE INDEX IF NOT EXISTS `idx_ku_player` ON `" + KITS_UNLOCKED_TABLE + "` (`player`)",
+        // getIdOfElement filtra WHERE name = ?; ademas fuerza unicidad del nombre.
+        "CREATE UNIQUE INDEX IF NOT EXISTS `idx_kits_name` ON `" + KITS_TABLE + "` (`name`)",
+        // Leaderboards: ORDER BY <stat> DESC LIMIT n.
+        "CREATE INDEX IF NOT EXISTS `idx_acc_kills` ON `" + ACCOUNTS_TABLE + "` (`kills`)",
+        "CREATE INDEX IF NOT EXISTS `idx_acc_deaths` ON `" + ACCOUNTS_TABLE + "` (`deaths`)",
+        "CREATE INDEX IF NOT EXISTS `idx_acc_bosses_kills` ON `" + ACCOUNTS_TABLE + "` (`bosses_kills`)",
+        "CREATE INDEX IF NOT EXISTS `idx_acc_max_wave` ON `" + ACCOUNTS_TABLE + "` (`max_wave_reached`)",
+        "CREATE INDEX IF NOT EXISTS `idx_acc_min_wave` ON `" + ACCOUNTS_TABLE + "` (`min_wave_reached`)"
+    );
   }
 
   @Override
-  protected String getUpdateAccountQuery(Account account) {
+  protected String getCreateAccountQuery() {
+    return "INSERT OR IGNORE INTO `" + ACCOUNTS_TABLE + "` (`uuid`, `username`, `kills`, "
+        + "`deaths`, `bosses_kills`, `max_wave_reached`, `min_wave_reached`) VALUES (?, ?, 0, 0, 0, 0, 0);";
+  }
+
+  @Override
+  protected String getUpdateAccountQuery() {
     return "UPDATE `" + ACCOUNTS_TABLE + "` SET "
-        + "`username`= '" + account.getName() + "',"
-        + "`kills`= '" + account.getKills() + "',"
-        + "`deaths`='" + account.getDeaths() + "',"
-        + "`bosses_kills`='" + account.getBosses_kills() + "',"
-        + "`max_wave_reached`='" + account.getMax_wave_reached() + "',"
-        + "`min_wave_reached`='" + account.getMin_wave_reached() + "' "
-        + "WHERE `uuid`='" + account.getUUID() + "';";
+        + "`username`=?, "
+        + "`kills`=?, "
+        + "`deaths`=?, "
+        + "`bosses_kills`=?, "
+        + "`max_wave_reached`=?, "
+        + "`min_wave_reached`=? "
+        + "WHERE `uuid`=?;";
   }
 }

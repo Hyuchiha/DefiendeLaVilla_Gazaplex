@@ -5,15 +5,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class Database {
   private final Plugin plugin;
-  protected final HashMap<String, Account> cachedAccounts;
+  // ConcurrentHashMap: el cache se lee/escribe desde el main-thread (listeners) y
+  // desde tareas async (guardado en fin de partida). Un HashMap plano se corrompe.
+  protected final ConcurrentHashMap<String, Account> cachedAccounts;
 
   public Database(Plugin plugin) {
     this.plugin = plugin;
 
-    this.cachedAccounts = new HashMap<>();
+    this.cachedAccounts = new ConcurrentHashMap<>();
   }
 
   public boolean init() {
@@ -136,6 +139,9 @@ public abstract class Database {
 
     if (loadedAccount != null) {
       loadedAccount.setName(name);
+      // Se cachea la cuenta cargada: sin esto cada kill/death re-leia la DB de
+      // forma sincrona en el main-thread y las mutaciones de stats se perdian.
+      cachedAccounts.put(loadedAccount.getUUID(), loadedAccount);
       return loadedAccount;
     }
 
@@ -158,6 +164,11 @@ public abstract class Database {
   public boolean removeCachedAccount(Account account) {
     Account removed = cachedAccounts.remove(account.getUUID());
     return removed != null;
+  }
+
+  /** Lookup solo-cache. Devuelve {@code null} sin tocar la DB (uso PAPI / hot paths). */
+  public Account getCachedAccount(String uuid) {
+    return cachedAccounts.get(uuid);
   }
 
   private Account createAndAddAccount(String uuid, String name) {
@@ -184,11 +195,9 @@ public abstract class Database {
   }
 
   public void close() {
-    Collection<Account> collection = cachedAccounts.values();
-
-    for (Account account : collection) {
-      saveAccount(account);
-    }
+    // Se copia antes de iterar: saveAccount puede mutar el cache y otros hilos
+    // tambien, lo que provocaria ConcurrentModificationException sobre la vista viva.
+    new ArrayList<>(cachedAccounts.values()).forEach(this::saveAccount);
   }
 
 }

@@ -241,10 +241,21 @@ public class Wave {
   }
 
   private void prepareNextWave() {
+    // Snapshot de los campos en el main-thread (aqui se llama desde startWave).
+    final int currentDifficulty = this.difficulty;
+    final int nextWave = this.wave + 1;
+
     Bukkit.getScheduler().runTaskAsynchronously(Main.getInstance(), () -> {
-      difficulty = (((difficulty * (wave + 1)) + ((wave + 1) * 3)) / (((wave + 1) % 50) + 1)) + 10;
-      ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(wave + 1, difficulty);
-      setToSpawn(toSpawnInNextWave);
+      // El calculo pesado (getNextEnemyWave) queda async, pero solo sobre locales.
+      final int newDifficulty = (((currentDifficulty * nextWave) + (nextWave * 3)) / ((nextWave % 50) + 1)) + 10;
+      final ArrayList<EnemyIA> toSpawnInNextWave = MobManager.getNextEnemyWave(nextWave, newDifficulty);
+
+      // Las escrituras de difficulty/toSpawn se aplican en el main-thread, que es
+      // quien las lee en startWave()/spawnEnemies() -> sin data race.
+      Bukkit.getScheduler().runTask(Main.getInstance(), () -> {
+        this.difficulty = newDifficulty;
+        setToSpawn(toSpawnInNextWave);
+      });
     });
   }
 

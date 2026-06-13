@@ -10,6 +10,8 @@ Database:
   name: "village_defense"
   user: "root"
   pass: "root"
+  # Tamaño del pool de conexiones HikariCP (solo MySQL)
+  pool-size: 10
 #La configuracion de las fases
 Game:
   #Esta es la config del numero de fases que deben pasar
