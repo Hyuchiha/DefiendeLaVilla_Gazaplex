@@ -31,6 +31,7 @@ public class Wave {
   private final ArrayList<LivingEntity> villagers = new ArrayList<>();
   private WaveState state;
   private ArrayList<EnemyIA> toSpawn = new ArrayList<>();
+  private int pendingSpawns = 0;
 
   public Wave(int difficulty, Game game) {
     this.wave = 0;
@@ -75,7 +76,8 @@ public class Wave {
 
     // Fracción de enemigos de la oleada que sigue viva (0.0 = todos muertos, 1.0 = ninguno muerto).
     // División float explícita: con ints la expresión siempre daba 0 o 1 y la oleada nunca avanzaba.
-    return (float) livingZombieCount / enemies.size();
+    // El total incluye los mobs aun pendientes de spawnear para no dar progreso falso en la ventana de spawn.
+    return (float) livingZombieCount / (enemies.size() + pendingSpawns);
   }
 
   public ArrayList<LivingEntity> getEnemies() {
@@ -150,6 +152,7 @@ public class Wave {
 
   private void spawnEnemies() {
     this.enemies.clear();
+    this.pendingSpawns = toSpawn.size();
 
     long value = 5L;
     int timeSpawn = 1;
@@ -162,6 +165,7 @@ public class Wave {
             Main.getInstance(),
             getGame().getWave().getWaveNumber())
         );
+        pendingSpawns--;
         game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
         game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
       }, value * (timeSpawn++));
@@ -223,14 +227,17 @@ public class Wave {
   public int getNumberOfEnemiesLeft() {
     int livingZombieCount = 0;
 
-    if (enemies.isEmpty()) {
-      return -1;
-    }
-
     for (LivingEntity le : enemies) {
       if (le != null && !le.isDead()) {
         livingZombieCount++;
       }
+    }
+
+    // Mobs aun programados (ventana de spawn) cuentan como vivos: la oleada no ha terminado.
+    livingZombieCount += pendingSpawns;
+
+    if (livingZombieCount == 0 && enemies.isEmpty()) {
+      return -1;
     }
 
     return livingZombieCount;

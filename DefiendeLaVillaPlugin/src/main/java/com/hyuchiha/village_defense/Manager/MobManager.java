@@ -78,8 +78,16 @@ public class MobManager {
     }
 
     if (creator != null) {
-      enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
-      bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
+      if (config.getConfigurationSection("Mobs") != null) {
+        enemyObjects.addAll(creator.createWaveMobs(config.getConfigurationSection("Mobs")));
+      } else {
+        Output.log("Seccion 'Mobs' ausente en config.yml; no se registran enemigos");
+      }
+      if (config.getConfigurationSection("Bosses") != null) {
+        bossEnemyObjects.addAll(creator.createBossMobs(config.getConfigurationSection("Bosses")));
+      } else {
+        Output.log("Seccion 'Bosses' ausente en config.yml; no se registran jefes");
+      }
     } else {
       Main.getInstance().getServer().getPluginManager().disablePlugin(Main.getInstance());
     }
@@ -91,6 +99,10 @@ public class MobManager {
 
     for (EnemyIA enemy : enemyObjects) {
       if (currentWave >= enemy.getStartingWave()) {
+        if (enemy.getDifficulty() <= 0) {
+          Output.log("Enemigo con difficulty<=0 omitido para evitar division por cero");
+          continue;
+        }
         int val = (difficulty / enemy.getDifficulty()) + 2;
         int toSpawn = random.nextInt(val) + 1;
 

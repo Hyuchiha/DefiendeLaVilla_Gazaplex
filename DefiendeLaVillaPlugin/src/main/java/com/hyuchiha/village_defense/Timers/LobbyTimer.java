@@ -2,6 +2,7 @@ package com.hyuchiha.village_defense.Timers;
 
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
@@ -46,7 +47,13 @@ public class LobbyTimer extends BukkitRunnable {
         game.getScoreboardManager().updateScoreboard(ScoreboardType.LOBBY_GAME);
       }
 
+      //Se devuelve la arena a un estado limpio para que un nuevo jugador pueda
+      //re-disparar el countdown al volver a llenarse.
+      game.setGameState(GameState.WAITING);
+      timeLeft = plugin.getConfig().contains("Timers.lobby") ? plugin.getConfig().getInt("Timers.lobby") : 30;
+
       this.cancel();
+      return;
     }
 
     if (timeLeft == 0) {

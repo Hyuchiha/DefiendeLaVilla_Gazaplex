@@ -73,7 +73,7 @@ public class MobListener implements Listener {
 
         event.getDrops().clear();
         event.setDroppedExp(0);
-        if (meta.get(0) != null) {
+        if (!meta.isEmpty() && meta.get(0) != null) {
           ItemStack gems = new ItemStack(Material.EMERALD);
 
           Entity item = mob.getWorld().dropItem(mob.getLocation(), gems);

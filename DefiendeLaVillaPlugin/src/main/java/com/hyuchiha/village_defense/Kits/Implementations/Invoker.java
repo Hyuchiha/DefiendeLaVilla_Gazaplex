@@ -27,13 +27,19 @@ public class Invoker extends BaseKit {
   @Override
   protected void setupSpawnItems() {
     ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
-    spawnItems.add(woodSword);
+    if (woodSword != null) {
+      spawnItems.add(woodSword);
+    }
 
     ItemStack invocador = Utils.getVillagerEgg(3);
-    ItemMeta meta = invocador.getItemMeta();
-    meta.setDisplayName(Translator.getColoredString("KITS.INVOKER_ITEM"));
-    invocador.setItemMeta(meta);
-    spawnItems.add(invocador);
+    if (invocador != null) {
+      ItemMeta meta = invocador.getItemMeta();
+      if (meta != null) {
+        meta.setDisplayName(Translator.getColoredString("KITS.INVOKER_ITEM"));
+        invocador.setItemMeta(meta);
+      }
+      spawnItems.add(invocador);
+    }
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)

@@ -33,12 +33,16 @@ public class Hunter extends BaseKit {
   @Override
   protected void setupSpawnItems() {
     ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
-    spawnItems.add(woodSword);
+    if (woodSword != null) {
+      spawnItems.add(woodSword);
+    }
 
     ItemStack bone = new ItemStack(Material.BONE, 3);
     ItemMeta meta = bone.getItemMeta();
-    meta.setDisplayName(Translator.getColoredString("KITS.HUNTER_ITEM"));
-    bone.setItemMeta(meta);
+    if (meta != null) {
+      meta.setDisplayName(Translator.getColoredString("KITS.HUNTER_ITEM"));
+      bone.setItemMeta(meta);
+    }
     spawnItems.add(bone);
   }
 

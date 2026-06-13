@@ -90,6 +90,9 @@ public class StatsCommand implements CommandExecutor {
           return account.getMax_wave_reached();
         case MIN_WAVE_REACHED:
           return account.getMin_wave_reached();
+        default:
+          plugin.getLogger().warning("Unhandled StatType in getStat: " + statType);
+          return 0;
       }
     }
 

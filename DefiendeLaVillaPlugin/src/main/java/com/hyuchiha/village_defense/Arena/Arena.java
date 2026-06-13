@@ -121,7 +121,7 @@ public class Arena {
         s.setLine(1, ChatColor.BOLD + Name);
         s.setLine(2, ChatColor.UNDERLINE.toString() + game.getPlayersInGame().size()
             + " " + Translator.getString("COMMONS.PLAYER")
-            + (game.getPlayersInGame().size() > 1 ? "" : "s"));
+            + (game.getPlayersInGame().size() == 1 ? "" : "s"));
 
         s.setLine(3, ChatColor.BOLD.toString() + game.getState().name());
 

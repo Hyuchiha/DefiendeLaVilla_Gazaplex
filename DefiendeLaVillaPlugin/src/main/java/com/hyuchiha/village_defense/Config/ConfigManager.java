@@ -34,18 +34,18 @@ public class ConfigManager {
 
       try {
         if (!configFile.exists()) {
-          configFile.createNewFile();
+          if (!configFile.createNewFile()) {
+            this.plugin.getLogger().warning("Could not create configuration file " + filename);
+          }
           InputStream in = this.plugin.getResource(filename);
           if (in != null) {
-            try {
-              OutputStream out = new FileOutputStream(configFile);
+            try (InputStream input = in;
+                 OutputStream out = new FileOutputStream(configFile)) {
               byte[] buf = new byte[1024];
               int len;
-              while ((len = in.read(buf)) > 0) {
+              while ((len = input.read(buf)) > 0) {
                 out.write(buf, 0, len);
               }
-              out.close();
-              in.close();
             } catch (IOException e) {
               Output.logError("Error reading configuration");
             }
@@ -85,10 +85,15 @@ public class ConfigManager {
   }
 
   public YamlConfiguration getConfig(String filename) {
+    if (!configs.containsKey(filename)) {
+      this.plugin.getLogger().warning("Configuration " + filename + " not loaded; loading on-demand");
+      loadConfigFiles(filename);
+    }
     if (configs.containsKey(filename)) {
       return configs.get(filename).getConfig();
     }
-    return null;
+    this.plugin.getLogger().severe("Configuration " + filename + " could not be loaded; returning empty config");
+    return new YamlConfiguration();
   }
 
   private void printException(Exception e, String filename) {

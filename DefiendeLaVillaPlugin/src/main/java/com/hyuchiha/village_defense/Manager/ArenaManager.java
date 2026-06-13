@@ -34,10 +34,9 @@ public class ArenaManager {
 
   public static MainLobby getLobby() {
     if (lobby == null) {
-      return new MainLobby();
-    } else {
-      return lobby;
+      lobby = new MainLobby();
     }
+    return lobby;
   }
 
   public static Arena getArenaConfiguration(String arena) {

@@ -73,6 +73,9 @@ public class TopsCommand implements CommandExecutor {
       case MAX_WAVE_REACHED:
         tops = plugin.getMainDatabase().getTopMaxWaveAccounts(10);
         break;
+      default:
+        plugin.getLogger().warning("Unhandled StatType in listTopStat: " + stat);
+        break;
     }
 
     for (Account account : tops) {
@@ -98,6 +101,9 @@ public class TopsCommand implements CommandExecutor {
         return account.getMin_wave_reached();
       case MAX_WAVE_REACHED:
         return account.getMax_wave_reached();
+      default:
+        plugin.getLogger().warning("Unhandled StatType in getPlayerStat: " + stat);
+        return 0;
     }
 
     return 0;

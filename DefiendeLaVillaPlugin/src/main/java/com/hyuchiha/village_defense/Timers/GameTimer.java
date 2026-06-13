@@ -42,6 +42,8 @@ public class GameTimer extends BukkitRunnable {
   private final int betweenFase;
   private final int waveMoney;
   private final int difficulty;
+  /** Factor que mapea la dificultad 1-10 del config al rango interno de calculo de mobs. */
+  private static final int DIFFICULTY_SCALE = 5;
 
   public GameTimer(Main plugin, Game game) {
     this.plugin = plugin;
@@ -54,7 +56,13 @@ public class GameTimer extends BukkitRunnable {
     this.spetialWaveEnabled = plugin.getConfig().getBoolean("Game.enable-wave-event");
     this.betweenFase = plugin.getConfig().contains("Timers.between-fase") ? plugin.getConfig().getInt("Timers.between-fase") : 15;
     this.waveMoney = plugin.getConfig().getInt("Game.money");
-    this.difficulty = plugin.getConfig().getInt("Game.difficulty");
+    // Dificultad de config en escala 1-10 (10 = pesadilla). Antes era un entero libre
+    // sin tope. Se topa al rango [1,10] y se mapea al valor interno que espera el
+    // calculo de mobs (difficultadWave / dificultadMob + 2): escala 5 -> 5≈normal,
+    // 10≈pesadilla. Asi el config queda como dial claro sin romper los conteos.
+    int rawDifficulty = plugin.getConfig().getInt("Game.difficulty");
+    int clampedDifficulty = Math.max(1, Math.min(10, rawDifficulty));
+    this.difficulty = clampedDifficulty * DIFFICULTY_SCALE;
 
     game.setGameState(GameState.INGAME);
     game.getArena().updateState();

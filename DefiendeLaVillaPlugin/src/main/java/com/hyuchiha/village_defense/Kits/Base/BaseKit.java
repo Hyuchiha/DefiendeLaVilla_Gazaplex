@@ -46,8 +46,10 @@ public abstract class BaseKit implements Listener {
     }
 
     ItemMeta meta = icon.getItemMeta();
-    meta.setLore(lore);
-    icon.setItemMeta(meta);
+    if (meta != null) {
+      meta.setLore(lore);
+      icon.setItemMeta(meta);
+    }
   }
 
   /**
@@ -68,9 +70,15 @@ public abstract class BaseKit implements Listener {
   public void giveSpawnItems(Player recipient) {
     PlayerInventory inv = recipient.getInventory();
 
-    inv.setItemInOffHand(XMaterial.SHIELD.parseItem());
+    ItemStack shield = XMaterial.SHIELD.parseItem();
+    if (shield != null) {
+      inv.setItemInOffHand(shield);
+    }
 
     for (ItemStack item : spawnItems) {
+      if (item == null) {
+        continue;
+      }
       ItemStack toGive = item.clone();
       inv.addItem(toGive);
     }

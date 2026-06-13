@@ -14,6 +14,8 @@ public class Civilian extends BaseKit {
   @Override
   protected void setupSpawnItems() {
     ItemStack woodSword = XMaterial.WOODEN_SWORD.parseItem();
-    spawnItems.add(woodSword);
+    if (woodSword != null) {
+      spawnItems.add(woodSword);
+    }
   }
 }

@@ -267,39 +267,45 @@ public class MobUtils {
 
     int potionsToApply = ran.nextInt(waveNumber) % 3;
 
+    // Amplificador escalado por oleada (antes era FIJO en 3 = nivel IV, demasiado
+    // fuerte). Misma curva que la velocidad: ola <10 -> I, 10-19 -> II, 20+ -> III.
+    int amp = Math.min(2, waveNumber / 10);
+    // Variante "fuerte" (case 10): un nivel por encima, topada en V.
+    int strongAmp = Math.min(4, amp + 2);
+
     for (int i = 0; i < potionsToApply; i++) {
       int potion = ran.nextInt(10);
 
       switch (potion) {
         case 1:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, amp));
           break;
         case 2:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, amp));
           break;
         case 3:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, amp));
           break;
         case 4:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, Integer.MAX_VALUE, amp));
           break;
         case 5:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.FIRE_RESISTANCE, Integer.MAX_VALUE, amp));
           break;
         case 6:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.POISON, Integer.MAX_VALUE, amp));
           break;
         case 7:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, Integer.MAX_VALUE, amp));
           break;
         case 8:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.HEALTH_BOOST, Integer.MAX_VALUE, amp));
           break;
         case 9:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, 3));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, Integer.MAX_VALUE, amp));
           break;
         case 10:
-          entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, 5));
+          entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, Integer.MAX_VALUE, strongAmp));
           break;
       }
 

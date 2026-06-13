@@ -63,8 +63,8 @@ public class SpectatorListener implements Listener {
   public void onPlayerClickEvent(PlayerInteractEvent event) {
     Player player = event.getPlayer();
     try {
-      if (SpectatorManager.isSpectator(player) && player.isSneaking() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_AIR)
-          || SpectatorManager.isSpectator(player) && player.isSneaking() && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_AIR)) {
+      if (SpectatorManager.isSpectator(player) && player.isSneaking() && (event.getAction() == Action.RIGHT_CLICK_AIR || event.getAction() == Action.RIGHT_CLICK_BLOCK)
+          || SpectatorManager.isSpectator(player) && player.isSneaking() && (event.getAction() == Action.LEFT_CLICK_AIR || event.getAction() == Action.LEFT_CLICK_BLOCK)) {
         event.setCancelled(true);
       } else if (SpectatorManager.isSpectator(player)) {
         event.setCancelled(true);
@@ -75,7 +75,7 @@ public class SpectatorListener implements Listener {
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)
-  public void onSignChange(PlayerPickupItemEvent event) {
+  public void onSpectatorPickup(PlayerPickupItemEvent event) {
     Player player = event.getPlayer();
     if (SpectatorManager.isSpectator(player)) {
       event.setCancelled(true);

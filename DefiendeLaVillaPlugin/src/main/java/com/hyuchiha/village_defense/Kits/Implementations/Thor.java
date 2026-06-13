@@ -28,10 +28,14 @@ public class Thor extends BaseKit {
   protected void setupSpawnItems() {
     spawnItems.add(new ItemStack(Material.STONE_SWORD));
     ItemStack hammer = XMaterial.GOLDEN_AXE.parseItem();
-    ItemMeta meta = hammer.getItemMeta();
-    meta.setDisplayName(Translator.getColoredString("KITS.THOR_ITEM"));
-    hammer.setItemMeta(meta);
-    spawnItems.add(hammer);
+    if (hammer != null) {
+      ItemMeta meta = hammer.getItemMeta();
+      if (meta != null) {
+        meta.setDisplayName(Translator.getColoredString("KITS.THOR_ITEM"));
+        hammer.setItemMeta(meta);
+      }
+      spawnItems.add(hammer);
+    }
   }
 
   @EventHandler(priority = EventPriority.HIGHEST)

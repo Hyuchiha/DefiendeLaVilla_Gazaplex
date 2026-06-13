@@ -30,7 +30,7 @@ public class MySQLDB extends SQLDB {
     hc.setJdbcUrl(url);
     hc.setUsername(config.getString("user"));
     hc.setPassword(config.getString("pass"));
-    hc.setDriverClassName("com.mysql.jdbc.Driver");
+    hc.setDriverClassName("com.mysql.cj.jdbc.Driver");
     hc.setPoolName("VillageDefense-MySQL");
     // Pool acotado para un server Spigot: el pico real es un puñado de guardados
     // concurrentes al terminar una partida; ajustable via config.

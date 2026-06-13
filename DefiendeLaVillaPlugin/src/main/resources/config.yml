@@ -23,9 +23,9 @@ Game:
   shopWaveChange: 10
   #Numero de fases a pasar para que aparezca un boss
   bossWaveAt: 5
-  #Dificultad inicial puede ser apartir de 15 o mas no debe ser menor
-  #a la dificultad del mob mas debil
-  difficulty: 25
+  #Dificultad inicial en escala 1-10 (10 = modo pesadilla). Valores fuera de rango
+  #se topan automaticamente a [1,10]. 5 equivale a la dificultad "normal" anterior.
+  difficulty: 5
   #Este dinero se otorgara al finalizar cada fase (son gemas) e ira aumentando
   gems-wave-finish: 20
   #Se otorgara dinero por matar a un boss
