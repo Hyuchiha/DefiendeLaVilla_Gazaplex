@@ -49,7 +49,7 @@ public class WitchMob extends EnemyIA {
     }
 
     witch.setHealth(witch.getMaxHealth());
-    witch.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+    MobUtils.applyScaledSpeed(wave, witch);
 
     return witch;
   }

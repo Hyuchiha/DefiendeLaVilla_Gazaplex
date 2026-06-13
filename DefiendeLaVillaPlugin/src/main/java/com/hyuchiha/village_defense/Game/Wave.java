@@ -111,6 +111,18 @@ public class Wave {
   }
 
   public void startWave() {
+    if (getGame().getArena().getMobSpawns().isEmpty()) {
+      Output.logError("La arena '" + getGame().getArena().getName()
+          + "' no tiene puntos de aparicion (mobSpawns) configurados. No se puede iniciar la oleada.");
+      for (GamePlayer player : game.getPlayersInGame()) {
+        player.sendMessage(Translator.getPrefix() + ChatColor.RED
+            + "Esta arena no tiene puntos de aparicion configurados. Avisa a un administrador.");
+      }
+      // Sin mobSpawns no hay aldeanos: villagersAreDead() sera true y GameTimer
+      // reiniciara la partida de forma limpia en el siguiente tick.
+      return;
+    }
+
     this.wave++;
 
     final Random r = java.util.concurrent.ThreadLocalRandom.current();

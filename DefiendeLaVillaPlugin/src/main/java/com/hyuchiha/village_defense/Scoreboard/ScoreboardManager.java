@@ -87,35 +87,63 @@ public class ScoreboardManager {
 
     switch (st) {
       case LOBBY_GAME:
-        line(board, ChatColor.AQUA + "", score--);
-        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_PLAYERS"), score--);
-        line(board, ChatColor.WHITE + "" + game.getPlayersInGame().size(), score--);
-        line(board, ChatColor.BLUE + "", score--);
-        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_REMAINING"), score--);
-        line(board, ChatColor.WHITE + "" + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size()), score--);
-        line(board, ChatColor.BOLD + "", score--);
-        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_MAP"), score--);
-        line(board, ChatColor.WHITE + game.getArena().getName(), score--);
+        line(board, SEP_TOP, score--);
+        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_PLAYERS")
+            + game.getPlayersInGame().size(), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_REMAINING")
+            + (game.getArena().getMaxNumberOfPlayers() - game.getPlayersInGame().size()), score--);
+        line(board, BLANK, score--);
+        line(board, Translator.getColoredString("SCOREBOARD.LOBBY_MAP")
+            + game.getArena().getName(), score--);
+        line(board, SEP_BOTTOM, score--);
+        line(board, footer(), score--);
         break;
 
       case INGAME:
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYER_MONEY"), (int) PlayerManager.getMoney(p));
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_GEMS"), gp.getGems());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER"), game.getWave().getWaveNumber());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES"),
-            game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE"), game.getNumberOfAlivePlayers());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING"), game.getWave().getNumberOfLiveVillagers());
+        line(board, SEP_TOP, score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER")
+            + game.getWave().getWaveNumber(), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES")
+            + (game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft()), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE")
+            + game.getNumberOfAlivePlayers(), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING")
+            + game.getWave().getNumberOfLiveVillagers(), score--);
+        line(board, BLANK, score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYER_MONEY")
+            + (int) PlayerManager.getMoney(p), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_GEMS")
+            + gp.getGems(), score--);
+        line(board, SEP_BOTTOM, score--);
+        line(board, footer(), score--);
         break;
 
       case SPECTATOR:
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER"), game.getWave().getWaveNumber());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES"),
-            game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE"), game.getNumberOfAlivePlayers());
-        line(board, Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING"), game.getWave().getNumberOfLiveVillagers());
+        line(board, SEP_TOP, score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_WAVE_NUMBER")
+            + game.getWave().getWaveNumber(), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_ENEMIES")
+            + (game.getWave().getNumberOfEnemiesLeft() == -1 ? 0 : game.getWave().getNumberOfEnemiesLeft()), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_PLAYERS_ALIVE")
+            + game.getNumberOfAlivePlayers(), score--);
+        line(board, Translator.getColoredString("SCOREBOARD.INGAME_VILLAGERS_REMAINING")
+            + game.getWave().getNumberOfLiveVillagers(), score--);
+        line(board, SEP_BOTTOM, score--);
+        line(board, footer(), score--);
         break;
     }
+  }
+
+  /** Lineas decorativas fijas. Cada entry debe ser unico dentro del scoreboard. */
+  private static final String SEP_TOP =
+      ChatColor.DARK_GRAY + "" + ChatColor.STRIKETHROUGH + "------------";
+  private static final String SEP_BOTTOM =
+      ChatColor.GRAY + "" + ChatColor.STRIKETHROUGH + "------------";
+  private static final String BLANK = ChatColor.RESET + " ";
+
+  /** IP del servidor como pie de tabla; se resuelve en runtime (Translator ya cargado). */
+  private static String footer() {
+    return Translator.getColoredString("SERVER_IP");
   }
 
   private void line(PlayerBoard board, String entry, int value) {

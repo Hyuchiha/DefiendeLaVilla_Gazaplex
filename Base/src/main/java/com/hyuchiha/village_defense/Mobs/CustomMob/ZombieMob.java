@@ -55,7 +55,7 @@ public class ZombieMob extends EnemyIA {
     zombie.getEquipment().setBootsDropChance(0F);
     zombie.getEquipment().setItemInHandDropChance(0F);
     zombie.setFireTicks(0);
-    zombie.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+    MobUtils.applyScaledSpeed(wave, zombie);
     zombie.setHealth(zombie.getMaxHealth());
     zombie.setCanPickupItems(false);
 

@@ -15,6 +15,7 @@ import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.ShopManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.MessagesApi.ActionBar;
+import com.hyuchiha.village_defense.MessagesApi.TitleAPI;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
 import com.hyuchiha.village_defense.Utils.Sound;
 import com.hyuchiha.village_defense.Utils.SpecialUtils;
@@ -72,6 +73,13 @@ public class GameTimer extends BukkitRunnable {
 
       game.sendMessageToPlayers(Translator.getPrefix() + Translator.getColoredString("GAME.GAME_RESTART"));
 
+      for (GamePlayer player : game.getPlayersInGame()) {
+        TitleAPI.send(player.getPlayer(),
+            Translator.getColoredString("TITLE.GAME_OVER_TITLE"),
+            Translator.getColoredString("TITLE.GAME_OVER_SUBTITLE"),
+            10, 60, 20);
+      }
+
       new RestartTimer(plugin, game);
 
       this.cancel();
@@ -94,6 +102,10 @@ public class GameTimer extends BukkitRunnable {
             }
             player.updateGems(gemsPhase);
             player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.NEXT_WAVE_START").replace("%TIME%", Integer.toString(secondsTillNextWave)));
+            TitleAPI.send(player.getPlayer(),
+                Translator.getColoredString("TITLE.WAVE_CLEARED_TITLE"),
+                Translator.getColoredString("TITLE.WAVE_CLEARED_SUBTITLE").replace("%TIME%", Integer.toString(secondsTillNextWave)),
+                10, 50, 15);
             game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
             game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
           }
@@ -109,6 +121,10 @@ public class GameTimer extends BukkitRunnable {
               }
 
               player.sendMessage(Translator.getPrefix() + Translator.getColoredString("GAME.WAVE_START").replace("%WAVE_NUMBER%", Integer.toString(wave)));
+              TitleAPI.send(player.getPlayer(),
+                  Translator.getColoredString("TITLE.WAVE_TITLE").replace("%WAVE_NUMBER%", Integer.toString(wave)),
+                  Translator.getColoredString("TITLE.WAVE_SUBTITLE"),
+                  10, 40, 10);
             }
 
             giveWaveSpecials();
@@ -171,6 +187,10 @@ public class GameTimer extends BukkitRunnable {
                     .replace("%WAVE_NUMBER%",
                         Integer.toString(
                             GameTimer.this.wave)));
+            TitleAPI.send(player.getPlayer(),
+                Translator.getColoredString("TITLE.WAVE_TITLE").replace("%WAVE_NUMBER%", Integer.toString(GameTimer.this.wave)),
+                Translator.getColoredString("TITLE.WAVE_SUBTITLE"),
+                10, 40, 10);
             game.getScoreboardManager().giveScoreboard(player.getPlayer().getName(), ScoreboardType.INGAME);
           }
 

@@ -59,7 +59,12 @@ public class Arena {
     this.spawnArenaLocation = ArenaUtils.parseStringToLocation(world, arenaConf.getString(Name + ".spawn"));
 
     this.mobSpawns = new ArrayList<>();
-    for (String loc : arenaConf.getStringList(Name + ".mobSpawns")) {
+    // Clave canonica "mobSpawns"; se acepta "mobspawns" (minuscula) por configs antiguas/manuales.
+    List<String> mobSpawnStrings = arenaConf.getStringList(Name + ".mobSpawns");
+    if (mobSpawnStrings.isEmpty()) {
+      mobSpawnStrings = arenaConf.getStringList(Name + ".mobspawns");
+    }
+    for (String loc : mobSpawnStrings) {
       Location mobspawn = ArenaUtils.parseStringToLocation(world, loc);
       mobSpawns.add(mobspawn);
     }

@@ -50,7 +50,7 @@ public class SpiderMob extends EnemyIA {
     }
 
     spider.setHealth(spider.getMaxHealth());
-    spider.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, 3));
+    MobUtils.applyScaledSpeed(wave, spider);
 
     return spider;
   }

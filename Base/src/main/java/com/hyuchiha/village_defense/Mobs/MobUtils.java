@@ -230,6 +230,38 @@ public class MobUtils {
     return Leggings;
   }
 
+  /**
+   * Velocidad de movimiento escalada por oleada. Antes los mobs llevaban SPEED
+   * amplificador 3 (Velocidad IV) FIJO desde la oleada 1 -> se sentian demasiado
+   * rapidos al inicio. Ahora la curva sube con la oleada:
+   *   oleada  1-4  -> sin velocidad extra
+   *   oleada  5-9  -> Velocidad I  (amp 0)
+   *   oleada 10-14 -> Velocidad II (amp 1)
+   *   oleada 15+   -> Velocidad III (amp 2, tope)
+   * Devuelve -1 cuando no debe aplicarse ningun efecto de velocidad.
+   */
+  public static int getMovementSpeedAmplifier(int wave) {
+    if (wave < 5) {
+      return -1;
+    }
+    if (wave < 10) {
+      return 0;
+    }
+    if (wave < 15) {
+      return 1;
+    }
+    return 2;
+  }
+
+  /** Aplica SPEED escalado por oleada (ver {@link #getMovementSpeedAmplifier(int)}). */
+  public static void applyScaledSpeed(int wave, LivingEntity entity) {
+    int amplifier = getMovementSpeedAmplifier(wave);
+    if (amplifier < 0) {
+      return;
+    }
+    entity.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, Integer.MAX_VALUE, amplifier));
+  }
+
   public static void addRandomPotionEffects(int waveNumber, LivingEntity entity) {
     Random ran = java.util.concurrent.ThreadLocalRandom.current();
 
