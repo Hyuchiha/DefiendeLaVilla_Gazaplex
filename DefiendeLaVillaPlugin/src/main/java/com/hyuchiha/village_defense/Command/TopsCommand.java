@@ -105,7 +105,5 @@ public class TopsCommand implements CommandExecutor {
         plugin.getLogger().warning("Unhandled StatType in getPlayerStat: " + stat);
         return 0;
     }
-
-    return 0;
   }
 }
