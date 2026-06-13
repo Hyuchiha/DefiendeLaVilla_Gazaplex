@@ -17,6 +17,10 @@ public class ArenaManager {
   public static void initArenas() {
     Output.log("Cargando configuraciones de arena");
 
+    // Se limpia antes de recargar para no duplicar/arrastrar arenas en /reload.
+    arenas.clear();
+    lobby = null;
+
     Configuration arenasConfig = Main.getInstance().getConfig("arenas.yml");
 
     for (String arena : arenasConfig.getKeys(false)) {

@@ -14,15 +14,18 @@ import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.entity.Player;
 import org.inventivetalent.reflection.minecraft.Minecraft;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author hyuchiha
  */
 public class PlayerManager {
 
-  public static List<GamePlayer> players = new ArrayList<>();
+  // Indexado por UUID: lookup O(1) y sin comparar UUID por String. Privado para
+  // que el estado no se mute desde fuera.
+  private static final Map<UUID, GamePlayer> players = new HashMap<>();
   private static Respawner respawner = null;
 
   public static void fetchRespawner() {
@@ -64,24 +67,16 @@ public class PlayerManager {
   }
 
   public static GamePlayer getPlayer(Player player) {
-    for (GamePlayer vdplayer : players) {
-      if (vdplayer.getPlayerUUID().toString().equalsIgnoreCase(player.getUniqueId().toString())) {
-        return vdplayer;
-      }
-    }
-
-    return createPlayerData(player);
-  }
-
-  private static GamePlayer createPlayerData(Player player) {
-    GamePlayer actualPlayer = new GamePlayer(player.getUniqueId());
-    players.add(actualPlayer);
-    return actualPlayer;
+    return players.computeIfAbsent(player.getUniqueId(), GamePlayer::new);
   }
 
   public static void removePlayer(Player player) {
-    GamePlayer vdplayer = getPlayer(player);
-    players.remove(vdplayer);
+    players.remove(player.getUniqueId());
+  }
+
+  /** Limpia el registro en memoria. Se llama en onDisable para no arrastrar estado en /reload. */
+  public static void clearPlayers() {
+    players.clear();
   }
 
   public static void respawnPlayer(Player player) {

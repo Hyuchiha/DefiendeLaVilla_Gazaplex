@@ -27,12 +27,11 @@ public class Merchant extends BaseKit {
 
     GamePlayer playerWhoPurchased = event.getPlayerWhoBuy();
 
-    //TODO check
     for (GamePlayer player : arena.getGame().getPlayersInGame()) {
-      if (player.getKit() == Kit.MERCHANT) {
-        if (!player.getPlayer().getName().equals(playerWhoPurchased.getPlayer().getName())) {
-          player.setGems((int) (player.getGems() * .3));
-        }
+      // Comparacion por UUID (no por getPlayer().getName(), que NPE si esta offline).
+      if (player.getKit() == Kit.MERCHANT
+          && !player.getPlayerUUID().equals(playerWhoPurchased.getPlayerUUID())) {
+        player.setGems((int) (player.getGems() * .3));
       }
     }
   }

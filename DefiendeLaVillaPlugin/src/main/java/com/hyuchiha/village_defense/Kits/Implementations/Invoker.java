@@ -47,7 +47,7 @@ public class Invoker extends BaseKit {
       ItemStack handItem = inventory.getItemInMainHand();
 
       if (handItem != null && KitUtils.isItem(handItem, "KITS.INVOKER_ITEM")
-          && gPlayer.getKit() == Kit.INVOKER) {
+          && isKitActive(gPlayer, Kit.INVOKER)) {
         //Se invoca a un aldeano
         event.setCancelled(true);
 

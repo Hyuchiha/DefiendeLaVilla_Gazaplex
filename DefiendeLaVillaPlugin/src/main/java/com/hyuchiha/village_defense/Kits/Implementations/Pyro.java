@@ -34,7 +34,7 @@ public class Pyro extends BaseKit {
 
       GamePlayer player = PlayerManager.getPlayer(damager);
 
-      if (player.getKit() == Kit.PYRO) {
+      if (isKitActive(player, Kit.PYRO)) {
         entityAttacked.setFireTicks(200);
       }
 

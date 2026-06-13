@@ -1,5 +1,8 @@
 package com.hyuchiha.village_defense.Kits.Base;
 
+import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.Kit;
+import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Utils.XMaterial;
 import org.bukkit.configuration.ConfigurationSection;
@@ -45,6 +48,19 @@ public abstract class BaseKit implements Listener {
     ItemMeta meta = icon.getItemMeta();
     meta.setLore(lore);
     icon.setItemMeta(meta);
+  }
+
+  /**
+   * Los listeners de kit son globales (un solo registro, nunca des-registrado), asi
+   * que cada handler debe verificar que el efecto aplique: kit correcto, jugador
+   * dentro de una partida en curso y con arena. Sin esto los efectos disparaban en
+   * el lobby y en todos los mundos del server.
+   */
+  protected boolean isKitActive(GamePlayer gamePlayer, Kit kit) {
+    return gamePlayer != null
+        && gamePlayer.getKit() == kit
+        && gamePlayer.getState() == PlayerState.INGAME
+        && gamePlayer.getArena() != null;
   }
 
   protected abstract void setupSpawnItems();

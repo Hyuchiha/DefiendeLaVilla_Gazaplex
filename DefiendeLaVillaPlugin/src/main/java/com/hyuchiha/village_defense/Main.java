@@ -10,6 +10,8 @@ import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Database.Databases.MongoDB;
 import com.hyuchiha.village_defense.Database.Databases.MySQLDB;
 import com.hyuchiha.village_defense.Database.Databases.SQLiteDB;
+import com.hyuchiha.village_defense.Game.Game;
+import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Listeners.*;
@@ -17,12 +19,16 @@ import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Manager.ShopManager;
+import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.Configuration;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
 
 public class Main extends JavaPlugin {
   private static Main instance;
@@ -65,12 +71,37 @@ public class Main extends JavaPlugin {
   @Override
   public void onDisable() {
     for (Arena arena : ArenaManager.getArenas()) {
-      if (arena.getGame() != null && arena.getGame().getState() == GameState.INGAME) {
-        arena.getGame().getWave().cancelWave();
+      Game game = arena.getGame();
+      if (game == null) {
+        continue;
       }
+
+      if (game.getState() == GameState.INGAME && game.getWave() != null) {
+        game.getWave().cancelWave();
+      }
+
+      // En /reload el server NO desconecta a los jugadores: hay que sacarlos de la
+      // arena para que no queden con inventario de partida, scoreboard ni en estado
+      // INGAME. Se itera una copia porque sendPlayerToLobby muta el estado.
+      for (GamePlayer player : new ArrayList<>(game.getPlayersInGame())) {
+        Player bukkitPlayer = player.getPlayer();
+        if (bukkitPlayer != null) {
+          game.getScoreboardManager().removeScoreboard(bukkitPlayer.getName());
+        }
+        player.sendPlayerToLobby();
+      }
+
+      game.removeAllSpectators();
     }
 
-    database.close();
+    SpectatorManager.clearSpectators();
+
+    // Flush de las cuentas cacheadas a la DB antes de soltar el pool.
+    if (database != null) {
+      database.close();
+    }
+
+    PlayerManager.clearPlayers();
   }
 
   public void hookBungeeCord() {

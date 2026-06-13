@@ -37,6 +37,10 @@ public class MobManager {
     Output.log("Registrando mounstruos");
     Configuration config = Main.getInstance().getConfig("config.yml");
 
+    // Se limpia antes de poblar: con addAll sin clear, un /reload duplicaba mobs.
+    enemyObjects.clear();
+    bossEnemyObjects.clear();
+
     MobCreator creator = null;
 
     switch (Minecraft.Version.getVersion()) {

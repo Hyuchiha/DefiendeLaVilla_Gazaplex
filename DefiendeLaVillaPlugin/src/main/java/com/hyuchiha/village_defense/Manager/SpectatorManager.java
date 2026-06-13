@@ -24,8 +24,10 @@ public class SpectatorManager {
     GamePlayer vdplayer = PlayerManager.getPlayer(player);
 
     for (GamePlayer playerInGame : vdplayer.getArena().getGame().getPlayersInGame()) {
-      if (!vdplayer.getPlayer().getName().equals(playerInGame.getPlayer().getName())) {
-        playerInGame.getPlayer().hidePlayer(player);
+      Player other = playerInGame.getPlayer();
+      // Comparacion por UUID y null-guard del jugador objetivo (puede estar offline).
+      if (other != null && !playerInGame.getPlayerUUID().equals(vdplayer.getPlayerUUID())) {
+        other.hidePlayer(player);
       }
     }
 

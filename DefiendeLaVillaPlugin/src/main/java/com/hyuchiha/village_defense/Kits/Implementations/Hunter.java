@@ -2,6 +2,7 @@ package com.hyuchiha.village_defense.Kits.Implementations;
 
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
+import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Kits.Base.BaseKit;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
 import com.hyuchiha.village_defense.Messages.Translator;
@@ -52,7 +53,7 @@ public class Hunter extends BaseKit {
       ItemStack handItem = inventory.getItemInMainHand();
 
       if (handItem != null && KitUtils.isItem(handItem, "KITS.HUNTER_ITEM")
-          && gPlayer.getKit() == Kit.HUNTER) {
+          && isKitActive(gPlayer, Kit.HUNTER)) {
         //Se invoca a un lobo
         event.setCancelled(true);
 
@@ -75,8 +76,14 @@ public class Hunter extends BaseKit {
     Entity damage = event.getDamager();
     Entity wolf = event.getEntity();
 
-    if (wolf instanceof Wolf && damage instanceof Player) {
-      event.setCancelled(true);
+    // Solo se protege a lobos invocados (tamed) cuando el atacante es un jugador
+    // que esta dentro de una partida. Antes cancelaba TODO daño jugador->lobo del
+    // server entero.
+    if (wolf instanceof Wolf && ((Wolf) wolf).isTamed() && damage instanceof Player) {
+      GamePlayer gPlayer = PlayerManager.getPlayer((Player) damage);
+      if (gPlayer.getState() == PlayerState.INGAME) {
+        event.setCancelled(true);
+      }
     }
   }
 
@@ -92,8 +99,11 @@ public class Hunter extends BaseKit {
 
     Entity shot = event.getEntity();
 
-    if (shot instanceof Wolf) {
-      event.setCancelled(true);
+    if (shot instanceof Wolf && ((Wolf) shot).isTamed()) {
+      GamePlayer gPlayer = PlayerManager.getPlayer((Player) proj.getShooter());
+      if (gPlayer.getState() == PlayerState.INGAME) {
+        event.setCancelled(true);
+      }
     }
   }
 }

@@ -38,9 +38,13 @@ public class VillageDefenseCommand implements CommandExecutor {
 
       return true;
     } else {
-      switch (args[0]) {
+      switch (args[0].toLowerCase()) {
         case "join":
           try {
+            if (args.length < 2) {
+              sender.sendMessage(Translator.getPrefix() + "/vd join [arena]");
+              return true;
+            }
             String arenaName = args[1];
             Arena arena = ArenaManager.getArenaConfiguration(arenaName);
             if (sender instanceof Player) {
@@ -80,6 +84,10 @@ public class VillageDefenseCommand implements CommandExecutor {
           break;
         case "spect":
           try {
+            if (args.length < 2) {
+              sender.sendMessage(Translator.getPrefix() + "/vd spect [arena]");
+              return true;
+            }
             String arenaName = args[1];
             Arena arena = ArenaManager.getArenaConfiguration(arenaName);
             if (sender instanceof Player) {

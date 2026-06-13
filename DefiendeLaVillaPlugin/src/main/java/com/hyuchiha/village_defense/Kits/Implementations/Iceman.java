@@ -38,7 +38,7 @@ public class Iceman extends BaseKit {
 
       GamePlayer player = PlayerManager.getPlayer(damager);
 
-      if (player.getKit() == Kit.ICEMAN) {
+      if (isKitActive(player, Kit.ICEMAN)) {
         ((LivingEntity) entityAttacked).addPotionEffect(new PotionEffect(PotionEffectType.SLOW, 200, 2));
       }
 

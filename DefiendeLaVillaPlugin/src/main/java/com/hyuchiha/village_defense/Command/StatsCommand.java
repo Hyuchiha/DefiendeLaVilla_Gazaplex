@@ -62,21 +62,22 @@ public class StatsCommand implements CommandExecutor {
 
     sender.sendMessage(GRAY + "=========  " + AQUA + player + GRAY + "  =========");
 
+    // Se trae la cuenta una sola vez (antes se consultaba la DB por cada StatType).
+    Account account = getPlayerAccount(player);
+
     for (StatType stat : stats) {
       String name = WordUtils.capitalize(stat.name().toLowerCase()
           .replace('_', ' '));
 
       sender.sendMessage(DARK_AQUA + name + ": " + AQUA
-          + getStat(stat, player));
+          + getStat(stat, account));
     }
 
     sender.sendMessage(GRAY + "=========================");
   }
 
 
-  private int getStat(StatType statType, String playerName) {
-    Account account = getPlayerAccount(playerName);
-
+  private int getStat(StatType statType, Account account) {
     if (account != null) {
       switch (statType) {
         case KILLS:
@@ -99,15 +100,11 @@ public class StatsCommand implements CommandExecutor {
     Player player = Bukkit.getPlayer(playerName);
 
     if (player != null) {
-      Account onlineAccount = plugin.getMainDatabase().getAccount(
+      // Jugador online: getAccount lo deja en cache (se evicta en su quit).
+      return plugin.getMainDatabase().getAccount(
           player.getUniqueId().toString(),
           player.getName()
       );
-
-      if (onlineAccount != null) {
-        return onlineAccount;
-      }
-
     }
 
     OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(playerName);
@@ -117,6 +114,13 @@ public class StatsCommand implements CommandExecutor {
           offlinePlayer.getUniqueId().toString(),
           offlinePlayer.getName()
       );
+
+      // Evita la fuga de memoria: un jugador offline consultado por /stats quedaba
+      // cacheado para siempre (nunca dispara QuitListener). Solo se evicta si de
+      // verdad esta offline, para no descartar la cuenta viva de alguien en partida.
+      if (offlineAccount != null && !offlinePlayer.isOnline()) {
+        plugin.getMainDatabase().removeCachedAccount(offlineAccount);
+      }
 
       return offlineAccount;
     }
