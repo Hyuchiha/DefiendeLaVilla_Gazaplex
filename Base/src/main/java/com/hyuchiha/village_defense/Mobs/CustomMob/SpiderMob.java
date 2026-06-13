@@ -39,7 +39,7 @@ public class SpiderMob extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     org.bukkit.entity.Spider spider = (org.bukkit.entity.Spider) entity;
 

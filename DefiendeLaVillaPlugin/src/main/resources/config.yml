@@ -34,6 +34,8 @@ Game:
   enable-wave-event: true
   #Cada cuando sucederan eventos especiales, solo funciona si esta activado
   wave-event-at: 5
+  #Tope de mobs vivos por oleada. Evita el colapso de TPS en oleadas altas.
+  max-mobs-per-wave: 80
 #El manejo de los tiempos durante la arena
 Timers:
   #El tiempo que tardara en iniciarse la arena cuando este completa en segundos

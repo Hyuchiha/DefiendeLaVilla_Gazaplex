@@ -33,7 +33,7 @@ public class Tank extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
 
     entity.setMetadata("gems", new FixedMetadataValue(plugin, (Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold()) + 1))));

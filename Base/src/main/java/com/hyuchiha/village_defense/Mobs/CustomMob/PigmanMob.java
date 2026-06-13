@@ -40,7 +40,7 @@ public class PigmanMob extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     PigZombie pig = ((PigZombie) entity);
 

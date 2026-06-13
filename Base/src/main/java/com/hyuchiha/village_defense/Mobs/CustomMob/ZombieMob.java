@@ -33,7 +33,7 @@ public class ZombieMob extends EnemyIA {
 
     int difficultyOfMob = (wave / 10);
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     org.bukkit.entity.Zombie zombie = (org.bukkit.entity.Zombie) entity;
 

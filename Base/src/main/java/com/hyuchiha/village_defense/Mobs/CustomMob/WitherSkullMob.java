@@ -37,7 +37,7 @@ public class WitherSkullMob extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     org.bukkit.entity.WitherSkeleton skeleton = (org.bukkit.entity.WitherSkeleton) entity;
 

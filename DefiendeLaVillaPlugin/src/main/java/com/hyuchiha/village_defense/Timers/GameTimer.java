@@ -37,6 +37,10 @@ public class GameTimer extends BukkitRunnable {
   private final int waveEventAt;
   private boolean spetialWaveEnabled = false;
   private int gemsPhase;
+  // Valores cacheados (antes se releian del YAML en hot paths: por evento / por jugador).
+  private final int betweenFase;
+  private final int waveMoney;
+  private final int difficulty;
 
   public GameTimer(Main plugin, Game game) {
     this.plugin = plugin;
@@ -47,6 +51,9 @@ public class GameTimer extends BukkitRunnable {
     this.gemsPhase = plugin.getConfig().getInt("Game.gems-wave-finish");
     this.waveEventAt = plugin.getConfig().getInt("Game.wave-event-at");
     this.spetialWaveEnabled = plugin.getConfig().getBoolean("Game.enable-wave-event");
+    this.betweenFase = plugin.getConfig().contains("Timers.between-fase") ? plugin.getConfig().getInt("Timers.between-fase") : 15;
+    this.waveMoney = plugin.getConfig().getInt("Game.money");
+    this.difficulty = plugin.getConfig().getInt("Game.difficulty");
 
     game.setGameState(GameState.INGAME);
     game.getArena().updateState();
@@ -75,7 +82,7 @@ public class GameTimer extends BukkitRunnable {
     if (hasSpawnedFirstWave) {
       if (game.getWave().getProgress() < 0.1) {
         if (secondsTillNextWave == -1) {
-          secondsTillNextWave = plugin.getConfig().contains("Timers.between-fase") ? plugin.getConfig().getInt("Timers.between-fase") : 15;
+          secondsTillNextWave = betweenFase;
 
           game.getWave().endWave();
           wave++;
@@ -133,8 +140,7 @@ public class GameTimer extends BukkitRunnable {
     if (wave % moneyWave == 0) {
       for (GamePlayer player : game.getPlayersInGame()) {
         //Aqui se les pagara con Vault
-        int moneyToGive = plugin.getConfig().getInt("Game.money");
-        PlayerManager.addMoney(player.getPlayer(), moneyToGive);
+        PlayerManager.addMoney(player.getPlayer(), waveMoney);
       }
       game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
     }
@@ -151,8 +157,8 @@ public class GameTimer extends BukkitRunnable {
 
         @Override
         public void run() {
-          Wave wave = new Wave(plugin.getConfig().getInt("Game.difficulty"), game);
-          wave.setToSpawn(MobManager.getNextEnemyWave(1, plugin.getConfig().getInt("Game.difficulty")));
+          Wave wave = new Wave(difficulty, game);
+          wave.setToSpawn(MobManager.getNextEnemyWave(1, difficulty));
 
           game.setWave(wave);
 

@@ -39,7 +39,7 @@ public class SlimeBoss extends BossEnemy {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     org.bukkit.entity.Slime slimeBoss = (org.bukkit.entity.Slime) entity;
 

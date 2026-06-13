@@ -37,7 +37,7 @@ public class CreeperMob extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     Creeper creeper = (Creeper) entity;
 

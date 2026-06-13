@@ -14,9 +14,19 @@ public class Translator {
   private static final Main plugin = Main.getInstance();
   private static final HashMap<String, String> messages = new HashMap<>();
   private static final HashMap<String, List<String>> listMessages = new HashMap<>();
+  // Cache de strings ya traducidos (& -> §): evita re-correr translateAlternateColorCodes
+  // en cada envio (scoreboard, mensajes en loop). Se limpia al recargar mensajes.
+  private static final HashMap<String, String> coloredCache = new HashMap<>();
+  private static String prefixCache = null;
 
   public static void initMessages() {
     Output.log("Registering messages");
+
+    messages.clear();
+    listMessages.clear();
+    coloredCache.clear();
+    prefixCache = null;
+
     ConfigurationSection section = plugin.getConfig("messages.yml");
     Map<String, Object> map = section.getValues(false);
 
@@ -44,8 +54,15 @@ public class Translator {
   }
 
   public static String getColoredString(String s) {
+    String cached = coloredCache.get(s);
+    if (cached != null) {
+      return cached;
+    }
+
     String ss = findMessageWithId(s);
-    return ChatColor.translateAlternateColorCodes('&', ss);
+    String colored = ChatColor.translateAlternateColorCodes('&', ss);
+    coloredCache.put(s, colored);
+    return colored;
   }
 
   public static List<String> getMultiMessage(String id) {
@@ -58,7 +75,10 @@ public class Translator {
   }
 
   public static String getPrefix() {
-    return getColoredString("PREFIX") + " ";
+    if (prefixCache == null) {
+      prefixCache = getColoredString("PREFIX") + " ";
+    }
+    return prefixCache;
   }
 
   private static String findMessageWithId(String id) {

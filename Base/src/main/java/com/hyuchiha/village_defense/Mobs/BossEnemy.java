@@ -38,7 +38,7 @@ public abstract class BossEnemy extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
 
     Integer gems = Math.max(getMinDroppedGold(), random.nextInt(getMaxDroppedGold())) + 1;

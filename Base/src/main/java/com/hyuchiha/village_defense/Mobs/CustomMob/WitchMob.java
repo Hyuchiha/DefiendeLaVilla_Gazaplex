@@ -38,7 +38,7 @@ public class WitchMob extends EnemyIA {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     org.bukkit.entity.Witch witch = (org.bukkit.entity.Witch) entity;
 

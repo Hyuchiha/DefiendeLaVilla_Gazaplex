@@ -40,7 +40,7 @@ public class MagmaBoss extends BossEnemy {
       e.remove();
     }
 
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
     LivingEntity entity = (LivingEntity) e;
     MagmaCube magmaBoss = (MagmaCube) entity;
 

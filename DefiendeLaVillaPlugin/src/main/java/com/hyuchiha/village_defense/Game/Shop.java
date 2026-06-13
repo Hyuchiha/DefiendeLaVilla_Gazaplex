@@ -44,7 +44,7 @@ public class Shop implements Listener {
     ArrayList<ShopItem> arenaItems = new ArrayList<>();
 
     int size = itemsShop.size() >= 9 ? 9 : itemsShop.size();
-    Random ran = new Random();
+    Random ran = java.util.concurrent.ThreadLocalRandom.current();
 
     while (size != 0) {
       int val = ran.nextInt(itemsShop.size());

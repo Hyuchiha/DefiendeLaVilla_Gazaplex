@@ -71,7 +71,7 @@ public class BossListener implements Listener {
   }
 
   private ItemStack getRandomItemBoss() {
-    Random rand = new Random();
+    Random rand = java.util.concurrent.ThreadLocalRandom.current();
     ItemStack bossLoot = new ItemStack(Material.ROTTEN_FLESH);
     switch (rand.nextInt(5)) {
       case 1:

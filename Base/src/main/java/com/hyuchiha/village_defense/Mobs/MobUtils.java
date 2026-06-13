@@ -51,12 +51,16 @@ public class MobUtils {
       switch (ran.nextInt(10)) {
         case 0:
           armor.addUnsafeEnchantment(Enchantment.PROTECTION_ENVIRONMENTAL, ran.nextInt(5));
+          break;
         case 1:
           armor.addUnsafeEnchantment(Enchantment.PROTECTION_FIRE, ran.nextInt(5));
+          break;
         case 2:
           armor.addUnsafeEnchantment(Enchantment.THORNS, ran.nextInt(5));
+          break;
         case 3:
           armor.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
+          break;
         case 4:
           armor.addUnsafeEnchantment(Enchantment.PROTECTION_PROJECTILE, ran.nextInt(5));
           break;
@@ -80,12 +84,16 @@ public class MobUtils {
       switch (ran.nextInt(15)) {
         case 0:
           weapon.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, ran.nextInt(5));
+          break;
         case 1:
           weapon.addUnsafeEnchantment(Enchantment.FIRE_ASPECT, ran.nextInt(5));
+          break;
         case 2:
           weapon.addUnsafeEnchantment(Enchantment.KNOCKBACK, ran.nextInt(5));
+          break;
         case 3:
           weapon.addUnsafeEnchantment(Enchantment.DAMAGE_UNDEAD, ran.nextInt(5));
+          break;
         case 4:
           weapon.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
           break;
@@ -104,12 +112,16 @@ public class MobUtils {
       switch (ran.nextInt(15)) {
         case 0:
           bow.addUnsafeEnchantment(Enchantment.ARROW_DAMAGE, ran.nextInt(5));
+          break;
         case 1:
           bow.addUnsafeEnchantment(Enchantment.ARROW_FIRE, ran.nextInt(5));
+          break;
         case 2:
           bow.addUnsafeEnchantment(Enchantment.DURABILITY, ran.nextInt(5));
+          break;
         case 3:
           bow.addUnsafeEnchantment(Enchantment.DAMAGE_ALL, ran.nextInt(5));
+          break;
         case 4:
           bow.addUnsafeEnchantment(Enchantment.ARROW_KNOCKBACK, ran.nextInt(10));
           break;
@@ -254,7 +266,7 @@ public class MobUtils {
   }
 
   public static void addRandomPotionEffects(int waveNumber, LivingEntity entity) {
-    Random ran = new Random();
+    Random ran = java.util.concurrent.ThreadLocalRandom.current();
 
     int potionsToApply = ran.nextInt(waveNumber) % 3;
 

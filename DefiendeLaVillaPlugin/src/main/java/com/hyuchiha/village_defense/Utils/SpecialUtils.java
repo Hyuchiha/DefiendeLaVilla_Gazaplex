@@ -29,7 +29,7 @@ import java.util.Random;
 public class SpecialUtils {
 
   public static void addRandomEffectToArena(Game game) {
-    Random ran = new Random();
+    Random ran = java.util.concurrent.ThreadLocalRandom.current();
     switch (ran.nextInt(7)) {
       case 1:
         Output.log("Random objects");
@@ -91,7 +91,7 @@ public class SpecialUtils {
 
   private static void addRandomPotionEffectToEveryone(Game game) {
     PotionEffect e;
-    Random ran = new Random();
+    Random ran = java.util.concurrent.ThreadLocalRandom.current();
     switch (ran.nextInt()) {
       case 1:
         e = new PotionEffect(PotionEffectType.SLOW, 200, 2);
@@ -164,7 +164,7 @@ public class SpecialUtils {
   }
 
   private static void spawnRandomsObjectsInGame(Arena arena) {
-    Random ran = new Random();
+    Random ran = java.util.concurrent.ThreadLocalRandom.current();
     Location loc = arena.getMobSpawns().get(ran.nextInt(arena.getMobSpawns().size()));
     switch (ran.nextInt(3)) {
       case 1:

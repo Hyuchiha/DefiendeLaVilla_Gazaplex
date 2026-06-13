@@ -182,7 +182,7 @@ public class MobListener implements Listener {
           return;
         }
 
-        Random rand = new Random();
+        Random rand = java.util.concurrent.ThreadLocalRandom.current();
         player.playSound(player.getLocation(), Sound.ORB_PICKUP.bukkitSound(), 1.0F,
             (rand.nextFloat() * 0.2F) + 0.9F);
 

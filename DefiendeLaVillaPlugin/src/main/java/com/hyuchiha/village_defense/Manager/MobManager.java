@@ -23,6 +23,7 @@ import org.bukkit.configuration.Configuration;
 import org.inventivetalent.reflection.minecraft.Minecraft;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 /**
@@ -86,7 +87,7 @@ public class MobManager {
 
   public static ArrayList<EnemyIA> getNextEnemyWave(int currentWave, int difficulty) {
     ArrayList<EnemyIA> enemies = new ArrayList<>();
-    Random random = new Random();
+    Random random = java.util.concurrent.ThreadLocalRandom.current();
 
     for (EnemyIA enemy : enemyObjects) {
       if (currentWave >= enemy.getStartingWave()) {
@@ -98,6 +99,15 @@ public class MobManager {
           toSpawn--;
         }
       }
+    }
+
+    // Tope de mobs por oleada: sin esto la cantidad crece sin limite con la
+    // dificultad y colapsa el TPS en oleadas altas. Se mezcla y se recorta para
+    // no sesgar hacia los primeros tipos de enemigo.
+    int maxMobs = Main.getInstance().getConfig("config.yml").getInt("Game.max-mobs-per-wave", 80);
+    if (maxMobs > 0 && enemies.size() > maxMobs) {
+      Collections.shuffle(enemies, random);
+      enemies = new ArrayList<>(enemies.subList(0, maxMobs));
     }
 
     return enemies;

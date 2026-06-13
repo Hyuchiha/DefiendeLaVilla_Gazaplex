@@ -113,7 +113,7 @@ public class Wave {
   public void startWave() {
     this.wave++;
 
-    final Random r = new Random();
+    final Random r = java.util.concurrent.ThreadLocalRandom.current();
 
     this.state = WaveState.PROGRESS;
 
@@ -141,7 +141,7 @@ public class Wave {
 
     long value = 5L;
     int timeSpawn = 1;
-    final Random r = new Random();
+    final Random r = java.util.concurrent.ThreadLocalRandom.current();
 
     for (final EnemyIA e : toSpawn) {
       Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
@@ -166,13 +166,13 @@ public class Wave {
       Bukkit.getScheduler().scheduleSyncDelayedTask(Main.getInstance(), () -> {
         villagers.add((LivingEntity) createNewVillager());
         game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
-        game.getScoreboardManager().updateScoreboard(ScoreboardType.INGAME);
+        game.getScoreboardManager().updateScoreboard(ScoreboardType.SPECTATOR);
       }, value * (timeSpawn++));
     }
   }
 
   private Entity createNewVillager() {
-    Random r = new Random();
+    Random r = java.util.concurrent.ThreadLocalRandom.current();
     Location spawnLocation = getGame().getArena().getMobSpawns().get(r.nextInt(getGame().getArena().getMobSpawns().size()));
     Entity e = spawnLocation.getWorld().spawnEntity(spawnLocation, EntityType.VILLAGER);
     LivingEntity entity = (LivingEntity) e;
