@@ -12,16 +12,19 @@ import com.hyuchiha.village_defense.Manager.SpectatorManager;
 import com.hyuchiha.village_defense.Messages.Translator;
 import com.hyuchiha.village_defense.Output.Output;
 import com.hyuchiha.village_defense.Scoreboard.ScoreboardType;
+import com.hyuchiha.village_defense.Utils.HealthBarUtils;
 import com.hyuchiha.village_defense.Utils.Sound;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.metadata.MetadataValue;
+import org.bukkit.potion.PotionEffectType;
 import org.inventivetalent.reflection.minecraft.Minecraft;
 
 import java.util.HashSet;
@@ -61,6 +64,7 @@ public class MobListener implements Listener {
 
   public MobListener(Main plugin) {
     this.plugin = plugin;
+    HealthBarUtils.init(plugin.getConfig("config.yml"));
   }
 
   @EventHandler
@@ -239,6 +243,51 @@ public class MobListener implements Listener {
     } catch (Exception ex) {
 
     }
+  }
+
+  // Barra de vida sobre la cabeza: se pinta con la vida resultante porque el
+  // evento de dano todavia no la ha aplicado a la entidad.
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onHealthBarDamage(EntityDamageEvent event) {
+    LivingEntity entity = trackedEntity(event.getEntity());
+    if (entity != null) {
+      HealthBarUtils.update(entity, entity.getHealth() - event.getFinalDamage());
+    }
+  }
+
+  @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+  public void onHealthBarRegain(EntityRegainHealthEvent event) {
+    LivingEntity entity = trackedEntity(event.getEntity());
+    if (entity == null) {
+      return;
+    }
+
+    double health = entity.getHealth() + event.getAmount();
+    // Regenerar hasta el tope no debe hacer aparecer una barra en un mob que
+    // nadie ha tocado.
+    if (health < entity.getMaxHealth()) {
+      HealthBarUtils.update(entity, health);
+    }
+  }
+
+  /**
+   * Devuelve la entidad si le corresponde barra de vida: mobs de oleada (llevan
+   * la metadata "gems") y aldeanos. Los mobs invisibles se omiten para no
+   * delatarlos con un nombre flotante.
+   */
+  private LivingEntity trackedEntity(Entity entity) {
+    // EntityDamageEvent es de los eventos mas frecuentes del server: descartar
+    // jugadores primero, y mirar el tipo (campo) antes que la metadata (lookup).
+    if (!HealthBarUtils.isEnabled() || entity instanceof Player || !(entity instanceof LivingEntity)) {
+      return null;
+    }
+
+    if (entity.getType() != EntityType.VILLAGER && !entity.hasMetadata("gems")) {
+      return null;
+    }
+
+    LivingEntity living = (LivingEntity) entity;
+    return living.hasPotionEffect(PotionEffectType.INVISIBILITY) ? null : living;
   }
 
   private boolean isHostile(EntityType entityType) {

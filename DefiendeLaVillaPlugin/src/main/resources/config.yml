@@ -36,6 +36,16 @@ Game:
   wave-event-at: 5
   #Tope de mobs vivos por oleada. Evita el colapso de TPS en oleadas altas.
   max-mobs-per-wave: 80
+#Barra de vida sobre la cabeza de los mobs y aldeanos.
+#Aparece cuando el mob recibe dano y se oculta sola despues.
+HealthBar:
+  enabled: true
+  #Estilo del indicador: "bar" (cuadros) o "hearts" (corazones)
+  style: "bar"
+  #Numero de segmentos o corazones (1-20)
+  length: 10
+  #Segundos sin recibir dano tras los cuales se oculta (0 = no se oculta nunca)
+  hide-after: 5
 #El manejo de los tiempos durante la arena
 Timers:
   #El tiempo que tardara en iniciarse la arena cuando este completa en segundos
