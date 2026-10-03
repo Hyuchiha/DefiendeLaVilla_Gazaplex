@@ -12,6 +12,7 @@ import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Game.Wave;
+import com.hyuchiha.village_defense.Hooks.ProxyHooks;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.SpectatorManager;
@@ -114,6 +115,10 @@ public class ArenaListener implements Listener {
     // Se itera sobre una COPIA: el cuerpo del loop muta el estado de la partida
     // (espectadores, lobby) y getPlayersInGame() devuelve la lista viva.
     List<GamePlayer> playersInGame = new ArrayList<>(arena.getGame().getPlayersInGame());
+    // Todos los que vieron el final (jugadores + espectadores), para mandarlos al
+    // lobby del proxy cuando ya esten a salvo en el lobby principal.
+    List<GamePlayer> toProxy = new ArrayList<>(playersInGame);
+    toProxy.addAll(arena.getGame().getSpectators());
     new SavePlayersData(playersInGame, plugin);
 
     for (GamePlayer player : playersInGame) {
@@ -167,6 +172,10 @@ public class ArenaListener implements Listener {
         entity.remove();
       }
     }
+
+    for (GamePlayer player : toProxy) {
+      ProxyHooks.autoSendToLobby(player.getPlayer());
+    }
   }
 
   @EventHandler
@@ -187,6 +196,8 @@ public class ArenaListener implements Listener {
 
       arena.getGame().playerLeaveGame(player);
       arena.getGame().getScoreboardManager().removeScoreboard(player.getPlayer().getName());
+      // playerLeaveGame ya lo dejo en el lobby principal: seguro si el proxy falla.
+      ProxyHooks.autoSendToLobby(player.getPlayer());
     }
 
   }

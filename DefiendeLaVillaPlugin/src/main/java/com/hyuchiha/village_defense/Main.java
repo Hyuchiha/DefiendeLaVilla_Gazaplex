@@ -13,6 +13,7 @@ import com.hyuchiha.village_defense.Database.Databases.SQLiteDB;
 import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
+import com.hyuchiha.village_defense.Hooks.ProxyHooks;
 import com.hyuchiha.village_defense.Hooks.VaultHooks;
 import com.hyuchiha.village_defense.Listeners.*;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
@@ -63,7 +64,7 @@ public class Main extends JavaPlugin {
     registerCommands();
 
     hookVault();
-    hookBungeeCord();
+    ProxyHooks.register(this);
 
     initDatabase();
   }
@@ -102,10 +103,6 @@ public class Main extends JavaPlugin {
     }
 
     PlayerManager.clearPlayers();
-  }
-
-  public void hookBungeeCord() {
-    Bukkit.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
   }
 
   private void hookVault() {

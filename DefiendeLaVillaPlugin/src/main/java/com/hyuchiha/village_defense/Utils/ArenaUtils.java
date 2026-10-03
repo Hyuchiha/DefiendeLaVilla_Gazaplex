@@ -1,5 +1,6 @@
 package com.hyuchiha.village_defense.Utils;
 
+import com.hyuchiha.village_defense.Hooks.ProxyHooks;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Messages.Translator;
 import org.bukkit.ChatColor;
@@ -99,7 +100,7 @@ public class ArenaUtils {
 
   public static void givePrincipalLobbyObjects(Player player) {
 
-    if (!Main.getInstance().getConfig().getBoolean("EnableBungeeComunication")) {
+    if (!ProxyHooks.isEnabled()) {
       return;
     }
 

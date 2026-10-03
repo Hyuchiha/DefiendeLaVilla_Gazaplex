@@ -33,6 +33,11 @@ public class SavePlayersData extends BukkitRunnable {
   public void run() {
     try {
       for (GamePlayer player : playersToSave) {
+        // Desconectado (p.ej. ya enviado al lobby del proxy): QuitListener ya guardo
+        // su cuenta. Sin este skip, el NPE de getName() abortaba el guardado del resto.
+        if (player.getPlayer() == null) {
+          continue;
+        }
         Database database = plugin.getMainDatabase();
         Account data = database.getAccount(player.getPlayerUUID().toString(), player.getPlayer().getName());
 

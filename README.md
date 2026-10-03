@@ -5,7 +5,7 @@ This repo contains the code base for **Defiende la Villa Plugin** and it was des
 # Features
 - Support for Vault
 - Support for SQLite, MySQL, MongoDB
-- BungeeCord Support
+- BungeeCord / Waterfall / Velocity support (`config.yml` → `proxy:`): `enabled` (default false) gives a "return to lobby" compass, `lobby-server` is the proxy's lobby server, `send-on-end` (default true) also sends players there when the game ends or they leave an arena. A config without `proxy.enabled` keeps reading the old keys `EnableBungeeComunication` / `ServerToConnect` / `AutoReturnToLobby` (auto-send off). Velocity needs `bungee-plugin-message-channel = true` (its default). If the lobby is down the player just stays on this server's main lobby.
 - Multi-Configurable Arenas
 - Customizable Messages
 - Support for Minecraft 1.9 - 1.15

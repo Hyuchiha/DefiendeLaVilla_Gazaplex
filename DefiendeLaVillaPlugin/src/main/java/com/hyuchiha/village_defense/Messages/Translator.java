@@ -3,12 +3,13 @@ package com.hyuchiha.village_defense.Messages;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Output.Output;
 import org.bukkit.ChatColor;
-import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.Configuration;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 public class Translator {
   private static final Main plugin = Main.getInstance();
@@ -27,22 +28,19 @@ public class Translator {
     coloredCache.clear();
     prefixCache = null;
 
-    ConfigurationSection section = plugin.getConfig("messages.yml");
-    Map<String, Object> map = section.getValues(false);
+    // Claves del archivo + las del messages.yml del jar (defaults de ConfigManager): un
+    // messages.yml viejo sin una clave nueva lee el texto de fabrica. getKeys no ve los
+    // defaults con copyDefaults off, por eso se unen a mano; get/is* si los ven.
+    Configuration section = plugin.getConfig("messages.yml");
+    Set<String> keys = new LinkedHashSet<>(section.getKeys(true));
+    if (section.getDefaults() != null) {
+      keys.addAll(section.getDefaults().getKeys(true));
+    }
 
-    for (String key : map.keySet()) {
-      if (section.isConfigurationSection(key)) {
-        for (String subKey : section.getConfigurationSection(key).getKeys(false)) {
-          String concatKey = key + '.' + subKey;
-          messages.put(concatKey, section.getString(concatKey));
-        }
-      }
-
+    for (String key : keys) {
       if (section.isString(key)) {
         messages.put(key, section.getString(key));
-      }
-
-      if (section.isList(key)) {
+      } else if (section.isList(key)) {
         listMessages.put(key, section.getStringList(key));
       }
     }

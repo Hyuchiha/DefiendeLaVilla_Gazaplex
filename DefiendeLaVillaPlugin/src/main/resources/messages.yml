@@ -42,6 +42,7 @@ GAME:
   UNLOCK_KIT: "&6Desbloquear Kit"
   LEAVE_ARENA: "&6Abandonar Arena"
   RETURN_TO_LOBBY: "&6Regresar al lobby"
+  RETURNING_TO_LOBBY: "&6Volviendo a &e%SERVER%&6..."
   LEAVE_SPECTATOR: "&6Dejar de espectar"
   UNLOCK_WITH: "Desbloquea esta clase con: %POINTS% puntos."
   CONFIRM_UNLOCK: "&4Estas seguro?"

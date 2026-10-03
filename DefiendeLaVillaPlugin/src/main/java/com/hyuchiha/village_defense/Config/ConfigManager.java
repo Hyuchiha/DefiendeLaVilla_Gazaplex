@@ -6,10 +6,18 @@ import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.Arrays;
+import java.util.List;
 import java.util.TreeMap;
 
 public class ConfigManager {
   private static final TreeMap<String, Configuration> configs = new TreeMap<>(String.CASE_INSENSITIVE_ORDER);
+
+  // Solo archivos de ajustes. arenas/shops/kits son datos del admin: un default del jar
+  // resucitaria arenas/kits/items borrados, y en <=1.15 getConfigurationSection de una
+  // seccion ausente la crea vacia en el archivo (arenas.yml se guarda).
+  private static final List<String> JAR_DEFAULTS = Arrays.asList("config.yml", "messages.yml");
 
   private final Main plugin;
 
@@ -56,6 +64,9 @@ public class ConfigManager {
 
         Configuration config = new Configuration(configFile);
         config.load();
+        if (JAR_DEFAULTS.contains(filename)) {
+          applyJarDefaults(config.getConfig(), filename);
+        }
         configs.put(filename, config);
       } catch (IOException | InvalidConfigurationException e) {
         Output.logError("Error in the configuration");
@@ -94,6 +105,23 @@ public class ConfigManager {
     }
     this.plugin.getLogger().severe("Configuration " + filename + " could not be loaded; returning empty config");
     return new YamlConfiguration();
+  }
+
+  /**
+   * Respalda el archivo con la copia del jar: una clave ausente lee el valor de fabrica.
+   * Solo lectura (copyDefaults sigue en false, nada se escribe al archivo del admin) y
+   * Bukkit conserva los defaults en un load() posterior, asi que reload() los mantiene.
+   */
+  private void applyJarDefaults(YamlConfiguration config, String filename) {
+    InputStream in = this.plugin.getResource(filename);
+    if (in == null) {
+      return;
+    }
+    try (Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+      config.setDefaults(YamlConfiguration.loadConfiguration(reader));
+    } catch (IOException e) {
+      printException(e, filename);
+    }
   }
 
   private void printException(Exception e, String filename) {

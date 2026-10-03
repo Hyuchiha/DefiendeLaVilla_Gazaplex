@@ -7,6 +7,7 @@ import com.hyuchiha.village_defense.Game.Game;
 import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.Kit;
 import com.hyuchiha.village_defense.Game.PlayerState;
+import com.hyuchiha.village_defense.Hooks.ProxyHooks;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.PlayerManager;
@@ -34,9 +35,6 @@ import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
-
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 
 /**
  * @author hyuchiha
@@ -204,18 +202,7 @@ public class PlayerListener implements Listener {
               } else {
                 if (handItem.getItemMeta().getDisplayName().contains(Translator.getColoredString("GAME.RETURN_TO_LOBBY"))) {
                   e.setCancelled(true);
-                  final String ServerExit = plugin.getConfig().getString("ServerToConnect");
-                  try {
-                    final ByteArrayOutputStream b = new ByteArrayOutputStream();
-                    final DataOutputStream out = new DataOutputStream(b);
-                    out.writeUTF("Connect");
-                    out.writeUTF(ServerExit);
-                    player.sendPluginMessage(this.plugin, "BungeeCord", b.toByteArray());
-                    b.close();
-                    out.close();
-                  } catch (Exception error) {
-                    player.sendMessage(Translator.getPrefix() + ChatColor.RED + "Could not connect to " + ServerExit);
-                  }
+                  ProxyHooks.sendToLobby(player);
                 }
               }
             }
@@ -226,6 +213,7 @@ public class PlayerListener implements Listener {
                 e.setCancelled(true);
                 if (SpectatorManager.isSpectator(player)) {
                   pmeta.getArena().getGame().removeSpectator(pmeta);
+                  ProxyHooks.autoSendToLobby(player);
                 }
               }
             }

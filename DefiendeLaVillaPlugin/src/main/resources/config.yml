@@ -1,6 +1,20 @@
-#Vinculacion con BungeeCoord
-EnableBungeeComunication: true
-ServerToConnect: "lobby"
+#Modo red (BungeeCord / Waterfall / Velocity).
+#  BungeeCord / Waterfall: no hay nada que configurar en el proxy.
+#  Velocity: requiere bungee-plugin-message-channel = true en velocity.toml (es el default).
+#Los jugadores se dejan primero en el lobby principal de ESTE server: si lobby-server
+#esta caido o mal escrito, el proxy los deja aqui y no pierden nada.
+#Si esta seccion "proxy:" no existe se siguen leyendo las claves viejas
+#EnableBungeeComunication, ServerToConnect y AutoReturnToLobby (default false).
+proxy:
+  #Interruptor general. false = nunca se manda nada al proxy y no se da la
+  #brujula "Regresar al lobby".
+  enabled: false
+  #Nombre del server tal como esta en la config del proxy.
+  lobby-server: lobby
+  #Con enabled: true, ademas manda a lobby-server automaticamente al terminar la
+  #partida (jugadores y espectadores) y al salir de una arena (/vd leave, brujula
+  #"Abandonar Arena", "Dejar de espectar"). false = solo la brujula lo hace.
+  send-on-end: true
 # El uso de mysql es obligatorio
 # El tipo puede ser MySQL, SQLite, MongoDB
 Database:
