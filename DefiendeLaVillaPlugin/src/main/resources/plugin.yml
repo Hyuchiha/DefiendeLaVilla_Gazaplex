@@ -1,7 +1,7 @@
 name: Defiende_la_villa
 main: com.hyuchiha.village_defense.Main
 authors: [Hyuchiha]
-softdepend: [Vault]
+softdepend: [Vault, PlaceholderAPI]
 version: '3.0'
 commands:
   villagedefense:
@@ -13,3 +13,7 @@ commands:
   top:
     description: Comando para listar el top de kills, deaths, etc...
     aliases: t
+permissions:
+  villagedefense.command.reload:
+    description: Recarga los YAML sin reiniciar el servidor
+    default: op

@@ -49,6 +49,8 @@ GAME:
 INFO:
   STATS: "Stats"
   TOP: "Top"
+  PLUGIN_RELOADED: "&aConfiguracion recargada."
+  RELOAD_GAME_RUNNING: "&eHay partidas en curso: algunos cambios aplican en la siguiente partida."
 SHOP:
   EQUIPMENT_STORE: "&aTienda de equipo"
   COMBAT_STORE: "&6Tienda de combate"
@@ -80,6 +82,7 @@ SCOREBOARD:
   INGAME_PLAYERS_ALIVE: "&aVivos: "
   INGAME_VILLAGERS_REMAINING: "&2Aldeanos: "
 ERROR:
+  COMMAND_NOT_PERMITTED: "&4No tienes permiso para usar este comando."
   DONT_HAVE_PERMISSION_TO_JOIN: "&4No tiene permiso para unirte a una partida."
   DONT_HAVE_PERMISSION_TO_SPECT: "&4No tienes permitido espectar"
   DONT_HAVE_REQUIRED_MONEY: "&4No dispones de fondos suficientes"

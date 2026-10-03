@@ -15,6 +15,7 @@ import com.hyuchiha.village_defense.Game.GamePlayer;
 import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Hooks.ProxyHooks;
 import com.hyuchiha.village_defense.Hooks.VaultHooks;
+import com.hyuchiha.village_defense.Hooks.VillageDefenseExpansion;
 import com.hyuchiha.village_defense.Listeners.*;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
 import com.hyuchiha.village_defense.Manager.MobManager;
@@ -67,6 +68,34 @@ public class Main extends JavaPlugin {
     ProxyHooks.register(this);
 
     initDatabase();
+    hookPlaceholderAPI();
+  }
+
+  /**
+   * /vd reload: recarga los YAML y el estado derivado que se cachea fuera de ellos.
+   * Limites: las tiendas de cada arena se re-sortean en la siguiente ronda; los valores que
+   * GameTimer/LobbyTimer cachean al construirse aplican en la siguiente partida; arenas,
+   * mobs y la health bar de mobs requieren reinicio.
+   */
+  public void reloadAllConfigs() {
+    config.reloadAll();
+    // ProxyHooks y LobbyTimer leen el config.yml propio de JavaPlugin, no el de ConfigManager.
+    reloadConfig();
+    Translator.initMessages();
+    ShopManager.initShops();
+  }
+
+  private void hookPlaceholderAPI() {
+    if (getServer().getPluginManager().getPlugin("PlaceholderAPI") == null) {
+      return;
+    }
+    try {
+      new VillageDefenseExpansion(this).register();
+      getLogger().info("PlaceholderAPI hook registered.");
+    } catch (Throwable t) {
+      // PAPI presente pero incompatible: el plugin sigue sin placeholders.
+      getLogger().warning("Could not register PlaceholderAPI expansion: " + t.getMessage());
+    }
   }
 
   @Override

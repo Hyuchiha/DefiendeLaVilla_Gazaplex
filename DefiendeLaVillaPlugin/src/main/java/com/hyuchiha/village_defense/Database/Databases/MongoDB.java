@@ -4,14 +4,18 @@ import com.hyuchiha.village_defense.Database.Base.Account;
 import com.hyuchiha.village_defense.Database.Base.Database;
 import com.hyuchiha.village_defense.Database.StatType;
 import com.hyuchiha.village_defense.Game.Kit;
+import com.hyuchiha.village_defense.Output.Output;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientOptions;
 import com.mongodb.MongoCredential;
+import com.mongodb.MongoException;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.MongoIterable;
+import com.mongodb.client.model.IndexOptions;
+import com.mongodb.client.model.Indexes;
 import com.mongodb.client.model.Sorts;
 import org.bson.Document;
 import org.bukkit.configuration.ConfigurationSection;
@@ -58,8 +62,33 @@ public class MongoDB extends Database {
         ), credential, options.build()
     );
 
-    return getDatabase() != null;
+    if (getDatabase() == null) {
+      return false;
+    }
 
+    createIndexes();
+    return true;
+  }
+
+  /**
+   * Indices de lookup por uuid y de leaderboards. {@code createIndex} es idempotente,
+   * seguro en cada arranque.
+   */
+  private void createIndexes() {
+    MongoCollection<Document> collection = getDatabase().getCollection(ACCOUNTS_COLLECTION);
+
+    // loadAccount / saveAccount / addUnlockedKit consultan por uuid: sin indice es full scan.
+    try {
+      collection.createIndex(Indexes.ascending("uuid"), new IndexOptions().unique(true));
+    } catch (MongoException e) {
+      // Colecciones legacy pueden tener uuid duplicados: se sigue sin el indice unico.
+      Output.logError("No se pudo crear el indice unico de uuid en MongoDB: " + e.getMessage());
+    }
+
+    // /top: find().sort(descending(<stat>)).limit(n).
+    for (StatType type : StatType.values()) {
+      collection.createIndex(Indexes.descending(type.name().toLowerCase()));
+    }
   }
 
   public MongoDatabase getDatabase() {
@@ -76,10 +105,10 @@ public class MongoDB extends Database {
 
     List<Account> accounts = new ArrayList<>();
 
-    MongoCursor<Document> cursor = result.iterator();
-    while (cursor.hasNext()) {
-      Document document = cursor.next();
-      accounts.add(getAccountFromDocument(document));
+    try (MongoCursor<Document> cursor = result.iterator()) {
+      while (cursor.hasNext()) {
+        accounts.add(getAccountFromDocument(cursor.next()));
+      }
     }
 
     return accounts;
@@ -139,6 +168,9 @@ public class MongoDB extends Database {
 
     MongoCollection<Document> collection = database.getCollection(ACCOUNTS_COLLECTION);
     Document document = collection.find(eq("uuid", uuid)).first();
+    if (document == null) {
+      return;
+    }
 
     Account account = getAccountFromDocument(document);
 
@@ -178,20 +210,25 @@ public class MongoDB extends Database {
     Account account = new Account(
         document.getString("uuid"),
         document.getString("username"),
-        document.getInteger("kills"),
-        document.getInteger("deaths"),
-        document.getInteger("bosses_kills"),
-        document.getInteger("max_wave_reached"),
-        document.getInteger("min_wave_reached")
+        // Default 0: documentos legacy pueden no tener todos los stats.
+        document.getInteger("kills", 0),
+        document.getInteger("deaths", 0),
+        document.getInteger("bosses_kills", 0),
+        document.getInteger("max_wave_reached", 0),
+        document.getInteger("min_wave_reached", 0)
     );
-
-    ArrayList<String> kitsDB = (ArrayList<String>) document.get("kits");
 
     List<Kit> kits = new ArrayList<>();
 
-    for (String kitToFind : kitsDB) {
-      Kit loadedKit = Kit.valueOf(kitToFind);
-      kits.add(loadedKit);
+    Object kitsDB = document.get("kits");
+    if (kitsDB instanceof List) {
+      for (Object kitToFind : (List<?>) kitsDB) {
+        // Un kit borrado/renombrado en kits.yml no debe tumbar la carga de la cuenta.
+        try {
+          kits.add(Kit.valueOf(String.valueOf(kitToFind).toUpperCase()));
+        } catch (IllegalArgumentException ignored) {
+        }
+      }
     }
 
     account.setKits(kits);

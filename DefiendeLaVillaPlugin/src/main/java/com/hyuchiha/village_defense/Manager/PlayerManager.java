@@ -70,6 +70,11 @@ public class PlayerManager {
     return players.computeIfAbsent(player.getUniqueId(), GamePlayer::new);
   }
 
+  /** Lookup sin registrar; {@code null} si el jugador no tiene GamePlayer. */
+  public static GamePlayer findPlayer(UUID uuid) {
+    return players.get(uuid);
+  }
+
   public static void removePlayer(Player player) {
     players.remove(player.getUniqueId());
   }

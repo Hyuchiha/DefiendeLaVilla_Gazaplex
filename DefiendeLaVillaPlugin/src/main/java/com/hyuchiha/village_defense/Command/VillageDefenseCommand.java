@@ -4,6 +4,7 @@ import com.hyuchiha.village_defense.Arena.Arena;
 import com.hyuchiha.village_defense.Event.ArenaJoinEvent;
 import com.hyuchiha.village_defense.Event.ArenaLeaveEvent;
 import com.hyuchiha.village_defense.Game.GamePlayer;
+import com.hyuchiha.village_defense.Game.GameState;
 import com.hyuchiha.village_defense.Game.PlayerState;
 import com.hyuchiha.village_defense.Main;
 import com.hyuchiha.village_defense.Manager.ArenaManager;
@@ -34,6 +35,9 @@ public class VillageDefenseCommand implements CommandExecutor {
       sender.sendMessage(Translator.getPrefix() + "/vd join [arena]");
       sender.sendMessage(Translator.getPrefix() + "/vd leave");
       sender.sendMessage(Translator.getPrefix() + "/vd spect [arena]");
+      if (sender.hasPermission("villagedefense.command.reload")) {
+        sender.sendMessage(Translator.getPrefix() + "/vd reload");
+      }
       //sender.sendMessage(plugin.getPrefix() + "/vd arena");
 
       return true;
@@ -116,6 +120,20 @@ public class VillageDefenseCommand implements CommandExecutor {
             Output.logError(e.getMessage());
           }
           break;
+        case "reload":
+          if (!sender.hasPermission("villagedefense.command.reload")) {
+            sender.sendMessage(Translator.getPrefix() + Translator.getColoredString("ERROR.COMMAND_NOT_PERMITTED"));
+            return true;
+          }
+          plugin.reloadAllConfigs();
+          sender.sendMessage(Translator.getPrefix() + Translator.getColoredString("INFO.PLUGIN_RELOADED"));
+          for (Arena running : ArenaManager.getArenas()) {
+            if (running.getGame() != null && running.getGame().getState() == GameState.INGAME) {
+              sender.sendMessage(Translator.getPrefix() + Translator.getColoredString("INFO.RELOAD_GAME_RUNNING"));
+              break;
+            }
+          }
+          return true;
         default:
 
           break;
